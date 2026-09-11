@@ -61,8 +61,26 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
           {/* Step 1: Input method */}
           {step === 1 && (
             <div>
-              <h2 className="text-lg font-bold text-slate-900 mb-1 text-center">Citizen Sign In</h2>
-              <p className="text-xs text-slate-600 text-center mb-5">Sign in or register to join the civic network</p>
+              <h2 className="text-lg font-bold text-slate-900 mb-1 text-center">Citizen Gateway</h2>
+              <p className="text-xs text-slate-600 text-center mb-4">Empowering grassroots civic problem solving</p>
+
+              {/* Primary 'Get Started' Button */}
+              <motion.button
+                type="button"
+                onClick={() => onLogin('citizen')}
+                whileHover={{ scale: 1.03, boxShadow: '0 12px 28px -4px rgba(13, 148, 136, 0.45)' }}
+                whileTap={{ scale: 0.97 }}
+                className="w-full py-4 px-5 bg-teal-600 hover:bg-teal-700 text-white rounded-2xl font-black text-sm sm:text-base shadow-lg flex items-center justify-center gap-2.5 btn-breathing mb-4"
+              >
+                <span>Get Started</span>
+                <ArrowRight className="w-5 h-5 stroke-[2.5]" />
+              </motion.button>
+
+              <div className="relative flex py-2 items-center mb-4">
+                <div className="flex-grow border-t border-slate-200"></div>
+                <span className="flex-shrink mx-3 text-[11px] font-semibold text-slate-400">or sign in with credentials</span>
+                <div className="flex-grow border-t border-slate-200"></div>
+              </div>
               
               <div className="flex bg-slate-100 border border-slate-200 p-1 rounded-2xl mb-5">
                 <button 

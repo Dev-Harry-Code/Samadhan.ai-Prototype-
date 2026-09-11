@@ -3,9 +3,11 @@ export type Role = 'citizen' | 'ngo' | 'company';
 export type ScreenId =
   | 'auth'
   | 'home'
+  | 'report'
+  | 'ai_analysis'
+  | 'ai_confirmation'
   | 'issues_feed'
   | 'issue_details'
-  | 'report'
   | 'profile';
 
 export type IssueStatus = 'New' | 'Under review' | 'In progress' | 'Resolved';

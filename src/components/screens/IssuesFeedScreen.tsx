@@ -8,11 +8,17 @@ interface IssuesFeedScreenProps {
   setScreen: (screen: ScreenId) => void;
   setSelectedIssue: (issue: Issue) => void;
   isMobileFrame?: boolean;
+  feedIssues?: Issue[];
 }
 
-export const IssuesFeedScreen: React.FC<IssuesFeedScreenProps> = ({ setScreen, setSelectedIssue, isMobileFrame = false }) => {
+export const IssuesFeedScreen: React.FC<IssuesFeedScreenProps> = ({ 
+  setScreen, 
+  setSelectedIssue, 
+  isMobileFrame = false,
+  feedIssues
+}) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const allIssues = [PRIMARY_ISSUE, ...NEARBY_ISSUES];
+  const allIssues = feedIssues && feedIssues.length > 0 ? feedIssues : [PRIMARY_ISSUE, ...NEARBY_ISSUES];
 
   // Upvote state management for live dynamic number layout transitions
   const [upvotesState, setUpvotesState] = useState<Record<string, number>>(() => {

@@ -50,7 +50,11 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentScreen, setScreen }
           whileTap={{ scale: 0.92 }}
           onClick={() => setScreen('report')} 
           title="Report Civic Issue"
-          className="absolute -top-5 w-14 h-14 rounded-2xl flex items-center justify-center text-white fab-breathing fab-pulse z-10 bg-orange-500 hover:bg-orange-600 shadow-[0_4px_20px_rgba(249,115,22,0.45)]"
+          className={`absolute -top-5 w-14 h-14 rounded-2xl flex items-center justify-center text-white fab-breathing fab-pulse z-10 transition-all ${
+            currentScreen === 'report'
+              ? 'bg-orange-600 ring-4 ring-orange-300 scale-105 shadow-[0_6px_25px_rgba(249,115,22,0.6)]'
+              : 'bg-orange-500 hover:bg-orange-600 shadow-[0_4px_20px_rgba(249,115,22,0.45)]'
+          }`}
         >
           <Plus className="w-7 h-7 stroke-[2.5]" />
         </motion.button>
@@ -61,8 +65,8 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentScreen, setScreen }
         <motion.button 
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.92 }}
-          onClick={() => setScreen('issues_feed')} 
-          className="flex flex-col items-center justify-center flex-1 h-full space-y-1 transition-all text-slate-500 hover:text-slate-900"
+          onClick={() => setScreen('ai_confirmation')} 
+          className={getTabClass(['ai_confirmation', 'ai_analysis'])}
         >
           <Clock className="w-5 h-5" />
           <span className="text-[10px] mt-0.5">Activity</span>
