@@ -13,12 +13,14 @@ import {
 interface PlatformStatsWidgetProps {
   isMobileFrame?: boolean;
   compact?: boolean;
+  columns?: 2 | 3 | 4 | 6;
   className?: string;
 }
 
 export const PlatformStatsWidget: React.FC<PlatformStatsWidgetProps> = ({ 
   isMobileFrame = false,
   compact = false,
+  columns,
   className = ''
 }) => {
   const { t } = useLanguage();
@@ -100,8 +102,18 @@ export const PlatformStatsWidget: React.FC<PlatformStatsWidgetProps> = ({
   ];
 
   if (compact) {
+    const gridCols = columns === 2 
+      ? 'grid-cols-2 gap-2.5 sm:gap-3'
+      : columns === 3
+      ? 'grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3'
+      : columns === 4
+      ? 'grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3'
+      : columns === 6
+      ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3'
+      : 'grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3';
+
     return (
-      <div className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 ${className}`}>
+      <div className={`grid ${gridCols} ${className}`}>
         {stats.map((stat, i) => (
           <motion.div
             key={stat.id}
@@ -109,17 +121,22 @@ export const PlatformStatsWidget: React.FC<PlatformStatsWidgetProps> = ({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.25, delay: i * 0.04 }}
             whileHover={{ scale: 1.02 }}
-            className={`border p-2.5 rounded-2xl flex items-center gap-2.5 shadow-2xs backdrop-blur-sm ${stat.bgCard}`}
+            className={`border p-2.5 sm:p-3 rounded-2xl flex items-center gap-2.5 sm:gap-3 shadow-2xs backdrop-blur-sm transition-all ${stat.bgCard}`}
           >
-            <div className={`w-7 h-7 rounded-xl flex items-center justify-center flex-shrink-0 shadow-2xs ${stat.iconBg}`}>
+            <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center flex-shrink-0 shadow-2xs ${stat.iconBg}`}>
               {stat.icon}
             </div>
             <div className="min-w-0 flex-1">
-              <div className="text-[10px] font-bold text-slate-500 truncate leading-none">
+              <div className="text-[11px] sm:text-xs font-bold text-slate-700 leading-snug line-clamp-1">
                 {stat.title}
               </div>
-              <div className="text-sm font-black text-slate-900 leading-tight mt-0.5">
-                {stat.value}
+              <div className="flex items-baseline gap-1.5 mt-0.5 flex-wrap">
+                <span className="text-sm sm:text-base font-black text-slate-900 leading-none">
+                  {stat.value}
+                </span>
+                <span className={`text-[9px] sm:text-[10px] font-bold px-1.5 py-0.2 rounded-full border ${stat.badgeBg}`}>
+                  {stat.growth}
+                </span>
               </div>
             </div>
           </motion.div>

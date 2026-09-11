@@ -42,7 +42,7 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
     <div className="p-4 sm:p-6 pb-28 max-w-2xl mx-auto min-h-full bg-transparent relative z-10">
       {/* Multi-color platform stats strip */}
       <div className="mb-4">
-        <PlatformStatsWidget compact={true} />
+        <PlatformStatsWidget compact={true} columns={3} />
       </div>
 
       {/* Top Header */}

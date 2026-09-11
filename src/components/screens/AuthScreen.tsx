@@ -297,7 +297,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
             <span className="w-1.5 h-1.5 rounded-full bg-teal-600 animate-pulse"></span>
             <span>Live Platform Activity / नागरिक प्रभाव</span>
           </div>
-          <PlatformStatsWidget compact={true} />
+          <PlatformStatsWidget compact={true} columns={3} />
         </div>
       </div>
     </div>

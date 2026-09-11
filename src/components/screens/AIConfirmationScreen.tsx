@@ -30,7 +30,7 @@ export const AIConfirmationScreen: React.FC<AIConfirmationScreenProps> = ({
     <div className="p-4 sm:p-6 pb-28 max-w-2xl mx-auto min-h-full bg-transparent relative z-10">
       {/* Multi-Color Platform Stats Strip */}
       <div className="mb-4">
-        <PlatformStatsWidget compact={true} />
+        <PlatformStatsWidget compact={true} columns={3} />
       </div>
 
       {/* Top Header */}

@@ -66,7 +66,7 @@ export const IssuesFeedScreen: React.FC<IssuesFeedScreenProps> = ({
     <div className="p-3.5 sm:p-6 pb-36 max-w-7xl mx-auto bg-transparent relative z-10">
       {/* Multi-Color Platform Stats Widget */}
       <div className="mb-6">
-        <PlatformStatsWidget compact={true} />
+        <PlatformStatsWidget compact={true} columns={6} />
       </div>
 
       {/* Header & Filter Row */}
