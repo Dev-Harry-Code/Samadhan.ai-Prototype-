@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased font-sans transition-colors duration-300;
+  }
+}
+
+/* Theme containers */
+.theme-dark {
+  @apply bg-[#080a0f] text-slate-100 selection:bg-neon-purple/30 selection:text-white;
+}
+
+.theme-light {
+  @apply bg-[#f8fafc] text-slate-800 selection:bg-brand-200 selection:text-brand-900;
+}
+
+.theme-emerald {
+  @apply bg-[#031514] text-emerald-50 selection:bg-emerald-500/30 selection:text-emerald-200;
+}
+
+/* Custom smooth scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.45);
+}
+
+/* Utilities for Finfoco/Boltshift style Dark Glassmorphism */
+@layer utilities {
+  .glass-widget-dark {
+    @apply bg-slate-900/60 backdrop-blur-xl border border-white/[0.08] shadow-[0_8px_32px_0_rgba(0,0,0,0.37)];
+  }
+  .glass-widget-dark-hover {
+    @apply transition-all duration-300 hover:border-neon-purple/40 hover:shadow-[0_12px_40px_-10px_rgba(168,85,247,0.25)];
+  }
+  .glass-widget-light {
+    @apply bg-white/80 backdrop-blur-xl border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)];
+  }
+  .glass-widget-emerald {
+    @apply bg-[#062420]/70 backdrop-blur-xl border border-emerald-500/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)];
+  }
+  
+  .neon-border-glow {
+    position: relative;
+  }
+  .neon-border-glow::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.6), rgba(217, 70, 239, 0.2), rgba(6, 182, 212, 0.4));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+/* Pulsing FAB glow */
+@keyframes softPulse {
+  0%, 100% {
+    transform: scale(1) translateY(0);
+    box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.5);
+  }
+  50% {
+    transform: scale(1.04) translateY(-2px);
+    box-shadow: 0 0 0 16px rgba(168, 85, 247, 0);
+  }
+}
+
+.fab-pulse {
+  animation: softPulse 2.5s infinite ease-in-out;
+}
