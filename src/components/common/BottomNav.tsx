@@ -7,7 +7,7 @@ interface BottomNavProps {
   theme?: ThemeMode;
 }
 
-export const BottomNav: React.FC<BottomNavProps> = ({ currentScreen, setScreen, theme = 'dark' }) => {
+export const BottomNav: React.FC<BottomNavProps> = ({ currentScreen, setScreen, theme = 'light' }) => {
   const isDark = theme === 'dark';
   const isEmerald = theme === 'emerald';
 
@@ -20,7 +20,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentScreen, setScreen, 
           : 'text-neon-fuchsia font-bold'
         : isDark || isEmerald
         ? 'text-slate-400 hover:text-slate-200'
-        : 'text-slate-500 hover:text-slate-800'
+        : 'text-slate-500 hover:text-slate-900'
     }`;
   };
 
@@ -53,7 +53,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentScreen, setScreen, 
           onClick={() => setScreen('report')} 
           className={`absolute -top-5 w-14 h-14 rounded-full flex items-center justify-center text-white hover:scale-105 transition-transform fab-pulse z-10 ${
             !isDark && !isEmerald
-              ? 'bg-gradient-to-tr from-orange-500 to-amber-500 shadow-[0_4px_20px_rgba(249,115,22,0.45)]'
+              ? 'bg-orange-500 hover:bg-orange-600 shadow-[0_4px_20px_rgba(249,115,22,0.45)]'
               : 'bg-gradient-to-tr from-neon-purple via-neon-violet to-neon-fuchsia shadow-neon-purple'
           }`}
         >
@@ -63,13 +63,13 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentScreen, setScreen, 
 
       {/* 2 right items */}
       <div className="flex flex-1 justify-around">
-        <button onClick={() => setScreen('issues_feed')} className="flex flex-col items-center justify-center flex-1 h-full space-y-1 transition-all text-slate-400 hover:text-slate-200">
+        <button onClick={() => setScreen('issues_feed')} className="flex flex-col items-center justify-center flex-1 h-full space-y-1 transition-all text-slate-500 hover:text-slate-900">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
           <span className="text-[10px] mt-0.5">Chat</span>
         </button>
         
         <button onClick={() => setScreen('profile')} className={getTabClass(['profile'])}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={currentScreen === 'profile' ? 'stroke-neon-fuchsia drop-shadow-[0_0_8px_rgba(217,70,239,0.8)]' : ''}><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={currentScreen === 'profile' ? (!isDark && !isEmerald ? 'stroke-teal-600' : 'stroke-neon-fuchsia drop-shadow-[0_0_8px_rgba(217,70,239,0.8)]') : ''}><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
           <span className="text-[10px] mt-0.5">Profile</span>
         </button>
       </div>

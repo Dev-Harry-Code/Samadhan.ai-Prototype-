@@ -9,12 +9,12 @@
 }
 
 /* Theme containers */
-.theme-dark {
-  @apply bg-[#080a0f] text-slate-100 selection:bg-neon-purple/30 selection:text-white;
+.theme-light {
+  @apply bg-[#f8fafc] text-slate-900 selection:bg-teal-100 selection:text-teal-900;
 }
 
-.theme-light {
-  @apply bg-[#f8fafc] text-slate-800 selection:bg-brand-200 selection:text-brand-900;
+.theme-dark {
+  @apply bg-[#080a0f] text-slate-100 selection:bg-teal-500/30 selection:text-white;
 }
 
 .theme-emerald {
@@ -46,10 +46,10 @@
     @apply transition-all duration-300 hover:border-neon-purple/40 hover:shadow-[0_12px_40px_-10px_rgba(168,85,247,0.25)];
   }
   .glass-widget-light {
-    @apply bg-white/80 backdrop-blur-xl border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)];
+    @apply bg-white border border-slate-200 shadow-sm transition-all duration-200;
   }
-  .glass-widget-emerald {
-    @apply bg-[#062420]/70 backdrop-blur-xl border border-emerald-500/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)];
+  .card-light {
+    @apply bg-white border border-slate-200 shadow-sm rounded-3xl transition-all duration-200 hover:border-slate-300;
   }
   
   .neon-border-glow {

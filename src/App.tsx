@@ -14,9 +14,9 @@ import { UserProfileScreen } from './components/screens/UserProfileScreen';
 export const App: React.FC = () => {
   const [currentScreen, setScreen] = useState<ScreenId>('auth');
   const [selectedIssue, setSelectedIssue] = useState<Issue>(PRIMARY_ISSUE);
-  const [isMobileFrame, setIsMobileFrame] = useState<boolean>(false); // Default to full desktop view
-  const [theme, setTheme] = useState<ThemeMode>('dark'); // Default to dark theme matching Finfoco reference
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false); // Start on login & register page
+  const [isMobileFrame, setIsMobileFrame] = useState<boolean>(false); // Can toggle between desktop and mobile frame
+  const [theme, setTheme] = useState<ThemeMode>('light'); // Default to clean, modern Light Mode
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [userRole, setUserRole] = useState<Role>('citizen');
 
   const themeClass = theme === 'dark' ? 'theme-dark' : theme === 'emerald' ? 'theme-emerald' : 'theme-light';
@@ -97,14 +97,14 @@ export const App: React.FC = () => {
                     ? 'bg-[#0b0e14] border-white/20 shadow-[0_0_50px_rgba(0,0,0,0.8)]'
                     : theme === 'emerald'
                     ? 'bg-[#031514] border-emerald-500/30'
-                    : 'bg-white border-slate-300 shadow-xl'
+                    : 'bg-white border-slate-200 shadow-xl'
                 }`
               : `max-w-7xl rounded-3xl min-h-[780px] p-2 sm:p-6 border transition-all duration-300 ${
                   theme === 'dark'
                     ? 'border-white/[0.06] bg-[#080a0f]/60 backdrop-blur-xl'
                     : theme === 'emerald'
                     ? 'border-emerald-500/20 bg-[#031514]/70 backdrop-blur-xl'
-                    : 'border-slate-200/80 bg-white/70 backdrop-blur-md shadow-sm'
+                    : 'border-slate-200 bg-white shadow-sm'
                 }`
           }`}
         >
@@ -113,13 +113,13 @@ export const App: React.FC = () => {
             <div className={`w-full px-6 py-2 border-b flex items-center justify-between text-[11px] font-medium select-none z-20 ${
               theme === 'dark' || theme === 'emerald'
                 ? 'bg-black/40 border-white/[0.08] text-slate-400'
-                : 'bg-slate-100 border-slate-200 text-slate-600'
+                : 'bg-slate-50 border-slate-200 text-slate-700'
             }`}>
-              <span className="font-semibold text-white">9:41</span>
-              <div className="w-24 h-4 bg-slate-900 border border-white/10 rounded-full mx-auto -mt-0.5"></div>
-              <div className="flex items-center gap-1.5">
+              <span className={`font-semibold ${theme === 'dark' || theme === 'emerald' ? 'text-white' : 'text-slate-900'}`}>9:41</span>
+              <div className="w-24 h-4 bg-slate-900 rounded-full mx-auto -mt-0.5"></div>
+              <div className="flex items-center gap-1.5 text-xs">
                 <span>5G</span>
-                <span className="w-3.5 h-2 border border-slate-500 rounded-xs inline-block relative before:content-[''] before:absolute before:inset-0.5 before:bg-slate-400"></span>
+                <span className="w-3.5 h-2 border border-slate-500 rounded-xs inline-block relative before:content-[''] before:absolute before:inset-0.5 before:bg-slate-700"></span>
               </div>
             </div>
           )}
