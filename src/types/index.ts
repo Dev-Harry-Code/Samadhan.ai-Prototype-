@@ -29,6 +29,47 @@ export interface Issue {
   commentsCount: number;
   updatesCount: number;
   coordinates?: { lat: number; lng: number };
+  assignedUniversity?: string;
+  matchScore?: number;
+}
+
+export interface UniversityMatch {
+  institution: string;
+  department: string;
+  matchScore: number;
+  rationale: string[];
+  completedProjectsCount: number;
+  activeResearchers: number;
+  leadContact: string;
+}
+
+export interface GovMetricsCategory {
+  name: string;
+  percentage: number;
+  count: number;
+  color: string;
+}
+
+export interface GovMonthlyTrend {
+  month: string;
+  submissions: number;
+  resolved: number;
+}
+
+export interface GovDistrictBreakdown {
+  district: string;
+  reports: number;
+  status: string;
+}
+
+export interface GovMetrics {
+  totalReports: number;
+  validated: number;
+  inProgress: number;
+  deployed: number;
+  categories: GovMetricsCategory[];
+  monthlyTrends: GovMonthlyTrend[];
+  districtBreakdown: GovDistrictBreakdown[];
 }
 
 export interface DiscussionComment {
