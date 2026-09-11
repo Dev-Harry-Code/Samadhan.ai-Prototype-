@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { ScreenId, Role } from '../../types';
 import { 
   Sparkles, 
@@ -103,10 +104,15 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
                   />
                 </div>
                 
-                <button type="submit" className="w-full py-3.5 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-sm shadow-md hover:shadow-lg transform transition-all active:scale-95 flex items-center justify-center gap-2 btn-breathing">
+                <motion.button 
+                  type="submit" 
+                  whileHover={{ scale: 1.02, boxShadow: '0 10px 25px -4px rgba(13, 148, 136, 0.35)' }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full py-3.5 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-sm shadow-md hover:shadow-lg transform transition-all active:scale-95 flex items-center justify-center gap-2 btn-breathing"
+                >
                   <span>Send {loginMethod === 'mobile' ? 'SMS OTP' : 'Verification Code'}</span>
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </motion.button>
               </form>
 
               <div className="mt-4 pt-4 border-t border-slate-100 text-center">
@@ -144,10 +150,15 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
                    />
                 </div>
                 
-                <button type="submit" className="w-full py-3.5 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-sm shadow-md transform transition-all active:scale-95 flex items-center justify-center gap-2 btn-breathing">
+                <motion.button 
+                  type="submit" 
+                  whileHover={{ scale: 1.02, boxShadow: '0 10px 25px -4px rgba(13, 148, 136, 0.35)' }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full py-3.5 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-sm shadow-md transform transition-all active:scale-95 flex items-center justify-center gap-2 btn-breathing"
+                >
                   <span>Verify & Select Role</span>
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </motion.button>
                 <button type="button" onClick={() => setStep(1)} className="w-full mt-2.5 py-2 text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors flex items-center justify-center gap-1">
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Back to phone/email</span>
@@ -165,7 +176,9 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
               </p>
 
               <div className="space-y-2.5 mb-5">
-                <div 
+                <motion.div 
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => setSelectedRole('citizen')}
                   className={`p-3.5 rounded-2xl border cursor-pointer transition-all flex items-center gap-3.5 ${
                     selectedRole === 'citizen'
@@ -182,9 +195,11 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
                     <h3 className="font-bold text-slate-900 text-xs">Citizen / Volunteer</h3>
                     <p className="text-[11px] text-slate-600">Report local problems, vote & volunteer</p>
                   </div>
-                </div>
+                </motion.div>
 
-                <div 
+                <motion.div 
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => setSelectedRole('ngo')}
                   className={`p-3.5 rounded-2xl border cursor-pointer transition-all flex items-center gap-3.5 ${
                     selectedRole === 'ngo'
@@ -201,9 +216,11 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
                     <h3 className="font-bold text-slate-900 text-xs">NGO / Civil Society</h3>
                     <p className="text-[11px] text-slate-600">Mobilize ground execution & verify solutions</p>
                   </div>
-                </div>
+                </motion.div>
 
-                <div 
+                <motion.div 
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => setSelectedRole('company')}
                   className={`p-3.5 rounded-2xl border cursor-pointer transition-all flex items-center gap-3.5 ${
                     selectedRole === 'company'
@@ -220,13 +237,18 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
                     <h3 className="font-bold text-slate-900 text-xs">Company / CSR Sponsor</h3>
                     <p className="text-[11px] text-slate-600">Fund civic projects & track ESG impact</p>
                   </div>
-                </div>
+                </motion.div>
               </div>
               
-              <button onClick={handleComplete} className="w-full py-3.5 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-sm shadow-md transform transition-all active:scale-95 flex items-center justify-center gap-2 btn-breathing">
+              <motion.button 
+                whileHover={{ scale: 1.02, boxShadow: '0 10px 25px -4px rgba(13, 148, 136, 0.35)' }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleComplete} 
+                className="w-full py-3.5 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-sm shadow-md transform transition-all active:scale-95 flex items-center justify-center gap-2 btn-breathing"
+              >
                 <span>Launch Dashboard</span>
                 <ArrowRight className="w-4 h-4" />
-              </button>
+              </motion.button>
             </div>
           )}
         </div>

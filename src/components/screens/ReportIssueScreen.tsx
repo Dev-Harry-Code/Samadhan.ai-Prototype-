@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ScreenId } from '../../types';
 import { 
   ArrowLeft, 
@@ -53,12 +54,14 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
       {/* Top Header */}
       <div className="flex items-center justify-between gap-3 mb-6">
         <div className="flex items-center gap-3">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.08, boxShadow: '0 4px 12px rgba(13, 148, 136, 0.15)' }}
+            whileTap={{ scale: 0.92 }}
             onClick={() => setScreen('home')}
             className="w-10 h-10 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center justify-center text-slate-700 hover:bg-slate-100 transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
-          </button>
+          </motion.button>
           <div>
             <h2 className="text-xl sm:text-2xl font-black text-slate-900">
               {step === 'form' && 'Report Civic Issue'}
@@ -149,9 +152,11 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {['Water Resources', 'Sanitation', 'Roads', 'Healthcare'].map((cat) => (
-                <button
+                <motion.button
                   key={cat}
                   type="button"
+                  whileHover={{ scale: 1.04, boxShadow: '0 4px 12px rgba(13, 148, 136, 0.15)' }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => setCategory(cat)}
                   className={`py-2 px-3 rounded-xl text-xs font-bold transition-all border ${
                     category === cat
@@ -160,7 +165,7 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
                   }`}
                 >
                   {cat}
-                </button>
+                </motion.button>
               ))}
             </div>
           </div>
@@ -179,14 +184,16 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
           </div>
 
           {/* Primary Action Button in Deep Teal */}
-          <button 
+          <motion.button 
+            whileHover={{ scale: 1.02, boxShadow: '0 10px 25px -4px rgba(13, 148, 136, 0.35)' }}
+            whileTap={{ scale: 0.98 }}
             onClick={handleStartAnalysis}
             disabled={!photo || description.length < 4}
             className="w-full py-4 bg-teal-600 hover:bg-teal-700 text-white font-extrabold rounded-2xl shadow-sm hover:shadow-md disabled:opacity-40 disabled:cursor-not-allowed transition-all flex justify-center items-center gap-2 btn-breathing"
           >
             <span>Proceed to AI Autonomous Analysis</span>
             <ArrowRight className="w-5 h-5" />
-          </button>
+          </motion.button>
         </div>
       )}
 
@@ -217,41 +224,53 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
               ></div>
             </div>
 
-            {/* AI Analysis Status Checklist */}
-            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-left space-y-3">
-              <div className="flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-teal-600" />
-                  <span className="font-semibold text-slate-800">GPS EXIF Verification</span>
-                </div>
-                <span className="text-[11px] font-mono text-teal-700 font-bold">Passed</span>
-              </div>
-              <div className="flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2">
-                  {analysisProgress > 45 ? (
-                    <CheckCircle className="w-4 h-4 text-teal-600" />
-                  ) : (
-                    <Loader2 className="w-4 h-4 text-orange-500 animate-spin" />
-                  )}
-                  <span className="font-semibold text-slate-800">Computer Vision Damage Segmentation</span>
-                </div>
-                <span className="text-[11px] font-mono text-teal-700 font-bold">
-                  {analysisProgress > 45 ? 'Verified' : 'Processing...'}
-                </span>
-              </div>
-              <div className="flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2">
-                  {analysisProgress > 80 ? (
-                    <CheckCircle className="w-4 h-4 text-teal-600" />
-                  ) : (
-                    <Loader2 className="w-4 h-4 text-slate-400 animate-spin" />
-                  )}
-                  <span className="font-semibold text-slate-800">Municipal & CSR Impact Match</span>
-                </div>
-                <span className="text-[11px] font-mono text-teal-700 font-bold">
-                  {analysisProgress > 80 ? 'Matched' : 'Queueing...'}
-                </span>
-              </div>
+            {/* AI Analysis Status Checklist - Sequentially animated with spring physics */}
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-left space-y-2.5">
+              {[
+                {
+                  id: 'step-image',
+                  title: 'Image Processing & Damage Segmentation',
+                  isDone: analysisProgress >= 30,
+                  statusText: analysisProgress >= 30 ? 'Verified' : 'Processing...'
+                },
+                {
+                  id: 'step-location',
+                  title: 'Location Analysis & GPS EXIF Verification',
+                  isDone: analysisProgress >= 60,
+                  statusText: analysisProgress >= 60 ? 'Passed' : 'Triaging...'
+                },
+                {
+                  id: 'step-classification',
+                  title: 'Issue Classification & CSR Impact Match',
+                  isDone: analysisProgress >= 90,
+                  statusText: analysisProgress >= 90 ? 'Matched' : 'Queueing...'
+                }
+              ].map((item, index) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 300,
+                    damping: 24,
+                    delay: index * 0.18
+                  }}
+                  className="flex items-center justify-between text-xs p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-xs"
+                >
+                  <div className="flex items-center gap-2.5">
+                    {item.isDone ? (
+                      <CheckCircle className="w-4 h-4 text-teal-600 flex-shrink-0" />
+                    ) : (
+                      <Loader2 className="w-4 h-4 text-orange-500 animate-spin flex-shrink-0" />
+                    )}
+                    <span className="font-semibold text-slate-800">{item.title}</span>
+                  </div>
+                  <span className={`text-[11px] font-mono font-bold ${item.isDone ? 'text-teal-700' : 'text-orange-600'}`}>
+                    {item.statusText}
+                  </span>
+                </motion.div>
+              ))}
             </div>
 
             {/* AI Findings Tags */}
@@ -312,21 +331,25 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
               </div>
             </div>
 
-            {/* Action Buttons */}
+            {/* Action Buttons with Framer Motion */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-              <button
+              <motion.button
+                whileHover={{ scale: 1.03, boxShadow: '0 10px 25px -4px rgba(13, 148, 136, 0.35)' }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() => setScreen('issues_feed')}
                 className="w-full py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 btn-breathing"
               >
                 <span>View on Public Feed</span>
                 <ArrowUpRight className="w-4 h-4" />
-              </button>
-              <button
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.03, boxShadow: '0 6px 18px -2px rgba(15, 23, 42, 0.1)' }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() => setScreen('home')}
                 className="w-full py-3.5 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold text-sm rounded-xl shadow-xs transition-all"
               >
                 Back to Dashboard
-              </button>
+              </motion.button>
             </div>
           </div>
         </div>

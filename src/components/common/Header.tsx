@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { ScreenId } from '../../types';
 import { MapPin, Bell, User, Monitor, Smartphone, Sparkles } from 'lucide-react';
 
@@ -20,7 +21,9 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-2">
         {/* Brand Identity & Location */}
         <div className="flex items-center gap-3">
-          <div
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
             onClick={() => setScreen('home')}
             className="flex items-center gap-2.5 cursor-pointer group"
           >
@@ -33,7 +36,7 @@ export const Header: React.FC<HeaderProps> = ({
                 Samadhan<span className="text-teal-600">.AI</span>
               </span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Location Badge */}
           <div className="hidden lg:flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700">
@@ -44,56 +47,34 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Center Desktop Navigation Tabs */}
         <nav className="hidden md:flex items-center gap-1.5">
-          <button
-            onClick={() => setScreen('home')}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
-              currentScreen === 'home'
-                ? 'bg-teal-50 text-teal-700 border border-teal-200 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-            }`}
-          >
-            Overview
-          </button>
-          <button
-            onClick={() => setScreen('issues_feed')}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
-              ['issues_feed', 'issue_details'].includes(currentScreen)
-                ? 'bg-teal-50 text-teal-700 border border-teal-200 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-            }`}
-          >
-            Issues Feed
-          </button>
-          <button
-            onClick={() => setScreen('report')}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
-              currentScreen === 'report'
-                ? 'bg-teal-50 text-teal-700 border border-teal-200 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-            }`}
-          >
-            Report Problem
-          </button>
-          <button
-            onClick={() => setScreen('profile')}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
-              currentScreen === 'profile'
-                ? 'bg-teal-50 text-teal-700 border border-teal-200 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-            }`}
-          >
-            Profile & XP
-          </button>
-          <button
-            onClick={() => setScreen('auth')}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
-              currentScreen === 'auth'
-                ? 'bg-teal-600 text-white shadow-xs'
-                : 'bg-teal-50 text-teal-700 border border-teal-200 hover:bg-teal-100'
-            }`}
-          >
-            Sign In / Register
-          </button>
+          {[
+            { id: 'home', label: 'Overview' },
+            { id: 'issues_feed', label: 'Issues Feed', match: ['issues_feed', 'issue_details'] },
+            { id: 'report', label: 'Report Problem' },
+            { id: 'profile', label: 'Profile & XP' },
+            { id: 'auth', label: 'Sign In / Register' },
+          ].map((tab) => {
+            const isActive = tab.match ? tab.match.includes(currentScreen) : currentScreen === tab.id;
+            return (
+              <motion.button
+                key={tab.id}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setScreen(tab.id as ScreenId)}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                  isActive
+                    ? tab.id === 'auth'
+                      ? 'bg-teal-600 text-white shadow-xs'
+                      : 'bg-teal-50 text-teal-700 border border-teal-200 shadow-xs'
+                    : tab.id === 'auth'
+                    ? 'bg-teal-50 text-teal-700 border border-teal-200 hover:bg-teal-100'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                }`}
+              >
+                {tab.label}
+              </motion.button>
+            );
+          })}
         </nav>
 
         {/* Right Action Controls: Device Viewport Switcher & Profile */}
@@ -101,7 +82,9 @@ export const Header: React.FC<HeaderProps> = ({
           
           {/* Desktop vs Mobile Viewport Switcher */}
           <div className="flex items-center p-1 rounded-2xl border bg-slate-100 border-slate-200">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setIsMobileFrame(false)}
               title="Switch to Full Desktop SaaS Dashboard view"
               className={`flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold transition-all ${
@@ -112,8 +95,10 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <Monitor className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Desktop</span>
-            </button>
-            <button
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setIsMobileFrame(true)}
               title="Switch to Mobile Mockup Frame view"
               className={`flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold transition-all ${
@@ -124,22 +109,28 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <Smartphone className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Mobile</span>
-            </button>
+            </motion.button>
           </div>
 
           {/* Notification Icon with Warm Orange Badge */}
-          <div className="w-8 h-8 rounded-xl flex items-center justify-center relative cursor-pointer border bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200 transition-colors">
+          <motion.div 
+            whileHover={{ scale: 1.1, boxShadow: '0 4px 14px rgba(249, 115, 22, 0.25)' }}
+            whileTap={{ scale: 0.9 }}
+            className="w-8 h-8 rounded-xl flex items-center justify-center relative cursor-pointer border bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200 transition-colors"
+          >
             <Bell className="w-4 h-4 text-slate-700" />
             <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-orange-500 rounded-full border-2 border-white"></span>
-          </div>
+          </motion.div>
 
           {/* User Profile Avatar */}
-          <div
+          <motion.div
+            whileHover={{ scale: 1.1, boxShadow: '0 4px 14px rgba(13, 148, 136, 0.25)' }}
+            whileTap={{ scale: 0.9 }}
             onClick={() => setScreen('profile')}
-            className="w-8 h-8 rounded-xl overflow-hidden border border-slate-200 shadow-xs cursor-pointer hover:scale-105 transition-transform bg-teal-50 flex items-center justify-center"
+            className="w-8 h-8 rounded-xl overflow-hidden border border-slate-200 shadow-xs cursor-pointer bg-teal-50 flex items-center justify-center"
           >
             <User className="w-4 h-4 text-teal-700" />
-          </div>
+          </motion.div>
 
         </div>
       </div>

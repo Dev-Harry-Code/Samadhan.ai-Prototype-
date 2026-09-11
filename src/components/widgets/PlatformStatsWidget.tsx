@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { PLATFORM_STATS } from '../../data/mockData';
 import { AlertCircle, CheckCircle2, FileText, IndianRupee } from 'lucide-react';
 
@@ -45,9 +46,14 @@ export const PlatformStatsWidget: React.FC<PlatformStatsWidgetProps> = ({ isMobi
   return (
     <div className={`grid ${isMobileFrame ? 'grid-cols-2 gap-3' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'}`}>
       {stats.map((stat, i) => (
-        <div
+        <motion.div
           key={i}
-          className="bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-slate-300 p-4 sm:p-5 rounded-2xl relative overflow-hidden group transition-all duration-200 flex flex-col justify-between"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, delay: i * 0.08 }}
+          whileHover={{ scale: 1.02, boxShadow: '0 10px 25px -4px rgba(13, 148, 136, 0.12)' }}
+          whileTap={{ scale: 0.98 }}
+          className="bg-white border border-slate-200 shadow-sm hover:border-slate-300 p-4 sm:p-5 rounded-2xl relative overflow-hidden group cursor-pointer flex flex-col justify-between"
         >
           <div className="flex items-center justify-between gap-2 mb-2 relative z-10">
             <span className="text-[11px] font-bold uppercase tracking-wider truncate text-slate-500">
@@ -71,7 +77,7 @@ export const PlatformStatsWidget: React.FC<PlatformStatsWidgetProps> = ({ isMobi
             <span className="truncate">Updated via CivicAI</span>
             <span className="font-semibold text-teal-600">96.8%</span>
           </div>
-        </div>
+        </motion.div>
       ))}
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Issue, ScreenId } from '../../types';
 import { Plus, ArrowUpRight, Sparkles } from 'lucide-react';
 import { PlatformStatsWidget } from '../widgets/PlatformStatsWidget';
@@ -47,21 +48,25 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
           {/* Action CTAs */}
           <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.04, boxShadow: '0 10px 25px -4px rgba(13, 148, 136, 0.35)' }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setScreen('report')}
-              className="px-6 py-3 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-2 btn-breathing"
+              className="px-6 py-3 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-2 btn-breathing"
             >
               <span>Report Issue with AI</span>
               <Plus className="w-4 h-4 stroke-[2.5]" />
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.04, boxShadow: '0 8px 20px -2px rgba(15, 23, 42, 0.1)' }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setScreen('issues_feed')}
-              className="px-5 py-3 rounded-2xl text-sm font-semibold border bg-white hover:bg-slate-50 border-slate-200 text-slate-700 shadow-sm hover:border-slate-300 transition-all duration-200 flex items-center gap-2"
+              className="px-5 py-3 rounded-2xl text-sm font-semibold border bg-white hover:bg-slate-50 border-slate-200 text-slate-700 shadow-sm transition-all duration-200 flex items-center gap-2"
             >
               <span>Explore Public Feed</span>
               <ArrowUpRight className="w-4 h-4" />
-            </button>
+            </motion.button>
           </div>
         </div>
 
@@ -78,7 +83,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               </span>
             </div>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setActiveTab('overview')}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                 activeTab === 'overview'
@@ -87,14 +94,18 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               }`}
             >
               Overview
-            </button>
-            <button
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setScreen('issues_feed')}
               className="px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all"
             >
               Issues Feed
-            </button>
-            <button
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setActiveTab('volunteers')}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                 activeTab === 'volunteers'
@@ -103,7 +114,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               }`}
             >
               Leaderboard
-            </button>
+            </motion.button>
           </div>
 
           {/* Live Sync Status */}
