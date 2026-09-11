@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { TrendingUp } from 'lucide-react';
 
 export const CommunityImpactChart: React.FC = () => {
   const [activeRange, setActiveRange] = useState<'month' | 'quarter' | 'year'>('month');
@@ -23,6 +24,7 @@ export const CommunityImpactChart: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 relative z-10">
         <div>
           <div className="flex items-center gap-2">
+            <TrendingUp className="w-5 h-5 text-teal-600" />
             <h3 className="text-base sm:text-lg font-black tracking-tight whitespace-normal text-slate-900">
               Community Impact Analytics
             </h3>

@@ -218,7 +218,7 @@ export const TOP_VOLUNTEERS = [
     role: 'Civic Engineer',
     solvedCount: 38,
     xp: 4850,
-    badge: '🏆 Champion',
+    badge: 'Champion',
     rank: 1,
     category: 'Clean Water'
   },
@@ -229,7 +229,7 @@ export const TOP_VOLUNTEERS = [
     role: 'Biochemist / Lead',
     solvedCount: 29,
     xp: 3920,
-    badge: '⭐ Gold Contributor',
+    badge: 'Gold Contributor',
     rank: 2,
     category: 'Healthcare'
   },
@@ -240,7 +240,7 @@ export const TOP_VOLUNTEERS = [
     role: 'Urban Planner',
     solvedCount: 24,
     xp: 3140,
-    badge: '🛡️ Guardian',
+    badge: 'Guardian',
     rank: 3,
     category: 'Infrastructure'
   },
@@ -251,7 +251,7 @@ export const TOP_VOLUNTEERS = [
     role: 'Community Activist',
     solvedCount: 19,
     xp: 2600,
-    badge: '🌟 Rising Star',
+    badge: 'Rising Star',
     rank: 4,
     category: 'Sanitation'
   }

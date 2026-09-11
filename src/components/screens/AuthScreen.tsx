@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
 import { ScreenId, Role } from '../../types';
+import { 
+  Sparkles, 
+  Smartphone, 
+  Mail, 
+  ArrowRight, 
+  ArrowLeft, 
+  User, 
+  Shield, 
+  Building2 
+} from 'lucide-react';
 
 interface AuthScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -37,12 +47,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
         {/* Brand Header */}
         <div className="text-center mb-6">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-teal-600 shadow-md mb-3 relative">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-white">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-              <circle cx="9" cy="7" r="4"></circle>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-            </svg>
+            <Sparkles className="w-8 h-8 text-white" />
             <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-orange-500 rounded-full border-2 border-white shadow-sm"></span>
           </div>
           <h1 className="text-2xl font-black text-slate-900 tracking-tight">
@@ -63,23 +68,25 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
               <div className="flex bg-slate-100 border border-slate-200 p-1 rounded-2xl mb-5">
                 <button 
                   onClick={() => setLoginMethod('mobile')}
-                  className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all ${
+                  className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 ${
                     loginMethod === 'mobile'
                       ? 'bg-teal-600 text-white shadow-sm'
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
-                  📱 Mobile Phone
+                  <Smartphone className="w-3.5 h-3.5" />
+                  <span>Mobile Phone</span>
                 </button>
                 <button 
                   onClick={() => setLoginMethod('email')}
-                  className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all ${
+                  className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 ${
                     loginMethod === 'email'
                       ? 'bg-teal-600 text-white shadow-sm'
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
-                  ✉️ Gmail / Email
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>Gmail / Email</span>
                 </button>
               </div>
 
@@ -98,8 +105,9 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
                   />
                 </div>
                 
-                <button type="submit" className="w-full py-3.5 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-sm shadow-md hover:shadow-lg transform transition-all active:scale-95">
-                  Send {loginMethod === 'mobile' ? 'SMS OTP' : 'Verification Code'} →
+                <button type="submit" className="w-full py-3.5 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-sm shadow-md hover:shadow-lg transform transition-all active:scale-95 flex items-center justify-center gap-2">
+                  <span>Send {loginMethod === 'mobile' ? 'SMS OTP' : 'Verification Code'}</span>
+                  <ArrowRight className="w-4 h-4" />
                 </button>
               </form>
 
@@ -107,9 +115,10 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
                 <button
                   type="button"
                   onClick={() => onLogin('citizen')}
-                  className="text-xs text-slate-500 hover:text-teal-700 transition-colors font-semibold"
+                  className="text-xs text-slate-500 hover:text-teal-700 transition-colors font-semibold flex items-center justify-center gap-1 mx-auto"
                 >
-                  Skip login and explore as Guest →
+                  <span>Skip login and explore as Guest</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
@@ -137,11 +146,13 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
                    />
                 </div>
                 
-                <button type="submit" className="w-full py-3.5 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-sm shadow-md transform transition-all active:scale-95">
-                  Verify & Select Role →
+                <button type="submit" className="w-full py-3.5 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-sm shadow-md transform transition-all active:scale-95 flex items-center justify-center gap-2">
+                  <span>Verify & Select Role</span>
+                  <ArrowRight className="w-4 h-4" />
                 </button>
-                <button type="button" onClick={() => setStep(1)} className="w-full mt-2.5 py-2 text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors">
-                  ← Back to phone/email
+                <button type="button" onClick={() => setStep(1)} className="w-full mt-2.5 py-2 text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors flex items-center justify-center gap-1">
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Back to phone/email</span>
                 </button>
               </form>
             </div>
@@ -167,7 +178,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
                   <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${
                     selectedRole === 'citizen' ? 'bg-teal-600 text-white' : 'bg-slate-200 text-slate-700'
                   }`}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    <User className="w-4 h-4" />
                   </div>
                   <div>
                     <h3 className="font-bold text-slate-900 text-xs">Citizen / Volunteer</h3>
@@ -186,7 +197,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
                   <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${
                     selectedRole === 'ngo' ? 'bg-teal-600 text-white' : 'bg-slate-200 text-slate-700'
                   }`}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    <Shield className="w-4 h-4" />
                   </div>
                   <div>
                     <h3 className="font-bold text-slate-900 text-xs">NGO / Civil Society</h3>
@@ -205,7 +216,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
                   <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${
                     selectedRole === 'company' ? 'bg-orange-500 text-white' : 'bg-slate-200 text-slate-700'
                   }`}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path></svg>
+                    <Building2 className="w-4 h-4" />
                   </div>
                   <div>
                     <h3 className="font-bold text-slate-900 text-xs">Company / CSR Sponsor</h3>
@@ -214,8 +225,9 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
                 </div>
               </div>
               
-              <button onClick={handleComplete} className="w-full py-3.5 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-sm shadow-md transform transition-all active:scale-95">
-                Launch Dashboard →
+              <button onClick={handleComplete} className="w-full py-3.5 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-sm shadow-md transform transition-all active:scale-95 flex items-center justify-center gap-2">
+                <span>Launch Dashboard</span>
+                <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           )}

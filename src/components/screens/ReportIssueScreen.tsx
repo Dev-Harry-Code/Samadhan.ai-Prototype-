@@ -1,5 +1,19 @@
 import React, { useState } from 'react';
 import { ScreenId } from '../../types';
+import { 
+  ArrowLeft, 
+  Camera, 
+  ImagePlus, 
+  MapPin, 
+  Loader2, 
+  CheckCircle, 
+  CheckCircle2, 
+  ArrowRight, 
+  ArrowUpRight, 
+  X,
+  AlertTriangle,
+  Sparkles
+} from 'lucide-react';
 
 interface ReportIssueScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -14,7 +28,7 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
     'The main pipeline feeding the community water tap has been fractured for 3 weeks, leaving over 50 families without clean municipal drinking water.'
   );
   const [category, setCategory] = useState('Water Resources');
-  const [urgency, setUrgency] = useState<'High Urgency' | 'Moderate' | 'Critical'>('High Urgency');
+  const [urgency] = useState<'High Urgency' | 'Moderate' | 'Critical'>('High Urgency');
   const [analysisProgress, setAnalysisProgress] = useState(0);
 
   const handlePhotoClick = () => {
@@ -23,14 +37,14 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
 
   const handleStartAnalysis = () => {
     setStep('analysis');
-    setAnalysisProgress(15);
+    setAnalysisProgress(20);
     
-    setTimeout(() => setAnalysisProgress(45), 350);
-    setTimeout(() => setAnalysisProgress(82), 700);
+    setTimeout(() => setAnalysisProgress(50), 400);
+    setTimeout(() => setAnalysisProgress(85), 800);
     setTimeout(() => {
       setAnalysisProgress(100);
       setTimeout(() => setStep('confirmation'), 500);
-    }, 1100);
+    }, 1200);
   };
 
   return (
@@ -40,9 +54,9 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
         <div className="flex items-center gap-3">
           <button
             onClick={() => setScreen('home')}
-            className="w-10 h-10 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-700 hover:bg-slate-100 transition-colors"
+            className="w-10 h-10 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center justify-center text-slate-700 hover:bg-slate-100 transition-colors"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <ArrowLeft className="w-5 h-5" />
           </button>
           <div>
             <h2 className="text-xl sm:text-2xl font-black text-slate-900">
@@ -60,8 +74,8 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
 
         {/* Urgency Badge in Energetic Warm Orange */}
         <span className="text-xs px-3 py-1 rounded-full font-bold bg-orange-50 text-orange-700 border border-orange-200 flex items-center gap-1.5">
-          <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
-          High Urgency
+          <AlertTriangle className="w-3.5 h-3.5 text-orange-500" />
+          {urgency}
         </span>
       </div>
 
@@ -69,27 +83,29 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
       {step === 'form' && (
         <div className="space-y-5">
           {/* Photographic Evidence Card */}
-          <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
+          <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-xs">
             <div className="flex items-center justify-between mb-2.5">
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
-                Photographic Evidence
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                <Camera className="w-3.5 h-3.5 text-teal-600" />
+                <span>Photographic Evidence</span>
               </label>
-              <span className="text-[11px] font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full border border-teal-200">
+              <span className="text-[11px] font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full border border-teal-200 flex items-center gap-1">
+                <Sparkles className="w-3 h-3 text-teal-600" />
                 AI Vision Ready
               </span>
             </div>
 
             {photo ? (
-              <div className="relative w-full h-56 rounded-2xl overflow-hidden shadow-sm border border-slate-200">
+              <div className="relative w-full h-56 rounded-2xl overflow-hidden shadow-xs border border-slate-200">
                 <img src={photo} alt="Issue" className="w-full h-full object-cover" />
                 <button 
                   onClick={() => setPhoto(null)} 
                   className="absolute top-3 right-3 w-8 h-8 bg-black/60 backdrop-blur-md rounded-full text-white flex items-center justify-center hover:bg-black/80 transition-colors"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                  <X className="w-4 h-4" />
                 </button>
                 <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-semibold text-teal-800 border border-slate-200 flex items-center gap-1.5 shadow-xs">
-                  <span className="w-2 h-2 rounded-full bg-teal-600"></span>
+                  <MapPin className="w-3.5 h-3.5 text-teal-600" />
                   GPS EXIF Verified
                 </div>
               </div>
@@ -98,23 +114,27 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
                 onClick={handlePhotoClick}
                 className="w-full h-48 border-2 border-dashed border-teal-300 bg-teal-50/50 hover:bg-teal-50 rounded-2xl flex flex-col items-center justify-center cursor-pointer transition-all text-teal-700 group"
               >
-                <div className="w-12 h-12 bg-white border border-teal-200 rounded-2xl shadow-sm flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-teal-600"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                <div className="w-12 h-12 bg-white border border-teal-200 rounded-2xl shadow-xs flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
+                  <ImagePlus className="w-6 h-6 text-teal-600" />
                 </div>
                 <span className="font-bold text-sm text-slate-900">Tap to capture or upload photo</span>
-                <span className="text-xs text-slate-500 mt-1">Automatic location tagging enabled</span>
+                <span className="text-xs text-slate-500 mt-1 flex items-center gap-1">
+                  <MapPin className="w-3 h-3 text-slate-400" />
+                  Automatic location tagging enabled
+                </span>
               </div>
             )}
           </div>
 
-          {/* Location Detected */}
-          <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
-              Auto-Detected GPS Location
+          {/* Location Marker & Detected Zone */}
+          <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-xs">
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2 flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-teal-600" />
+              <span>Auto-Detected GPS Location</span>
             </label>
             <div className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3 flex items-center justify-between text-sm">
               <div className="flex items-center gap-2.5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-teal-600"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <MapPin className="w-4 h-4 text-teal-600 flex-shrink-0" />
                 <span className="font-medium text-slate-900">Village X, Ranchi, Jharkhand (Ward 14)</span>
               </div>
               <span className="text-xs text-teal-700 font-mono font-bold bg-teal-50 px-2 py-0.5 rounded border border-teal-200">Accuracy: 4m</span>
@@ -122,7 +142,7 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
           </div>
 
           {/* Category Selector */}
-          <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
+          <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-xs">
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
               Category
             </label>
@@ -134,7 +154,7 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
                   onClick={() => setCategory(cat)}
                   className={`py-2 px-3 rounded-xl text-xs font-bold transition-all border ${
                     category === cat
-                      ? 'bg-teal-600 text-white border-teal-600 shadow-sm'
+                      ? 'bg-teal-600 text-white border-teal-600 shadow-xs'
                       : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
                   }`}
                 >
@@ -145,7 +165,7 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
           </div>
 
           {/* Description Textarea */}
-          <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
+          <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-xs">
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
               Problem Description
             </label>
@@ -161,23 +181,20 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
           <button 
             onClick={handleStartAnalysis}
             disabled={!photo || description.length < 4}
-            className="w-full py-4 bg-teal-600 hover:bg-teal-700 text-white font-extrabold rounded-2xl shadow-md hover:shadow-lg disabled:opacity-40 disabled:cursor-not-allowed transition-all flex justify-center items-center gap-2"
+            className="w-full py-4 bg-teal-600 hover:bg-teal-700 text-white font-extrabold rounded-2xl shadow-sm hover:shadow-md disabled:opacity-40 disabled:cursor-not-allowed transition-all flex justify-center items-center gap-2"
           >
             <span>Proceed to AI Autonomous Analysis</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            <ArrowRight className="w-5 h-5" />
           </button>
         </div>
       )}
 
-      {/* SCREEN 4: AI ANALYSIS */}
+      {/* SCREEN 4: AI ANALYSIS CHECKLIST */}
       {step === 'analysis' && (
         <div className="space-y-5">
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-xl text-center space-y-5">
-            <div className="w-16 h-16 rounded-2xl bg-teal-50 border border-teal-200 mx-auto flex items-center justify-center text-teal-600 shadow-sm">
-              <svg className="animate-spin h-8 w-8 text-teal-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
+          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-lg text-center space-y-5">
+            <div className="w-16 h-16 rounded-2xl bg-teal-50 border border-teal-200 mx-auto flex items-center justify-center text-teal-600 shadow-xs">
+              <Loader2 className="w-8 h-8 text-teal-600 animate-spin" />
             </div>
 
             <div>
@@ -198,6 +215,43 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
                 className="bg-teal-600 h-full rounded-full transition-all duration-300"
                 style={{ width: `${analysisProgress}%` }}
               ></div>
+            </div>
+
+            {/* AI Analysis Status Checklist */}
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-left space-y-3">
+              <div className="flex items-center justify-between text-xs">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-teal-600" />
+                  <span className="font-semibold text-slate-800">GPS EXIF Verification</span>
+                </div>
+                <span className="text-[11px] font-mono text-teal-700 font-bold">Passed</span>
+              </div>
+              <div className="flex items-center justify-between text-xs">
+                <div className="flex items-center gap-2">
+                  {analysisProgress > 45 ? (
+                    <CheckCircle className="w-4 h-4 text-teal-600" />
+                  ) : (
+                    <Loader2 className="w-4 h-4 text-orange-500 animate-spin" />
+                  )}
+                  <span className="font-semibold text-slate-800">Computer Vision Damage Segmentation</span>
+                </div>
+                <span className="text-[11px] font-mono text-teal-700 font-bold">
+                  {analysisProgress > 45 ? 'Verified' : 'Processing...'}
+                </span>
+              </div>
+              <div className="flex items-center justify-between text-xs">
+                <div className="flex items-center gap-2">
+                  {analysisProgress > 80 ? (
+                    <CheckCircle className="w-4 h-4 text-teal-600" />
+                  ) : (
+                    <Loader2 className="w-4 h-4 text-slate-400 animate-spin" />
+                  )}
+                  <span className="font-semibold text-slate-800">Municipal & CSR Impact Match</span>
+                </div>
+                <span className="text-[11px] font-mono text-teal-700 font-bold">
+                  {analysisProgress > 80 ? 'Matched' : 'Queueing...'}
+                </span>
+              </div>
             </div>
 
             {/* AI Findings Tags */}
@@ -222,10 +276,10 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
       {/* SCREEN 5: AI CONFIRMATION */}
       {step === 'confirmation' && (
         <div className="space-y-5">
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-xl space-y-6">
+          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-lg space-y-6">
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center mx-auto mb-3 shadow-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <div className="w-16 h-16 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center mx-auto mb-3 shadow-xs">
+                <CheckCircle2 className="w-8 h-8 text-teal-600" />
               </div>
               <span className="text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 border border-teal-200 px-3 py-1 rounded-full">
                 Verified & Dispatched
@@ -262,10 +316,10 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               <button
                 onClick={() => setScreen('issues_feed')}
-                className="w-full py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
+                className="w-full py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm rounded-xl shadow-xs transition-all flex items-center justify-center gap-2"
               >
                 <span>View on Public Feed</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                <ArrowUpRight className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setScreen('home')}

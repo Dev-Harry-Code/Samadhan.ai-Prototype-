@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NEARBY_ISSUES, PRIMARY_ISSUE } from '../../data/mockData';
 import { Issue, ScreenId } from '../../types';
+import { ThumbsUp, MapPin, ArrowRight, Radio } from 'lucide-react';
 
 interface RecentIssuesFeedWidgetProps {
   setScreen: (screen: ScreenId) => void;
@@ -28,7 +29,8 @@ export const RecentIssuesFeedWidget: React.FC<RecentIssuesFeedWidgetProps> = ({
             <h3 className="text-base font-black tracking-tight text-slate-900">
               Recent Issues
             </h3>
-            <span className="text-[10px] bg-teal-50 text-teal-700 border border-teal-200 px-2 py-0.5 rounded-full font-bold whitespace-nowrap">
+            <span className="text-[10px] bg-teal-50 text-teal-700 border border-teal-200 px-2 py-0.5 rounded-full font-bold whitespace-nowrap flex items-center gap-1">
+              <Radio className="w-2.5 h-2.5 text-teal-600 animate-pulse" />
               Live Feed
             </span>
           </div>
@@ -42,7 +44,7 @@ export const RecentIssuesFeedWidget: React.FC<RecentIssuesFeedWidgetProps> = ({
           className="text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-700 transition-colors flex items-center gap-1 flex-shrink-0"
         >
           <span>All Issues</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          <ArrowRight className="w-3 h-3" />
         </button>
       </div>
 
@@ -68,7 +70,7 @@ export const RecentIssuesFeedWidget: React.FC<RecentIssuesFeedWidgetProps> = ({
                 />
               ) : (
                 <div className="w-full h-full flex flex-col items-center justify-center bg-teal-50 text-teal-700">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <MapPin className="w-5 h-5 text-teal-600" />
                 </div>
               )}
             </div>
@@ -92,14 +94,15 @@ export const RecentIssuesFeedWidget: React.FC<RecentIssuesFeedWidgetProps> = ({
               <h4 className="text-xs sm:text-sm font-bold truncate group-hover:text-teal-700 transition-colors text-slate-900">
                 {issue.title}
               </h4>
-              <p className="text-[11px] text-slate-500 truncate mt-0.5">
-                {issue.location} • {issue.distance || '1.4 km'}
+              <p className="text-[11px] text-slate-500 truncate mt-0.5 flex items-center gap-1">
+                <MapPin className="w-3 h-3 text-slate-400 flex-shrink-0" />
+                <span className="truncate">{issue.location} • {issue.distance || '1.4 km'}</span>
               </p>
             </div>
 
             {/* Upvotes Pill */}
             <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-700 group-hover:text-teal-700 group-hover:border-teal-300 shadow-xs transition-all flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-teal-600"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+              <ThumbsUp className="w-3.5 h-3.5 text-teal-600" />
               <span>{issue.upvotes}</span>
             </div>
           </div>

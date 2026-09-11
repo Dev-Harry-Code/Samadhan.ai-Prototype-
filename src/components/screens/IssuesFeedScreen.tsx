@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ScreenId, Issue } from '../../types';
 import { NEARBY_ISSUES, PRIMARY_ISSUE } from '../../data/mockData';
+import { ThumbsUp, MapPin, Share2, MessageSquare, AlertTriangle, Clock } from 'lucide-react';
 
 interface IssuesFeedScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -44,7 +45,7 @@ export const IssuesFeedScreen: React.FC<IssuesFeedScreenProps> = ({ setScreen, s
               onClick={() => setSelectedCategory(cat)}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap border ${
                 selectedCategory === cat
-                  ? 'bg-teal-600 text-white border-teal-600 shadow-sm'
+                  ? 'bg-teal-600 text-white border-teal-600 shadow-xs'
                   : 'bg-white hover:bg-slate-100 border-slate-200 text-slate-700 shadow-xs'
               }`}
             >
@@ -70,8 +71,8 @@ export const IssuesFeedScreen: React.FC<IssuesFeedScreenProps> = ({ setScreen, s
               />
               
               {/* Urgency Pill in Energetic Warm Orange */}
-              <div className="absolute top-3 left-3 bg-orange-500 text-white border border-white/20 px-3 py-1 rounded-full text-xs font-bold shadow-sm flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+              <div className="absolute top-3 left-3 bg-orange-500 text-white border border-white/20 px-3 py-1 rounded-full text-xs font-bold shadow-xs flex items-center gap-1.5">
+                <AlertTriangle className="w-3.5 h-3.5 text-white" />
                 High Urgency
               </div>
 
@@ -81,8 +82,8 @@ export const IssuesFeedScreen: React.FC<IssuesFeedScreenProps> = ({ setScreen, s
               </div>
 
               {/* Distance pill */}
-              <div className="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur-md text-white px-2.5 py-1 rounded-lg text-xs font-medium flex items-center gap-1 border border-white/10">
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-teal-400"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <div className="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur-md text-white px-2.5 py-1 rounded-lg text-xs font-medium flex items-center gap-1.5 border border-white/10">
+                <MapPin className="w-3.5 h-3.5 text-teal-400" />
                 <span>{issue.distance || '1.2 km away'}</span>
               </div>
             </div>
@@ -102,17 +103,25 @@ export const IssuesFeedScreen: React.FC<IssuesFeedScreenProps> = ({ setScreen, s
               
               <div className="flex items-center justify-between pt-3 border-t border-slate-100">
                 <div className="flex items-center gap-3 text-slate-600 text-xs font-semibold">
-                  <div className="flex items-center gap-1 text-teal-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                  <div className="flex items-center gap-1.5 text-teal-600">
+                    <ThumbsUp className="w-4 h-4" />
                     <span className="font-bold">{issue.upvotes}</span>
                   </div>
-                  <div className="flex items-center gap-1 text-slate-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                    <span>{issue.commentsCount} comments</span>
+                  <div className="flex items-center gap-1.5 text-slate-500">
+                    <MessageSquare className="w-4 h-4" />
+                    <span>{issue.commentsCount}</span>
                   </div>
+                  <button 
+                    title="Share Issue"
+                    onClick={(e) => { e.stopPropagation(); }}
+                    className="text-slate-400 hover:text-teal-600 transition-colors p-0.5"
+                  >
+                    <Share2 className="w-3.5 h-3.5" />
+                  </button>
                 </div>
-                <div className="text-[11px] text-slate-400 font-medium">
-                  {issue.reportedDaysAgo}d ago
+                <div className="text-[11px] text-slate-400 font-medium flex items-center gap-1">
+                  <Clock className="w-3 h-3 text-slate-400" />
+                  <span>{issue.reportedDaysAgo}d ago</span>
                 </div>
               </div>
             </div>

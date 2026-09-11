@@ -1,4 +1,5 @@
 import React from 'react';
+import { PieChart } from 'lucide-react';
 
 export const CategoryGaugeWidget: React.FC = () => {
   const categories = [
@@ -21,7 +22,7 @@ export const CategoryGaugeWidget: React.FC = () => {
           </p>
         </div>
         <div className="w-8 h-8 rounded-lg bg-teal-50 border border-teal-100 flex items-center justify-center text-teal-700 flex-shrink-0">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+          <PieChart className="w-4 h-4" />
         </div>
       </div>
 

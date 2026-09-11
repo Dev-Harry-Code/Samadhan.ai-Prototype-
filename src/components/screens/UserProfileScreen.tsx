@@ -1,5 +1,18 @@
 import React from 'react';
 import { ScreenId } from '../../types';
+import { 
+  Plus, 
+  Trophy, 
+  FileText, 
+  CheckCircle2, 
+  ThumbsUp, 
+  Award, 
+  Droplets, 
+  Zap, 
+  Users, 
+  Settings, 
+  LogOut 
+} from 'lucide-react';
 
 interface UserProfileScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -35,7 +48,8 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({ setScreen,
               onClick={() => setScreen('report')}
               className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl text-xs font-bold bg-orange-500 hover:bg-orange-600 text-white shadow-sm hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 flex-shrink-0 mb-1"
             >
-              <span>+ New Report</span>
+              <Plus className="w-4 h-4 stroke-[2.5]" />
+              <span>New Report</span>
             </button>
           </div>
 
@@ -46,7 +60,8 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({ setScreen,
                 Aarav Mehta
               </h2>
               <span className="text-[11px] px-2.5 py-0.5 rounded-full font-bold bg-amber-50 text-amber-800 border border-amber-200 flex items-center gap-1">
-                <span>🏆</span> Civic Champion
+                <Trophy className="w-3.5 h-3.5 text-amber-600" />
+                <span>Civic Champion</span>
               </span>
             </div>
 
@@ -88,7 +103,7 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({ setScreen,
       <div className={`grid gap-3.5 ${isMobileFrame ? 'grid-cols-2' : 'grid-cols-2 sm:grid-cols-4'}`}>
         <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
           <div className="w-9 h-9 rounded-xl bg-teal-50 border border-teal-100 text-teal-700 flex items-center justify-center mb-3">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            <FileText className="w-4 h-4" />
           </div>
           <div>
             <div className="text-2xl sm:text-3xl font-black text-slate-900 leading-none mb-1">38</div>
@@ -98,7 +113,7 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({ setScreen,
 
         <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
           <div className="w-9 h-9 rounded-xl bg-teal-50 border border-teal-100 text-teal-700 flex items-center justify-center mb-3">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <CheckCircle2 className="w-4 h-4" />
           </div>
           <div>
             <div className="text-2xl sm:text-3xl font-black text-slate-900 leading-none mb-1">32</div>
@@ -108,7 +123,7 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({ setScreen,
 
         <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
           <div className="w-9 h-9 rounded-xl bg-orange-50 border border-orange-100 text-orange-600 flex items-center justify-center mb-3">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+            <ThumbsUp className="w-4 h-4" />
           </div>
           <div>
             <div className="text-2xl sm:text-3xl font-black text-slate-900 leading-none mb-1">1,240</div>
@@ -118,7 +133,7 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({ setScreen,
 
         <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
           <div className="w-9 h-9 rounded-xl bg-amber-50 border border-amber-100 text-amber-700 flex items-center justify-center mb-3">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+            <Award className="w-4 h-4" />
           </div>
           <div>
             <div className="text-2xl sm:text-3xl font-black text-slate-900 leading-none mb-1">6</div>
@@ -135,8 +150,8 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({ setScreen,
         
         <div className={`gap-3 ${isMobileFrame ? 'flex flex-col' : 'grid grid-cols-1 sm:grid-cols-3'}`}>
           <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-xl flex-shrink-0">
-              💧
+            <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 flex-shrink-0">
+              <Droplets className="w-5 h-5" />
             </div>
             <div className="min-w-0">
               <div className="text-xs font-bold text-slate-900 truncate">Water Guardian</div>
@@ -145,8 +160,8 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({ setScreen,
           </div>
 
           <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-xl flex-shrink-0">
-              ⚡
+            <div className="w-11 h-11 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 flex-shrink-0">
+              <Zap className="w-5 h-5" />
             </div>
             <div className="min-w-0">
               <div className="text-xs font-bold text-slate-900 truncate">First Responder</div>
@@ -155,8 +170,8 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({ setScreen,
           </div>
 
           <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-xl bg-teal-50 border border-teal-200 flex items-center justify-center text-xl flex-shrink-0">
-              🤝
+            <div className="w-11 h-11 rounded-xl bg-teal-50 border border-teal-200 flex items-center justify-center text-teal-600 flex-shrink-0">
+              <Users className="w-5 h-5" />
             </div>
             <div className="min-w-0">
               <div className="text-xs font-bold text-slate-900 truncate">Community Pillar</div>
@@ -168,14 +183,16 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({ setScreen,
 
       {/* Action Buttons */}
       <div className="flex items-center gap-3 pt-2">
-        <button className="flex-1 py-3.5 px-4 bg-white hover:bg-slate-50 text-slate-700 rounded-2xl font-bold border border-slate-200 shadow-xs text-xs transition-colors text-center">
-          Account & Notifications
+        <button className="flex-1 py-3.5 px-4 bg-white hover:bg-slate-50 text-slate-700 rounded-2xl font-bold border border-slate-200 shadow-xs text-xs transition-colors flex items-center justify-center gap-2">
+          <Settings className="w-4 h-4 text-slate-500" />
+          <span>Account & Notifications</span>
         </button>
         <button
           onClick={() => setScreen('auth')}
-          className="py-3.5 px-5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-2xl font-bold text-xs transition-colors text-center flex-shrink-0"
+          className="py-3.5 px-5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-2xl font-bold text-xs transition-colors flex items-center justify-center gap-1.5 flex-shrink-0"
         >
-          Sign Out
+          <LogOut className="w-4 h-4 text-rose-600" />
+          <span>Sign Out</span>
         </button>
       </div>
 

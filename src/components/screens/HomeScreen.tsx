@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Issue, ScreenId } from '../../types';
+import { Plus, ArrowUpRight, Sparkles } from 'lucide-react';
 import { PlatformStatsWidget } from '../widgets/PlatformStatsWidget';
 import { CommunityImpactChart } from '../widgets/CommunityImpactChart';
 import { CategoryGaugeWidget } from '../widgets/CategoryGaugeWidget';
@@ -34,15 +35,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             <span className="font-medium">
               AI-Powered Civic Problem Solving
             </span>
-            <span className="text-teal-400">•</span>
-            <span className="text-teal-700 font-bold">Samadhan 2.0</span>
           </div>
 
           <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-slate-900">
-            Crowdsource Real Solutions for <br className="hidden sm:inline" />
-            <span className="text-teal-600">
-              Society Challenges
-            </span>
+            Crowdsourcing Actionable Solutions for <span className="text-teal-600">Societal Impact</span>
           </h1>
 
           <p className="mt-3 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed text-slate-600">
@@ -56,7 +52,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               className="px-6 py-3 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-2"
             >
               <span>Report Issue with AI</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <Plus className="w-4 h-4 stroke-[2.5]" />
             </button>
 
             <button
@@ -64,7 +60,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               className="px-5 py-3 rounded-2xl text-sm font-semibold border bg-white hover:bg-slate-50 border-slate-200 text-slate-700 shadow-sm hover:border-slate-300 transition-all duration-200 flex items-center gap-2"
             >
               <span>Explore Public Feed</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+              <ArrowUpRight className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -75,7 +71,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           <div className="flex items-center gap-1 overflow-x-auto py-1">
             <div className="flex items-center gap-2 px-3 py-1 mr-2 border-r border-slate-200">
               <div className="w-5 h-5 rounded-md bg-teal-100 flex items-center justify-center text-teal-700">
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                <Sparkles className="w-3.5 h-3.5" />
               </div>
               <span className="text-xs font-bold text-slate-900">
                 Samadhan Hub
@@ -84,7 +80,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
             <button
               onClick={() => setActiveTab('overview')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                 activeTab === 'overview'
                   ? 'bg-teal-600 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
@@ -94,13 +90,13 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             </button>
             <button
               onClick={() => setScreen('issues_feed')}
-              className="px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all"
+              className="px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all"
             >
               Issues Feed
             </button>
             <button
               onClick={() => setActiveTab('volunteers')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                 activeTab === 'volunteers'
                   ? 'bg-teal-600 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
@@ -149,21 +145,21 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             </div>
             <div className="text-[11px] font-medium text-slate-500 mt-0.5">Municipal Wards</div>
           </div>
-          <div className="text-orange-500 font-bold">✦</div>
+          <Sparkles className="w-4 h-4 text-orange-500" />
           <div className="text-center">
             <div className="text-2xl sm:text-3xl font-black text-slate-900">
               130K+
             </div>
             <div className="text-[11px] font-medium text-slate-500 mt-0.5">Active Citizens</div>
           </div>
-          <div className="text-orange-500 font-bold">✦</div>
+          <Sparkles className="w-4 h-4 text-orange-500" />
           <div className="text-center">
             <div className="text-2xl sm:text-3xl font-black text-slate-900">
               42K+
             </div>
             <div className="text-[11px] font-medium text-slate-500 mt-0.5">Verified Solved</div>
           </div>
-          <div className="text-orange-500 font-bold">✦</div>
+          <Sparkles className="w-4 h-4 text-orange-500" />
           <div className="text-center">
             <div className="text-2xl sm:text-3xl font-black text-slate-900">
               76+

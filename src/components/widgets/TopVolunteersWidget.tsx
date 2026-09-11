@@ -1,5 +1,6 @@
 import React from 'react';
 import { TOP_VOLUNTEERS } from '../../data/mockData';
+import { Trophy, Award } from 'lucide-react';
 
 export const TopVolunteersWidget: React.FC = () => {
   return (
@@ -8,10 +9,12 @@ export const TopVolunteersWidget: React.FC = () => {
       <div className="flex items-center justify-between gap-3 mb-4">
         <div className="min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <h3 className="text-base font-black tracking-tight text-slate-900">
-              Top Volunteers
+            <h3 className="text-base font-black tracking-tight text-slate-900 flex items-center gap-1.5">
+              <Trophy className="w-4 h-4 text-orange-500" />
+              <span>Top Volunteers</span>
             </h3>
-            <span className="text-[10px] bg-orange-50 text-orange-700 border border-orange-200 px-2 py-0.5 rounded-full font-bold whitespace-nowrap">
+            <span className="text-[10px] bg-orange-50 text-orange-700 border border-orange-200 px-2 py-0.5 rounded-full font-bold whitespace-nowrap flex items-center gap-1">
+              <Award className="w-3 h-3 text-orange-500" />
               Live Karma
             </span>
           </div>
