@@ -134,12 +134,12 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
         <PlatformStatsWidget isMobileFrame={isMobileFrame} />
 
         {/* Bento Box Grid Item 2: Colorful Category Bento Grid (from Screen 2) */}
-        <ColorfulCategoryBentoWidget setScreen={setScreen} />
+        <ColorfulCategoryBentoWidget setScreen={setScreen} isMobileFrame={isMobileFrame} />
 
         {/* Bento Box Grid Item 3: Community Impact Chart + Category Gauge */}
         <div className={`grid gap-5 ${isMobileFrame ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-3'}`}>
           <div className={isMobileFrame ? '' : 'lg:col-span-2'}>
-            <CommunityImpactChart />
+            <CommunityImpactChart isMobileFrame={isMobileFrame} />
           </div>
           <div className={isMobileFrame ? '' : 'lg:col-span-1'}>
             <CategoryGaugeWidget />

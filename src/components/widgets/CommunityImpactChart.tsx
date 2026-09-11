@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { TrendingUp } from 'lucide-react';
 
-export const CommunityImpactChart: React.FC = () => {
+interface CommunityImpactChartProps {
+  isMobileFrame?: boolean;
+}
+
+export const CommunityImpactChart: React.FC<CommunityImpactChartProps> = ({
+  isMobileFrame = false,
+}) => {
   const [activeRange, setActiveRange] = useState<'month' | 'quarter' | 'year'>('month');
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(4);
 
@@ -19,12 +25,12 @@ export const CommunityImpactChart: React.FC = () => {
   const maxVal = 240;
 
   return (
-    <div className="bg-white border border-slate-200 shadow-sm p-5 rounded-3xl relative overflow-hidden flex flex-col justify-between h-full min-h-[390px] box-border">
+    <div className="bg-white border border-slate-200 shadow-sm p-4 sm:p-5 rounded-3xl relative overflow-hidden flex flex-col justify-between h-full min-h-[390px] box-border">
       {/* Header with Title & Filter controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 relative z-10">
+      <div className={`flex ${isMobileFrame ? 'flex-col items-start gap-3' : 'flex-col sm:flex-row sm:items-center justify-between gap-3'} mb-4 relative z-10`}>
         <div>
           <div className="flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-teal-600" />
+            <TrendingUp className="w-5 h-5 text-teal-600 flex-shrink-0" />
             <h3 className="text-base sm:text-lg font-black tracking-tight whitespace-normal text-slate-900">
               Community Impact Analytics
             </h3>
@@ -39,22 +45,22 @@ export const CommunityImpactChart: React.FC = () => {
         </div>
 
         {/* Time range selector */}
-        <div className="flex items-center p-1 rounded-xl text-xs font-semibold self-start sm:self-auto flex-shrink-0 bg-slate-100 border border-slate-200">
+        <div className={`flex items-center p-1 rounded-xl text-xs font-semibold ${isMobileFrame ? 'w-full justify-between' : 'self-start sm:self-auto flex-shrink-0'} bg-slate-100 border border-slate-200`}>
           <button
             onClick={() => setActiveRange('month')}
-            className={`px-2.5 py-1 rounded-lg transition-all ${activeRange === 'month' ? 'bg-teal-600 text-white shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900'}`}
+            className={`px-3 py-1.5 rounded-lg transition-all ${isMobileFrame ? 'flex-1 text-center' : ''} ${activeRange === 'month' ? 'bg-teal-600 text-white shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900'}`}
           >
             This Month
           </button>
           <button
             onClick={() => setActiveRange('quarter')}
-            className={`px-2.5 py-1 rounded-lg transition-all ${activeRange === 'quarter' ? 'bg-teal-600 text-white shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900'}`}
+            className={`px-3 py-1.5 rounded-lg transition-all ${isMobileFrame ? 'flex-1 text-center' : ''} ${activeRange === 'quarter' ? 'bg-teal-600 text-white shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900'}`}
           >
             Quarter
           </button>
           <button
             onClick={() => setActiveRange('year')}
-            className={`px-2.5 py-1 rounded-lg transition-all ${activeRange === 'year' ? 'bg-teal-600 text-white shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900'}`}
+            className={`px-3 py-1.5 rounded-lg transition-all ${isMobileFrame ? 'flex-1 text-center' : ''} ${activeRange === 'year' ? 'bg-teal-600 text-white shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900'}`}
           >
             Year
           </button>
