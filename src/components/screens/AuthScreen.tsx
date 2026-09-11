@@ -12,6 +12,7 @@ import {
   Building2 
 } from 'lucide-react';
 import { CityscapeCanvas } from '../3d/CityscapeCanvas';
+import { SamadhanLogo } from '../common/SamadhanLogo';
 
 interface AuthScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -46,13 +47,10 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
       <div className="absolute bottom-[-10%] right-[-10%] w-72 h-72 bg-orange-500/10 rounded-full blur-[90px] pointer-events-none"></div>
 
       <div className="w-full max-w-md z-10">
-        {/* Brand Header with 3D Cityscape */}
-        <div className="text-center mb-4">
+        {/* Brand Header with 3D Cityscape & Logo */}
+        <div className="text-center mb-4 flex flex-col items-center">
           <CityscapeCanvas />
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">
-            Samadhan<span className="text-teal-600">.AI</span>
-          </h1>
-          <p className="text-slate-600 mt-1 text-xs">Crowdsource society challenges with verified AI impact</p>
+          <SamadhanLogo size="md" showText={true} showTagline={true} className="mt-2 mb-1" />
         </div>
 
         {/* Pure White Card Container */}

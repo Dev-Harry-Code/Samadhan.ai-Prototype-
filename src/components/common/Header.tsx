@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ScreenId } from '../../types';
-import { MapPin, Bell, User, Monitor, Smartphone, Sparkles } from 'lucide-react';
+import { MapPin, Bell, User, Monitor, Smartphone } from 'lucide-react';
+import { SamadhanLogoIcon } from './SamadhanLogo';
 
 interface HeaderProps {
   currentScreen: ScreenId;
@@ -25,15 +26,15 @@ export const Header: React.FC<HeaderProps> = ({
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => setScreen('home')}
-            className="flex items-center gap-2.5 cursor-pointer group"
+            className="flex items-center gap-2 cursor-pointer group"
           >
-            <div className="w-9 h-9 rounded-xl bg-teal-600 flex items-center justify-center text-white shadow-sm group-hover:bg-teal-700 transition-all duration-200 relative">
-              <Sparkles className="w-5 h-5 text-white" />
-              <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-orange-500 rounded-full border-2 border-white"></span>
-            </div>
-            <div>
-              <span className="text-lg font-black tracking-tight text-slate-900">
-                Samadhan<span className="text-teal-600">.AI</span>
+            <SamadhanLogoIcon size={36} />
+            <div className="flex flex-col">
+              <span className="text-lg font-black tracking-tight text-slate-900 leading-none">
+                Samadhan<span className="text-teal-600">.ai</span>
+              </span>
+              <span className="text-[9px] text-teal-700 font-semibold tracking-tight hidden sm:inline leading-none mt-0.5">
+                Together for a Better Tomorrow
               </span>
             </div>
           </motion.div>
