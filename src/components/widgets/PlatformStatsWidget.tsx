@@ -138,9 +138,19 @@ export const PlatformStatsWidget: React.FC<PlatformStatsWidgetProps> = ({
               {stat.value}
             </div>
 
-            {/* Bottom: Heading content displayed fully in ONE line */}
-            <div className="text-[10px] sm:text-[11px] font-bold text-slate-700 whitespace-nowrap tracking-tight overflow-visible">
-              {stat.title}
+            {/* Bottom: Heading content displayed fully with clear, distinct word spacing */}
+            <div 
+              title={stat.title}
+              className="text-[9.5px] sm:text-[10.5px] font-bold text-slate-700 whitespace-nowrap tracking-normal overflow-visible flex items-center"
+            >
+              {stat.title.split(' ').map((word, idx, arr) => (
+                <React.Fragment key={idx}>
+                  <span>{word}</span>
+                  {idx < arr.length - 1 && (
+                    <span className="inline-block w-1.5 sm:w-2 select-none" aria-hidden="true">&nbsp;</span>
+                  )}
+                </React.Fragment>
+              ))}
             </div>
           </motion.div>
         ))}
@@ -163,9 +173,16 @@ export const PlatformStatsWidget: React.FC<PlatformStatsWidgetProps> = ({
           <div className="flex items-center justify-between gap-1 mb-2 relative z-10">
             <span 
               title={stat.title}
-              className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-tight truncate text-slate-700"
+              className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-normal truncate text-slate-700 inline-flex items-center"
             >
-              {stat.title}
+              {stat.title.split(' ').map((word, idx, arr) => (
+                <React.Fragment key={idx}>
+                  <span>{word}</span>
+                  {idx < arr.length - 1 && (
+                    <span className="inline-block w-1.5 select-none" aria-hidden="true">&nbsp;</span>
+                  )}
+                </React.Fragment>
+              ))}
             </span>
             <div className={`w-7 h-7 rounded-xl flex items-center justify-center flex-shrink-0 shadow-2xs ${stat.iconBg}`}>
               {stat.icon}
