@@ -1,12 +1,7 @@
 import React from 'react';
 import { TOP_VOLUNTEERS } from '../../data/mockData';
-import { ThemeMode } from '../../types';
 
-interface TopVolunteersWidgetProps {
-  theme: ThemeMode;
-}
-
-export const TopVolunteersWidget: React.FC<TopVolunteersWidgetProps> = () => {
+export const TopVolunteersWidget: React.FC = () => {
   return (
     <div className="bg-white border border-slate-200 shadow-sm p-5 rounded-3xl relative overflow-hidden flex flex-col justify-between h-full min-h-[390px] box-border">
       {/* Header */}

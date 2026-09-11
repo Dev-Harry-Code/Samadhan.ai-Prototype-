@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { NEARBY_ISSUES, PRIMARY_ISSUE } from '../../data/mockData';
-import { Issue, ScreenId, ThemeMode } from '../../types';
+import { Issue, ScreenId } from '../../types';
 
 interface RecentIssuesFeedWidgetProps {
-  theme: ThemeMode;
   setScreen: (screen: ScreenId) => void;
   setSelectedIssue: (issue: Issue) => void;
 }

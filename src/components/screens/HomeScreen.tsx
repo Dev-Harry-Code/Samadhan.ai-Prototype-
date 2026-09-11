@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Issue, ScreenId, ThemeMode } from '../../types';
+import { Issue, ScreenId } from '../../types';
 import { PlatformStatsWidget } from '../widgets/PlatformStatsWidget';
 import { CommunityImpactChart } from '../widgets/CommunityImpactChart';
 import { CategoryGaugeWidget } from '../widgets/CategoryGaugeWidget';
@@ -9,19 +9,15 @@ import { RecentIssuesFeedWidget } from '../widgets/RecentIssuesFeedWidget';
 interface HomeScreenProps {
   setScreen: (screen: ScreenId) => void;
   setSelectedIssue: (issue: Issue) => void;
-  theme: ThemeMode;
   isMobileFrame: boolean;
 }
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({
   setScreen,
   setSelectedIssue,
-  theme,
   isMobileFrame,
 }) => {
   const [activeTab, setActiveTab] = useState<'overview' | 'issues' | 'volunteers' | 'funds'>('overview');
-  const isDark = theme === 'dark';
-  const isEmerald = theme === 'emerald';
 
   return (
     <div className="relative pb-36 pt-2 overflow-hidden min-h-full bg-slate-50">
@@ -124,23 +120,22 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
         </div>
 
         {/* Bento Box Grid Item 1: 4 Key Metric Cards */}
-        <PlatformStatsWidget theme={theme} isMobileFrame={isMobileFrame} />
+        <PlatformStatsWidget isMobileFrame={isMobileFrame} />
 
         {/* Bento Box Grid Item 2: Community Impact Chart + Category Gauge */}
         <div className={`grid gap-5 ${isMobileFrame ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-3'}`}>
           <div className={isMobileFrame ? '' : 'lg:col-span-2'}>
-            <CommunityImpactChart theme={theme} />
+            <CommunityImpactChart />
           </div>
           <div className={isMobileFrame ? '' : 'lg:col-span-1'}>
-            <CategoryGaugeWidget theme={theme} />
+            <CategoryGaugeWidget />
           </div>
         </div>
 
         {/* Bento Box Grid Item 3: Top Volunteers + Recent Issues Mini-Feed */}
         <div className={`grid gap-5 ${isMobileFrame ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-2'}`}>
-          <TopVolunteersWidget theme={theme} />
+          <TopVolunteersWidget />
           <RecentIssuesFeedWidget
-            theme={theme}
             setScreen={setScreen}
             setSelectedIssue={setSelectedIssue}
           />

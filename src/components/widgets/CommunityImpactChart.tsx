@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
-import { ThemeMode } from '../../types';
 
-interface CommunityImpactChartProps {
-  theme: ThemeMode;
-}
-
-export const CommunityImpactChart: React.FC<CommunityImpactChartProps> = () => {
+export const CommunityImpactChart: React.FC = () => {
   const [activeRange, setActiveRange] = useState<'month' | 'quarter' | 'year'>('month');
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(4);
 

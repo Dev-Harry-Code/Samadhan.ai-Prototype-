@@ -1,11 +1,6 @@
 import React from 'react';
-import { ThemeMode } from '../../types';
 
-interface CategoryGaugeWidgetProps {
-  theme: ThemeMode;
-}
-
-export const CategoryGaugeWidget: React.FC<CategoryGaugeWidgetProps> = () => {
+export const CategoryGaugeWidget: React.FC = () => {
   const categories = [
     { label: 'Water', count: '524', pct: 42, color: '#0D9488' },
     { label: 'Health', count: '274', pct: 28, color: '#F97316' },

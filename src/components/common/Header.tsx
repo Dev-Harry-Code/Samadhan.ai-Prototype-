@@ -1,13 +1,11 @@
 import React from 'react';
-import { ScreenId, ThemeMode } from '../../types';
+import { ScreenId } from '../../types';
 
 interface HeaderProps {
   currentScreen: ScreenId;
   setScreen: (screen: ScreenId) => void;
   isMobileFrame: boolean;
   setIsMobileFrame: (val: boolean) => void;
-  theme: ThemeMode;
-  setTheme: (theme: ThemeMode) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -15,22 +13,9 @@ export const Header: React.FC<HeaderProps> = ({
   setScreen,
   isMobileFrame,
   setIsMobileFrame,
-  theme,
-  setTheme,
 }) => {
-  const isDark = theme === 'dark';
-  const isEmerald = theme === 'emerald';
-
   return (
-    <header
-      className={`sticky top-0 z-50 border-b backdrop-blur-xl transition-colors duration-300 ${
-        isDark
-          ? 'bg-[#090c12]/80 border-white/[0.08] shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
-          : isEmerald
-          ? 'bg-[#041a17]/80 border-emerald-500/20 shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
-          : 'bg-white/80 border-slate-200/80 shadow-sm'
-      }`}
-    >
+    <header className="sticky top-0 z-50 border-b bg-white/90 border-slate-200/80 backdrop-blur-xl shadow-xs transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-2">
         {/* Brand Identity */}
         <div
@@ -47,7 +32,7 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-orange-500 rounded-full border-2 border-white"></span>
           </div>
           <div>
-            <span className={`text-lg font-black tracking-tight ${isDark || isEmerald ? 'text-white' : 'text-slate-900'}`}>
+            <span className="text-lg font-black tracking-tight text-slate-900">
               Samadhan<span className="text-teal-600">.AI</span>
             </span>
           </div>
@@ -59,8 +44,8 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => setScreen('home')}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
               currentScreen === 'home'
-                ? 'bg-teal-50 text-teal-700 border border-teal-200 shadow-sm'
-                : isDark || isEmerald ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                ? 'bg-teal-50 text-teal-700 border border-teal-200 shadow-xs'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
             Overview
@@ -69,8 +54,8 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => setScreen('issues_feed')}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
               ['issues_feed', 'issue_details'].includes(currentScreen)
-                ? 'bg-teal-50 text-teal-700 border border-teal-200 shadow-sm'
-                : isDark || isEmerald ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                ? 'bg-teal-50 text-teal-700 border border-teal-200 shadow-xs'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
             Issues Feed
@@ -79,8 +64,8 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => setScreen('report')}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
               currentScreen === 'report'
-                ? 'bg-teal-50 text-teal-700 border border-teal-200 shadow-sm'
-                : isDark || isEmerald ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                ? 'bg-teal-50 text-teal-700 border border-teal-200 shadow-xs'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
             Report Problem
@@ -89,8 +74,8 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => setScreen('profile')}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
               currentScreen === 'profile'
-                ? 'bg-teal-50 text-teal-700 border border-teal-200 shadow-sm'
-                : isDark || isEmerald ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                ? 'bg-teal-50 text-teal-700 border border-teal-200 shadow-xs'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
             Profile & XP
@@ -99,7 +84,7 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => setScreen('auth')}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
               currentScreen === 'auth'
-                ? 'bg-teal-600 text-white shadow-sm'
+                ? 'bg-teal-600 text-white shadow-xs'
                 : 'bg-teal-50 text-teal-700 border border-teal-200 hover:bg-teal-100'
             }`}
           >
@@ -107,23 +92,17 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
         </nav>
 
-        {/* Right Action Controls: Device Mode Toggle & Theme Switcher */}
+        {/* Right Action Controls: Device Viewport Switcher & Profile */}
         <div className="flex items-center gap-2 sm:gap-3">
           
-          {/* Prominent Desktop vs Mobile Viewport Switcher */}
-          <div className={`flex items-center p-1 rounded-2xl border ${
-            isDark
-              ? 'bg-white/[0.05] border-white/10'
-              : isEmerald
-              ? 'bg-emerald-950/60 border-emerald-500/20'
-              : 'bg-slate-100 border-slate-200'
-          }`}>
+          {/* Desktop vs Mobile Viewport Switcher */}
+          <div className="flex items-center p-1 rounded-2xl border bg-slate-100 border-slate-200">
             <button
               onClick={() => setIsMobileFrame(false)}
               title="Switch to Full Desktop SaaS Dashboard view"
               className={`flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold transition-all ${
                 !isMobileFrame
-                  ? 'bg-teal-600 text-white shadow-sm'
+                  ? 'bg-teal-600 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -135,44 +114,12 @@ export const Header: React.FC<HeaderProps> = ({
               title="Switch to Mobile Mockup Frame view"
               className={`flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold transition-all ${
                 isMobileFrame
-                  ? 'bg-teal-600 text-white shadow-sm'
+                  ? 'bg-teal-600 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
               <span className="hidden sm:inline">Mobile</span>
-            </button>
-          </div>
-
-          {/* Theme Switcher */}
-          <div className={`flex items-center p-1 rounded-2xl border ${
-            isDark
-              ? 'bg-white/[0.05] border-white/10'
-              : isEmerald
-              ? 'bg-emerald-950/60 border-emerald-500/20'
-              : 'bg-slate-100 border-slate-200'
-          }`}>
-            <button
-              onClick={() => setTheme('light')}
-              title="Clean Light Mode (Default)"
-              className={`w-7 h-7 rounded-xl flex items-center justify-center text-xs transition-all ${
-                theme === 'light'
-                  ? 'bg-white text-teal-700 shadow-sm font-bold border border-slate-200'
-                  : 'text-slate-400 hover:text-slate-600'
-              }`}
-            >
-              ☀️
-            </button>
-            <button
-              onClick={() => setTheme('dark')}
-              title="Dark Mode"
-              className={`w-7 h-7 rounded-xl flex items-center justify-center text-xs transition-all ${
-                theme === 'dark'
-                  ? 'bg-slate-800 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-slate-600'
-              }`}
-            >
-              🌙
             </button>
           </div>
 
@@ -185,7 +132,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* User Profile Avatar */}
           <div
             onClick={() => setScreen('profile')}
-            className="w-8 h-8 rounded-xl overflow-hidden border border-slate-200 shadow-sm cursor-pointer hover:scale-105 transition-transform"
+            className="w-8 h-8 rounded-xl overflow-hidden border border-slate-200 shadow-xs cursor-pointer hover:scale-105 transition-transform"
           >
             <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80" alt="Avatar" className="w-full h-full object-cover" />
           </div>

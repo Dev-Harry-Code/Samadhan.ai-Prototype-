@@ -8,8 +8,6 @@ export type ScreenId =
   | 'report'
   | 'profile';
 
-export type ThemeMode = 'dark' | 'light' | 'emerald';
-
 export type IssueStatus = 'New' | 'Under review' | 'In progress' | 'Resolved';
 
 export interface Issue {
