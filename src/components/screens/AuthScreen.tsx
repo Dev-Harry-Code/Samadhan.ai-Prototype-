@@ -11,8 +11,8 @@ import {
   Shield, 
   Building2 
 } from 'lucide-react';
-import { CityscapeCanvas } from '../3d/CityscapeCanvas';
 import { SamadhanLogo } from '../common/SamadhanLogo';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface AuthScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -20,6 +20,7 @@ interface AuthScreenProps {
 }
 
 export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) => {
+  const { t } = useLanguage();
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [loginMethod, setLoginMethod] = useState<'mobile' | 'email'>('mobile');
   const [inputValue, setInputValue] = useState('+91 98765 43210');
@@ -41,20 +42,40 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
   };
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center min-h-[640px] px-4 py-8 relative overflow-hidden bg-slate-50">
-      {/* Subtle soft ambient light glow */}
-      <div className="absolute top-[-10%] left-[-10%] w-72 h-72 bg-teal-500/10 rounded-full blur-[90px] pointer-events-none"></div>
-      <div className="absolute bottom-[-10%] right-[-10%] w-72 h-72 bg-orange-500/10 rounded-full blur-[90px] pointer-events-none"></div>
+    <div className="flex-1 flex flex-col items-center justify-center min-h-[640px] px-4 py-10 relative overflow-hidden bg-slate-50">
+      {/* Project Background: Civic Community & Society Infrastructure */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
+        <img 
+          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80" 
+          alt="Civic Infrastructure" 
+          className="w-full h-full object-cover object-center scale-105 filter blur-[0.5px] opacity-25"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50/90 via-white/80 to-slate-50/95 backdrop-blur-[1.5px]"></div>
+        
+        {/* Soft ambient light glow accents */}
+        <div className="absolute top-[-10%] left-[-10%] w-80 h-80 bg-teal-500/15 rounded-full blur-[100px]"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-80 h-80 bg-orange-500/15 rounded-full blur-[100px]"></div>
+      </div>
 
       <div className="w-full max-w-md z-10">
-        {/* Brand Header with 3D Cityscape & Logo */}
-        <div className="text-center mb-4 flex flex-col items-center">
-          <CityscapeCanvas />
-          <SamadhanLogo size="md" showText={true} showTagline={true} className="mt-2 mb-1" />
-        </div>
+        {/* Brand Header with Project Tag & Logo (Replaces 3D model) */}
+        <motion.div 
+          initial={{ opacity: 0, y: -15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="text-center mb-6 flex flex-col items-center"
+        >
+          {/* Civic Crowdsourcing Badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/90 border border-teal-200 text-teal-800 text-xs font-bold mb-3 shadow-xs backdrop-blur-sm">
+            <Sparkles className="w-3.5 h-3.5 text-orange-500" />
+            <span>Civic Crowdsourcing & AI Resolution</span>
+          </div>
+
+          <SamadhanLogo size="lg" showText={true} showTagline={true} className="mt-1 mb-1" />
+        </motion.div>
 
         {/* Pure White Card Container */}
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-xl relative">
+        <div className="bg-white/95 backdrop-blur-md p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-xl relative">
           
           {/* Step 1: Input method */}
           {step === 1 && (
@@ -70,7 +91,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
                 whileTap={{ scale: 0.97 }}
                 className="w-full py-4 px-5 bg-teal-600 hover:bg-teal-700 text-white rounded-2xl font-black text-sm sm:text-base shadow-lg flex items-center justify-center gap-2.5 btn-breathing mb-4"
               >
-                <span>Get Started</span>
+                <span>{t('getStarted', 'Get Started')}</span>
                 <ArrowRight className="w-5 h-5 stroke-[2.5]" />
               </motion.button>
 
@@ -137,7 +158,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
                   onClick={() => onLogin('citizen')}
                   className="text-xs text-slate-500 hover:text-teal-700 transition-colors font-semibold flex items-center justify-center gap-1 mx-auto"
                 >
-                  <span>Skip login and explore as Guest</span>
+                  <span>{t('skipGuest', 'Skip login and explore as Guest')}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
