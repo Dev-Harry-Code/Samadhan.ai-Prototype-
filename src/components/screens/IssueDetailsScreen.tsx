@@ -14,6 +14,7 @@ import {
   CheckCircle2,
   AlertTriangle
 } from 'lucide-react';
+import { PlatformStatsWidget } from '../widgets/PlatformStatsWidget';
 
 interface IssueDetailsScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -53,7 +54,12 @@ export const IssueDetailsScreen: React.FC<IssueDetailsScreenProps> = ({ setScree
   };
 
   return (
-    <div className="pb-24 max-w-4xl mx-auto bg-slate-50">
+    <div className="pb-24 p-3.5 sm:p-6 max-w-4xl mx-auto bg-transparent relative z-10">
+      {/* Multi-Color Platform Stats Strip */}
+      <div className="mb-4">
+        <PlatformStatsWidget compact={true} />
+      </div>
+
       {/* Hero Image & Back Button */}
       <div className="relative h-72 sm:h-96 w-full rounded-3xl overflow-hidden shadow-md mb-6 bg-slate-100">
         <img src={selectedIssue.imageUrl} alt={selectedIssue.title} className="w-full h-full object-cover" />

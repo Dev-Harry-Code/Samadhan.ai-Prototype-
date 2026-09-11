@@ -4,6 +4,7 @@ import { ScreenId } from '../../types';
 import { AISphereCanvas } from '../3d/AISphereCanvas';
 import { CheckCircle, Loader2, AlertTriangle, ArrowLeft } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
+import { PlatformStatsWidget } from '../widgets/PlatformStatsWidget';
 
 interface AIAnalysisScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -36,7 +37,12 @@ export const AIAnalysisScreen: React.FC<AIAnalysisScreenProps> = ({ setScreen })
   }, [setScreen]);
 
   return (
-    <div className="p-4 sm:p-6 pb-28 max-w-2xl mx-auto min-h-full bg-slate-50">
+    <div className="p-4 sm:p-6 pb-28 max-w-2xl mx-auto min-h-full bg-transparent relative z-10">
+      {/* Multi-Color Platform Stats Strip */}
+      <div className="mb-4">
+        <PlatformStatsWidget compact={true} />
+      </div>
+
       {/* Top Header */}
       <div className="flex items-center justify-between gap-3 mb-6">
         <div className="flex items-center gap-3">
@@ -58,7 +64,7 @@ export const AIAnalysisScreen: React.FC<AIAnalysisScreenProps> = ({ setScreen })
           </div>
         </div>
 
-        <span className="text-xs px-3 py-1 rounded-full font-bold bg-orange-50 text-orange-700 border border-orange-200 flex items-center gap-1.5">
+        <span className="text-xs px-3 py-1 rounded-full font-bold bg-orange-50 text-orange-700 border border-orange-200 flex items-center gap-1.5 shadow-2xs">
           <AlertTriangle className="w-3.5 h-3.5 text-orange-500" />
           {t('urgencyHigh', 'High Urgency')}
         </span>
@@ -138,19 +144,19 @@ export const AIAnalysisScreen: React.FC<AIAnalysisScreenProps> = ({ setScreen })
           ))}
         </div>
 
-        {/* AI Findings Tags */}
+        {/* Multi-Color AI Findings Tags */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-left">
-          <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200">
-            <span className="text-[10px] uppercase font-bold text-slate-500 block">Identified Object</span>
+          <div className="p-3 rounded-2xl bg-sky-50/80 border border-sky-200 shadow-2xs">
+            <span className="text-[10px] uppercase font-extrabold text-sky-700 block">Identified Object</span>
             <span className="text-xs font-bold text-slate-900 mt-0.5 block">4-inch Fractured PVC Pipe</span>
           </div>
-          <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200">
-            <span className="text-[10px] uppercase font-bold text-slate-500 block">Estimated Impact</span>
-            <span className="text-xs font-bold text-orange-600 mt-0.5 block">50+ Families Cut Off</span>
+          <div className="p-3 rounded-2xl bg-rose-50/80 border border-rose-200 shadow-2xs">
+            <span className="text-[10px] uppercase font-extrabold text-rose-700 block">Estimated Impact</span>
+            <span className="text-xs font-bold text-rose-700 mt-0.5 block">50+ Families Cut Off</span>
           </div>
-          <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200">
-            <span className="text-[10px] uppercase font-bold text-slate-500 block">AI Match Partner</span>
-            <span className="text-xs font-bold text-teal-700 mt-0.5 block">BIT Mesra Hydrology</span>
+          <div className="p-3 rounded-2xl bg-purple-50/80 border border-purple-200 shadow-2xs">
+            <span className="text-[10px] uppercase font-extrabold text-purple-700 block">AI Match Partner</span>
+            <span className="text-xs font-bold text-purple-800 mt-0.5 block">BIT Mesra Hydrology</span>
           </div>
         </div>
 

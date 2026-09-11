@@ -25,7 +25,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   const [activeTab, setActiveTab] = useState<'overview' | 'issues' | 'volunteers' | 'funds'>('overview');
 
   return (
-    <div className="relative pb-36 pt-2 overflow-hidden min-h-full bg-slate-50">
+    <div className="relative pb-36 pt-2 overflow-hidden min-h-full bg-transparent">
       {/* Subtle soft ambient light glow */}
       <div className="absolute top-6 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-teal-500/10 rounded-full blur-[100px] pointer-events-none"></div>
       <div className="absolute top-96 right-[-10%] w-[350px] h-[350px] bg-orange-500/10 rounded-full blur-[110px] pointer-events-none"></div>

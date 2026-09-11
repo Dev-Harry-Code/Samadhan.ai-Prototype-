@@ -4,6 +4,7 @@ import { ScreenId, Issue } from '../../types';
 import { NEARBY_ISSUES, PRIMARY_ISSUE } from '../../data/mockData';
 import { ThumbsUp, MapPin, Share2, MessageSquare, AlertTriangle, Clock } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
+import { PlatformStatsWidget } from '../widgets/PlatformStatsWidget';
 
 interface IssuesFeedScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -49,10 +50,12 @@ export const IssuesFeedScreen: React.FC<IssuesFeedScreenProps> = ({
   };
 
   const categories = [
-    { key: 'All', label: t('catAll', 'All') },
-    { key: 'Water Resources', label: t('catWater', 'Water Resources') },
-    { key: 'Sanitation', label: t('catGarbage', 'Sanitation') },
-    { key: 'Infrastructure', label: t('catRoad', 'Infrastructure') },
+    { key: 'All', label: t('catAll', 'All'), color: 'bg-slate-100 text-slate-800 border-slate-300' },
+    { key: 'Water Resources', label: t('catWater', 'Water & Sanitation'), color: 'bg-sky-50 text-sky-800 border-sky-300' },
+    { key: 'Road', label: t('catRoad', 'Road & Infrastructure'), color: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
+    { key: 'Electricity', label: t('catElectricity', 'Electricity & Lights'), color: 'bg-amber-50 text-amber-800 border-amber-300' },
+    { key: 'Sanitation', label: t('catGarbage', 'Garbage & Cleanliness'), color: 'bg-teal-50 text-teal-800 border-teal-300' },
+    { key: 'Transport', label: t('catTransport', 'Public Transport'), color: 'bg-purple-50 text-purple-800 border-purple-300' },
   ];
 
   const filteredIssues = selectedCategory === 'All'
@@ -60,7 +63,12 @@ export const IssuesFeedScreen: React.FC<IssuesFeedScreenProps> = ({
     : allIssues.filter(i => i.category.toLowerCase().includes(selectedCategory.toLowerCase()) || selectedCategory.toLowerCase().includes(i.category.toLowerCase()));
 
   return (
-    <div className="p-3.5 sm:p-6 pb-36 max-w-7xl mx-auto bg-slate-50">
+    <div className="p-3.5 sm:p-6 pb-36 max-w-7xl mx-auto bg-transparent relative z-10">
+      {/* Multi-Color Platform Stats Widget */}
+      <div className="mb-6">
+        <PlatformStatsWidget compact={true} />
+      </div>
+
       {/* Header & Filter Row */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div>
@@ -68,7 +76,7 @@ export const IssuesFeedScreen: React.FC<IssuesFeedScreenProps> = ({
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
               {t('navFeed', 'Civic Issues Feed')}
             </h2>
-            <span className="text-xs px-2.5 py-0.5 rounded-full font-bold bg-teal-50 text-teal-700 border border-teal-200">
+            <span className="text-xs px-2.5 py-0.5 rounded-full font-bold bg-teal-50 text-teal-700 border border-teal-200 shadow-2xs">
               {filteredIssues.length} Active
             </span>
           </div>
@@ -77,7 +85,7 @@ export const IssuesFeedScreen: React.FC<IssuesFeedScreenProps> = ({
           </p>
         </div>
 
-        {/* Category Filters */}
+        {/* Multi-Color Category Filters */}
         <div className="flex items-center gap-2 overflow-x-auto py-1">
           {categories.map((cat) => (
             <motion.button
@@ -87,8 +95,8 @@ export const IssuesFeedScreen: React.FC<IssuesFeedScreenProps> = ({
               onClick={() => setSelectedCategory(cat.key)}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap border ${
                 selectedCategory === cat.key
-                  ? 'bg-teal-600 text-white border-teal-600 shadow-xs'
-                  : 'bg-white hover:bg-slate-100 border-slate-200 text-slate-700 shadow-xs'
+                  ? 'bg-teal-600 text-white border-teal-600 shadow-xs ring-2 ring-teal-300'
+                  : `${cat.color} hover:shadow-2xs`
               }`}
             >
               {cat.label}

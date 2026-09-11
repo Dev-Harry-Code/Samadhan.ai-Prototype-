@@ -12,6 +12,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
+import { PlatformStatsWidget } from '../widgets/PlatformStatsWidget';
 
 interface ReportIssueScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -38,7 +39,12 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
   };
 
   return (
-    <div className="p-4 sm:p-6 pb-28 max-w-2xl mx-auto min-h-full bg-slate-50">
+    <div className="p-4 sm:p-6 pb-28 max-w-2xl mx-auto min-h-full bg-transparent relative z-10">
+      {/* Multi-color platform stats strip */}
+      <div className="mb-4">
+        <PlatformStatsWidget compact={true} />
+      </div>
+
       {/* Top Header */}
       <div className="flex items-center justify-between gap-3 mb-6">
         <div className="flex items-center gap-3">
@@ -61,7 +67,7 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
         </div>
 
         {/* Urgency Badge in Energetic Warm Orange */}
-        <span className="text-xs px-3 py-1 rounded-full font-bold bg-orange-50 text-orange-700 border border-orange-200 flex items-center gap-1.5">
+        <span className="text-xs px-3 py-1 rounded-full font-bold bg-orange-50 text-orange-700 border border-orange-200 flex items-center gap-1.5 shadow-2xs">
           <AlertTriangle className="w-3.5 h-3.5 text-orange-500" />
           {t('urgencyHigh', urgency)}
         </span>
@@ -133,12 +139,14 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
           <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
             Category
           </label>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {[
-              { id: 'Water Resources', label: t('catWater', 'Water Resources') },
-              { id: 'Sanitation', label: t('catGarbage', 'Sanitation') },
-              { id: 'Roads', label: t('catRoad', 'Roads') },
-              { id: 'Healthcare', label: t('catHealthcare', 'Healthcare') },
+              { id: 'Water Resources', label: t('catWater', 'Water Resources'), bg: 'border-sky-400 bg-sky-50 text-sky-800' },
+              { id: 'Sanitation', label: t('catGarbage', 'Sanitation'), bg: 'border-teal-400 bg-teal-50 text-teal-800' },
+              { id: 'Roads', label: t('catRoad', 'Roads'), bg: 'border-emerald-400 bg-emerald-50 text-emerald-800' },
+              { id: 'Electricity', label: t('catElectricity', 'Electricity'), bg: 'border-amber-400 bg-amber-50 text-amber-800' },
+              { id: 'Transport', label: t('catTransport', 'Transport'), bg: 'border-purple-400 bg-purple-50 text-purple-800' },
+              { id: 'Healthcare', label: t('catHealthcare', 'Healthcare'), bg: 'border-rose-400 bg-rose-50 text-rose-800' },
             ].map((catItem) => (
               <motion.button
                 key={catItem.id}
@@ -148,7 +156,7 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
                 onClick={() => setCategory(catItem.id)}
                 className={`py-2 px-3 rounded-xl text-xs font-bold transition-all border ${
                   category === catItem.id
-                    ? 'bg-teal-600 text-white border-teal-600 shadow-xs'
+                    ? `${catItem.bg} ring-2 ring-teal-500 font-extrabold shadow-xs`
                     : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
                 }`}
               >

@@ -14,6 +14,7 @@ import { IssuesFeedScreen } from './components/screens/IssuesFeedScreen';
 import { IssueDetailsScreen } from './components/screens/IssueDetailsScreen';
 import { UserProfileScreen } from './components/screens/UserProfileScreen';
 import { LanguageSelectorModal } from './components/common/LanguageSelectorModal';
+import { CivicProjectBackground } from './components/common/CivicProjectBackground';
 
 export const App: React.FC = () => {
   const [currentScreen, setScreen] = useState<ScreenId>('auth');
@@ -203,9 +204,12 @@ export const App: React.FC = () => {
           className={`w-full transition-all duration-300 flex flex-col ${
             isMobileFrame
               ? 'max-w-[430px] rounded-[2.5rem] shadow-xl border border-slate-200 bg-white min-h-[760px] overflow-hidden relative my-2'
-              : 'max-w-7xl rounded-3xl min-h-[780px] border border-slate-200 bg-white shadow-xs overflow-hidden'
+              : 'max-w-7xl rounded-3xl min-h-[780px] border border-slate-200 bg-white shadow-xs overflow-hidden relative'
           }`}
         >
+          {/* Civic Project Background Image across all screens */}
+          <CivicProjectBackground />
+
           {/* Mobile frame speaker/status bar indicator in mobile frame mode */}
           {isMobileFrame && (
             <div className="w-full px-6 py-2 border-b flex items-center justify-between text-[11px] font-medium select-none z-20 bg-slate-50 border-slate-200 text-slate-700">

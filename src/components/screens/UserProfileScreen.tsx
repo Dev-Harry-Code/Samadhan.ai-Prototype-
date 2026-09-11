@@ -13,6 +13,7 @@ import {
   Settings, 
   LogOut 
 } from 'lucide-react';
+import { PlatformStatsWidget } from '../widgets/PlatformStatsWidget';
 
 interface UserProfileScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -21,7 +22,9 @@ interface UserProfileScreenProps {
 
 export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({ setScreen, isMobileFrame = false }) => {
   return (
-    <div className="p-3.5 sm:p-6 pb-40 max-w-3xl mx-auto space-y-6 bg-slate-50">
+    <div className="p-3.5 sm:p-6 pb-40 max-w-3xl mx-auto space-y-6 bg-transparent relative z-10">
+      {/* Multi-Color Platform Stats Strip */}
+      <PlatformStatsWidget compact={true} />
       
       {/* Profile Card Banner */}
       <div className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm">

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ScreenId } from '../../types';
 import { CheckCircle2, ArrowRight, ArrowLeft, Sparkles, Send } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
+import { PlatformStatsWidget } from '../widgets/PlatformStatsWidget';
 
 interface AIConfirmationScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -26,7 +27,12 @@ export const AIConfirmationScreen: React.FC<AIConfirmationScreenProps> = ({
   };
 
   return (
-    <div className="p-4 sm:p-6 pb-28 max-w-2xl mx-auto min-h-full bg-slate-50 relative">
+    <div className="p-4 sm:p-6 pb-28 max-w-2xl mx-auto min-h-full bg-transparent relative z-10">
+      {/* Multi-Color Platform Stats Strip */}
+      <div className="mb-4">
+        <PlatformStatsWidget compact={true} />
+      </div>
+
       {/* Top Header */}
       <div className="flex items-center justify-between gap-3 mb-6">
         <div className="flex items-center gap-3">
@@ -48,7 +54,7 @@ export const AIConfirmationScreen: React.FC<AIConfirmationScreenProps> = ({
           </div>
         </div>
 
-        <span className="text-xs px-3 py-1 rounded-full font-bold bg-teal-50 text-teal-700 border border-teal-200 flex items-center gap-1.5">
+        <span className="text-xs px-3 py-1 rounded-full font-bold bg-teal-50 text-teal-700 border border-teal-200 flex items-center gap-1.5 shadow-2xs">
           <Sparkles className="w-3.5 h-3.5 text-teal-600" />
           {t('statusVerified', 'Pre-Approved')}
         </span>

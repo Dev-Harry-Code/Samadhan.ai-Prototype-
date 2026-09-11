@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { SamadhanLogo } from '../common/SamadhanLogo';
 import { useLanguage } from '../../context/LanguageContext';
+import { PlatformStatsWidget } from '../widgets/PlatformStatsWidget';
 
 interface AuthScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -42,7 +43,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
   };
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center min-h-[640px] px-4 py-10 relative overflow-hidden bg-slate-50">
+    <div className="flex-1 flex flex-col items-center justify-center min-h-[640px] px-4 py-10 relative overflow-hidden bg-transparent">
       {/* Project Background: Civic Community & Society Infrastructure */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
         <img 
@@ -288,6 +289,15 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
               </motion.button>
             </div>
           )}
+        </div>
+
+        {/* Live Community Impact Multi-Color Widget */}
+        <div className="mt-5">
+          <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2 text-center flex items-center justify-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-teal-600 animate-pulse"></span>
+            <span>Live Platform Activity / नागरिक प्रभाव</span>
+          </div>
+          <PlatformStatsWidget compact={true} />
         </div>
       </div>
     </div>

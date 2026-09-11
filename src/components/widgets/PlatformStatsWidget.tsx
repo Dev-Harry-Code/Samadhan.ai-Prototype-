@@ -12,9 +12,15 @@ import {
 
 interface PlatformStatsWidgetProps {
   isMobileFrame?: boolean;
+  compact?: boolean;
+  className?: string;
 }
 
-export const PlatformStatsWidget: React.FC<PlatformStatsWidgetProps> = ({ isMobileFrame = false }) => {
+export const PlatformStatsWidget: React.FC<PlatformStatsWidgetProps> = ({ 
+  isMobileFrame = false,
+  compact = false,
+  className = ''
+}) => {
   const { t } = useLanguage();
 
   // 6 Multi-color Bento Metric Cards directly modeled on Screen 1 of Reference Image
@@ -93,8 +99,37 @@ export const PlatformStatsWidget: React.FC<PlatformStatsWidgetProps> = ({ isMobi
     },
   ];
 
+  if (compact) {
+    return (
+      <div className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 ${className}`}>
+        {stats.map((stat, i) => (
+          <motion.div
+            key={stat.id}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25, delay: i * 0.04 }}
+            whileHover={{ scale: 1.02 }}
+            className={`border p-2.5 rounded-2xl flex items-center gap-2.5 shadow-2xs backdrop-blur-sm ${stat.bgCard}`}
+          >
+            <div className={`w-7 h-7 rounded-xl flex items-center justify-center flex-shrink-0 shadow-2xs ${stat.iconBg}`}>
+              {stat.icon}
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="text-[10px] font-bold text-slate-500 truncate leading-none">
+                {stat.title}
+              </div>
+              <div className="text-sm font-black text-slate-900 leading-tight mt-0.5">
+                {stat.value}
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    );
+  }
+
   return (
-    <div className={`grid ${isMobileFrame ? 'grid-cols-2 gap-3' : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4'}`}>
+    <div className={`grid ${isMobileFrame ? 'grid-cols-2 gap-3' : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4'} ${className}`}>
       {stats.map((stat, i) => (
         <motion.div
           key={stat.id}
