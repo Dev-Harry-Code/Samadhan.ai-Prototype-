@@ -14,6 +14,7 @@ import {
   AlertTriangle,
   Sparkles
 } from 'lucide-react';
+import { AISphereCanvas } from '../3d/AISphereCanvas';
 
 interface ReportIssueScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -181,7 +182,7 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
           <button 
             onClick={handleStartAnalysis}
             disabled={!photo || description.length < 4}
-            className="w-full py-4 bg-teal-600 hover:bg-teal-700 text-white font-extrabold rounded-2xl shadow-sm hover:shadow-md disabled:opacity-40 disabled:cursor-not-allowed transition-all flex justify-center items-center gap-2"
+            className="w-full py-4 bg-teal-600 hover:bg-teal-700 text-white font-extrabold rounded-2xl shadow-sm hover:shadow-md disabled:opacity-40 disabled:cursor-not-allowed transition-all flex justify-center items-center gap-2 btn-breathing"
           >
             <span>Proceed to AI Autonomous Analysis</span>
             <ArrowRight className="w-5 h-5" />
@@ -193,9 +194,8 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
       {step === 'analysis' && (
         <div className="space-y-5">
           <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-lg text-center space-y-5">
-            <div className="w-16 h-16 rounded-2xl bg-teal-50 border border-teal-200 mx-auto flex items-center justify-center text-teal-600 shadow-xs">
-              <Loader2 className="w-8 h-8 text-teal-600 animate-spin" />
-            </div>
+            {/* 3D Glowing AI Sphere floating mesh */}
+            <AISphereCanvas progress={analysisProgress} />
 
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-orange-600 bg-orange-50 border border-orange-200 px-3 py-1 rounded-full">
@@ -316,7 +316,7 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               <button
                 onClick={() => setScreen('issues_feed')}
-                className="w-full py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm rounded-xl shadow-xs transition-all flex items-center justify-center gap-2"
+                className="w-full py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 btn-breathing"
               >
                 <span>View on Public Feed</span>
                 <ArrowUpRight className="w-4 h-4" />

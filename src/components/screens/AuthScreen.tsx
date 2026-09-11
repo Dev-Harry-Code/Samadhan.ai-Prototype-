@@ -10,6 +10,7 @@ import {
   Shield, 
   Building2 
 } from 'lucide-react';
+import { CityscapeCanvas } from '../3d/CityscapeCanvas';
 
 interface AuthScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -44,12 +45,9 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
       <div className="absolute bottom-[-10%] right-[-10%] w-72 h-72 bg-orange-500/10 rounded-full blur-[90px] pointer-events-none"></div>
 
       <div className="w-full max-w-md z-10">
-        {/* Brand Header */}
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-teal-600 shadow-md mb-3 relative">
-            <Sparkles className="w-8 h-8 text-white" />
-            <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-orange-500 rounded-full border-2 border-white shadow-sm"></span>
-          </div>
+        {/* Brand Header with 3D Cityscape */}
+        <div className="text-center mb-4">
+          <CityscapeCanvas />
           <h1 className="text-2xl font-black text-slate-900 tracking-tight">
             Samadhan<span className="text-teal-600">.AI</span>
           </h1>
@@ -105,7 +103,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
                   />
                 </div>
                 
-                <button type="submit" className="w-full py-3.5 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-sm shadow-md hover:shadow-lg transform transition-all active:scale-95 flex items-center justify-center gap-2">
+                <button type="submit" className="w-full py-3.5 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-sm shadow-md hover:shadow-lg transform transition-all active:scale-95 flex items-center justify-center gap-2 btn-breathing">
                   <span>Send {loginMethod === 'mobile' ? 'SMS OTP' : 'Verification Code'}</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
@@ -146,7 +144,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
                    />
                 </div>
                 
-                <button type="submit" className="w-full py-3.5 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-sm shadow-md transform transition-all active:scale-95 flex items-center justify-center gap-2">
+                <button type="submit" className="w-full py-3.5 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-sm shadow-md transform transition-all active:scale-95 flex items-center justify-center gap-2 btn-breathing">
                   <span>Verify & Select Role</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
@@ -225,7 +223,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, setScreen }) =>
                 </div>
               </div>
               
-              <button onClick={handleComplete} className="w-full py-3.5 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-sm shadow-md transform transition-all active:scale-95 flex items-center justify-center gap-2">
+              <button onClick={handleComplete} className="w-full py-3.5 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-sm shadow-md transform transition-all active:scale-95 flex items-center justify-center gap-2 btn-breathing">
                 <span>Launch Dashboard</span>
                 <ArrowRight className="w-4 h-4" />
               </button>

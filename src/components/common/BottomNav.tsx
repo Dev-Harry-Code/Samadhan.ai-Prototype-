@@ -37,7 +37,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentScreen, setScreen }
         <button 
           onClick={() => setScreen('report')} 
           title="Report Civic Issue"
-          className="absolute -top-5 w-14 h-14 rounded-2xl flex items-center justify-center text-white hover:scale-105 transition-transform fab-pulse z-10 bg-orange-500 hover:bg-orange-600 shadow-[0_4px_20px_rgba(249,115,22,0.45)]"
+          className="absolute -top-5 w-14 h-14 rounded-2xl flex items-center justify-center text-white hover:scale-105 transition-transform fab-breathing fab-pulse z-10 bg-orange-500 hover:bg-orange-600 shadow-[0_4px_20px_rgba(249,115,22,0.45)]"
         >
           <Plus className="w-7 h-7 stroke-[2.5]" />
         </button>

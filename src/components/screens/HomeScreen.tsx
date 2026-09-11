@@ -49,7 +49,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
             <button
               onClick={() => setScreen('report')}
-              className="px-6 py-3 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-2"
+              className="px-6 py-3 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-2 btn-breathing"
             >
               <span>Report Issue with AI</span>
               <Plus className="w-4 h-4 stroke-[2.5]" />
