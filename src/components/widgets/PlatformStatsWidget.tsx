@@ -41,7 +41,7 @@ export const PlatformStatsWidget: React.FC<PlatformStatsWidgetProps> = ({
     },
     {
       id: 'high_priority',
-      title: t('metricHighPriority', 'High Priority'),
+      title: t('metricHighPriority', 'High Priority Issues'),
       value: '7',
       growth: '+2%',
       subtext: t('metricNeedAttention', 'needs attention'),
@@ -53,7 +53,7 @@ export const PlatformStatsWidget: React.FC<PlatformStatsWidgetProps> = ({
     },
     {
       id: 'pending',
-      title: t('metricPending', 'Pending'),
+      title: t('metricPending', 'Pending Issues'),
       value: '18',
       growth: '+5%',
       subtext: t('metricNeedAssignment', 'need assignment'),
@@ -65,10 +65,10 @@ export const PlatformStatsWidget: React.FC<PlatformStatsWidgetProps> = ({
     },
     {
       id: 'in_progress',
-      title: t('metricInProgress', 'In Progress'),
+      title: t('metricInProgress', 'In Progress Issues'),
       value: '14',
       growth: '+8%',
-      subtext: t('metricOnGoing', 'on going'),
+      subtext: t('metricOnGoing', 'ongoing work'),
       icon: <Loader2 className="w-4 h-4 text-sky-600 animate-spin" />,
       bgCard: 'bg-sky-50/70 border-sky-200/80 hover:border-sky-300',
       iconBg: 'bg-sky-100 text-sky-700',
@@ -77,7 +77,7 @@ export const PlatformStatsWidget: React.FC<PlatformStatsWidgetProps> = ({
     },
     {
       id: 'resolved',
-      title: t('metricResolved', 'Resolved'),
+      title: t('metricResolved', 'Resolved Issues'),
       value: '16',
       growth: '+20%',
       subtext: t('metricThisWeek', 'this week'),
@@ -161,7 +161,10 @@ export const PlatformStatsWidget: React.FC<PlatformStatsWidgetProps> = ({
           className={`border p-4 rounded-2xl relative overflow-hidden group cursor-pointer flex flex-col justify-between transition-all duration-200 shadow-2xs ${stat.bgCard}`}
         >
           <div className="flex items-center justify-between gap-1 mb-2 relative z-10">
-            <span className="text-[11px] font-extrabold uppercase tracking-wider truncate text-slate-700">
+            <span 
+              title={stat.title}
+              className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-tight truncate text-slate-700"
+            >
               {stat.title}
             </span>
             <div className={`w-7 h-7 rounded-xl flex items-center justify-center flex-shrink-0 shadow-2xs ${stat.iconBg}`}>
