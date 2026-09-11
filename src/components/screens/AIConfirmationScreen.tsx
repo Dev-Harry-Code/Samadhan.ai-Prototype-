@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ScreenId } from '../../types';
 import { CheckCircle2, ArrowRight, ArrowLeft, Sparkles, Send } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface AIConfirmationScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -12,6 +13,7 @@ export const AIConfirmationScreen: React.FC<AIConfirmationScreenProps> = ({
   setScreen,
   onSubmitReport,
 }) => {
+  const { t } = useLanguage();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const handleSubmit = () => {
@@ -38,17 +40,17 @@ export const AIConfirmationScreen: React.FC<AIConfirmationScreenProps> = ({
           </motion.button>
           <div>
             <h2 className="text-xl sm:text-2xl font-black text-slate-900">
-              AI Verification Confirmation
+              {t('confirmedTitle', 'AI Verification Confirmation')}
             </h2>
             <p className="text-xs text-slate-500">
-              Validated with 96.8% confidence • Ready for dispatch
+              {t('confirmedDesc', 'Validated with 96.8% confidence • Ready for dispatch')}
             </p>
           </div>
         </div>
 
         <span className="text-xs px-3 py-1 rounded-full font-bold bg-teal-50 text-teal-700 border border-teal-200 flex items-center gap-1.5">
           <Sparkles className="w-3.5 h-3.5 text-teal-600" />
-          Pre-Approved
+          {t('statusVerified', 'Pre-Approved')}
         </span>
       </div>
 
@@ -64,32 +66,32 @@ export const AIConfirmationScreen: React.FC<AIConfirmationScreenProps> = ({
             <CheckCircle2 className="w-9 h-9 text-teal-600" />
           </motion.div>
           <span className="text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 border border-teal-200 px-3 py-1 rounded-full">
-            Verified & Dispatched
+            {t('statusVerified', 'Verified & Dispatched')}
           </span>
           <h3 className="text-2xl font-black text-slate-900 mt-2">
-            Issue Confirmed: #LOK-9428
+            {t('confirmedTitle', 'Issue Confirmed: #LOK-9428')}
           </h3>
           <p className="text-xs text-slate-600 max-w-md mx-auto mt-1">
-            Your report has been validated with 96.8% AI confidence. Work orders and community volunteer alerts have been drafted.
+            {t('confirmedDesc', 'Your report has been validated with 96.8% AI confidence. Work orders and community volunteer alerts have been drafted.')}
           </p>
         </div>
 
         {/* Confirmation Receipt Box */}
         <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
           <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-200">
-            <span className="text-slate-500 font-medium">Tracking Reference</span>
+            <span className="text-slate-500 font-medium">{t('trackingRef', 'Tracking Reference')}</span>
             <span className="font-mono font-bold text-slate-900">#LOK-9428-RANCHI</span>
           </div>
           <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-200">
-            <span className="text-slate-500 font-medium">Assigned Urgency</span>
-            <span className="font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded border border-orange-200">High Urgency</span>
+            <span className="text-slate-500 font-medium">{t('assignedUrgency', 'Assigned Urgency')}</span>
+            <span className="font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded border border-orange-200">{t('urgencyHigh', 'High Urgency')}</span>
           </div>
           <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-200">
-            <span className="text-slate-500 font-medium">Assigned Department</span>
-            <span className="font-semibold text-slate-800">Water Supply & Sanitation Board</span>
+            <span className="text-slate-500 font-medium">{t('assignedDept', 'Assigned Department')}</span>
+            <span className="font-semibold text-slate-800">{t('deptWaterBoard', 'Water Supply & Sanitation Board')}</span>
           </div>
           <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-500 font-medium">Citizen Karma Earned</span>
+            <span className="text-slate-500 font-medium">{t('karmaEarned', 'Citizen Karma Earned')}</span>
             <span className="font-bold text-teal-700 font-mono">+120 XP Points</span>
           </div>
         </div>
@@ -103,7 +105,7 @@ export const AIConfirmationScreen: React.FC<AIConfirmationScreenProps> = ({
             className="w-full py-4 bg-teal-600 hover:bg-teal-700 text-white font-extrabold text-sm rounded-2xl shadow-md transition-all flex items-center justify-center gap-2 btn-breathing"
           >
             <Send className="w-4 h-4" />
-            <span>Submit Report</span>
+            <span>{t('submitReport', 'Submit Report')}</span>
           </motion.button>
 
           <motion.button
@@ -112,7 +114,7 @@ export const AIConfirmationScreen: React.FC<AIConfirmationScreenProps> = ({
             onClick={() => setScreen('home')}
             className="w-full py-3 bg-white hover:bg-slate-50 border border-slate-200 text-slate-600 font-semibold text-xs rounded-xl shadow-xs transition-all"
           >
-            Cancel & Return to Dashboard
+            {t('backToDashboard', 'Cancel & Return to Dashboard')}
           </motion.button>
         </div>
       </div>
@@ -146,11 +148,11 @@ export const AIConfirmationScreen: React.FC<AIConfirmationScreenProps> = ({
               </motion.div>
 
               <span className="text-[11px] font-bold uppercase tracking-wider text-teal-700 bg-teal-50 border border-teal-200 px-3 py-1 rounded-full">
-                Submission Successful
+                {t('submissionSuccess', 'Submission Successful')}
               </span>
 
               <h4 className="text-xl font-black text-slate-900 mt-3 mb-1">
-                Report Dispatched!
+                {t('reportDispatched', 'Report Dispatched!')}
               </h4>
 
               <p className="text-xs text-slate-600 mb-4 leading-relaxed">
@@ -163,7 +165,7 @@ export const AIConfirmationScreen: React.FC<AIConfirmationScreenProps> = ({
                 onClick={() => setScreen('issues_feed')}
                 className="w-full py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs rounded-xl shadow-md flex items-center justify-center gap-1.5"
               >
-                <span>View on Public Feed Now</span>
+                <span>{t('viewFeedNow', 'View on Public Feed Now')}</span>
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
             </motion.div>

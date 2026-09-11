@@ -3,10 +3,12 @@ import { motion } from 'framer-motion';
 import { Issue, ScreenId } from '../../types';
 import { Plus, ArrowUpRight, Sparkles } from 'lucide-react';
 import { PlatformStatsWidget } from '../widgets/PlatformStatsWidget';
+import { ColorfulCategoryBentoWidget } from '../widgets/ColorfulCategoryBentoWidget';
 import { CommunityImpactChart } from '../widgets/CommunityImpactChart';
 import { CategoryGaugeWidget } from '../widgets/CategoryGaugeWidget';
 import { TopVolunteersWidget } from '../widgets/TopVolunteersWidget';
 import { RecentIssuesFeedWidget } from '../widgets/RecentIssuesFeedWidget';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface HomeScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -19,6 +21,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   setSelectedIssue,
   isMobileFrame,
 }) => {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<'overview' | 'issues' | 'volunteers' | 'funds'>('overview');
 
   return (
@@ -34,16 +37,17 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-4 bg-teal-50 border border-teal-200 text-teal-800 shadow-xs">
             <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
             <span className="font-medium">
-              AI-Powered Civic Problem Solving
+              {t('heroTag', 'AI-Powered Civic Problem Solving')}
             </span>
           </div>
 
           <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-slate-900">
-            Crowdsourcing Actionable Solutions for <span className="text-teal-600">Societal Impact</span>
+            {t('heroTitlePrefix', 'Crowdsourcing Actionable Solutions for')}{' '}
+            <span className="text-teal-600">{t('heroTitleAccent', 'Societal Impact')}</span>
           </h1>
 
           <p className="mt-3 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed text-slate-600">
-            Connecting proactive citizens, verified NGOs, and CSR entities with autonomous AI triage to detect, fund, and solve community issues with verifiable impact.
+            {t('heroDesc', 'Connecting proactive citizens, verified NGOs, and CSR entities with autonomous AI triage to detect, fund, and solve community issues with verifiable impact.')}
           </p>
 
           {/* Action CTAs */}
@@ -54,7 +58,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               onClick={() => setScreen('report')}
               className="px-6 py-3 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-2 btn-breathing"
             >
-              <span>Report Issue with AI</span>
+              <span>{t('reportWithAI', 'Report Issue with AI')}</span>
               <Plus className="w-4 h-4 stroke-[2.5]" />
             </motion.button>
 
@@ -64,7 +68,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               onClick={() => setScreen('issues_feed')}
               className="px-5 py-3 rounded-2xl text-sm font-semibold border bg-white hover:bg-slate-50 border-slate-200 text-slate-700 shadow-sm transition-all duration-200 flex items-center gap-2"
             >
-              <span>Explore Public Feed</span>
+              <span>{t('exploreFeed', 'Explore Public Feed')}</span>
               <ArrowUpRight className="w-4 h-4" />
             </motion.button>
           </div>
@@ -93,7 +97,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
-              Overview
+              {t('navOverview', 'Overview')}
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -101,7 +105,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               onClick={() => setScreen('issues_feed')}
               className="px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all"
             >
-              Issues Feed
+              {t('navFeed', 'Issues Feed')}
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -113,7 +117,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
-              Leaderboard
+              {t('navLeaderboard', 'Leaderboard')}
             </motion.button>
           </div>
 
@@ -126,10 +130,13 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           </div>
         </div>
 
-        {/* Bento Box Grid Item 1: 4 Key Metric Cards */}
+        {/* Bento Box Grid Item 1: Multi-Color Metric Cards (from Screen 1) */}
         <PlatformStatsWidget isMobileFrame={isMobileFrame} />
 
-        {/* Bento Box Grid Item 2: Community Impact Chart + Category Gauge */}
+        {/* Bento Box Grid Item 2: Colorful Category Bento Grid (from Screen 2) */}
+        <ColorfulCategoryBentoWidget setScreen={setScreen} />
+
+        {/* Bento Box Grid Item 3: Community Impact Chart + Category Gauge */}
         <div className={`grid gap-5 ${isMobileFrame ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-3'}`}>
           <div className={isMobileFrame ? '' : 'lg:col-span-2'}>
             <CommunityImpactChart />

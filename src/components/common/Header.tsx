@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ScreenId } from '../../types';
-import { MapPin, Bell, User, Monitor, Smartphone } from 'lucide-react';
+import { MapPin, Bell, User, Monitor, Smartphone, Globe } from 'lucide-react';
 import { SamadhanLogoIcon } from './SamadhanLogo';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface HeaderProps {
   currentScreen: ScreenId;
@@ -17,9 +18,11 @@ export const Header: React.FC<HeaderProps> = ({
   isMobileFrame,
   setIsMobileFrame,
 }) => {
+  const { t, currentLanguageInfo, setIsLanguageModalOpen } = useLanguage();
+
   return (
-    <header className="sticky top-0 z-50 border-b bg-white/90 border-slate-200/80 backdrop-blur-xl shadow-xs transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-2">
+    <header className="sticky top-0 z-40 border-b bg-white/90 border-slate-200/80 backdrop-blur-xl shadow-xs transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 h-16 flex items-center justify-between gap-2">
         {/* Brand Identity & Location */}
         <div className="flex items-center gap-3">
           <motion.div
@@ -30,11 +33,11 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <SamadhanLogoIcon size={36} />
             <div className="flex flex-col">
-              <span className="text-lg font-black tracking-tight text-slate-900 leading-none">
+              <span className="text-base sm:text-lg font-black tracking-tight text-slate-900 leading-none">
                 Samadhan<span className="text-teal-600">.ai</span>
               </span>
               <span className="text-[9px] text-teal-700 font-semibold tracking-tight hidden sm:inline leading-none mt-0.5">
-                Together for a Better Tomorrow
+                {t('tagline', 'Together for a Better Tomorrow')}
               </span>
             </div>
           </motion.div>
@@ -42,18 +45,18 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Location Badge */}
           <div className="hidden lg:flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700">
             <MapPin className="w-3.5 h-3.5 text-teal-600" />
-            <span>Pune Division</span>
+            <span>Lucknow / Ranchi</span>
           </div>
         </div>
 
-        {/* Center Desktop Navigation Tabs */}
+        {/* Center Desktop Navigation Tabs with i18n */}
         <nav className="hidden md:flex items-center gap-1.5">
           {[
-            { id: 'home', label: 'Overview' },
-            { id: 'issues_feed', label: 'Issues Feed', match: ['issues_feed', 'issue_details'] },
-            { id: 'report', label: 'Report Problem' },
-            { id: 'profile', label: 'Profile & XP' },
-            { id: 'auth', label: 'Sign In / Register' },
+            { id: 'home', label: t('navOverview', 'Overview') },
+            { id: 'issues_feed', label: t('navFeed', 'Issues Feed'), match: ['issues_feed', 'issue_details'] },
+            { id: 'report', label: t('navReport', 'Report') },
+            { id: 'profile', label: t('navProfile', 'Profile') },
+            { id: 'auth', label: t('getStarted', 'Sign In') },
           ].map((tab) => {
             const isActive = tab.match ? tab.match.includes(currentScreen) : currentScreen === tab.id;
             return (
@@ -78,9 +81,23 @@ export const Header: React.FC<HeaderProps> = ({
           })}
         </nav>
 
-        {/* Right Action Controls: Device Viewport Switcher & Profile */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        {/* Right Action Controls: Language Switcher, Device Switcher, Notifications & Profile */}
+        <div className="flex items-center gap-1.5 sm:gap-2.5">
           
+          {/* Multi-Language Selector Trigger Button (Matches Screen 8) */}
+          <motion.button
+            whileHover={{ scale: 1.05, boxShadow: '0 4px 12px rgba(13, 148, 136, 0.2)' }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setIsLanguageModalOpen(true)}
+            title="Change Platform Language / भाषा बदलें"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-teal-50 hover:bg-teal-100 border border-teal-200 text-teal-800 text-xs font-bold transition-all shadow-2xs"
+          >
+            <span className="text-sm" role="img" aria-label="flag">{currentLanguageInfo.flag}</span>
+            <span className="font-semibold hidden sm:inline">{currentLanguageInfo.nativeName}</span>
+            <span className="font-mono sm:hidden">{currentLanguageInfo.code.toUpperCase()}</span>
+            <Globe className="w-3.5 h-3.5 text-teal-600 ml-0.5" />
+          </motion.button>
+
           {/* Desktop vs Mobile Viewport Switcher */}
           <div className="flex items-center p-1 rounded-2xl border bg-slate-100 border-slate-200">
             <motion.button
@@ -88,28 +105,28 @@ export const Header: React.FC<HeaderProps> = ({
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsMobileFrame(false)}
               title="Switch to Full Desktop SaaS Dashboard view"
-              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold transition-all ${
+              className={`flex items-center gap-1 px-2 py-1 rounded-xl text-xs font-bold transition-all ${
                 !isMobileFrame
                   ? 'bg-teal-600 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               <Monitor className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Desktop</span>
+              <span className="hidden lg:inline">Desk</span>
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsMobileFrame(true)}
               title="Switch to Mobile Mockup Frame view"
-              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold transition-all ${
+              className={`flex items-center gap-1 px-2 py-1 rounded-xl text-xs font-bold transition-all ${
                 isMobileFrame
                   ? 'bg-teal-600 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               <Smartphone className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Mobile</span>
+              <span className="hidden lg:inline">Mob</span>
             </motion.button>
           </div>
 

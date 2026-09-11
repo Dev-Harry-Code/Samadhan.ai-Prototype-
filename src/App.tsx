@@ -13,6 +13,7 @@ import { AIConfirmationScreen } from './components/screens/AIConfirmationScreen'
 import { IssuesFeedScreen } from './components/screens/IssuesFeedScreen';
 import { IssueDetailsScreen } from './components/screens/IssueDetailsScreen';
 import { UserProfileScreen } from './components/screens/UserProfileScreen';
+import { LanguageSelectorModal } from './components/common/LanguageSelectorModal';
 
 export const App: React.FC = () => {
   const [currentScreen, setScreen] = useState<ScreenId>('auth');
@@ -185,6 +186,9 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans transition-colors duration-300 relative selection:bg-teal-100 selection:text-teal-900">
+      {/* Language Selector Modal */}
+      <LanguageSelectorModal />
+
       {/* Top Application Shell Header */}
       <Header
         currentScreen={currentScreen}

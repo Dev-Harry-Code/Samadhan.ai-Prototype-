@@ -11,12 +11,14 @@ import {
   AlertTriangle,
   Sparkles
 } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface ReportIssueScreenProps {
   setScreen: (screen: ScreenId) => void;
 }
 
 export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen }) => {
+  const { t } = useLanguage();
   const [photo, setPhoto] = useState<string | null>(
     'https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=800&q=80'
   );
@@ -50,7 +52,7 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
           </motion.button>
           <div>
             <h2 className="text-xl sm:text-2xl font-black text-slate-900">
-              Report Civic Issue
+              {t('reportWithAI', 'Report Civic Issue')}
             </h2>
             <p className="text-xs text-slate-500">
               AI triage will verify & categorize automatically
@@ -61,7 +63,7 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
         {/* Urgency Badge in Energetic Warm Orange */}
         <span className="text-xs px-3 py-1 rounded-full font-bold bg-orange-50 text-orange-700 border border-orange-200 flex items-center gap-1.5">
           <AlertTriangle className="w-3.5 h-3.5 text-orange-500" />
-          {urgency}
+          {t('urgencyHigh', urgency)}
         </span>
       </div>
 
@@ -132,20 +134,25 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
             Category
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            {['Water Resources', 'Sanitation', 'Roads', 'Healthcare'].map((cat) => (
+            {[
+              { id: 'Water Resources', label: t('catWater', 'Water Resources') },
+              { id: 'Sanitation', label: t('catGarbage', 'Sanitation') },
+              { id: 'Roads', label: t('catRoad', 'Roads') },
+              { id: 'Healthcare', label: t('catHealthcare', 'Healthcare') },
+            ].map((catItem) => (
               <motion.button
-                key={cat}
+                key={catItem.id}
                 type="button"
                 whileHover={{ scale: 1.04, boxShadow: '0 4px 12px rgba(13, 148, 136, 0.15)' }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setCategory(cat)}
+                onClick={() => setCategory(catItem.id)}
                 className={`py-2 px-3 rounded-xl text-xs font-bold transition-all border ${
-                  category === cat
+                  category === catItem.id
                     ? 'bg-teal-600 text-white border-teal-600 shadow-xs'
                     : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
                 }`}
               >
-                {cat}
+                {catItem.label}
               </motion.button>
             ))}
           </div>
@@ -173,7 +180,7 @@ export const ReportIssueScreen: React.FC<ReportIssueScreenProps> = ({ setScreen 
           className="w-full py-4 bg-teal-600 hover:bg-teal-700 text-white font-extrabold rounded-2xl shadow-md hover:shadow-lg disabled:opacity-40 disabled:cursor-not-allowed transition-all flex justify-center items-center gap-2 btn-breathing"
         >
           <MapPin className="w-5 h-5" />
-          <span>Confirm Location</span>
+          <span>{t('confirmLocation', 'Confirm Location')}</span>
           <ArrowRight className="w-5 h-5 ml-1" />
         </motion.button>
       </div>

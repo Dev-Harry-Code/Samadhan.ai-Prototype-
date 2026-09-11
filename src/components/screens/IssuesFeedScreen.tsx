@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ScreenId, Issue } from '../../types';
 import { NEARBY_ISSUES, PRIMARY_ISSUE } from '../../data/mockData';
 import { ThumbsUp, MapPin, Share2, MessageSquare, AlertTriangle, Clock } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface IssuesFeedScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -17,6 +18,7 @@ export const IssuesFeedScreen: React.FC<IssuesFeedScreenProps> = ({
   isMobileFrame = false,
   feedIssues
 }) => {
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const allIssues = feedIssues && feedIssues.length > 0 ? feedIssues : [PRIMARY_ISSUE, ...NEARBY_ISSUES];
 
@@ -46,7 +48,12 @@ export const IssuesFeedScreen: React.FC<IssuesFeedScreenProps> = ({
     }));
   };
 
-  const categories = ['All', 'Water Resources', 'Sanitation', 'Infrastructure'];
+  const categories = [
+    { key: 'All', label: t('catAll', 'All') },
+    { key: 'Water Resources', label: t('catWater', 'Water Resources') },
+    { key: 'Sanitation', label: t('catGarbage', 'Sanitation') },
+    { key: 'Infrastructure', label: t('catRoad', 'Infrastructure') },
+  ];
 
   const filteredIssues = selectedCategory === 'All'
     ? allIssues
@@ -59,7 +66,7 @@ export const IssuesFeedScreen: React.FC<IssuesFeedScreenProps> = ({
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
-              Civic Issues Feed
+              {t('navFeed', 'Civic Issues Feed')}
             </h2>
             <span className="text-xs px-2.5 py-0.5 rounded-full font-bold bg-teal-50 text-teal-700 border border-teal-200">
               {filteredIssues.length} Active
@@ -74,17 +81,17 @@ export const IssuesFeedScreen: React.FC<IssuesFeedScreenProps> = ({
         <div className="flex items-center gap-2 overflow-x-auto py-1">
           {categories.map((cat) => (
             <motion.button
-              key={cat}
+              key={cat.key}
               whileHover={{ scale: 1.05, boxShadow: '0 4px 12px rgba(13, 148, 136, 0.15)' }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => setSelectedCategory(cat)}
+              onClick={() => setSelectedCategory(cat.key)}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap border ${
-                selectedCategory === cat
+                selectedCategory === cat.key
                   ? 'bg-teal-600 text-white border-teal-600 shadow-xs'
                   : 'bg-white hover:bg-slate-100 border-slate-200 text-slate-700 shadow-xs'
               }`}
             >
-              {cat}
+              {cat.label}
             </motion.button>
           ))}
         </div>
@@ -117,7 +124,7 @@ export const IssuesFeedScreen: React.FC<IssuesFeedScreenProps> = ({
                 {/* Urgency Pill in Energetic Warm Orange */}
                 <div className="absolute top-3 left-3 bg-orange-500 text-white border border-white/20 px-3 py-1 rounded-full text-xs font-bold shadow-xs flex items-center gap-1.5">
                   <AlertTriangle className="w-3.5 h-3.5 text-white" />
-                  High Urgency
+                  {t('urgencyHigh', 'High Urgency')}
                 </div>
 
                 {/* Status pill on top right */}

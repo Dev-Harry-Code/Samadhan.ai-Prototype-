@@ -3,12 +3,14 @@ import { motion } from 'framer-motion';
 import { ScreenId } from '../../types';
 import { AISphereCanvas } from '../3d/AISphereCanvas';
 import { CheckCircle, Loader2, AlertTriangle, ArrowLeft } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface AIAnalysisScreenProps {
   setScreen: (screen: ScreenId) => void;
 }
 
 export const AIAnalysisScreen: React.FC<AIAnalysisScreenProps> = ({ setScreen }) => {
+  const { t } = useLanguage();
   const [analysisProgress, setAnalysisProgress] = useState(0);
 
   // Dynamic 3-second progress timer that auto-triggers on mount and auto-pushes to Screen 5
@@ -48,17 +50,17 @@ export const AIAnalysisScreen: React.FC<AIAnalysisScreenProps> = ({ setScreen })
           </motion.button>
           <div>
             <h2 className="text-xl sm:text-2xl font-black text-slate-900">
-              AI Autonomous Triage
+              {t('aiTriageRunning', 'AI Autonomous Triage')}
             </h2>
             <p className="text-xs text-slate-500">
-              Computer vision inspecting damage severity & dispatching orders
+              {t('aiAnalyzingDesc', 'Computer vision inspecting damage severity & dispatching orders')}
             </p>
           </div>
         </div>
 
         <span className="text-xs px-3 py-1 rounded-full font-bold bg-orange-50 text-orange-700 border border-orange-200 flex items-center gap-1.5">
           <AlertTriangle className="w-3.5 h-3.5 text-orange-500" />
-          High Urgency
+          {t('urgencyHigh', 'High Urgency')}
         </span>
       </div>
 
@@ -69,13 +71,13 @@ export const AIAnalysisScreen: React.FC<AIAnalysisScreenProps> = ({ setScreen })
 
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-orange-600 bg-orange-50 border border-orange-200 px-3 py-1 rounded-full">
-            AI Triage Running ({analysisProgress}%)
+            {t('aiTriageRunning', 'AI Triage Running')} ({analysisProgress}%)
           </span>
           <h3 className="text-xl font-black text-slate-900 mt-3">
-            Analyzing Structural Defect & Impact
+            {t('aiAnalyzingTitle', 'Analyzing Structural Defect & Impact')}
           </h3>
           <p className="text-xs text-slate-600 max-w-md mx-auto mt-1">
-            Deep neural vision is verifying leak signature, estimating affected population, and matching local engineering faculties.
+            {t('aiAnalyzingDesc', 'Deep neural vision is verifying leak signature, estimating affected population, and matching local engineering faculties.')}
           </p>
         </div>
 
@@ -92,21 +94,21 @@ export const AIAnalysisScreen: React.FC<AIAnalysisScreenProps> = ({ setScreen })
           {[
             {
               id: 'step-image',
-              title: 'Image Processing & Damage Segmentation',
+              title: t('aiStepImage', 'Image Processing & Damage Segmentation'),
               isDone: analysisProgress >= 30,
-              statusText: analysisProgress >= 30 ? 'Verified' : 'Processing...'
+              statusText: analysisProgress >= 30 ? t('statusVerified', 'Verified') : t('statusProcessing', 'Processing...')
             },
             {
               id: 'step-location',
-              title: 'Location Analysis & GPS EXIF Verification',
+              title: t('aiStepLocation', 'Location Analysis & GPS EXIF Verification'),
               isDone: analysisProgress >= 60,
-              statusText: analysisProgress >= 60 ? 'Passed' : 'Triaging...'
+              statusText: analysisProgress >= 60 ? t('statusPassed', 'Passed') : t('statusTriaging', 'Triaging...')
             },
             {
               id: 'step-classification',
-              title: 'Issue Classification & CSR Impact Match',
+              title: t('aiStepClassification', 'Issue Classification & CSR Impact Match'),
               isDone: analysisProgress >= 90,
-              statusText: analysisProgress >= 90 ? 'Matched' : 'Queueing...'
+              statusText: analysisProgress >= 90 ? t('statusMatched', 'Matched') : t('statusQueueing', 'Queueing...')
             }
           ].map((item, index) => (
             <motion.div
