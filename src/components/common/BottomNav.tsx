@@ -51,7 +51,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentScreen, setScreen, 
       <div className="relative flex-shrink-0 w-16 h-16 flex justify-center">
         <button 
           onClick={() => setScreen('report')} 
-          className={`absolute -top-5 w-14 h-14 rounded-full flex items-center justify-center text-white hover:scale-105 transition-transform fab-pulse z-10 ${
+          className={`absolute -top-5 w-14 h-14 rounded-2xl flex items-center justify-center text-white hover:scale-105 transition-transform fab-pulse z-10 ${
             !isDark && !isEmerald
               ? 'bg-orange-500 hover:bg-orange-600 shadow-[0_4px_20px_rgba(249,115,22,0.45)]'
               : 'bg-gradient-to-tr from-neon-purple via-neon-violet to-neon-fuchsia shadow-neon-purple'
