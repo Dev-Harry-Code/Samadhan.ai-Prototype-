@@ -105,12 +105,12 @@ export const PlatformStatsWidget: React.FC<PlatformStatsWidgetProps> = ({
     const gridCols = columns === 2 
       ? 'grid-cols-2 gap-2.5 sm:gap-3'
       : columns === 3
-      ? 'grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3'
+      ? 'grid-cols-3 gap-2 sm:gap-2.5'
       : columns === 4
-      ? 'grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3'
+      ? 'grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5'
       : columns === 6
-      ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3'
-      : 'grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3';
+      ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-2.5'
+      : 'grid-cols-3 gap-2 sm:gap-2.5';
 
     return (
       <div className={`grid ${gridCols} ${className}`}>
@@ -121,23 +121,26 @@ export const PlatformStatsWidget: React.FC<PlatformStatsWidgetProps> = ({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.25, delay: i * 0.04 }}
             whileHover={{ scale: 1.02 }}
-            className={`border p-2.5 sm:p-3 rounded-2xl flex items-center gap-2.5 sm:gap-3 shadow-2xs backdrop-blur-sm transition-all ${stat.bgCard}`}
+            className={`border p-2.5 sm:p-3 rounded-2xl flex flex-col justify-between shadow-2xs backdrop-blur-sm transition-all ${stat.bgCard}`}
           >
-            <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center flex-shrink-0 shadow-2xs ${stat.iconBg}`}>
-              {stat.icon}
+            {/* Top Row: Icon + Growth Chip */}
+            <div className="flex items-center justify-between gap-1 mb-1.5">
+              <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center flex-shrink-0 shadow-2xs ${stat.iconBg}`}>
+                {stat.icon}
+              </div>
+              <span className={`text-[9px] sm:text-[9.5px] font-bold px-1.5 py-0.5 rounded-full border ${stat.badgeBg}`}>
+                {stat.growth}
+              </span>
             </div>
-            <div className="min-w-0 flex-1">
-              <div className="text-[11px] sm:text-xs font-bold text-slate-700 leading-snug line-clamp-1">
-                {stat.title}
-              </div>
-              <div className="flex items-baseline gap-1.5 mt-0.5 flex-wrap">
-                <span className="text-sm sm:text-base font-black text-slate-900 leading-none">
-                  {stat.value}
-                </span>
-                <span className={`text-[9px] sm:text-[10px] font-bold px-1.5 py-0.2 rounded-full border ${stat.badgeBg}`}>
-                  {stat.growth}
-                </span>
-              </div>
+
+            {/* Middle: Metric Numerical Value */}
+            <div className="text-base sm:text-lg font-black text-slate-900 leading-none mb-1">
+              {stat.value}
+            </div>
+
+            {/* Bottom: Heading content displayed fully in ONE line */}
+            <div className="text-[10px] sm:text-[11px] font-bold text-slate-700 whitespace-nowrap tracking-tight overflow-visible">
+              {stat.title}
             </div>
           </motion.div>
         ))}
