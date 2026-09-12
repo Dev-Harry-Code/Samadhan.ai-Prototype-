@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Numeric glyphs (0-9) render in Comic Sans, everything else keeps the base font */
+@font-face {
+  font-family: "Comic Sans Digits";
+  src: local("Comic Sans MS"), local("Comic Sans");
+  font-display: swap;
+  unicode-range: U+30-39;
+}
+
 @layer base {
   body {
     @apply antialiased font-sans transition-colors duration-300;

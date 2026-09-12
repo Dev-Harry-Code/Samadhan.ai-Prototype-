@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+/* Numeric glyphs (0-9) render in Comic Sans, everything else keeps the base font */
+@font-face {
+  font-family: "Comic Sans Digits";
+  src: local("Comic Sans MS"), local("Comic Sans");
+  font-display: swap;
+  unicode-range: U+30-39;
+}
+
+@theme inline {
+  --color-background: #f8fafc;
+  --color-foreground: #0f172a;
+  --font-comic-digits: "Comic Sans Digits";
+
+  --color-primary-50: #f0fdfa;
+  --color-primary-100: #ccfbf1;
+  --color-primary-200: #99f6e4;
+  --color-primary-300: #5eead4;
+  --color-primary-400: #2dd4bf;
+  --color-primary-500: #14b8a6;
+  --color-primary-600: #0d9488;
+  --color-primary-700: #0f766e;
+  --color-primary-800: #115e59;
+  --color-primary-900: #134e4a;
+
+  --color-accent-400: #fb923c;
+  --color-accent-500: #f97316;
+  --color-accent-600: #ea580c;
+
+  --font-sans: var(--font-comic-digits), var(--font-ysabeau);
+  --font-mono: var(--font-comic-digits), var(--font-geist-mono);
+  --font-heading: var(--font-comic-digits), var(--font-ysabeau-infant);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 9999px;
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+/* Leaflet marker smoothing */
+.leaflet-container {
+  font-family: var(--font-sans);
+  border-radius: 1rem;
+}
+.samadhan-marker {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9999px 9999px 9999px 0;
+  transform: rotate(-45deg);
+  background: #0d9488;
+  border: 3px solid #fff;
+  box-shadow: 0 6px 16px -4px rgba(13, 148, 136, 0.55);
+}
+.samadhan-marker > span {
+  transform: rotate(45deg);
+  width: 14px;
+  height: 14px;
+}
+.samadhan-marker.hot {
+  background: #ea580c;
+}
+.samadhan-marker.selected {
+  background: #0f172a;
+}
+
+/* Pulsing FAB and Breathing Buttons (ported from Akshat's prototype) */
+@keyframes btnBreathing {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 10px -1px rgba(13, 148, 136, 0.25);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px -2px rgba(13, 148, 136, 0.4);
+  }
+}
+
+.btn-breathing {
+  animation: btnBreathing 2.4s ease-in-out infinite;
+}
+
+@keyframes fabBreathing {
+  0%, 100% {
+    transform: scale(1) translateY(0);
+    box-shadow: 0 4px 14px rgba(249, 115, 22, 0.35);
+  }
+  50% {
+    transform: scale(1.06) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(249, 115, 22, 0.55);
+  }
+}
+
+.fab-pulse,
+.fab-breathing {
+  animation: fabBreathing 2.2s infinite ease-in-out;
+}
+
+/* Continuous rotation helper for the AI sphere canvas replacement */
+@keyframes orbitA {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbitB {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
