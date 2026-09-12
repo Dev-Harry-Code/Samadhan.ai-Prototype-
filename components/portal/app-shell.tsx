@@ -127,7 +127,7 @@ export function PortalAppShell({
             </div>
             <button
               onClick={logOut}
-              className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-rose-500 transition hover:bg-rose-50"
+              className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-rose-600 transition hover:bg-rose-50 hover:text-rose-700"
             >
               <LogOut size={19} />
               Log Out

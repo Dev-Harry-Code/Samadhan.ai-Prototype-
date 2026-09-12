@@ -40,21 +40,21 @@ export function UniversityAssignPage() {
         }
       />
 
-      <div className="glass rounded-2xl bg-gradient-to-br from-slate-900 via-emerald-950 to-teal-900 p-5 text-white shadow-lg shadow-slate-900/10 ring-1 ring-white/10">
-        <p className="text-sm font-bold">Recommended action</p>
-        <p className="mt-2 max-w-2xl text-xs leading-relaxed text-emerald-50/90">
-          Based on the live issue mix (<strong className="text-white">Roads &amp; Infrastructure 40%</strong>, Water
-          25%), <strong className="text-amber-300">IIT Jodhpur ({UNIVERSITIES[0].matchScore})</strong> is the strongest
-          fit. Assigning them to the <em>Main Market road damage</em> report is likely to cut resolution time by 3 days.
+      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
+        <p className="text-sm font-bold text-slate-900">Recommended action</p>
+        <p className="mt-2 max-w-2xl text-xs leading-relaxed text-slate-600">
+          Based on the live issue mix (<strong className="text-slate-900">Roads &amp; Infrastructure 40%</strong>, Water
+          25%), <strong className="font-bold text-emerald-700">IIT Jodhpur ({UNIVERSITIES[0].matchScore})</strong> is the strongest
+          fit. Assigning them to the <em className="text-slate-800">Main Market road damage</em> report is likely to cut resolution time by 3 days.
         </p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          <Button size="sm" className="bg-amber-400 text-slate-900 hover:bg-amber-300" onClick={() => assign(UNIVERSITIES[0])}>
+        <div className="mt-3.5 flex flex-wrap gap-2">
+          <Button size="sm" className="bg-primary-600 text-white hover:bg-primary-700" onClick={() => assign(UNIVERSITIES[0])}>
             <Check size={14} /> Auto-assign top match
           </Button>
           <Button
             size="sm"
             variant="secondary"
-            className="bg-white/10 text-white ring-1 ring-white/20 hover:bg-white/20"
+            className="border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
             onClick={() => setMatches([{ ...UNIVERSITIES[0], assignedOn: "" }])}
           >
             View comparison →

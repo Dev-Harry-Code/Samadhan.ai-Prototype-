@@ -505,57 +505,66 @@ export function UniversityOverviewPage() {
 
             {/* RECOMMENDED OPPORTUNITIES + ACTIVE PROJECTS */}
             <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-              <div className="glass rounded-3xl bg-gradient-to-br from-slate-900 via-emerald-950 to-teal-900 p-5 text-white shadow-lg shadow-slate-900/10 ring-1 ring-white/10">
-                <div className="flex items-center justify-between">
-                  <h3 className="flex items-center gap-1.5 text-sm font-bold">
-                    <GraduationCap size={16} className="text-emerald-300" /> Recommended Opportunities
+              <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-xs sm:p-5">
+                <div className="mb-4 flex items-center justify-between">
+                  <h3 className="flex items-center gap-2 text-sm font-bold text-slate-900">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200/60">
+                      <GraduationCap size={16} />
+                    </span>
+                    Recommended Opportunities
                   </h3>
                   <Link
                     href="/university/assign"
-                    className="rounded-lg bg-white/10 p-1.5 text-white/70 transition hover:bg-white/20"
+                    className="flex items-center gap-1 text-xs font-bold text-primary-600 hover:underline"
                   >
-                    <ArrowRight size={15} />
+                    Explore all <ArrowRight size={13} />
                   </Link>
                 </div>
 
-                <div className="mt-4 flex items-center gap-3 rounded-2xl bg-white/10 p-3">
+                {/* Top recommended university featured highlight */}
+                <div className="flex items-center gap-3.5 rounded-2xl border border-emerald-100 bg-emerald-50/50 p-3.5 transition hover:border-emerald-200">
                   <Image
                     src={recommended.logo}
                     alt={recommended.name}
                     width={48}
                     height={48}
-                    className="h-12 w-12 rounded-xl bg-white object-contain p-1"
+                    className="h-12 w-12 rounded-xl border border-slate-200/70 bg-white object-contain p-1 shadow-xs"
                     loading="lazy"
                   />
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-bold">{recommended.name}</p>
-                    <p className="text-[11px] font-medium text-emerald-100/70">
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="text-sm font-bold text-slate-900">{recommended.name}</p>
+                      <span className="inline-flex items-center rounded-full border border-emerald-300 bg-emerald-100/80 px-2 py-0.5 text-[11px] font-bold text-emerald-800">
+                        {recommended.matchScore}
+                      </span>
+                    </div>
+                    <p className="mt-0.5 text-xs font-medium text-slate-600">
                       {recommended.expertise} · {recommended.location}
                     </p>
-                    <span className="mt-1 inline-block rounded-full bg-amber-300/20 px-2 py-0.5 text-[10px] font-bold text-amber-300 ring-1 ring-amber-300/30">
-                      {recommended.matchScore}
-                    </span>
                   </div>
                 </div>
 
-                <div className="mt-4 space-y-2">
+                {/* Other top matched universities */}
+                <div className="mt-3.5 space-y-2">
                   {UNIVERSITIES.slice(1, 4).map((u) => (
                     <div
                       key={u.id}
-                      className="flex items-center justify-between gap-3 rounded-xl bg-white/5 px-3 py-2"
+                      className="flex items-center justify-between gap-3 rounded-xl border border-slate-100 bg-slate-50/80 px-3.5 py-2.5 transition hover:bg-slate-100/70"
                     >
-                      <p className="truncate text-xs font-semibold text-emerald-50">{u.name}</p>
-                      <span className="shrink-0 font-mono text-[10px] font-bold text-amber-300">
+                      <p className="truncate text-xs font-semibold text-slate-800">{u.name}</p>
+                      <span className="shrink-0 rounded-md bg-white px-2 py-0.5 font-mono text-[11px] font-bold text-primary-700 shadow-xs ring-1 ring-slate-200">
                         {u.matchScore}
                       </span>
                     </div>
                   ))}
                 </div>
 
-                <p className="mt-4 text-xs leading-relaxed text-emerald-100/80">
-                  {recommended.name} is the best match for current open issues given expertise in{" "}
-                  <span className="font-bold text-white">{recommended.expertise}</span>.
-                </p>
+                <div className="mt-4 rounded-xl border border-slate-100 bg-slate-50/60 p-3">
+                  <p className="text-xs leading-relaxed text-slate-600">
+                    <strong className="font-bold text-slate-900">{recommended.name}</strong> is the best match for current open issues given expertise in{" "}
+                    <span className="font-semibold text-emerald-700">{recommended.expertise}</span>.
+                  </p>
+                </div>
               </div>
 
               <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-xs sm:p-5">

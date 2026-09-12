@@ -206,17 +206,20 @@ export function UniversityReportDetailPage({ id }: { id: string }) {
         </div>
 
         <div className="space-y-4">
-          <div className="glass rounded-3xl bg-gradient-to-br from-slate-900 via-emerald-950 to-teal-900 p-5 text-white shadow-lg shadow-slate-900/10 ring-1 ring-white/10">
-            <p className="flex items-center gap-1.5 text-sm font-bold">
-              <Bot size={16} className="text-emerald-300" /> AI Recommendations
+          <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-xs">
+            <p className="flex items-center gap-2 text-sm font-bold text-slate-900">
+              <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200/60">
+                <Bot size={16} />
+              </span>
+              AI Recommendations
             </p>
-            <div className="mt-3 space-y-2.5">
+            <div className="mt-3.5 space-y-2.5">
               {UNIVERSITY_AI_RECOMMENDATIONS.map((r) => (
-                <div key={r.num} className="flex gap-2.5">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 text-[11px] font-bold text-amber-300 ring-1 ring-white/10">
+                <div key={r.num} className="flex gap-2.5 rounded-xl border border-slate-100 bg-slate-50/70 p-3">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-[11px] font-bold text-emerald-800">
                     {r.num}
                   </span>
-                  <p className="text-xs leading-relaxed text-emerald-50/90">{r.text}</p>
+                  <p className="text-xs leading-relaxed text-slate-700">{r.text}</p>
                 </div>
               ))}
             </div>
