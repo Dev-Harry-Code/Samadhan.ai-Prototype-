@@ -37,6 +37,8 @@ import {
   UNIVERSITY_USER,
 } from "@/lib/data/university-mock";
 
+import { JodhpurCityMap } from "@/components/university/jodhpur-city-map";
+
 const CityscapeCanvas = dynamic(
   () => import("@/components/three/cityscape-canvas").then((m) => m.CityscapeCanvas),
   { ssr: false },
@@ -124,6 +126,7 @@ const GAUGE = [
 export function UniversityOverviewPage() {
   const [activeRange, setActiveRange] = useState<"month" | "quarter" | "year">("month");
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(5);
+  const [mapViewMode, setMapViewMode] = useState<"gis" | "3d">("gis");
 
   const recommended = UNIVERSITIES.find((u) => u.isRecommended) ?? UNIVERSITIES[0];
   const activeReports = UNIVERSITY_REPORTS.filter((r) => r.status !== "Resolved");
@@ -616,25 +619,65 @@ export function UniversityOverviewPage() {
               </div>
             </div>
 
-            {/* 3D CITY SNAPSHOT */}
-            <div className="glass rounded-2xl p-3 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
-              <div className="flex flex-wrap items-center justify-between gap-2 px-1 pb-3 pt-1">
-                <p className="flex items-center gap-1.5 text-sm font-bold text-slate-900">
-                  <MapPin size={15} className="text-primary-600" /> Jodhpur live snapshot
-                </p>
+            {/* JODHPUR LIVE MAP & SNAPSHOT */}
+            <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-xs">
+              <div className="flex flex-wrap items-center justify-between gap-3 pb-4">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="flex items-center gap-2 text-base font-bold text-slate-900">
+                      <MapPin size={18} className="text-primary-600" /> Jodhpur Live Map & Civic Hotspots
+                    </h3>
+                    <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-bold text-emerald-700 ring-1 ring-emerald-200">
+                      {mapViewMode === "gis" ? "Current Live Map" : "3D Digital Twin"}
+                    </span>
+                  </div>
+                  <p className="mt-0.5 text-xs font-medium text-slate-600">
+                    Real-time geographic coverage of active civic issues and university research zones across Jodhpur
+                  </p>
+                </div>
                 <div className="flex items-center gap-2">
-                  <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-bold text-emerald-600 ring-1 ring-emerald-200">
-                    Interactive 3D
-                  </span>
+                  <div className="flex items-center rounded-xl bg-slate-100 p-1">
+                    <button
+                      type="button"
+                      onClick={() => setMapViewMode("gis")}
+                      className={cn(
+                        "rounded-lg px-3 py-1 text-xs font-bold transition",
+                        mapViewMode === "gis"
+                          ? "bg-white text-slate-900 shadow-xs"
+                          : "text-slate-600 hover:text-slate-900",
+                      )}
+                    >
+                      Jodhpur Map
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setMapViewMode("3d")}
+                      className={cn(
+                        "rounded-lg px-3 py-1 text-xs font-bold transition",
+                        mapViewMode === "3d"
+                          ? "bg-white text-slate-900 shadow-xs"
+                          : "text-slate-600 hover:text-slate-900",
+                      )}
+                    >
+                      3D Model
+                    </button>
+                  </div>
                   <Link
                     href="/university/reports"
-                    className="text-xs font-bold text-primary-600 hover:underline"
+                    className="inline-flex items-center gap-1 rounded-xl border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-bold text-slate-800 transition hover:bg-slate-100"
                   >
-                    Open issue map →
+                    Open Issue Map →
                   </Link>
                 </div>
               </div>
-              <CityscapeCanvas />
+
+              {mapViewMode === "gis" ? (
+                <JodhpurCityMap />
+              ) : (
+                <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+                  <CityscapeCanvas />
+                </div>
+              )}
             </div>
 
             {/* IMPACT STRIP */}
