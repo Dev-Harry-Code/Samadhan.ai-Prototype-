@@ -145,6 +145,7 @@ export function UniversityOverviewPage() {
           user={{ name: UNIVERSITY_USER.name, avatar: UNIVERSITY_USER.avatar }}
           links={[
             { href: "/university", label: "Overview" },
+            { href: "/university/analytics", label: "AI Analytics" },
             { href: "/university/reports", label: "Recommended Issues" },
             { href: "/university/team", label: "Teams" },
             { href: "/university/community", label: "Community" },
@@ -156,34 +157,85 @@ export function UniversityOverviewPage() {
           <div className="pointer-events-none absolute right-[-10%] top-96 h-[350px] w-[150vw] sm:w-[350px] rounded-full bg-orange-500/10 blur-[110px]"></div>
 
           <main className="relative z-10 mx-auto max-w-7xl space-y-6 px-3 pb-16 pt-6 sm:px-6">
-            {/* HERO & WELCOME */}
+            {/* HERO */}
             <div className="mx-auto max-w-3xl pb-2 pt-4 text-center">
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-teal-200 bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-800 shadow-xs">
                 <span className="h-2 w-2 animate-pulse rounded-full bg-orange-500"></span>
-                <span className="font-medium">AI-Powered Civic Workspace</span>
+                <span className="font-medium">AI-Powered University Collaboration</span>
               </div>
 
               <h1 className="text-2xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-                Welcome back, {UNIVERSITY_USER.name.split(" ")[0] ?? "Prof."}! 👋
+                Empowering Universities to Solve{" "}
+                <span className="text-teal-600">Real-World Civic Challenges</span>
               </h1>
 
               <p className="mx-auto mt-3 max-w-xl text-xs leading-relaxed text-slate-700 sm:text-sm">
-                Your student teams have improved <strong>14,850 lives</strong>. The AI has curated a new set of civic challenges that perfectly match your ongoing curriculum.
+                Connect university expertise, student teams and civic issues to create measurable
+                impact in your community.
               </p>
 
               <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-                <Link
-                  href="/university/analytics"
+                <a
+                  href="#dashboard"
                   className="btn-breathing flex items-center gap-2 rounded-2xl bg-teal-600 px-6 py-3 text-sm font-bold text-white shadow-md transition-all duration-200 hover:bg-teal-700 hover:shadow-lg"
                 >
-                  View AI Analytics <ArrowRight className="h-4 w-4" />
+                  <span>Go to Dashboard</span>
+                  <ArrowRight className="h-4 w-4 stroke-[2.5]" />
+                </a>
+                <Link
+                  href="/university/analytics"
+                  className="flex items-center gap-2 rounded-2xl border border-teal-200 bg-teal-50/80 px-5 py-3 text-sm font-bold text-teal-800 shadow-xs transition-all duration-200 hover:bg-teal-100 hover:shadow-md"
+                >
+                  <span>AI Analytics</span>
+                  <span className="rounded-full bg-teal-600 px-1.5 py-0.5 text-[10px] font-extrabold text-white">NEW</span>
                 </Link>
                 <Link
-                  href="/university/assign"
-                  className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-6 py-3 text-sm font-bold text-slate-700 shadow-xs transition-all duration-200 hover:bg-slate-50 hover:shadow-md"
+                  href="/university/reports"
+                  className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-xs transition-all duration-200 hover:bg-slate-50"
                 >
-                  Explore Opportunities <ArrowRight className="h-4 w-4" />
+                  <span>Explore Opportunities</span>
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
+              </div>
+            </div>
+
+            {/* WELCOME MESSAGE CARD AT DASHBOARD */}
+            <div id="dashboard" className="scroll-mt-6 rounded-3xl border border-teal-200/90 bg-gradient-to-br from-teal-50/90 via-white to-emerald-50/70 p-5 shadow-sm sm:p-6">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-start gap-3.5">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-600 to-emerald-700 text-white shadow-md shadow-teal-600/20">
+                    <GraduationCap size={24} />
+                  </div>
+                  <div>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h2 className="text-lg font-extrabold tracking-tight text-slate-900 sm:text-xl">
+                        Welcome, {UNIVERSITY_USER.name}!
+                      </h2>
+                      <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-bold text-emerald-800 ring-1 ring-emerald-300">
+                        IIT Jodhpur Portal
+                      </span>
+                    </div>
+                    <p className="mt-1 text-xs leading-relaxed text-slate-700 sm:text-sm">
+                      {UNIVERSITY_USER.greeting}. You have <strong className="text-slate-900">3 active student teams</strong> deployed across Jodhpur. AI has analyzed 24 civic reports and flagged <strong className="text-teal-700 font-bold">3 critical cases</strong> matching ongoing student lab assessments.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex shrink-0 flex-wrap items-center gap-2 sm:self-center">
+                  <Link
+                    href="/university/analytics"
+                    className="flex items-center gap-1.5 rounded-xl bg-teal-600 px-3.5 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-teal-700"
+                  >
+                    View AI Analytics
+                    <ArrowRight size={13} />
+                  </Link>
+                  <Link
+                    href="/university/assign"
+                    className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-bold text-slate-700 shadow-2xs transition hover:bg-slate-50"
+                  >
+                    Assign Teams
+                  </Link>
+                </div>
               </div>
             </div>
 
@@ -192,6 +244,7 @@ export function UniversityOverviewPage() {
               activeHref="/university"
               items={[
                 { href: "/university", label: "Overview" },
+                { href: "/university/analytics", label: "AI Analytics" },
                 { href: "/university/reports", label: "Recommended Issues" },
                 { href: "/university/assign", label: "Assignments" },
                 { href: "/university/team", label: "Teams" },
