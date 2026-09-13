@@ -241,6 +241,17 @@ function RoleLoginForm({ role }: { role: RoleConfig }) {
           </div>
         </div>
       </div>
+
+      <div className="flex items-center justify-between border-t border-slate-100 pt-3">
+        <span className="text-xs text-slate-700">Need to setup identity?</span>
+        <Link
+          href={`/onboarding?role=${role.id}`}
+          className="flex items-center gap-1 text-xs font-bold text-teal-700 hover:text-teal-800 hover:underline"
+        >
+          <span>Complete {role.label} Profile</span>
+          <ArrowRight size={13} />
+        </Link>
+      </div>
     </div>
   );
 }
@@ -335,7 +346,7 @@ function CitizenGatewayForm() {
             </button>
           </form>
 
-          <div className="mt-4 border-t border-slate-100 pt-4 text-center">
+          <div className="mt-4 border-t border-slate-100 pt-4 space-y-2 text-center">
             <button
               type="button"
               onClick={loginCitizen}
@@ -344,6 +355,15 @@ function CitizenGatewayForm() {
               <span>Skip login and explore as Guest</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </button>
+            <div>
+              <Link
+                href="/onboarding?role=citizen"
+                className="inline-flex items-center gap-1 text-xs font-bold text-teal-700 hover:text-teal-800 hover:underline"
+              >
+                <span>New here? Complete Citizen Profile</span>
+                <ArrowRight size={13} />
+              </Link>
+            </div>
           </div>
         </div>
       )}
