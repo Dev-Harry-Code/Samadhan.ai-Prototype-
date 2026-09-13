@@ -245,41 +245,21 @@ function RoleLoginForm({ role }: { role: RoleConfig }) {
   );
 }
 
-const CITIZEN_ROLES = [
-  { id: "citizen", label: "Citizen / Volunteer", desc: "Report local problems, vote & volunteer", icon: User, accent: "teal" },
-  { id: "university", label: "University Portal", desc: "Assign student teams, faculty research & track academic impact", icon: GraduationCap, accent: "emerald" },
-  { id: "ngo", label: "NGO Partner Portal", desc: "Deploy ground volunteers, field ops & funding allocation", icon: Shield, accent: "amber" },
-  { id: "company", label: "Company / CSR Sponsor", desc: "Fund civic projects & track ESG impact", icon: Building2, accent: "orange" },
-] as const;
-
-type CitizenRoleId = (typeof CITIZEN_ROLES)[number]["id"];
-
 function CitizenGatewayForm() {
   const router = useRouter();
-  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [step, setStep] = useState<1 | 2>(1);
   const [loginMethod, setLoginMethod] = useState<"mobile" | "email">("mobile");
   const [inputValue, setInputValue] = useState("+91 98765 43210");
   const [otp, setOtp] = useState("4281");
-  const [selectedRole, setSelectedRole] = useState<CitizenRoleId>("citizen");
+  const [verifying, setVerifying] = useState(false);
 
   const loginCitizen = () => {
     try {
-      if (selectedRole === "university") window.sessionStorage.setItem("samadhan.university", "true");
-      else if (selectedRole === "ngo") window.sessionStorage.setItem("samadhan.ngo", "true");
-      else if (selectedRole === "company") window.sessionStorage.setItem("samadhan.company", "true");
-      else window.sessionStorage.setItem("samadhan.citizen", "true");
+      window.sessionStorage.setItem("samadhan.citizen", "true");
     } catch {
       /* storage unavailable */
     }
-    const destination =
-      selectedRole === "company"
-        ? "/funder"
-        : selectedRole === "university"
-        ? "/university"
-        : selectedRole === "ngo"
-        ? "/ngo"
-        : "/";
-    router.push(destination);
+    router.push("/");
   };
 
   const handleSendCode = (e: React.FormEvent) => {
@@ -289,7 +269,17 @@ function CitizenGatewayForm() {
 
   const handleVerify = (e: React.FormEvent) => {
     e.preventDefault();
-    if (otp.length >= 4) setStep(3);
+    if (otp.length >= 4) {
+      setVerifying(true);
+      try {
+        window.sessionStorage.setItem("samadhan.citizen", "true");
+      } catch {
+        /* storage unavailable */
+      }
+      setTimeout(() => {
+        router.push("/onboarding?role=citizen");
+      }, 500);
+    }
   };
 
   return (
@@ -322,7 +312,7 @@ function CitizenGatewayForm() {
           </div>
 
           <form onSubmit={handleSendCode}>
-            <div className="mb-5">
+            <div className="mb-5 mt-4">
               <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-wider text-slate-700">
                 {loginMethod === "mobile" ? "Mobile Number (with OTP)" : "Email ID (with Code)"}
               </label>
@@ -382,10 +372,17 @@ function CitizenGatewayForm() {
 
             <button
               type="submit"
+              disabled={verifying}
               className="btn-breathing flex w-full items-center justify-center gap-2 rounded-xl bg-teal-600 px-4 py-3.5 text-sm font-bold text-white shadow-md transition hover:scale-[1.02] hover:bg-teal-700 active:scale-[0.98]"
             >
-              <span>Verify &amp; Continue</span>
-              <ArrowRight className="h-4 w-4" />
+              {verifying ? (
+                <span>Entering Citizen Portal…</span>
+              ) : (
+                <>
+                  <span>Verify &amp; Enter Citizen Portal</span>
+                  <ArrowRight className="h-4 w-4" />
+                </>
+              )}
             </button>
             <button
               type="button"
@@ -396,60 +393,6 @@ function CitizenGatewayForm() {
               <span>Back to phone/email</span>
             </button>
           </form>
-        </div>
-      )}
-
-      {step === 3 && (
-        <div>
-          <h2 className="mb-1 text-center text-lg font-bold text-slate-900">Select Profile Role</h2>
-          <p className="mb-4 text-center text-xs text-slate-700">Choose how you want to participate</p>
-
-          <div className="mb-5 space-y-2.5">
-            {CITIZEN_ROLES.map((r) => {
-              const isActive = selectedRole === r.id;
-              return (
-                <button
-                  key={r.id}
-                  type="button"
-                  onClick={() => setSelectedRole(r.id)}
-                  className={cn(
-                    "flex w-full cursor-pointer items-center gap-3.5 rounded-2xl border p-3.5 text-left transition-all hover:scale-[1.01]",
-                    isActive
-                      ? r.accent === "orange"
-                        ? "border-orange-500 bg-orange-50/70 shadow-sm"
-                        : "border-teal-600 bg-teal-50/70 shadow-sm"
-                      : "border-slate-200 bg-slate-50 hover:bg-slate-100",
-                  )}
-                >
-                  <div
-                    className={cn(
-                      "flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl",
-                      isActive
-                        ? r.accent === "orange"
-                          ? "bg-orange-500 text-white"
-                          : "bg-teal-600 text-white"
-                        : "bg-slate-200 text-slate-700",
-                    )}
-                  >
-                    <r.icon className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <h3 className="text-xs font-bold text-slate-900">{r.label}</h3>
-                    <p className="text-[11px] text-slate-700">{r.desc}</p>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          <button
-            type="button"
-            onClick={() => router.push(`/onboarding?role=${selectedRole}`)}
-            className="btn-breathing flex w-full items-center justify-center gap-2 rounded-xl bg-teal-600 px-4 py-3.5 text-sm font-bold text-white shadow-md transition hover:scale-[1.02] hover:bg-teal-700 active:scale-[0.98]"
-          >
-            <span>Continue</span>
-            <ArrowRight className="h-4 w-4" />
-          </button>
         </div>
       )}
     </div>
