@@ -15,6 +15,7 @@ import { UNIVERSITY_USER } from "@/lib/data/university-mock";
 
 const NAV_ITEMS = [
   { href: "/university", label: "Overview", icon: LayoutDashboard },
+  { href: "/university/analytics", label: "AI Analytics", icon: Bot },
   { href: "/university/assign", label: "Assign Teams", icon: GraduationCap },
   { href: "/university/team", label: "My Teams", icon: Users },
   { href: "/university/reports", label: "Civic Projects", icon: ClipboardList },
@@ -23,10 +24,10 @@ const NAV_ITEMS = [
 
 const MOBILE_NAV = [
   { href: "/university", label: "Home", icon: LayoutDashboard },
+  { href: "/university/analytics", label: "AI", icon: Bot },
   { href: "/university/assign", label: "Assign", icon: GraduationCap },
   { href: "/university/reports", label: "Projects", icon: ClipboardList },
   { href: "/university/team", label: "Teams", icon: Users },
-  { href: "/university/community", label: "More", icon: Share2 },
 ];
 
 export function UniversityShell({ children }: { children: React.ReactNode }) {

@@ -156,37 +156,33 @@ export function UniversityOverviewPage() {
           <div className="pointer-events-none absolute right-[-10%] top-96 h-[350px] w-[150vw] sm:w-[350px] rounded-full bg-orange-500/10 blur-[110px]"></div>
 
           <main className="relative z-10 mx-auto max-w-7xl space-y-6 px-3 pb-16 pt-6 sm:px-6">
-            {/* HERO */}
+            {/* HERO & WELCOME */}
             <div className="mx-auto max-w-3xl pb-2 pt-4 text-center">
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-teal-200 bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-800 shadow-xs">
                 <span className="h-2 w-2 animate-pulse rounded-full bg-orange-500"></span>
-                <span className="font-medium">AI-Powered University Collaboration</span>
+                <span className="font-medium">AI-Powered Civic Workspace</span>
               </div>
 
               <h1 className="text-2xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-                Empowering Universities to Solve{" "}
-                <span className="text-teal-600">Real-World Civic Challenges</span>
+                Welcome back, {UNIVERSITY_USER.name.split(" ")[0] ?? "Prof."}! 👋
               </h1>
 
               <p className="mx-auto mt-3 max-w-xl text-xs leading-relaxed text-slate-700 sm:text-sm">
-                Connect university expertise, student teams and civic issues to create measurable
-                impact in your community.
+                Your student teams have improved <strong>14,850 lives</strong>. The AI has curated a new set of civic challenges that perfectly match your ongoing curriculum.
               </p>
 
               <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
                 <Link
-                  href="/university/assign"
+                  href="/university/analytics"
                   className="btn-breathing flex items-center gap-2 rounded-2xl bg-teal-600 px-6 py-3 text-sm font-bold text-white shadow-md transition-all duration-200 hover:bg-teal-700 hover:shadow-lg"
                 >
-                  <span>Assign University</span>
-                  <GraduationCap className="h-4 w-4 stroke-[2.5]" />
+                  View AI Analytics <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
-                  href="/university/reports"
-                  className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:bg-slate-50"
+                  href="/university/assign"
+                  className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-6 py-3 text-sm font-bold text-slate-700 shadow-xs transition-all duration-200 hover:bg-slate-50 hover:shadow-md"
                 >
-                  <span>Explore Opportunities</span>
-                  <ArrowRight className="h-4 w-4" />
+                  Explore Opportunities <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>

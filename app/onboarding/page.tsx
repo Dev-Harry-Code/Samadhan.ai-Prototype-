@@ -51,8 +51,10 @@ function OnboardingForm() {
     try {
       if (role === "company") {
         window.sessionStorage.setItem("samadhan.company", "true");
-      } else if (role === "ngo") {
+      } else if (role === "university") {
         window.sessionStorage.setItem("samadhan.university", "true");
+      } else if (role === "ngo") {
+        window.sessionStorage.setItem("samadhan.ngo", "true");
       } else {
         window.sessionStorage.setItem("samadhan.citizen", "true");
       }
@@ -61,7 +63,7 @@ function OnboardingForm() {
     }
     
     setTimeout(() => {
-      const destination = role === "company" ? "/funder" : role === "ngo" ? "/university" : "/";
+      const destination = role === "company" ? "/funder" : role === "university" ? "/university" : role === "ngo" ? "/ngo" : "/";
       router.push(destination);
     }, 600);
   };
@@ -155,7 +157,7 @@ function OnboardingForm() {
               </div>
             )}
 
-            {role === "ngo" && (
+            {(role === "ngo" || role === "university") && (
               <div className="space-y-4">
                 <h3 className="text-sm font-bold uppercase tracking-wider text-teal-800">NGO / University Profile</h3>
                 <div>

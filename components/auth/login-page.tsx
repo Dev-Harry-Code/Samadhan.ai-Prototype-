@@ -27,7 +27,7 @@ import { PlatformStatsWidget } from "@/components/akshat/widgets/platform-stats-
 import { AkshatProvider } from "@/components/akshat/akshat-context";
 import { cn } from "@/lib/utils";
 
-type LoginRole = "citizen" | "university" | "company";
+type LoginRole = "citizen" | "ngo" | "university" | "company";
 
 interface RoleConfig {
   id: LoginRole;
@@ -51,7 +51,7 @@ const ROLES: RoleConfig[] = [
     icon: User,
     title: "Citizen Portal",
     subtitle: "Report civic issues, vote & volunteer",
-    person: "Aarav Mehta Â· Community Solver",
+    person: "Aarav Mehta · Community Solver",
     email: "aarav@samadhan.ai",
     password: "citizen123",
     storageKey: "samadhan.citizen",
@@ -60,13 +60,27 @@ const ROLES: RoleConfig[] = [
     activeTab: "bg-teal-50 text-teal-700 ring-teal-300",
   },
   {
+    id: "ngo",
+    label: "NGO",
+    icon: Shield,
+    title: "NGO Portal",
+    subtitle: "Deploy volunteers, track field operations",
+    person: "Aditi Sharma · NGO Partner",
+    email: "aditi@samadhan.ai",
+    password: "ngo123",
+    storageKey: "samadhan.ngo",
+    destination: "/ngo",
+    accent: "from-amber-500 to-orange-600",
+    activeTab: "bg-amber-50 text-amber-700 ring-amber-300",
+  },
+  {
     id: "university",
     label: "University",
     icon: GraduationCap,
     title: "University Portal",
-    subtitle: "Assign universities, manage teams & track impact",
-    person: "Aarav Mehta Â· University Coordinator",
-    email: "aarav@samadhan.ai",
+    subtitle: "Assign teams, track impact & case studies",
+    person: "Prof. Aarav Mehta · Coordinator",
+    email: "prof@samadhan.ai",
     password: "uni@2026",
     storageKey: "samadhan.university",
     destination: "/university",
@@ -79,7 +93,7 @@ const ROLES: RoleConfig[] = [
     icon: Building2,
     title: "Company & CSR Portal",
     subtitle: "Fund fixes, manage assignments & AI insights",
-    person: "Aarav Mehta Â· Operations Manager",
+    person: "Aarav Mehta · Operations Manager",
     email: "aarav@samadhan.ai",
     password: "demo1234",
     storageKey: "samadhan.company",
