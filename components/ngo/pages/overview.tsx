@@ -75,7 +75,7 @@ export function NgoOverviewPage() {
             <h2 className="text-sm font-bold text-slate-900">AI Funding Predictor</h2>
           </div>
           <p className="text-sm text-slate-700 mb-4">
-            The upcoming "Lake Cleanup" civic issue is predicted to require <strong className="font-bold text-rose-700">25,000</strong> in logistics and material costs based on historical data.
+            The upcoming &quot;Lake Cleanup&quot; civic issue is predicted to require <strong className="font-bold text-rose-700">₹25,000</strong> in logistics and material costs based on historical data.
           </p>
           <div className="h-2 w-full rounded-full bg-rose-100">
             <div className="h-2 w-[40%] rounded-full bg-rose-500"></div>

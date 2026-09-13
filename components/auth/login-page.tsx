@@ -247,7 +247,8 @@ function RoleLoginForm({ role }: { role: RoleConfig }) {
 
 const CITIZEN_ROLES = [
   { id: "citizen", label: "Citizen / Volunteer", desc: "Report local problems, vote & volunteer", icon: User, accent: "teal" },
-  { id: "ngo", label: "NGO / University", desc: "Mobilize ground execution & university teams", icon: Shield, accent: "teal" },
+  { id: "university", label: "University Portal", desc: "Assign student teams, faculty research & track academic impact", icon: GraduationCap, accent: "emerald" },
+  { id: "ngo", label: "NGO Partner Portal", desc: "Deploy ground volunteers, field ops & funding allocation", icon: Shield, accent: "amber" },
   { id: "company", label: "Company / CSR Sponsor", desc: "Fund civic projects & track ESG impact", icon: Building2, accent: "orange" },
 ] as const;
 
@@ -263,16 +264,21 @@ function CitizenGatewayForm() {
 
   const loginCitizen = () => {
     try {
-      window.sessionStorage.setItem(
-        selectedRole === "ngo" ? "samadhan.university" : "samadhan.citizen",
-        "true",
-      );
-      if (selectedRole === "company") window.sessionStorage.setItem("samadhan.company", "true");
+      if (selectedRole === "university") window.sessionStorage.setItem("samadhan.university", "true");
+      else if (selectedRole === "ngo") window.sessionStorage.setItem("samadhan.ngo", "true");
+      else if (selectedRole === "company") window.sessionStorage.setItem("samadhan.company", "true");
+      else window.sessionStorage.setItem("samadhan.citizen", "true");
     } catch {
       /* storage unavailable */
     }
     const destination =
-      selectedRole === "company" ? "/funder" : selectedRole === "ngo" ? "/university" : "/";
+      selectedRole === "company"
+        ? "/funder"
+        : selectedRole === "university"
+        ? "/university"
+        : selectedRole === "ngo"
+        ? "/ngo"
+        : "/";
     router.push(destination);
   };
 
@@ -511,6 +517,28 @@ function LoginForm() {
           <p className="mt-1 text-sm text-slate-700">
             One login, any role — verify and we&apos;ll take you to the right workspace.
           </p>
+        </div>
+
+        {/* ROLE SWITCHER TABS - ONE LINK ACCESS TO ALL PORTALS */}
+        <div className="grid grid-cols-4 gap-1 rounded-2xl bg-white/90 p-1.5 shadow-sm ring-1 ring-slate-200/80 backdrop-blur-md">
+          {ROLES.map((r) => {
+            const isCurrent = active === r.id;
+            return (
+              <Link
+                key={r.id}
+                href={`/login?tab=${r.id}`}
+                className={cn(
+                  "flex flex-col items-center justify-center gap-1 rounded-xl px-1.5 py-2 text-center transition-all",
+                  isCurrent
+                    ? "bg-slate-900 text-white shadow-sm font-bold"
+                    : "text-slate-700 hover:bg-slate-100 hover:text-slate-900 font-semibold",
+                )}
+              >
+                <r.icon size={16} className={isCurrent ? "text-white" : "text-slate-700"} />
+                <span className="text-[11px] leading-tight truncate w-full">{r.label}</span>
+              </Link>
+            );
+          })}
         </div>
 
         <div className="relative">

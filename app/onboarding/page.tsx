@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowRight, MapPin, Check, Building2, User, Shield } from "lucide-react";
+import { ArrowRight, MapPin, Check, Building2, User, Shield, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DocumentUploader } from "@/components/ui/document-uploader";
 import { cn } from "@/lib/utils";
@@ -80,7 +80,15 @@ function OnboardingForm() {
       <div className="relative z-10 mx-auto w-full max-w-lg">
         <div className="mb-8 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white shadow-lg shadow-emerald-600/20">
-            {role === "company" ? <Building2 size={32} /> : role === "ngo" ? <Shield size={32} /> : <User size={32} />}
+            {role === "company" ? (
+              <Building2 size={32} />
+            ) : role === "university" ? (
+              <GraduationCap size={32} />
+            ) : role === "ngo" ? (
+              <Shield size={32} />
+            ) : (
+              <User size={32} />
+            )}
           </div>
           <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
             Complete Your Profile
@@ -157,25 +165,108 @@ function OnboardingForm() {
               </div>
             )}
 
-            {(role === "ngo" || role === "university") && (
+            {role === "university" && (
               <div className="space-y-4">
-                <h3 className="text-sm font-bold uppercase tracking-wider text-teal-800">NGO / University Profile</h3>
+                <h3 className="text-sm font-bold uppercase tracking-wider text-emerald-800">
+                  University Academic Profile
+                </h3>
                 <div>
-                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">Organization / College Name</label>
-                  <input required value={orgName} onChange={e => setOrgName(e.target.value)} type="text" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none" placeholder="e.g. XYZ University" />
+                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">
+                    University / Institution Name
+                  </label>
+                  <input
+                    required
+                    value={orgName}
+                    onChange={(e) => setOrgName(e.target.value)}
+                    type="text"
+                    className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none"
+                    placeholder="e.g. IIT Jodhpur"
+                  />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">Affiliation / Registration Number</label>
-                  <input required value={affilNo} onChange={e => setAffilNo(e.target.value)} type="text" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none" placeholder="Reg No." />
+                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">
+                    AISHE Code / UGC Affiliation ID
+                  </label>
+                  <input
+                    required
+                    value={affilNo}
+                    onChange={(e) => setAffilNo(e.target.value)}
+                    type="text"
+                    className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none"
+                    placeholder="e.g. U-0391"
+                  />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">Operating Region</label>
-                  <input required value={opRegion} onChange={e => setOpRegion(e.target.value)} type="text" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none" placeholder="State/City Level" />
+                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">
+                    Department / Focus Division
+                  </label>
+                  <input
+                    required
+                    value={opRegion}
+                    onChange={(e) => setOpRegion(e.target.value)}
+                    type="text"
+                    className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none"
+                    placeholder="e.g. Civil & Environmental Engineering Dept"
+                  />
                 </div>
-                
+
                 <div className="pt-2">
                   <DocumentUploader
-                    label="Upload NGO Registration Certificate"
+                    label="Upload University Accreditation / MoU Document"
+                    hint="Supports PDF, PNG, JPG. Max 10MB."
+                  />
+                </div>
+              </div>
+            )}
+
+            {role === "ngo" && (
+              <div className="space-y-4">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-amber-800">
+                  NGO Partner Profile
+                </h3>
+                <div>
+                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">
+                    NGO / Trust Name
+                  </label>
+                  <input
+                    required
+                    value={orgName}
+                    onChange={(e) => setOrgName(e.target.value)}
+                    type="text"
+                    className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none"
+                    placeholder="e.g. Green Earth Foundation"
+                  />
+                </div>
+                <div>
+                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">
+                    NGO Darpan ID / 12A-80G Registration Number
+                  </label>
+                  <input
+                    required
+                    value={affilNo}
+                    onChange={(e) => setAffilNo(e.target.value)}
+                    type="text"
+                    className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none"
+                    placeholder="e.g. RJ/2021/028194"
+                  />
+                </div>
+                <div>
+                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">
+                    Operating Sector &amp; Region
+                  </label>
+                  <input
+                    required
+                    value={opRegion}
+                    onChange={(e) => setOpRegion(e.target.value)}
+                    type="text"
+                    className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none"
+                    placeholder="e.g. Sanitation & Water · Jodhpur District"
+                  />
+                </div>
+
+                <div className="pt-2">
+                  <DocumentUploader
+                    label="Upload NGO Registration Certificate / PAN"
                     hint="Supports PDF, PNG, JPG. Max 10MB."
                   />
                 </div>

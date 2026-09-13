@@ -113,6 +113,13 @@ export function PortalOverviewHeader({
           </nav>
 
           <div className="flex flex-shrink-0 items-center gap-2">
+            <Link
+              href="/login"
+              title="Switch Workspace / All Portals"
+              className="flex items-center gap-1 rounded-xl border border-slate-200 bg-slate-100 px-2.5 py-1.5 text-xs font-bold text-slate-700 transition hover:bg-slate-200 hover:text-slate-900"
+            >
+              <span>Switch Portal</span>
+            </Link>
             <span className="hidden text-xs font-semibold text-slate-700 xl:inline">{user.name}</span>
             <Avatar name={user.avatar} size="sm" />
             <button
