@@ -72,7 +72,7 @@ export const ColorfulCategoryBentoWidget = ({
       id: "other",
       name: t("catOther", "Other"),
       count: 7,
-      icon: <MoreHorizontal className="h-5 w-5 text-slate-600" />,
+      icon: <MoreHorizontal className="h-5 w-5 text-slate-700" />,
       bgCard: "bg-slate-50 border-slate-200 hover:border-slate-300",
       iconBg: "bg-slate-200 text-slate-700",
       badgeColor: "text-slate-700 bg-slate-200/80 border-slate-300",
@@ -94,7 +94,7 @@ export const ColorfulCategoryBentoWidget = ({
           <h3 className="text-base font-black text-slate-900 sm:text-lg">
             {t("issueCategories", "Issue Categories (Bento Grid)")}
           </h3>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-700">
             {t("issueCategoriesSub", "Select a department domain to filter civic challenges")}
           </p>
         </div>

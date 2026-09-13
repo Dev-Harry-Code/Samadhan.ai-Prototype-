@@ -61,7 +61,7 @@ export function PortalOverviewHeader({
               <button
                 onClick={logout}
                 aria-label="Log out"
-                className="grid h-8 w-8 place-items-center rounded-xl border border-slate-200 bg-slate-100 text-slate-600 transition hover:bg-rose-50 hover:text-rose-600"
+                className="grid h-8 w-8 place-items-center rounded-xl border border-slate-200 bg-slate-100 text-slate-700 transition hover:bg-rose-50 hover:text-rose-600"
               >
                 <LogOut className="h-4 w-4" />
               </button>
@@ -103,7 +103,7 @@ export function PortalOverviewHeader({
                     "flex-shrink-0 whitespace-nowrap rounded-xl px-3 py-1.5 text-[11px] font-bold transition-all lg:px-3.5 lg:text-xs",
                     active
                       ? "border border-teal-200 bg-teal-50 text-teal-700 shadow-xs"
-                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+                      : "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
                   )}
                 >
                   {l.label}
@@ -113,12 +113,12 @@ export function PortalOverviewHeader({
           </nav>
 
           <div className="flex flex-shrink-0 items-center gap-2">
-            <span className="hidden text-xs font-semibold text-slate-500 xl:inline">{user.name}</span>
+            <span className="hidden text-xs font-semibold text-slate-700 xl:inline">{user.name}</span>
             <Avatar name={user.avatar} size="sm" />
             <button
               onClick={logout}
               aria-label="Log out"
-              className="grid h-8 w-8 place-items-center rounded-xl border border-slate-200 bg-slate-100 text-slate-600 transition hover:bg-rose-50 hover:text-rose-600"
+              className="grid h-8 w-8 place-items-center rounded-xl border border-slate-200 bg-slate-100 text-slate-700 transition hover:bg-rose-50 hover:text-rose-600"
             >
               <LogOut className="h-4 w-4" />
             </button>

@@ -135,7 +135,7 @@ export function JodhpurCityMap({ className = "" }: { className?: string }) {
       {/* Interactive Hotspot Pills (Ward & Location Selector) */}
       <div className="absolute bottom-3 left-3 right-3 z-10">
         <div className="flex items-center gap-2 overflow-x-auto rounded-2xl border border-slate-200/90 bg-white/95 p-2 shadow-xl backdrop-blur-md scrollbar-none">
-          <span className="flex shrink-0 items-center gap-1 pl-1 text-[11px] font-bold text-slate-500">
+          <span className="flex shrink-0 items-center gap-1 pl-1 text-[11px] font-bold text-slate-700">
             <Navigation size={12} className="text-primary-600" /> Wards:
           </span>
           {JODHPUR_COORDINATES.landmarks.map((landmark) => {
@@ -190,7 +190,7 @@ export function JodhpurCityMap({ className = "" }: { className?: string }) {
                     {activeItem.status}
                   </span>
                 </div>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-700">
                   {activeItem.issuesCount > 0
                     ? `${activeItem.issuesCount} active civic issues reported in this zone`
                     : "Primary academic research partner site"}

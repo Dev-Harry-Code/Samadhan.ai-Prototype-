@@ -168,7 +168,7 @@ export function UniversityOverviewPage() {
                 <span className="text-teal-600">Real-World Civic Challenges</span>
               </h1>
 
-              <p className="mx-auto mt-3 max-w-xl text-xs leading-relaxed text-slate-600 sm:text-sm">
+              <p className="mx-auto mt-3 max-w-xl text-xs leading-relaxed text-slate-700 sm:text-sm">
                 Connect university expertise, student teams and civic issues to create measurable
                 impact in your community.
               </p>
@@ -267,7 +267,7 @@ export function UniversityOverviewPage() {
                   <h3 className="text-base font-black text-slate-900 sm:text-lg">
                     University Opportunities
                   </h3>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-700">
                     Explore civic challenges where university expertise can create impact
                   </p>
                 </div>
@@ -308,7 +308,7 @@ export function UniversityOverviewPage() {
                       <div className="text-xs font-black leading-snug text-slate-900 sm:text-[13px]">
                         {cat.name}
                       </div>
-                      <p className="mt-1 line-clamp-2 text-[10px] font-medium leading-snug text-slate-500">
+                      <p className="mt-1 line-clamp-2 text-[10px] font-medium leading-snug text-slate-700">
                         {cat.desc}
                       </p>
                     </div>
@@ -333,7 +333,7 @@ export function UniversityOverviewPage() {
                           <span className="relative inline-flex h-2 w-2 rounded-full bg-teal-600"></span>
                         </span>
                       </div>
-                      <p className="mt-0.5 text-xs text-slate-500">
+                      <p className="mt-0.5 text-xs text-slate-700">
                         Civic projects launched vs. verified academic impact
                       </p>
                     </div>
@@ -347,7 +347,7 @@ export function UniversityOverviewPage() {
                             "flex-1 rounded-lg px-3 py-1.5 text-center transition-all",
                             activeRange === r
                               ? "bg-teal-600 font-bold text-white shadow-xs"
-                              : "text-slate-600 hover:text-slate-900",
+                              : "text-slate-700 hover:text-slate-900",
                           )}
                         >
                           {r === "month" ? "This Month" : r === "quarter" ? "Quarter" : "Year"}
@@ -366,7 +366,7 @@ export function UniversityOverviewPage() {
                       </div>
                       <div className="flex items-center gap-1.5">
                         <span className="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
-                        <span className="font-medium text-slate-500">
+                        <span className="font-medium text-slate-700">
                           Launched ({hoveredIndex !== null ? TREND[hoveredIndex].launched : 20})
                         </span>
                       </div>
@@ -413,7 +413,7 @@ export function UniversityOverviewPage() {
                           <span
                             className={cn(
                               "mt-2 text-[10px] font-bold transition-colors sm:text-[11px]",
-                              isHovered ? "font-black text-slate-900" : "text-slate-500",
+                              isHovered ? "font-black text-slate-900" : "text-slate-700",
                             )}
                           >
                             {item.month}
@@ -432,7 +432,7 @@ export function UniversityOverviewPage() {
                       <h3 className="truncate text-sm font-bold text-slate-900 sm:text-base">
                         Opportunity Breakdown
                       </h3>
-                      <p className="text-xs text-slate-500">Distribution by discipline</p>
+                      <p className="text-xs text-slate-700">Distribution by discipline</p>
                     </div>
                     <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-teal-100 bg-teal-50 text-teal-700">
                       <PieChart className="h-4 w-4" />
@@ -474,7 +474,7 @@ export function UniversityOverviewPage() {
                         <span className="text-2xl font-black leading-none tracking-tight text-slate-900 sm:text-3xl">
                           62
                         </span>
-                        <span className="mt-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                        <span className="mt-1 text-[10px] font-bold uppercase tracking-wider text-slate-700">
                           Programmes
                         </span>
                       </div>
@@ -541,7 +541,7 @@ export function UniversityOverviewPage() {
                         {recommended.matchScore}
                       </span>
                     </div>
-                    <p className="mt-0.5 text-xs font-medium text-slate-600">
+                    <p className="mt-0.5 text-xs font-medium text-slate-700">
                       {recommended.expertise} · {recommended.location}
                     </p>
                   </div>
@@ -563,7 +563,7 @@ export function UniversityOverviewPage() {
                 </div>
 
                 <div className="mt-4 rounded-xl border border-slate-100 bg-slate-50/60 p-3">
-                  <p className="text-xs leading-relaxed text-slate-600">
+                  <p className="text-xs leading-relaxed text-slate-700">
                     <strong className="font-bold text-slate-900">{recommended.name}</strong> is the best match for current open issues given expertise in{" "}
                     <span className="font-semibold text-emerald-700">{recommended.expertise}</span>.
                   </p>
@@ -602,12 +602,12 @@ export function UniversityOverviewPage() {
                             </p>
                             <UniversityStatusBadge status={r.status} />
                           </div>
-                          <p className="mt-1 flex items-center gap-1 text-[10px] text-slate-500">
+                          <p className="mt-1 flex items-center gap-1 text-[10px] text-slate-700">
                             <MapPin size={10} className="shrink-0" /> {r.location}
                           </p>
                           <div className="mt-2 flex items-center justify-between gap-2">
                             <UniversityUrgencyBadge urgency={r.urgency} />
-                            <span className="text-[10px] font-medium text-slate-600">
+                            <span className="text-[10px] font-medium text-slate-700">
                               {r.updatedAgo}
                             </span>
                           </div>
@@ -631,7 +631,7 @@ export function UniversityOverviewPage() {
                       {mapViewMode === "gis" ? "Current Live Map" : "3D Digital Twin"}
                     </span>
                   </div>
-                  <p className="mt-0.5 text-xs font-medium text-slate-600">
+                  <p className="mt-0.5 text-xs font-medium text-slate-700">
                     Real-time geographic coverage of active civic issues and university research zones across Jodhpur
                   </p>
                 </div>
@@ -644,7 +644,7 @@ export function UniversityOverviewPage() {
                         "rounded-lg px-3 py-1 text-xs font-bold transition",
                         mapViewMode === "gis"
                           ? "bg-white text-slate-900 shadow-xs"
-                          : "text-slate-600 hover:text-slate-900",
+                          : "text-slate-700 hover:text-slate-900",
                       )}
                     >
                       Jodhpur Map
@@ -656,7 +656,7 @@ export function UniversityOverviewPage() {
                         "rounded-lg px-3 py-1 text-xs font-bold transition",
                         mapViewMode === "3d"
                           ? "bg-white text-slate-900 shadow-xs"
-                          : "text-slate-600 hover:text-slate-900",
+                          : "text-slate-700 hover:text-slate-900",
                       )}
                     >
                       3D Model
@@ -684,23 +684,23 @@ export function UniversityOverviewPage() {
             <div className="flex flex-wrap items-center justify-around gap-6 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
               <div className="text-center">
                 <div className="text-2xl font-black text-slate-900 sm:text-3xl">{UNIVERSITIES.length}</div>
-                <div className="mt-0.5 text-[11px] font-medium text-slate-500">
+                <div className="mt-0.5 text-[11px] font-medium text-slate-700">
                   Partner Universities
                 </div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-black text-slate-900 sm:text-3xl">120+</div>
-                <div className="mt-0.5 text-[11px] font-medium text-slate-500">Students Engaged</div>
+                <div className="mt-0.5 text-[11px] font-medium text-slate-700">Students Engaged</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-black text-slate-900 sm:text-3xl">
                   {resolvedReports.length * 6}+
                 </div>
-                <div className="mt-0.5 text-[11px] font-medium text-slate-500">Verified Solutions</div>
+                <div className="mt-0.5 text-[11px] font-medium text-slate-700">Verified Solutions</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-black text-slate-900 sm:text-3xl">42K+</div>
-                <div className="mt-0.5 text-[11px] font-medium text-slate-500">
+                <div className="mt-0.5 text-[11px] font-medium text-slate-700">
                   Communities Reached
                 </div>
               </div>

@@ -60,7 +60,7 @@ export function UniversityTeamPage() {
           <div key={s.label} className="glass rounded-2xl p-4 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
             <div className={cn("mb-1.5 h-1.5 w-8 rounded-full", s.tone)} />
             <div className="text-xl font-extrabold text-slate-900">{s.value}</div>
-            <div className="text-[11px] font-semibold text-slate-600">{s.label}</div>
+            <div className="text-[11px] font-semibold text-slate-700">{s.label}</div>
           </div>
         ))}
       </div>
@@ -84,7 +84,7 @@ export function UniversityTeamPage() {
                   </div>
                   <div>
                     <h3 className="text-base font-extrabold tracking-tight text-slate-900">{t.name}</h3>
-                    <p className="text-xs text-slate-500">{t.studentCount} students · {t.status}</p>
+                    <p className="text-xs text-slate-700">{t.studentCount} students · {t.status}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -93,12 +93,12 @@ export function UniversityTeamPage() {
                       "rounded-full px-3 py-1 text-[11px] font-bold ring-1",
                       t.status === "Available"
                         ? "bg-emerald-50 text-emerald-600 ring-emerald-600/20"
-                        : "bg-slate-100 text-slate-500 ring-slate-200",
+                        : "bg-slate-100 text-slate-700 ring-slate-200",
                     )}
                   >
                     {t.status}
                   </span>
-                  <span className="rounded-full bg-white px-3 py-1 text-[11px] font-bold text-slate-600 ring-1 ring-slate-200">
+                  <span className="rounded-full bg-white px-3 py-1 text-[11px] font-bold text-slate-700 ring-1 ring-slate-200">
                     {selectedCount}/{t.members.length} selected
                   </span>
                   <Button size="sm" onClick={() => deploy(t)}>
@@ -113,7 +113,7 @@ export function UniversityTeamPage() {
                     <Brain size={16} />
                   </span>
                   <div>
-                    <p className="text-[10px] font-bold uppercase tracking-wide text-slate-600">Faculty Advisor</p>
+                    <p className="text-[10px] font-bold uppercase tracking-wide text-slate-700">Faculty Advisor</p>
                     <p className="text-sm font-bold text-slate-800">{t.facultyAdvisor}</p>
                   </div>
                 </div>
@@ -122,20 +122,20 @@ export function UniversityTeamPage() {
                     <MessageSquare size={16} />
                   </span>
                   <div>
-                    <p className="text-[10px] font-bold uppercase tracking-wide text-slate-600">Roster</p>
-                    <ul className="space-y-0.5 text-xs font-semibold text-slate-600">
+                    <p className="text-[10px] font-bold uppercase tracking-wide text-slate-700">Roster</p>
+                    <ul className="space-y-0.5 text-xs font-semibold text-slate-700">
                       {t.students.slice(0, 3).map((s) => (
                         <li key={s}>• {s}</li>
                       ))}
                       {t.students.length > 3 && (
-                        <li className="text-slate-600">+ {t.students.length - 3} more…</li>
+                        <li className="text-slate-700">+ {t.students.length - 3} more…</li>
                       )}
                     </ul>
                   </div>
                 </div>
               </div>
 
-              <p className="mt-3 text-xs font-bold uppercase tracking-wide text-slate-600">
+              <p className="mt-3 text-xs font-bold uppercase tracking-wide text-slate-700">
                 Select members for the mission
               </p>
               <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -174,10 +174,10 @@ function MemberCard({ member, onToggle }: { member: TeamMember; onToggle: () => 
       </div>
       <div className="min-w-0">
         <p className="flex items-center gap-1 truncate text-xs font-bold text-slate-800">
-          <UserRound size={10} className="shrink-0 text-slate-600" />
+          <UserRound size={10} className="shrink-0 text-slate-700" />
           {member.name}
         </p>
-        <p className="truncate text-[10px] font-medium text-slate-600">{member.role}</p>
+        <p className="truncate text-[10px] font-medium text-slate-700">{member.role}</p>
       </div>
     </button>
   );

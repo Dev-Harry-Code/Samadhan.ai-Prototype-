@@ -12,7 +12,7 @@ import { COMPANY_ASSIGNMENTS, COMPANY_EMPLOYEES } from "@/lib/data/company-mock"
 const dueColor = (due: string) => {
   if (due === "Today") return "text-rose-500";
   if (due === "Tomorrow") return "text-amber-600";
-  return "text-slate-600";
+  return "text-slate-700";
 };
 
 export function CompanyAssignmentsPage() {
@@ -62,7 +62,7 @@ export function CompanyAssignmentsPage() {
           <div key={s.label} className="glass rounded-2xl p-4 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
             <div className={cn("mb-1.5 h-1.5 w-8 rounded-full", s.tone)} />
             <div className="text-xl font-extrabold text-slate-900">{s.value}</div>
-            <div className="text-[11px] font-semibold text-slate-600">{s.label}</div>
+            <div className="text-[11px] font-semibold text-slate-700">{s.label}</div>
           </div>
         ))}
       </div>
@@ -92,7 +92,7 @@ export function CompanyAssignmentsPage() {
                   {a.priority === "Critical" ? (
                     <AlertTriangle size={16} className="text-rose-500" />
                   ) : (
-                    <Wrench size={16} className="text-slate-500" />
+                    <Wrench size={16} className="text-slate-700" />
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
@@ -100,12 +100,12 @@ export function CompanyAssignmentsPage() {
                   <div className="mt-1 flex flex-wrap items-center gap-1.5">
                     <CompanyStatusBadge status={a.status} />
                     <CompanySeverityBadge severity={a.priority} />
-                    <span className="flex items-center gap-1 text-[11px] font-semibold text-slate-600">
+                    <span className="flex items-center gap-1 text-[11px] font-semibold text-slate-700">
                       <CalendarDays size={11} /> <span className={dueColor(a.due)}>{a.due}</span>
                     </span>
                   </div>
                 </div>
-                <span className={cn("text-slate-500 transition", open && "rotate-180")}>▾</span>
+                <span className={cn("text-slate-700 transition", open && "rotate-180")}>▾</span>
               </button>
 
               {open && (
@@ -137,7 +137,7 @@ export function CompanyAssignmentsPage() {
                         </span>
                         <span className="text-xs font-semibold text-slate-700">{a.assignee}</span>
                       </div>
-                      <span className="flex items-center gap-1 text-[11px] font-medium text-slate-600">
+                      <span className="flex items-center gap-1 text-[11px] font-medium text-slate-700">
                         <Flag size={11} className="text-primary-500" /> SOW task · auto-tracked
                       </span>
                     </div>
@@ -149,20 +149,20 @@ export function CompanyAssignmentsPage() {
         })}
       </div>
 
-      <div className="glass rounded-3xl bg-gradient-to-br from-slate-900 via-emerald-950 to-teal-900 p-5 text-white shadow-lg shadow-slate-900/10 ring-1 ring-white/10">
-        <p className="flex items-center gap-1.5 text-sm font-bold">
-          <User size={15} className="text-amber-300" /> Team workload balance
+      <div className="glass rounded-3xl p-5 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
+        <p className="flex items-center gap-1.5 text-sm font-bold text-slate-900">
+          <User size={15} className="text-amber-500" /> Team workload balance
         </p>
         <div className="mt-3 grid gap-2 sm:grid-cols-2">
           {COMPANY_EMPLOYEES.slice(0, 4).map((e) => {
             const activeTasks = COMPANY_ASSIGNMENTS.filter((a) => a.assignee === e.name).length;
             return (
-              <div key={e.id} className="flex items-center justify-between rounded-2xl bg-white/10 px-4 py-3">
+              <div key={e.id} className="flex items-center justify-between rounded-2xl bg-white px-4 py-3 shadow-sm ring-1 ring-slate-900/5">
                 <div>
-                  <p className="text-sm font-bold">{e.name}</p>
-                  <p className="text-[11px] font-medium text-emerald-100/70">{e.role}</p>
+                  <p className="text-sm font-bold text-slate-900">{e.name}</p>
+                  <p className="text-[11px] font-medium text-slate-700">{e.role}</p>
                 </div>
-                <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-bold">
+                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-700">
                   {activeTasks}/{e.workload} tasks
                 </span>
               </div>

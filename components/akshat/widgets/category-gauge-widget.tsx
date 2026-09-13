@@ -21,7 +21,7 @@ export const CategoryGaugeWidget = () => {
           <h3 className="truncate text-sm font-bold text-slate-900 sm:text-base">
             {t("sectorBreakdown", "Sector Breakdown")}
           </h3>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-700">
             {t("sectorBreakdownSub", "Distribution of challenges")}
           </p>
         </div>
@@ -66,7 +66,7 @@ export const CategoryGaugeWidget = () => {
             <span className="text-2xl font-black leading-none tracking-tight text-slate-900 sm:text-3xl">
               1,247
             </span>
-            <span className="mt-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+            <span className="mt-1 text-[10px] font-bold uppercase tracking-wider text-slate-700">
               {t("totalReports", "Total Reports")}
             </span>
           </div>

@@ -54,12 +54,12 @@ export function UniversityReportsPage() {
 
       <div className="flex flex-wrap items-center gap-2">
         <div className="flex flex-1 items-center gap-2 rounded-xl bg-white/80 px-4 py-2.5 shadow-sm ring-1 ring-slate-900/5 backdrop-blur focus-within:ring-2 focus-within:ring-primary-500 sm:max-w-md">
-          <Search size={16} className="text-slate-600" />
+          <Search size={16} className="text-slate-700" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search title, location, university…"
-            className="w-full bg-transparent text-sm outline-none placeholder:text-slate-500"
+            className="w-full bg-transparent text-sm outline-none placeholder:text-slate-700"
           />
         </div>
         <button
@@ -67,7 +67,7 @@ export function UniversityReportsPage() {
             setTab("All");
             setQuery("");
           }}
-          className="flex items-center gap-1.5 rounded-xl bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm ring-1 ring-slate-900/5 backdrop-blur transition hover:ring-primary-300"
+          className="flex items-center gap-1.5 rounded-xl bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm ring-1 ring-slate-900/5 backdrop-blur transition hover:ring-primary-300"
         >
           <Filter size={16} /> Reset
         </button>
@@ -82,7 +82,7 @@ export function UniversityReportsPage() {
               "shrink-0 whitespace-nowrap rounded-full px-3.5 py-1.5 text-[11px] font-semibold transition sm:px-4 sm:text-xs",
               tab === t
                 ? "bg-slate-900 text-white shadow-sm"
-                : "bg-white text-slate-600 ring-1 ring-slate-200 hover:bg-slate-50",
+                : "bg-white text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50",
             )}
           >
             {t}
@@ -111,24 +111,24 @@ export function UniversityReportsPage() {
 
               <div className="min-w-0 flex-1">
                 <h3 className="line-clamp-1 text-base font-extrabold tracking-tight text-slate-900">{r.title}</h3>
-                <p className="mt-0.5 flex items-center gap-1 truncate text-xs text-slate-500">
+                <p className="mt-0.5 flex items-center gap-1 truncate text-xs text-slate-700">
                   <MapPin size={12} className="shrink-0" /> {r.location}
                 </p>
                 <div className="mt-2 flex flex-wrap items-center gap-2">
                   <UniversityUrgencyBadge urgency={r.urgency} />
-                  <span className="rounded-full bg-white px-2.5 py-0.5 text-[11px] font-semibold text-slate-600 ring-1 ring-slate-200">
+                  <span className="rounded-full bg-white px-2.5 py-0.5 text-[11px] font-semibold text-slate-700 ring-1 ring-slate-200">
                     {r.category}
                   </span>
-                  <span className="text-[11px] font-medium text-slate-600">{r.updatedAgo}</span>
+                  <span className="text-[11px] font-medium text-slate-700">{r.updatedAgo}</span>
                 </div>
               </div>
 
               <div className="flex shrink-0 items-center gap-3 sm:flex-col sm:items-end">
                 <div className="text-right">
-                  <p className="text-[10px] font-bold uppercase tracking-wide text-slate-600">Assigned to</p>
+                  <p className="text-[10px] font-bold uppercase tracking-wide text-slate-700">Assigned to</p>
                   <p className="text-sm font-bold text-primary-600">{r.assignedTo}</p>
                 </div>
-                <ArrowRight size={16} className="text-slate-500 transition group-hover:text-primary-500" />
+                <ArrowRight size={16} className="text-slate-700 transition group-hover:text-primary-500" />
               </div>
             </div>
           </Link>

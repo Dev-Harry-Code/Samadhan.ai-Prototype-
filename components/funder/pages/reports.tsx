@@ -99,9 +99,9 @@ export function CompanyReportsPage() {
               {idx === 0 ? <FileSpreadsheet size={19} /> : <FileText size={19} />}
             </div>
             <p className="mt-3 text-sm font-bold text-slate-900">{t.title}</p>
-            <p className="mt-0.5 text-[11px] font-medium text-slate-600">{t.scope}</p>
+            <p className="mt-0.5 text-[11px] font-medium text-slate-700">{t.scope}</p>
             <div className="mt-3 flex items-center justify-between">
-              <span className="text-[11px] font-semibold text-slate-600">{t.size}</span>
+              <span className="text-[11px] font-semibold text-slate-700">{t.size}</span>
               <Button size="sm" variant={busyTitle === t.title ? "secondary" : "primary"} disabled={busyTitle !== null} onClick={() => generate(t, idx)}>
                 {busyTitle === t.title ? "Generating…" : "Generate"}
               </Button>
@@ -118,12 +118,12 @@ export function CompanyReportsPage() {
               key={r.id}
               className="group flex flex-wrap items-center gap-3 rounded-2xl bg-slate-50 p-3 ring-1 ring-slate-900/5 transition hover:bg-white hover:shadow-md"
             >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-slate-600 ring-1 ring-slate-900/5">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-slate-700 ring-1 ring-slate-900/5">
                 <FileText size={17} />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-semibold text-slate-800">{r.title}</p>
-                <p className="text-[11px] font-medium text-slate-600">
+                <p className="text-[11px] font-medium text-slate-700">
                   {r.id} · {r.date} · {r.pages} pages
                 </p>
               </div>
@@ -131,13 +131,13 @@ export function CompanyReportsPage() {
                 {r.kind}
               </span>
               <div className="flex items-center gap-1">
-                <button className="rounded-lg p-2 text-slate-600 transition hover:bg-primary-50 hover:text-primary-600">
+                <button className="rounded-lg p-2 text-slate-700 transition hover:bg-primary-50 hover:text-primary-600">
                   <Download size={16} />
                 </button>
                 {r.kind === "Auto" && (
                   <button
                     onClick={() => setLocal((p) => p.filter((x) => x.id !== r.id))}
-                    className="rounded-lg p-2 text-slate-600 transition hover:bg-rose-50 hover:text-rose-500"
+                    className="rounded-lg p-2 text-slate-700 transition hover:bg-rose-50 hover:text-rose-500"
                   >
                     <Trash2 size={16} />
                   </button>
@@ -148,15 +148,15 @@ export function CompanyReportsPage() {
         </div>
       </div>
 
-      <div className="glass rounded-3xl bg-gradient-to-br from-slate-900 via-sky-950 to-indigo-900 p-5 text-white shadow-lg shadow-slate-900/10 ring-1 ring-white/10">
-        <p className="text-sm font-bold">Scheduled exports</p>
-        <div className="mt-2 flex flex-wrap items-center gap-2 text-xs font-medium text-slate-600">
-          <span className="rounded-full bg-white/10 px-3 py-1">Weekly ops digest</span>
-          <span className="rounded-full bg-white/10 px-3 py-1">CSR impact (monthly)</span>
-          <span className="rounded-full bg-white/10 px-3 py-1">Real-time API pushes</span>
+      <div className="glass rounded-3xl p-5 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
+        <p className="text-sm font-bold text-slate-900">Scheduled exports</p>
+        <div className="mt-2 flex flex-wrap items-center gap-2 text-xs font-medium text-slate-700">
+          <span className="rounded-full border border-slate-200 bg-white px-3 py-1 shadow-sm">Weekly ops digest</span>
+          <span className="rounded-full border border-slate-200 bg-white px-3 py-1 shadow-sm">CSR impact (monthly)</span>
+          <span className="rounded-full border border-slate-200 bg-white px-3 py-1 shadow-sm">Real-time API pushes</span>
         </div>
-        <p className="mt-3 text-xs leading-relaxed text-slate-500">
-          Sends to <span className="font-bold text-sky-300">{COMPANY_EMPLOYEES[4].name}</span> ({COMPANY_EMPLOYEES[4].dept}) automatically every Friday 6 PM.
+        <p className="mt-4 text-xs text-slate-700 font-medium">
+          Sends to <strong className="font-semibold text-slate-900">Pooja Singh</strong> (Analytics) automatically every Friday 6 PM.
         </p>
       </div>
     </div>

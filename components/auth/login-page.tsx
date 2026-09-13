@@ -140,38 +140,38 @@ function RoleLoginForm({ role }: { role: RoleConfig }) {
           </div>
           <div>
             <h2 className="text-lg font-extrabold tracking-tight text-slate-900">{role.title}</h2>
-            <p className="text-[11px] font-medium text-slate-500">{role.subtitle}</p>
+            <p className="text-[11px] font-medium text-slate-700">{role.subtitle}</p>
           </div>
         </div>
       </div>
 
       <div>
-        <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Work email</label>
+        <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700">Work email</label>
         <div className="mt-1.5 flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2.5 shadow-sm transition focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100">
-          <Mail size={15} className="shrink-0 text-slate-600" />
+          <Mail size={15} className="shrink-0 text-slate-700" />
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && doLogin()}
             placeholder={role.email}
-            className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-500"
+            className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-700"
           />
         </div>
       </div>
 
       <div>
-        <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Password</label>
+        <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700">Password</label>
         <div className="mt-1.5 flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2.5 shadow-sm transition focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100">
-          <Lock size={15} className="shrink-0 text-slate-600" />
+          <Lock size={15} className="shrink-0 text-slate-700" />
           <input
             type={show ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && doLogin()}
             placeholder="••••••••"
-            className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-500"
+            className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-700"
           />
-          <button onClick={() => setShow((v) => !v)} className="text-slate-600 transition hover:text-slate-600">
+          <button onClick={() => setShow((v) => !v)} className="text-slate-700 transition hover:text-slate-700">
             {show ? <EyeOff size={15} /> : <Eye size={15} />}
           </button>
         </div>
@@ -218,11 +218,11 @@ function RoleLoginForm({ role }: { role: RoleConfig }) {
         </div>
         <div className="mt-2 grid grid-cols-2 gap-2 font-mono text-[11px] text-slate-700">
           <div className="overflow-hidden rounded-lg bg-white px-2 py-1.5 ring-1 ring-teal-100">
-            <span className="text-slate-600">email</span>
+            <span className="text-slate-700">email</span>
             <span className="block truncate">{role.email}</span>
           </div>
           <div className="overflow-hidden rounded-lg bg-white px-2 py-1.5 ring-1 ring-teal-100">
-            <span className="text-slate-600">password</span>
+            <span className="text-slate-700">password</span>
             <span className="block">{role.password}</span>
           </div>
         </div>
@@ -282,7 +282,7 @@ function CitizenGatewayForm() {
               onClick={() => setLoginMethod("mobile")}
               className={cn(
                 "flex flex-1 items-center justify-center gap-1.5 rounded-xl py-2 text-xs font-bold transition-all",
-                loginMethod === "mobile" ? "bg-teal-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900",
+                loginMethod === "mobile" ? "bg-teal-600 text-white shadow-sm" : "text-slate-700 hover:text-slate-900",
               )}
             >
               <Smartphone className="h-3.5 w-3.5" />
@@ -293,7 +293,7 @@ function CitizenGatewayForm() {
               onClick={() => setLoginMethod("email")}
               className={cn(
                 "flex flex-1 items-center justify-center gap-1.5 rounded-xl py-2 text-xs font-bold transition-all",
-                loginMethod === "email" ? "bg-teal-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900",
+                loginMethod === "email" ? "bg-teal-600 text-white shadow-sm" : "text-slate-700 hover:text-slate-900",
               )}
             >
               <Mail className="h-3.5 w-3.5" />
@@ -329,7 +329,7 @@ function CitizenGatewayForm() {
             <button
               type="button"
               onClick={loginCitizen}
-              className="mx-auto flex items-center justify-center gap-1 text-xs font-semibold text-slate-500 transition-colors hover:text-teal-700"
+              className="mx-auto flex items-center justify-center gap-1 text-xs font-semibold text-slate-700 transition-colors hover:text-teal-700"
             >
               <span>Skip login and explore as Guest</span>
               <ArrowRight className="h-3.5 w-3.5" />
@@ -341,7 +341,7 @@ function CitizenGatewayForm() {
       {step === 2 && (
         <div>
           <h2 className="mb-1 text-center text-lg font-bold text-slate-900">Security Verification</h2>
-          <p className="mb-5 text-center text-xs text-slate-600">
+          <p className="mb-5 text-center text-xs text-slate-700">
             We sent a 4-digit code to <br />
             <strong className="text-teal-700">{inputValue}</strong>
           </p>
@@ -370,7 +370,7 @@ function CitizenGatewayForm() {
             <button
               type="button"
               onClick={() => setStep(1)}
-              className="mt-2.5 flex w-full items-center justify-center gap-1 py-2 text-xs font-semibold text-slate-500 transition-colors hover:text-slate-800"
+              className="mt-2.5 flex w-full items-center justify-center gap-1 py-2 text-xs font-semibold text-slate-700 transition-colors hover:text-slate-800"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
               <span>Back to phone/email</span>
@@ -382,7 +382,7 @@ function CitizenGatewayForm() {
       {step === 3 && (
         <div>
           <h2 className="mb-1 text-center text-lg font-bold text-slate-900">Select Profile Role</h2>
-          <p className="mb-4 text-center text-xs text-slate-600">Choose how you want to participate</p>
+          <p className="mb-4 text-center text-xs text-slate-700">Choose how you want to participate</p>
 
           <div className="mb-5 space-y-2.5">
             {CITIZEN_ROLES.map((r) => {
@@ -415,7 +415,7 @@ function CitizenGatewayForm() {
                   </div>
                   <div>
                     <h3 className="text-xs font-bold text-slate-900">{r.label}</h3>
-                    <p className="text-[11px] text-slate-600">{r.desc}</p>
+                    <p className="text-[11px] text-slate-700">{r.desc}</p>
                   </div>
                 </button>
               );
@@ -450,7 +450,7 @@ function LivePlatformActivity() {
         <h2 className="mt-3 text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl">
           A pulse of your city&apos;s civic life
         </h2>
-        <p className="mt-1 text-xs font-medium text-slate-500 sm:text-sm">
+        <p className="mt-1 text-xs font-medium text-slate-700 sm:text-sm">
           Same live issue metrics for every portal — citizens, universities &amp; CSR.
         </p>
       </div>
@@ -494,7 +494,7 @@ function LoginForm() {
           <h1 className="mt-3 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
             Samadhan Login
           </h1>
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-slate-700">
             One login, any role — verify and we&apos;ll take you to the right workspace.
           </p>
         </div>
@@ -506,7 +506,7 @@ function LoginForm() {
           </div>
         </div>
 
-        <div className="flex items-center justify-center gap-2 rounded-2xl bg-white/70 px-4 py-3 text-xs font-medium text-slate-500 ring-1 ring-slate-200">
+        <div className="flex items-center justify-center gap-2 rounded-2xl bg-white/70 px-4 py-3 text-xs font-medium text-slate-700 ring-1 ring-slate-200">
           <ShieldCheck size={15} className="text-emerald-600" />
           After OTP verification, pick your role to enter the matching portal.
         </div>

@@ -59,12 +59,12 @@ export function CompanyEmployeesPage() {
         action={
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-2 rounded-xl bg-white/80 px-3 py-2 shadow-sm ring-1 ring-slate-900/5 backdrop-blur focus-within:ring-2 focus-within:ring-primary-500">
-              <Search size={15} className="text-slate-600" />
+              <Search size={15} className="text-slate-700" />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search…"
-                className="w-32 bg-transparent text-sm outline-none placeholder:text-slate-500 sm:w-44"
+                className="w-32 bg-transparent text-sm outline-none placeholder:text-slate-700 sm:w-44"
               />
             </div>
             <Button onClick={() => setShowInvite((v) => !v)}>
@@ -77,7 +77,7 @@ export function CompanyEmployeesPage() {
       {showInvite && (
         <div className="glass flex flex-col gap-2 rounded-2xl p-4 shadow-lg shadow-slate-900/5 ring-1 ring-white/60 sm:flex-row">
           <div className="flex flex-1 items-center gap-2 rounded-xl border border-slate-200 bg-white px-3">
-            <Mail size={15} className="text-slate-600" />
+            <Mail size={15} className="text-slate-700" />
             <input
               value={inviteEmail}
               onChange={(e) => setInviteEmail(e.target.value)}
@@ -99,7 +99,7 @@ export function CompanyEmployeesPage() {
           </p>
           <div className="mt-2 space-y-1.5">
             {invites.map((email) => (
-              <div key={email} className="flex items-center gap-2 text-sm font-medium text-slate-600">
+              <div key={email} className="flex items-center gap-2 text-sm font-medium text-slate-700">
                 <span className="h-1.5 w-1.5 rounded-full bg-amber-400" /> {email}
               </div>
             ))}
@@ -116,7 +116,7 @@ export function CompanyEmployeesPage() {
               "shrink-0 rounded-full px-4 py-1.5 text-xs font-semibold transition",
               role === r.id
                 ? "bg-slate-900 text-white shadow-sm"
-                : "bg-white text-slate-600 ring-1 ring-slate-200 hover:bg-slate-50",
+                : "bg-white text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50",
             )}
           >
             {r.label}
@@ -131,7 +131,7 @@ export function CompanyEmployeesPage() {
               <div
                 className={cn(
                   "flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-sm font-bold",
-                  emp.active ? "bg-primary-50 text-primary-600" : "bg-slate-100 text-slate-600",
+                  emp.active ? "bg-primary-50 text-primary-600" : "bg-slate-100 text-slate-700",
                 )}
               >
                 {emp.avatar}
@@ -142,19 +142,19 @@ export function CompanyEmployeesPage() {
                   <span
                     className={cn(
                       "flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold",
-                      emp.active ? "bg-emerald-50 text-emerald-600" : "bg-slate-100 text-slate-600",
+                      emp.active ? "bg-emerald-50 text-emerald-600" : "bg-slate-100 text-slate-700",
                     )}
                   >
                     <span className={cn("h-1.5 w-1.5 rounded-full", emp.active ? "bg-emerald-500" : "bg-slate-300")} />
                     {emp.active ? "Active" : "Offline"}
                   </span>
                 </div>
-                <p className="text-xs font-medium text-slate-600">
+                <p className="text-xs font-medium text-slate-700">
                   {emp.role} · {emp.id}
                 </p>
                 <div className="mt-2 flex items-center gap-2">
                   <CompanyDepartmentTag department={emp.dept} />
-                  <span className="text-[11px] font-semibold text-slate-500">
+                  <span className="text-[11px] font-semibold text-slate-700">
                     {emp.workload} active tasks
                   </span>
                 </div>

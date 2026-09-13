@@ -138,7 +138,7 @@ export function Header({ currentScreen, setScreen }: HeaderProps) {
                         : "border border-teal-200 bg-teal-50 text-teal-700 shadow-xs"
                       : isAuth
                         ? "border border-teal-200 bg-teal-50 text-teal-700 hover:bg-teal-100"
-                        : "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+                        : "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
                   )}
                 >
                   {t(tab.labelKey, "Sign In")}

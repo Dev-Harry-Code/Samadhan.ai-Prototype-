@@ -90,7 +90,7 @@ export function UniversityCommunityPage() {
         <h2 className="mb-1 flex items-center gap-1.5 text-sm font-bold text-slate-900">
           <Star size={15} className="text-amber-500" /> Community success stories
         </h2>
-        <p className="mb-3 text-xs text-slate-600">Collaborative fixes by universities, residents and the Corporation</p>
+        <p className="mb-3 text-xs text-slate-700">Collaborative fixes by universities, residents and the Corporation</p>
 
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {visibleStories.map((cs) => {
@@ -105,25 +105,25 @@ export function UniversityCommunityPage() {
                 </div>
                 <div className="flex flex-1 flex-col p-4">
                   <h3 className="text-sm font-extrabold tracking-tight text-slate-900">{cs.title}</h3>
-                  <p className="mt-1 line-clamp-3 flex-1 text-xs leading-relaxed text-slate-500">{cs.subtitle}</p>
+                  <p className="mt-1 line-clamp-3 flex-1 text-xs leading-relaxed text-slate-700">{cs.subtitle}</p>
 
                   <div className="mt-3 flex items-center gap-1">
                     <button
                       onClick={() => toggleLike(cs.id)}
                       className={cn(
                         "flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-bold transition",
-                        isLiked ? "bg-primary-500 text-white shadow-sm" : "bg-slate-100 text-slate-600 hover:bg-slate-200",
+                        isLiked ? "bg-primary-500 text-white shadow-sm" : "bg-slate-100 text-slate-700 hover:bg-slate-200",
                       )}
                     >
                       <Heart size={12} fill={isLiked ? "currentColor" : "none"} /> {likes[cs.id]}
                     </button>
                     <button
                       onClick={() => setOpenComment(openComment === cs.id ? null : cs.id)}
-                      className="flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-bold text-slate-600 transition hover:bg-slate-200"
+                      className="flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-bold text-slate-700 transition hover:bg-slate-200"
                     >
                       <MessageCircle size={12} /> {cs.comments + (comments[cs.id]?.length ?? 0)}
                     </button>
-                    <button className="ml-auto rounded-full bg-slate-100 p-1.5 text-slate-500 transition hover:bg-slate-200">
+                    <button className="ml-auto rounded-full bg-slate-100 p-1.5 text-slate-700 transition hover:bg-slate-200">
                       <Share2 size={12} />
                     </button>
                   </div>
@@ -143,8 +143,8 @@ export function UniversityCommunityPage() {
                         </Button>
                       </div>
                       {comments[cs.id]?.map((c, i) => (
-                        <p key={i} className="flex items-center gap-1.5 rounded-xl bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-600 ring-1 ring-slate-900/5">
-                          <MessageCircle size={12} className="shrink-0 text-slate-600" /> {c}
+                        <p key={i} className="flex items-center gap-1.5 rounded-xl bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-700 ring-1 ring-slate-900/5">
+                          <MessageCircle size={12} className="shrink-0 text-slate-700" /> {c}
                         </p>
                       ))}
                     </div>

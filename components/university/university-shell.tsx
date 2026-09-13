@@ -57,7 +57,7 @@ export function UniversityShell({ children }: { children: React.ReactNode }) {
         },
         user: { name: UNIVERSITY_USER.name, location: UNIVERSITY_USER.location },
         headerRight: (
-          <div className="hidden rounded-xl bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-600 sm:flex sm:items-center sm:gap-1">
+          <div className="hidden rounded-xl bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 sm:flex sm:items-center sm:gap-1">
             {UNIVERSITY_USER.greeting.split(",")[0]}{" "}
             <Leaf size={12} className="text-emerald-600" />
           </div>

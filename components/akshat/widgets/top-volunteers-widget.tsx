@@ -24,7 +24,7 @@ export const TopVolunteersWidget = () => {
               {t("liveKarma", "Live Karma")}
             </span>
           </div>
-          <p className="mt-0.5 truncate text-xs text-slate-500">
+          <p className="mt-0.5 truncate text-xs text-slate-700">
             {t("topVolunteersSub", "Citizens leading ground implementation")}
           </p>
         </div>
@@ -50,7 +50,7 @@ export const TopVolunteersWidget = () => {
                       ? "border border-slate-300 bg-slate-200 text-slate-700"
                       : vol.rank === 3
                         ? "border border-orange-300 bg-orange-100 text-orange-800"
-                        : "bg-slate-100 text-slate-500",
+                        : "bg-slate-100 text-slate-700 border border-slate-200",
                 )}
               >
                 #{vol.rank}
@@ -69,7 +69,7 @@ export const TopVolunteersWidget = () => {
                     {volunteerField(t, vol.id, "badge", vol.badge)}
                   </span>
                 </div>
-                <div className="mt-0.5 flex items-center gap-1.5 truncate text-[11px] text-slate-500">
+                <div className="mt-0.5 flex items-center gap-1.5 truncate text-[11px] text-slate-700">
                   <span className="truncate">{volunteerField(t, vol.id, "role", vol.role)}</span>
                   <span>•</span>
                   <span className="flex-shrink-0 font-bold text-teal-700">{vol.solvedCount} {t("solvedCount", "solved")}</span>

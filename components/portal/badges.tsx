@@ -14,7 +14,7 @@ export function CompanyStatusBadge({ status }: { status: CompanyStatus }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-bold ring-1 ring-inset ring-black/5",
+        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-bold",
         meta.color,
       )}
     >
@@ -29,7 +29,7 @@ export function CompanySeverityBadge({ severity }: { severity: CompanySeverity }
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-bold ring-1 ring-inset ring-black/5",
+        "inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-bold",
         meta.color,
       )}
     >
@@ -40,24 +40,24 @@ export function CompanySeverityBadge({ severity }: { severity: CompanySeverity }
 
 export function CompanyDepartmentTag({ department }: { department: string }) {
   return (
-    <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-semibold text-slate-600">
+    <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-semibold text-slate-700">
       {department}
     </span>
   );
 }
 
 const UNIVERSITY_STATUS_STYLES: Record<UniversityReportStatus, string> = {
-  "In Progress": "bg-amber-100 text-amber-800",
-  Assigned: "bg-blue-100 text-blue-800",
-  Pending: "bg-slate-100 text-slate-700",
-  Resolved: "bg-emerald-100 text-emerald-800",
+  "In Progress": "bg-blue-50 text-blue-800 border border-blue-200",
+  Assigned: "bg-slate-100 text-slate-800 border border-slate-300",
+  Pending: "bg-amber-50 text-amber-900 border border-amber-200",
+  Resolved: "bg-emerald-50 text-emerald-800 border border-emerald-200",
 };
 
 export function UniversityStatusBadge({ status }: { status: UniversityReportStatus }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-bold ring-1 ring-inset ring-black/5",
+        "inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-bold",
         UNIVERSITY_STATUS_STYLES[status],
       )}
     >
@@ -68,16 +68,16 @@ export function UniversityStatusBadge({ status }: { status: UniversityReportStat
 }
 
 const UNIVERSITY_URGENCY_STYLES: Record<"High" | "Medium" | "Low", string> = {
-  High: "bg-red-50 text-red-700 ring-red-200",
-  Medium: "bg-amber-50 text-amber-800 ring-amber-200",
-  Low: "bg-emerald-50 text-emerald-700 ring-emerald-200",
+  High: "bg-rose-50 text-rose-800 border border-rose-200",
+  Medium: "bg-amber-50 text-amber-900 border border-amber-200",
+  Low: "bg-emerald-50 text-emerald-800 border border-emerald-200",
 };
 
 export function UniversityUrgencyBadge({ urgency }: { urgency: "High" | "Medium" | "Low" }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold ring-1 ring-inset",
+        "inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold",
         UNIVERSITY_URGENCY_STYLES[urgency],
       )}
     >

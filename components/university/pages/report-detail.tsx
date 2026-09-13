@@ -17,6 +17,7 @@ import {
 
 import { UniversityStatusBadge } from "@/components/portal/badges";
 import { Button } from "@/components/ui/button";
+import { DocumentUploader } from "@/components/ui/document-uploader";
 import { cn } from "@/lib/utils";
 import {
   UNIVERSITY_AI_RECOMMENDATIONS,
@@ -37,7 +38,7 @@ export function UniversityReportDetailPage({ id }: { id: string }) {
       <div className="flex flex-wrap items-center justify-between gap-2">
         <Link
           href="/university/reports"
-          className="inline-flex items-center gap-1.5 rounded-xl bg-white/80 px-3 py-2 text-sm font-semibold text-slate-600 shadow-sm ring-1 ring-slate-900/5 backdrop-blur transition hover:text-primary-600"
+          className="inline-flex items-center gap-1.5 rounded-xl bg-white/80 px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm ring-1 ring-slate-900/5 backdrop-blur transition hover:text-primary-600"
         >
           <ArrowLeft size={15} /> All reports
         </Link>
@@ -81,19 +82,19 @@ export function UniversityReportDetailPage({ id }: { id: string }) {
 
         <div className="grid gap-3 p-5 sm:grid-cols-3">
           <div className="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-900/5">
-            <p className="text-[10px] font-bold uppercase tracking-wide text-slate-600">Reported by</p>
+            <p className="text-[10px] font-bold uppercase tracking-wide text-slate-700">Reported by</p>
             <p className="mt-0.5 text-sm font-bold text-slate-800">{UNIVERSITY_USER.name}</p>
-            <p className="text-[11px] font-medium text-slate-600">{UNIVERSITY_USER.title}</p>
+            <p className="text-[11px] font-medium text-slate-700">{UNIVERSITY_USER.title}</p>
           </div>
           <div className="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-900/5">
-            <p className="text-[10px] font-bold uppercase tracking-wide text-slate-600">Assigned to</p>
+            <p className="text-[10px] font-bold uppercase tracking-wide text-slate-700">Assigned to</p>
             <p className="mt-0.5 text-sm font-bold text-primary-600">{report.assignedTo}</p>
-            <p className="text-[11px] font-medium text-slate-600">{report.assignedTeam}</p>
+            <p className="text-[11px] font-medium text-slate-700">{report.assignedTeam}</p>
           </div>
           <div className="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-900/5">
-            <p className="text-[10px] font-bold uppercase tracking-wide text-slate-600">Updated</p>
+            <p className="text-[10px] font-bold uppercase tracking-wide text-slate-700">Updated</p>
             <p className="mt-0.5 text-sm font-bold text-slate-800">{report.updatedAgo}</p>
-            <p className="text-[11px] font-medium text-slate-600">on Samadhan workboard</p>
+            <p className="text-[11px] font-medium text-slate-700">on Samadhan workboard</p>
           </div>
         </div>
       </div>
@@ -102,13 +103,13 @@ export function UniversityReportDetailPage({ id }: { id: string }) {
         <div className="space-y-4 lg:col-span-2">
           <div className="glass rounded-3xl p-5 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
             <h2 className="text-sm font-bold text-slate-900">Issue Description</h2>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">{report.description}</p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-700">{report.description}</p>
             <div className="mt-4 flex items-center gap-2">
               <button
                 onClick={() => setLiked((v) => !v)}
                 className={cn(
                   "flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold transition",
-                  liked ? "bg-primary-500 text-white shadow-sm" : "bg-slate-100 text-slate-600 hover:bg-slate-200",
+                  liked ? "bg-primary-500 text-white shadow-sm" : "bg-slate-100 text-slate-700 hover:bg-slate-200",
                 )}
               >
                 <ThumbsUp size={13} /> {liked ? "Supported" : "Support issue"}
@@ -137,7 +138,7 @@ export function UniversityReportDetailPage({ id }: { id: string }) {
                         "flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold ring-2 transition",
                         done && "bg-primary-500 text-white ring-primary-500",
                         active && "bg-white text-primary-600 ring-primary-500 shadow-md",
-                        !done && !active && "bg-slate-50 text-slate-500 ring-slate-200",
+                        !done && !active && "bg-slate-50 text-slate-700 ring-slate-200",
                       )}
                     >
                       {done ? <Check size={16} strokeWidth={3} /> : i + 1}
@@ -145,7 +146,7 @@ export function UniversityReportDetailPage({ id }: { id: string }) {
                     <p
                       className={cn(
                         "mt-2 text-center text-[10px] font-bold sm:text-[11px]",
-                        done ? "text-primary-600" : active ? "text-slate-900" : "text-slate-600",
+                        done ? "text-primary-600" : active ? "text-slate-900" : "text-slate-700",
                       )}
                     >
                       {step}
@@ -164,7 +165,7 @@ export function UniversityReportDetailPage({ id }: { id: string }) {
                         "flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold ring-1",
                         item.done
                           ? "bg-primary-50 text-primary-600 ring-primary-200"
-                          : "bg-slate-50 text-slate-500 ring-slate-200",
+                          : "bg-slate-50 text-slate-700 ring-slate-200",
                       )}
                     >
                       {i + 1}
@@ -174,10 +175,10 @@ export function UniversityReportDetailPage({ id }: { id: string }) {
                     )}
                   </div>
                   <div className="pb-4">
-                    <p className={cn("text-sm font-bold", item.done ? "text-slate-800" : "text-slate-600")}>
+                    <p className={cn("text-sm font-bold", item.done ? "text-slate-800" : "text-slate-700")}>
                       {item.title}
                     </p>
-                    <p className="text-xs font-medium text-slate-600">{item.time}</p>
+                    <p className="text-xs font-medium text-slate-700">{item.time}</p>
                   </div>
                 </div>
               ))}
@@ -201,6 +202,20 @@ export function UniversityReportDetailPage({ id }: { id: string }) {
                   />
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* New Section for Resolution Proof */}
+          <div className="glass rounded-3xl p-5 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
+            <h2 className="text-sm font-bold text-slate-900">Submit Resolution Proof</h2>
+            <p className="mt-1 text-xs text-slate-700">Upload "After" photos or completion certificates once the issue is resolved.</p>
+            <div className="mt-4">
+              <DocumentUploader
+                label="Upload Resolution Proof"
+                hint="Supports JPG, PNG, PDF. Max 10MB."
+                accept="image/*,.pdf"
+                maxSizeMB={10}
+              />
             </div>
           </div>
         </div>
@@ -227,7 +242,7 @@ export function UniversityReportDetailPage({ id }: { id: string }) {
 
           <div className="glass rounded-3xl p-5 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
             <p className="text-sm font-bold text-slate-900">Community support</p>
-            <div className="mt-3 space-y-2 text-xs font-semibold text-slate-500">
+            <div className="mt-3 space-y-2 text-xs font-semibold text-slate-700">
               <div className="flex items-center justify-between rounded-2xl bg-slate-50 p-3 ring-1 ring-slate-900/5">
                 <span>Local residents</span>
                 <span className="font-bold text-primary-600">120</span>

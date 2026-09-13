@@ -79,7 +79,7 @@ export const UserProfileScreen = ({ setScreen }: UserProfileScreenProps) => {
               </span>
             </div>
 
-            <p className="text-xs font-medium text-slate-600 sm:text-sm">
+            <p className="text-xs font-medium text-slate-700 sm:text-sm">
               {t("verifiedSolver", "Verified Community Solver • Ranchi Municipal District")}
             </p>
           </div>
@@ -95,7 +95,7 @@ export const UserProfileScreen = ({ setScreen }: UserProfileScreenProps) => {
                 style={{ width: "92%" }}
               ></div>
             </div>
-            <div className="mt-1.5 flex justify-between text-[11px] text-slate-500">
+            <div className="mt-1.5 flex justify-between text-[11px] text-slate-700">
               <span>{t("rankInWard", "Rank #1 in Ranchi Ward 14")}</span>
               <span>{t("xpToLevel", "150 XP to Level 8")}</span>
             </div>
@@ -117,7 +117,7 @@ export const UserProfileScreen = ({ setScreen }: UserProfileScreenProps) => {
           </div>
           <div>
             <div className="mb-1 text-2xl font-black leading-none text-slate-900 sm:text-3xl">38</div>
-            <div className="text-xs font-semibold text-slate-500">{t("statReportedIssues", "Reported Issues")}</div>
+            <div className="text-xs font-semibold text-slate-700">{t("statReportedIssues", "Reported Issues")}</div>
           </div>
         </div>
 
@@ -127,7 +127,7 @@ export const UserProfileScreen = ({ setScreen }: UserProfileScreenProps) => {
           </div>
           <div>
             <div className="mb-1 text-2xl font-black leading-none text-slate-900 sm:text-3xl">32</div>
-            <div className="text-xs font-semibold text-slate-500">{t("statFixedVerified", "Fixed & Verified")}</div>
+            <div className="text-xs font-semibold text-slate-700">{t("statFixedVerified", "Fixed & Verified")}</div>
           </div>
         </div>
 
@@ -137,7 +137,7 @@ export const UserProfileScreen = ({ setScreen }: UserProfileScreenProps) => {
           </div>
           <div>
             <div className="mb-1 text-2xl font-black leading-none text-slate-900 sm:text-3xl">1,240</div>
-            <div className="text-xs font-semibold text-slate-500">{t("statKarmaUpvotes", "Karma Upvotes")}</div>
+            <div className="text-xs font-semibold text-slate-700">{t("statKarmaUpvotes", "Karma Upvotes")}</div>
           </div>
         </div>
 
@@ -147,7 +147,7 @@ export const UserProfileScreen = ({ setScreen }: UserProfileScreenProps) => {
           </div>
           <div>
             <div className="mb-1 text-2xl font-black leading-none text-slate-900 sm:text-3xl">6</div>
-            <div className="text-xs font-semibold text-slate-500">{t("statCivicBadges", "Civic Badges")}</div>
+            <div className="text-xs font-semibold text-slate-700">{t("statCivicBadges", "Civic Badges")}</div>
           </div>
         </div>
       </div>
@@ -164,7 +164,7 @@ export const UserProfileScreen = ({ setScreen }: UserProfileScreenProps) => {
             </div>
             <div className="min-w-0">
               <div className="truncate text-xs font-bold text-slate-900">{t("badgeWaterGuardian", "Water Guardian")}</div>
-              <div className="mt-0.5 text-[11px] text-slate-500">{t("badgeWaterGuardianDesc", "10+ water supply issues resolved")}</div>
+              <div className="mt-0.5 text-[11px] text-slate-700">{t("badgeWaterGuardianDesc", "10+ water supply issues resolved")}</div>
             </div>
           </div>
 
@@ -174,7 +174,7 @@ export const UserProfileScreen = ({ setScreen }: UserProfileScreenProps) => {
             </div>
             <div className="min-w-0">
               <div className="truncate text-xs font-bold text-slate-900">{t("badgeFirstResponder", "First Responder")}</div>
-              <div className="mt-0.5 text-[11px] text-slate-500">{t("badgeFirstResponderDesc", "Average resolution response in 48h")}</div>
+              <div className="mt-0.5 text-[11px] text-slate-700">{t("badgeFirstResponderDesc", "Average resolution response in 48h")}</div>
             </div>
           </div>
 
@@ -184,7 +184,7 @@ export const UserProfileScreen = ({ setScreen }: UserProfileScreenProps) => {
             </div>
             <div className="min-w-0">
               <div className="truncate text-xs font-bold text-slate-900">{t("badgeCommunityPillar", "Community Pillar")}</div>
-              <div className="mt-0.5 text-[11px] text-slate-500">{t("badgeCommunityPillarDesc", "1,000+ peer upvotes received")}</div>
+              <div className="mt-0.5 text-[11px] text-slate-700">{t("badgeCommunityPillarDesc", "1,000+ peer upvotes received")}</div>
             </div>
           </div>
         </div>
@@ -192,7 +192,7 @@ export const UserProfileScreen = ({ setScreen }: UserProfileScreenProps) => {
 
       <div className="flex items-center gap-3 pt-2">
         <button className="flex flex-1 items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-xs font-bold text-slate-700 shadow-xs transition-colors hover:bg-slate-50">
-          <Settings className="h-4 w-4 text-slate-500" />
+          <Settings className="h-4 w-4 text-slate-700" />
           <span>{t("accountNotifications", "Account & Notifications")}</span>
         </button>
         <button

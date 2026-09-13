@@ -41,7 +41,7 @@ export const CommunityImpactChart = ({ className = "" }: CommunityImpactChartPro
               <span className="relative inline-flex h-2 w-2 rounded-full bg-teal-600"></span>
             </span>
           </div>
-          <p className="mt-0.5 text-xs text-slate-500">
+          <p className="mt-0.5 text-xs text-slate-700">
             {t("chartSubtitle", "Civic challenges submitted vs. verified solutions")}
           </p>
         </div>
@@ -53,7 +53,7 @@ export const CommunityImpactChart = ({ className = "" }: CommunityImpactChartPro
               "flex-1 rounded-lg px-3 py-1.5 text-center transition-all",
               activeRange === "month"
                 ? "bg-teal-600 font-bold text-white shadow-xs"
-                : "text-slate-600 hover:text-slate-900",
+                : "text-slate-700 hover:text-slate-900",
             )}
           >
             {t("thisMonth", "This Month")}
@@ -64,7 +64,7 @@ export const CommunityImpactChart = ({ className = "" }: CommunityImpactChartPro
               "flex-1 rounded-lg px-3 py-1.5 text-center transition-all",
               activeRange === "quarter"
                 ? "bg-teal-600 font-bold text-white shadow-xs"
-                : "text-slate-600 hover:text-slate-900",
+                : "text-slate-700 hover:text-slate-900",
             )}
           >
             {t("quarter", "Quarter")}
@@ -75,7 +75,7 @@ export const CommunityImpactChart = ({ className = "" }: CommunityImpactChartPro
               "flex-1 rounded-lg px-3 py-1.5 text-center transition-all",
               activeRange === "year"
                 ? "bg-teal-600 font-bold text-white shadow-xs"
-                : "text-slate-600 hover:text-slate-900",
+                : "text-slate-700 hover:text-slate-900",
             )}
           >
             {t("year", "Year")}
@@ -93,7 +93,7 @@ export const CommunityImpactChart = ({ className = "" }: CommunityImpactChartPro
           </div>
           <div className="flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
-            <span className="font-medium text-slate-500">
+            <span className="font-medium text-slate-700">
               {t("submitted", "Submitted")} ({hoveredIndex !== null ? data[hoveredIndex].submitted : 190})
             </span>
           </div>
@@ -140,7 +140,7 @@ export const CommunityImpactChart = ({ className = "" }: CommunityImpactChartPro
               <span
                 className={cn(
                   "mt-2 text-[10px] font-bold transition-colors sm:text-[11px]",
-                  isHovered ? "font-black text-slate-900" : "text-slate-500",
+                  isHovered ? "font-black text-slate-900" : "text-slate-700",
                 )}
               >
                 {t(`m_${item.month.toLowerCase()}`, item.month)}

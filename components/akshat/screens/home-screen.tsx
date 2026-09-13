@@ -30,9 +30,9 @@ export const HomeScreen = ({ setScreen, setSelectedIssue }: HomeScreenProps) => 
 
       <div className="relative z-10 mx-auto max-w-7xl space-y-6 px-3 sm:px-6">
         <div className="mx-auto max-w-3xl pb-2 pt-4 text-center">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-teal-200 bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-800 shadow-xs">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-950 shadow-sm">
             <span className="h-2 w-2 animate-pulse rounded-full bg-orange-500"></span>
-            <span className="font-medium">
+            <span>
               {t("heroTag", "AI-Powered Civic Problem Solving")}
             </span>
           </div>
@@ -42,7 +42,7 @@ export const HomeScreen = ({ setScreen, setSelectedIssue }: HomeScreenProps) => 
             <span className="text-teal-600">{t("heroTitleAccent", "Societal Impact")}</span>
           </h1>
 
-          <p className="mx-auto mt-3 max-w-xl text-xs leading-relaxed text-slate-600 sm:text-sm">
+          <p className="mx-auto mt-3 max-w-xl text-slate-700 text-base md:text-lg font-normal leading-relaxed">
             {t("heroDesc", "Connecting proactive citizens, verified NGOs, and CSR entities with autonomous AI triage to detect, fund, and solve community issues with verifiable impact.")}
           </p>
 
@@ -83,7 +83,7 @@ export const HomeScreen = ({ setScreen, setSelectedIssue }: HomeScreenProps) => 
                 "flex-shrink-0 whitespace-nowrap rounded-xl px-3 py-1.5 text-[11px] font-semibold transition-all sm:px-3.5 sm:text-xs",
                 activeTab === "overview"
                   ? "bg-teal-600 text-white shadow-xs"
-                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+                  : "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
               )}
             >
               {t("navOverview", "Overview")}
@@ -92,7 +92,7 @@ export const HomeScreen = ({ setScreen, setSelectedIssue }: HomeScreenProps) => 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setScreen("issues_feed")}
-              className="flex-shrink-0 whitespace-nowrap rounded-xl px-3 py-1.5 text-[11px] font-semibold text-slate-600 transition-all sm:px-3.5 sm:text-xs hover:bg-slate-100 hover:text-slate-900"
+              className="flex-shrink-0 whitespace-nowrap rounded-xl px-3 py-1.5 text-[11px] font-semibold text-slate-700 transition-all sm:px-3.5 sm:text-xs hover:bg-slate-100 hover:text-slate-900"
             >
               {t("navFeed", "Issues Feed")}
             </motion.button>
@@ -104,7 +104,7 @@ export const HomeScreen = ({ setScreen, setSelectedIssue }: HomeScreenProps) => 
                 "flex-shrink-0 whitespace-nowrap rounded-xl px-3 py-1.5 text-[11px] font-semibold transition-all sm:px-3.5 sm:text-xs",
                 activeTab === "volunteers"
                   ? "bg-teal-600 text-white shadow-xs"
-                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+                  : "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
               )}
             >
               {t("navLeaderboard", "Leaderboard")}
@@ -145,25 +145,25 @@ export const HomeScreen = ({ setScreen, setSelectedIssue }: HomeScreenProps) => 
             <div className="text-2xl font-black text-slate-900 sm:text-3xl">
               24+
             </div>
-            <div className="mt-0.5 text-[11px] font-medium text-slate-500">{t("statMunicipalWards", "Municipal Wards")}</div>
+            <div className="mt-0.5 text-[11px] font-medium text-slate-700">{t("statMunicipalWards", "Municipal Wards")}</div>
           </div>
           <div className="text-center">
             <div className="text-2xl font-black text-slate-900 sm:text-3xl">
               130K+
             </div>
-            <div className="mt-0.5 text-[11px] font-medium text-slate-500">{t("statActiveCitizens", "Active Citizens")}</div>
+            <div className="mt-0.5 text-[11px] font-medium text-slate-700">{t("statActiveCitizens", "Active Citizens")}</div>
           </div>
           <div className="text-center">
             <div className="text-2xl font-black text-slate-900 sm:text-3xl">
               42K+
             </div>
-            <div className="mt-0.5 text-[11px] font-medium text-slate-500">{t("statVerifiedSolved", "Verified Solved")}</div>
+            <div className="mt-0.5 text-[11px] font-medium text-slate-700">{t("statVerifiedSolved", "Verified Solved")}</div>
           </div>
           <div className="text-center">
             <div className="text-2xl font-black text-slate-900 sm:text-3xl">
               76+
             </div>
-            <div className="mt-0.5 text-[11px] font-medium text-slate-500">{t("statNgoPartners", "NGOs & CSR Partners")}</div>
+            <div className="mt-0.5 text-[11px] font-medium text-slate-700">{t("statNgoPartners", "NGOs & CSR Partners")}</div>
           </div>
         </div>
       </div>

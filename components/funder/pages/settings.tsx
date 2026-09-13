@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { LANGUAGES } from "@/lib/i18n/translations";
 import { useLang } from "@/lib/i18n/language-context";
 import { COMPANY_ACCOUNTS, COMPANY_USER } from "@/lib/data/company-mock";
+import { DocumentUploader } from "@/components/ui/document-uploader";
 
 const currencies = ["₹ INR", "$ USD", "€ EUR", "£ GBP"];
 const timezones = ["Asia/Kolkata (GMT+5:30)", "UTC", "Asia/Dubai (GMT+4)", "America/New_York (GMT-5)"];
@@ -52,7 +53,7 @@ export function CompanySettingsPage() {
         <p className="flex items-center gap-1.5 text-sm font-bold text-slate-900">
           <Globe2 size={16} className="text-primary-600" /> Language
         </p>
-        <p className="text-xs text-slate-500">Portals can be localized for multilingual rollouts.</p>
+        <p className="text-xs text-slate-700">Portals can be localized for multilingual rollouts.</p>
         <div className="mt-3 flex flex-wrap gap-2">
           {LANGUAGES.map((l) => (
             <button
@@ -62,7 +63,7 @@ export function CompanySettingsPage() {
                 "rounded-full px-4 py-2 text-xs font-bold transition",
                 lang === l.code
                   ? "bg-slate-900 text-white shadow-sm"
-                  : "bg-white text-slate-600 ring-1 ring-slate-200 hover:bg-slate-50",
+                  : "bg-white text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50",
               )}
             >
               {l.label}
@@ -78,7 +79,7 @@ export function CompanySettingsPage() {
           </p>
           <div className="mt-3 space-y-3">
             <div>
-              <label className="text-xs font-bold uppercase tracking-wide text-slate-600">Currency</label>
+              <label className="text-xs font-bold uppercase tracking-wide text-slate-700">Currency</label>
               <div className="mt-1.5 flex flex-wrap gap-2">
                 {currencies.map((c) => (
                   <button
@@ -88,7 +89,7 @@ export function CompanySettingsPage() {
                       "rounded-full px-3 py-1.5 text-xs font-bold transition",
                       currency === c
                         ? "bg-primary-500 text-white shadow-sm"
-                        : "bg-white text-slate-600 ring-1 ring-slate-200 hover:bg-slate-50",
+                        : "bg-white text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50",
                     )}
                   >
                     {c}
@@ -97,7 +98,7 @@ export function CompanySettingsPage() {
               </div>
             </div>
             <div>
-              <label className="text-xs font-bold uppercase tracking-wide text-slate-600">Timezone</label>
+              <label className="text-xs font-bold uppercase tracking-wide text-slate-700">Timezone</label>
               <select
                 value={timezone}
                 onChange={(e) => setTimezone(e.target.value)}
@@ -123,7 +124,7 @@ export function CompanySettingsPage() {
             <label className="flex items-center justify-between rounded-2xl bg-slate-50 p-3 ring-1 ring-slate-900/5">
               <span>
                 <span className="block text-sm font-bold text-slate-800">Two-factor auth</span>
-                <span className="block text-xs text-slate-600">Require OTP on admin logins</span>
+                <span className="block text-xs text-slate-700">Require OTP on admin logins</span>
               </span>
               <button
                 onClick={() => setTwoFA((v) => !v)}
@@ -143,7 +144,7 @@ export function CompanySettingsPage() {
             <label className="flex items-center justify-between rounded-2xl bg-slate-50 p-3 ring-1 ring-slate-900/5">
               <span>
                 <span className="block text-sm font-bold text-slate-800">Session timeout</span>
-                <span className="block text-xs text-slate-600">Auto-logout after 30 min idle</span>
+                <span className="block text-xs text-slate-700">Auto-logout after 30 min idle</span>
               </span>
               <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-bold text-emerald-600 ring-1 ring-emerald-200">
                 30 min
@@ -177,7 +178,7 @@ export function CompanySettingsPage() {
                   }
                   className="w-14 rounded-lg border border-slate-200 bg-white px-2 py-1 text-center text-xs font-bold text-slate-700 outline-none focus:border-primary-500"
                 />
-                <span className="text-slate-600">→</span>
+                <span className="text-slate-700">→</span>
                 <input
                   value={h.end}
                   onChange={(e) =>
@@ -207,7 +208,7 @@ export function CompanySettingsPage() {
             <div key={a.id} className="flex items-center justify-between rounded-2xl bg-slate-50 p-3 ring-1 ring-slate-900/5">
               <div>
                 <p className="text-sm font-bold text-slate-800">{a.name}</p>
-                <p className="text-xs text-slate-600">
+                <p className="text-xs text-slate-700">
                   {a.plan} · {a.issues} issues · score {a.score}
                 </p>
               </div>
@@ -223,6 +224,18 @@ export function CompanySettingsPage() {
               </span>
             </div>
           ))}
+        </div>
+      </div>
+      <div className="glass rounded-3xl p-5 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
+        <p className="text-sm font-bold text-slate-900">Compliance & Tax Documents</p>
+        <p className="mt-1 text-xs text-slate-700">Upload your latest CSR exemption certificates and audit logs.</p>
+        <div className="mt-4">
+          <DocumentUploader
+            label="Upload Document"
+            hint="Supports PDF, JPG. Max 15MB."
+            accept=".pdf,.jpg,.jpeg"
+            maxSizeMB={15}
+          />
         </div>
       </div>
     </div>

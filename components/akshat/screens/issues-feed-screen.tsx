@@ -93,7 +93,7 @@ export const IssuesFeedScreen = ({
               {filteredIssues.length} {t("feedActiveShort", "Active")}
             </span>
           </div>
-          <p className="mt-1 text-xs text-slate-600 sm:text-sm">
+          <p className="mt-1 text-xs text-slate-700 sm:text-sm">
             {t("feedSubtitle", "Real community challenges submitted with GPS coordinates and photographic evidence")}
           </p>
         </div>
@@ -169,13 +169,13 @@ export const IssuesFeedScreen = ({
                   <h3 className="mb-2 line-clamp-2 text-base font-bold leading-snug text-slate-900 transition-colors group-hover:text-teal-700">
                     {issueField(t, issue, "title", issue.title)}
                   </h3>
-                  <p className="mb-4 line-clamp-2 text-xs leading-relaxed text-slate-600">
+                  <p className="mb-4 line-clamp-2 text-xs leading-relaxed text-slate-700">
                     {issueField(t, issue, "description", issue.description)}
                   </p>
                 </div>
 
                 <div className="flex items-center justify-between border-t border-slate-100 pt-3">
-                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-600">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-700">
                     <motion.button
                       whileHover={{ scale: 1.08, boxShadow: "0 4px 14px rgba(13, 148, 136, 0.25)" }}
                       whileTap={{ scale: 0.9 }}
@@ -205,7 +205,7 @@ export const IssuesFeedScreen = ({
                       </div>
                     </motion.button>
 
-                    <div className="flex items-center gap-1 px-2 py-1 text-slate-500">
+                    <div className="flex items-center gap-1 px-2 py-1 text-slate-700">
                       <MessageSquare className="h-3.5 w-3.5" />
                       <span>{issue.commentsCount}</span>
                     </div>
@@ -217,14 +217,14 @@ export const IssuesFeedScreen = ({
                       onClick={e => {
                         e.stopPropagation();
                       }}
-                      className="rounded-lg p-1 text-slate-600 transition-colors hover:bg-slate-100 hover:text-teal-600"
+                      className="rounded-lg p-1 text-slate-700 transition-colors hover:bg-slate-100 hover:text-teal-600"
                     >
                       <Share2 className="h-3.5 w-3.5" />
                     </motion.button>
                   </div>
 
-                  <div className="flex items-center gap-1 text-[11px] font-medium text-slate-600">
-                    <Clock className="h-3 w-3 text-slate-600" />
+                  <div className="flex items-center gap-1 text-[11px] font-medium text-slate-700">
+                    <Clock className="h-3 w-3 text-slate-700" />
                     <span>{issue.reportedDaysAgo} {t("daysAgoShort", "d ago")}</span>
                   </div>
                 </div>

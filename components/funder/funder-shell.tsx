@@ -58,7 +58,7 @@ export function FunderShell({ children }: { children: React.ReactNode }) {
           <Link
             href="/funder/notifications"
             aria-label="Notifications"
-            className="relative grid h-9 w-9 place-items-center rounded-xl text-slate-500 ring-1 ring-slate-900/5 transition hover:bg-slate-100"
+            className="relative grid h-9 w-9 place-items-center rounded-xl text-slate-700 ring-1 ring-slate-900/5 transition hover:bg-slate-100"
           >
             <Bell size={19} />
             <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-rose-500" />

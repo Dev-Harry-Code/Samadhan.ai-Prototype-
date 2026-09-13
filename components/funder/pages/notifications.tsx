@@ -14,7 +14,7 @@ const TYPE_META: Record<
   ai: { icon: <BrainCircuit size={15} />, tone: "bg-violet-50 text-violet-600 ring-violet-200", label: "AI" },
   sponsor: { icon: <Megaphone size={15} />, tone: "bg-amber-50 text-amber-600 ring-amber-200", label: "CSR" },
   done: { icon: <PartyPopper size={15} />, tone: "bg-emerald-50 text-emerald-600 ring-emerald-200", label: "Done" },
-  system: { icon: <Bell size={15} />, tone: "bg-slate-100 text-slate-500 ring-slate-200", label: "System" },
+  system: { icon: <Bell size={15} />, tone: "bg-slate-100 text-slate-700 ring-slate-200", label: "System" },
 };
 
 export function CompanyNotificationsPage() {
@@ -40,7 +40,7 @@ export function CompanyNotificationsPage() {
           <div className="flex gap-2">
             <button
               onClick={markAll}
-              className="flex items-center gap-1.5 rounded-xl bg-white/80 px-3 py-2 text-xs font-bold text-slate-600 shadow-sm ring-1 ring-slate-900/5 backdrop-blur transition hover:text-primary-600"
+              className="flex items-center gap-1.5 rounded-xl bg-white/80 px-3 py-2 text-xs font-bold text-slate-700 shadow-sm ring-1 ring-slate-900/5 backdrop-blur transition hover:text-primary-600"
             >
               <CheckCheck size={14} /> Mark all read
             </button>
@@ -71,7 +71,7 @@ export function CompanyNotificationsPage() {
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-start justify-between gap-2">
-                  <p className={cn("text-sm font-bold text-slate-900", isRead && "text-slate-500")}>
+                  <p className={cn("text-sm font-bold text-slate-900", isRead && "text-slate-700")}>
                     {n.title}
                     {!isRead && n.urgent && (
                       <span className="ml-2 rounded-full bg-red-50 px-2 py-0.5 text-[9px] font-bold text-red-600 ring-1 ring-red-200">
@@ -79,9 +79,9 @@ export function CompanyNotificationsPage() {
                       </span>
                     )}
                   </p>
-                  <span className="shrink-0 text-[10px] font-semibold text-slate-600">{n.time}</span>
+                  <span className="shrink-0 text-[10px] font-semibold text-slate-700">{n.time}</span>
                 </div>
-                <p className={cn("mt-0.5 text-xs leading-relaxed text-slate-500", isRead && "text-slate-600")}>
+                <p className={cn("mt-0.5 text-xs leading-relaxed text-slate-700", isRead && "text-slate-700")}>
                   {n.detail}
                 </p>
                 <span className={cn("mt-2 inline-block rounded-full px-2 py-0.5 text-[10px] font-bold ring-1", meta.tone)}>

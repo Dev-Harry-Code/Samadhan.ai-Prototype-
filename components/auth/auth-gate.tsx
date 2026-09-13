@@ -31,7 +31,7 @@ export function AuthGate({
   if (!authed) {
     return (
       <div className="flex min-h-[70vh] items-center justify-center">
-        <div className="flex flex-col items-center gap-3 text-slate-600">
+        <div className="flex flex-col items-center gap-3 text-slate-700">
           <div className="h-10 w-10 animate-spin rounded-full border-2 border-primary-600 border-t-transparent" />
           <span className="text-xs font-semibold">Checking access…</span>
         </div>

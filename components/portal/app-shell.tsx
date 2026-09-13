@@ -96,7 +96,7 @@ export function PortalAppShell({
                     "relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all",
                     active
                       ? "bg-primary-50 text-primary-700"
-                      : "text-slate-600 hover:bg-slate-100/80 hover:text-slate-900",
+                      : "text-slate-700 hover:bg-slate-100/80 hover:text-slate-900",
                   )}
                 >
                   {active && (
@@ -115,11 +115,11 @@ export function PortalAppShell({
               <div className="min-w-0 leading-tight">
                 <p className="truncate text-xs font-bold text-slate-800">{config.user.name}</p>
                 {config.user.title ? (
-                  <p className="truncate text-[10px] font-medium text-slate-600">
+                  <p className="truncate text-[10px] font-medium text-slate-700">
                     {config.user.title}
                   </p>
                 ) : config.user.location ? (
-                  <p className="flex items-center gap-0.5 truncate text-[10px] font-medium text-slate-600">
+                  <p className="flex items-center gap-0.5 truncate text-[10px] font-medium text-slate-700">
                     <MapPin size={9} /> {config.user.location}
                   </p>
                 ) : null}
@@ -184,7 +184,7 @@ export function PortalAppShell({
                     aria-current={active ? "page" : undefined}
                     className={cn(
                       "flex flex-col items-center gap-0.5 rounded-xl px-3 py-1.5 text-[10px] font-semibold transition-all",
-                      active ? "text-primary-600" : "text-slate-600",
+                      active ? "text-primary-600" : "text-slate-700",
                     )}
                   >
                     <Icon size={21} strokeWidth={active ? 2.4 : 2} />

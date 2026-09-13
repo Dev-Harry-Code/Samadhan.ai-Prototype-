@@ -4,6 +4,7 @@ import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowRight, MapPin, Check, Building2, User, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { DocumentUploader } from "@/components/ui/document-uploader";
 import { cn } from "@/lib/utils";
 
 function OnboardingForm() {
@@ -82,7 +83,7 @@ function OnboardingForm() {
           <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
             Complete Your Profile
           </h1>
-          <p className="mt-2 text-sm text-slate-600">
+          <p className="mt-2 text-sm text-slate-700">
             Let's get to know you better to personalize your experience.
           </p>
         </div>
@@ -95,23 +96,23 @@ function OnboardingForm() {
               <h3 className="text-sm font-bold uppercase tracking-wider text-teal-800">Basic Details</h3>
               
               <div>
-                <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600">Full Name</label>
+                <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">Full Name</label>
                 <input required value={fullName} onChange={e => setFullName(e.target.value)} type="text" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none" placeholder="John Doe" />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600">State</label>
+                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">State</label>
                   <input required value={state} onChange={e => setState(e.target.value)} type="text" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none" placeholder="State" />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600">City</label>
+                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">City</label>
                   <input required value={city} onChange={e => setCity(e.target.value)} type="text" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none" placeholder="City" />
                 </div>
               </div>
 
               <div>
-                <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600">Pin Code</label>
+                <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">Pin Code</label>
                 <div className="flex gap-2">
                   <input required value={pinCode} onChange={e => setPinCode(e.target.value)} type="text" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none" placeholder="123456" />
                   <button type="button" onClick={handleUseLocation} className="flex shrink-0 items-center gap-1.5 rounded-xl bg-slate-100 px-4 py-3 text-xs font-bold text-slate-700 transition hover:bg-slate-200">
@@ -129,11 +130,11 @@ function OnboardingForm() {
               <div className="space-y-4">
                 <h3 className="text-sm font-bold uppercase tracking-wider text-teal-800">Citizen Profile</h3>
                 <div>
-                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600">Area / Ward Name</label>
+                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">Area / Ward Name</label>
                   <input required value={area} onChange={e => setArea(e.target.value)} type="text" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none" placeholder="e.g. Andheri West" />
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-600">Civic Interests</label>
+                  <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-700">Civic Interests</label>
                   <div className="flex flex-wrap gap-2">
                     {civicOptions.map(opt => (
                       <button
@@ -142,7 +143,7 @@ function OnboardingForm() {
                         onClick={() => toggleInterest(opt)}
                         className={cn(
                           "flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold transition-all",
-                          interests.includes(opt) ? "bg-teal-600 text-white shadow-sm" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                          interests.includes(opt) ? "bg-teal-600 text-white shadow-sm" : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                         )}
                       >
                         {interests.includes(opt) && <Check size={12} />}
@@ -158,16 +159,23 @@ function OnboardingForm() {
               <div className="space-y-4">
                 <h3 className="text-sm font-bold uppercase tracking-wider text-teal-800">NGO / University Profile</h3>
                 <div>
-                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600">Organization / College Name</label>
+                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">Organization / College Name</label>
                   <input required value={orgName} onChange={e => setOrgName(e.target.value)} type="text" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none" placeholder="e.g. XYZ University" />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600">Affiliation / Registration Number</label>
+                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">Affiliation / Registration Number</label>
                   <input required value={affilNo} onChange={e => setAffilNo(e.target.value)} type="text" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none" placeholder="Reg No." />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600">Operating Region</label>
+                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">Operating Region</label>
                   <input required value={opRegion} onChange={e => setOpRegion(e.target.value)} type="text" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none" placeholder="State/City Level" />
+                </div>
+                
+                <div className="pt-2">
+                  <DocumentUploader
+                    label="Upload NGO Registration Certificate"
+                    hint="Supports PDF, PNG, JPG. Max 10MB."
+                  />
                 </div>
               </div>
             )}
@@ -176,16 +184,23 @@ function OnboardingForm() {
               <div className="space-y-4">
                 <h3 className="text-sm font-bold uppercase tracking-wider text-teal-800">Company / CSR Profile</h3>
                 <div>
-                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600">Company Name</label>
+                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">Company Name</label>
                   <input required value={companyName} onChange={e => setCompanyName(e.target.value)} type="text" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none" placeholder="e.g. Acme Corp" />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600">Corporate ID / GSTIN</label>
+                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">Corporate ID / GSTIN</label>
                   <input required value={gstin} onChange={e => setGstin(e.target.value)} type="text" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none" placeholder="GSTIN" />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600">CSR Focus Areas</label>
+                  <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">CSR Focus Areas</label>
                   <input required value={csrFocus} onChange={e => setCsrFocus(e.target.value)} type="text" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none" placeholder="e.g. Education, Environment" />
+                </div>
+
+                <div className="pt-2">
+                  <DocumentUploader
+                    label="Upload CSR Exemption Form / Tax Certificate"
+                    hint="Supports PDF, PNG, JPG. Max 10MB."
+                  />
                 </div>
               </div>
             )}

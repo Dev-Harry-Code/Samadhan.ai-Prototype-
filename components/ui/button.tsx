@@ -15,7 +15,7 @@ const buttonVariants = cva(
           "bg-primary-600 text-white shadow-sm shadow-primary-600/25 hover:bg-primary-700 active:scale-[0.98]",
         secondary:
           "bg-white text-slate-700 ring-1 ring-slate-900/10 hover:bg-slate-50 hover:ring-slate-900/20 active:scale-[0.98]",
-        ghost: "text-slate-600 hover:bg-slate-900/5 hover:text-slate-900",
+        ghost: "text-slate-700 hover:bg-slate-900/5 hover:text-slate-900",
         danger: "bg-rose-600 text-white hover:bg-rose-700 shadow-sm shadow-rose-600/25",
         dark: "bg-slate-900 text-white hover:bg-slate-800",
         tealBanner:

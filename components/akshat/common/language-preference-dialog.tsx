@@ -113,9 +113,9 @@ export function LanguagePreferenceDialog() {
                   <div>
                     <div className="flex items-center gap-2 text-sm font-bold text-slate-900">
                       <span>{langItem.nativeName}</span>
-                      <span className="text-xs font-medium text-slate-500">({langItem.name})</span>
+                      <span className="text-xs font-medium text-slate-700">({langItem.name})</span>
                     </div>
-                    <span className="text-[10px] uppercase tracking-wider text-slate-600">
+                    <span className="text-[10px] uppercase tracking-wider text-slate-700">
                       {t("isoCode", "ISO Code:")} {langItem.code}
                     </span>
                   </div>
@@ -137,7 +137,7 @@ export function LanguagePreferenceDialog() {
         </div>
 
         <div className="flex items-center justify-between bg-slate-50 px-6 py-4">
-          <span className="text-[11px] text-slate-500">{t("instantTranslationApplied", "Instant translation applied")}</span>
+          <span className="text-[11px] text-slate-700">{t("instantTranslationApplied", "Instant translation applied")}</span>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" onClick={skip}>
               {t("skip", "Skip")}

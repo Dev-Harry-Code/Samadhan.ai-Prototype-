@@ -50,7 +50,7 @@ const CardDescription = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("text-sm text-slate-500", className)} {...props} />
+  <div ref={ref} className={cn("text-sm text-slate-700", className)} {...props} />
 ));
 CardDescription.displayName = "CardDescription";
 
@@ -93,7 +93,7 @@ export function SectionHead({
     <div className="flex items-end justify-between gap-3">
       <div>
         <h2 className="text-lg font-bold tracking-tight text-slate-900">{title}</h2>
-        {subtitle && <p className="mt-0.5 text-sm text-slate-500">{subtitle}</p>}
+        {subtitle && <p className="mt-0.5 text-sm text-slate-700">{subtitle}</p>}
       </div>
       {action}
     </div>

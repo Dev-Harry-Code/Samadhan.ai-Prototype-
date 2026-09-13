@@ -153,7 +153,7 @@ export function CompanyOverviewPage() {
                 <span className="text-teal-600">Measurable Community Impact</span>
               </h1>
 
-              <p className="mx-auto mt-3 max-w-xl text-xs leading-relaxed text-slate-600 sm:text-sm">
+              <p className="mx-auto mt-3 max-w-xl text-xs leading-relaxed text-slate-700 sm:text-sm">
                 Discover high-impact civic opportunities, support verified projects and track the
                 difference your organization creates.
               </p>
@@ -253,7 +253,7 @@ export function CompanyOverviewPage() {
                   <h3 className="text-base font-black text-slate-900 sm:text-lg">
                     Impact Opportunities
                   </h3>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-700">
                     Discover civic challenges where your organization can create measurable impact
                   </p>
                 </div>
@@ -294,7 +294,7 @@ export function CompanyOverviewPage() {
                       <div className="text-xs font-black leading-snug text-slate-900 sm:text-[13px]">
                         {cat.name}
                       </div>
-                      <p className="mt-1 line-clamp-2 text-[10px] font-medium leading-snug text-slate-500">
+                      <p className="mt-1 line-clamp-2 text-[10px] font-medium leading-snug text-slate-700">
                         {cat.desc}
                       </p>
                     </div>
@@ -319,7 +319,7 @@ export function CompanyOverviewPage() {
                           <span className="relative inline-flex h-2 w-2 rounded-full bg-teal-600"></span>
                         </span>
                       </div>
-                      <p className="mt-0.5 text-xs text-slate-500">
+                      <p className="mt-0.5 text-xs text-slate-700">
                         Civic challenges supported vs. verified impact delivered
                       </p>
                     </div>
@@ -333,7 +333,7 @@ export function CompanyOverviewPage() {
                             "flex-1 rounded-lg px-3 py-1.5 text-center transition-all",
                             activeRange === r
                               ? "bg-teal-600 font-bold text-white shadow-xs"
-                              : "text-slate-600 hover:text-slate-900",
+                              : "text-slate-700 hover:text-slate-900",
                           )}
                         >
                           {r === "month" ? "This Month" : r === "quarter" ? "Quarter" : "Year"}
@@ -352,7 +352,7 @@ export function CompanyOverviewPage() {
                       </div>
                       <div className="flex items-center gap-1.5">
                         <span className="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
-                        <span className="font-medium text-slate-500">
+                        <span className="font-medium text-slate-700">
                           Reported ({hoveredIndex !== null ? trend[hoveredIndex].reported : 498})
                         </span>
                       </div>
@@ -399,7 +399,7 @@ export function CompanyOverviewPage() {
                           <span
                             className={cn(
                               "mt-2 text-[10px] font-bold transition-colors sm:text-[11px]",
-                              isHovered ? "font-black text-slate-900" : "text-slate-500",
+                              isHovered ? "font-black text-slate-900" : "text-slate-700",
                             )}
                           >
                             {item.month}
@@ -418,7 +418,7 @@ export function CompanyOverviewPage() {
                       <h3 className="truncate text-sm font-bold text-slate-900 sm:text-base">
                         Impact by Sector
                       </h3>
-                      <p className="text-xs text-slate-500">Distribution of supported challenges</p>
+                      <p className="text-xs text-slate-700">Distribution of supported challenges</p>
                     </div>
                     <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-teal-100 bg-teal-50 text-teal-700">
                       <PieChart className="h-4 w-4" />
@@ -460,7 +460,7 @@ export function CompanyOverviewPage() {
                         <span className="text-2xl font-black leading-none tracking-tight text-slate-900 sm:text-3xl">
                           1,578
                         </span>
-                        <span className="mt-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                        <span className="mt-1 text-[10px] font-bold uppercase tracking-wider text-slate-700">
                           Reports
                         </span>
                       </div>
@@ -522,12 +522,12 @@ export function CompanyOverviewPage() {
                               </p>
                               <CompanySeverityBadge severity={i.priority ?? i.severity} />
                             </div>
-                            <p className="mt-0.5 flex items-center gap-1 text-xs text-slate-500">
+                            <p className="mt-0.5 flex items-center gap-1 text-xs text-slate-700">
                               <MapPin size={12} className="shrink-0" /> {i.area}
                             </p>
                             <div className="mt-2 flex items-center justify-between gap-1.5">
                               <CompanyStatusBadge status={i.status} />
-                              <span className="text-xs text-slate-600">{i.reportedAt}</span>
+                              <span className="text-xs text-slate-700">{i.reportedAt}</span>
                             </div>
                           </div>
                         </div>
@@ -568,7 +568,7 @@ export function CompanyOverviewPage() {
                 <div className="mt-4 w-full space-y-2.5">
                   {COMPANY_PERFORMANCE.metrics.map((m) => (
                     <div key={m.name}>
-                      <div className="flex justify-between text-[11px] font-semibold text-slate-500">
+                      <div className="flex justify-between text-[11px] font-semibold text-slate-700">
                         <span>{m.name}</span>
                         <span>{m.value}</span>
                       </div>
@@ -583,19 +583,19 @@ export function CompanyOverviewPage() {
             <div className="flex flex-wrap items-center justify-around gap-6 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
               <div className="text-center">
                 <div className="text-2xl font-black text-slate-900 sm:text-3xl">₹4.8L+</div>
-                <div className="mt-0.5 text-[11px] font-medium text-slate-500">CSR Funds Deployed</div>
+                <div className="mt-0.5 text-[11px] font-medium text-slate-700">CSR Funds Deployed</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-black text-slate-900 sm:text-3xl">{resolved * 9}</div>
-                <div className="mt-0.5 text-[11px] font-medium text-slate-500">Projects Completed</div>
+                <div className="mt-0.5 text-[11px] font-medium text-slate-700">Projects Completed</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-black text-slate-900 sm:text-3xl">130K+</div>
-                <div className="mt-0.5 text-[11px] font-medium text-slate-500">Citizens Reached</div>
+                <div className="mt-0.5 text-[11px] font-medium text-slate-700">Citizens Reached</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-black text-slate-900 sm:text-3xl">76+</div>
-                <div className="mt-0.5 text-[11px] font-medium text-slate-500">Partner Organizations</div>
+                <div className="mt-0.5 text-[11px] font-medium text-slate-700">Partner Organizations</div>
               </div>
             </div>
           </main>

@@ -16,6 +16,7 @@ import {
 import type { ScreenId } from "@/lib/akshat-types";
 import { cn } from "@/lib/utils";
 import { useAkshat } from "@/components/akshat/akshat-context";
+import { DocumentUploader } from "@/components/ui/document-uploader";
 
 interface ReportIssueScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -69,7 +70,7 @@ export const ReportIssueScreen = ({ setScreen }: ReportIssueScreenProps) => {
             <h2 className="text-xl font-black text-slate-900 sm:text-2xl">
               {t("reportWithAI", "Report Civic Issue")}
             </h2>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-700">
               {t("reportSubtitle", "AI triage will verify & categorize automatically")}
             </p>
           </div>
@@ -108,19 +109,12 @@ export const ReportIssueScreen = ({ setScreen }: ReportIssueScreenProps) => {
               </div>
             </div>
           ) : (
-            <div
-              onClick={handlePhotoClick}
-              className="group flex h-48 w-full cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-teal-300 bg-teal-50/50 text-teal-700 transition-all hover:bg-teal-50"
-            >
-              <div className="mb-2.5 flex h-12 w-12 items-center justify-center rounded-2xl border border-teal-200 bg-white shadow-xs transition-transform group-hover:scale-110">
-                <ImagePlus className="h-6 w-6 text-teal-600" />
-              </div>
-              <span className="text-sm font-bold text-slate-900">{t("tapToCapture", "Tap to capture or upload photo")}</span>
-              <span className="mt-1 flex items-center gap-1 text-xs text-slate-500">
-                <MapPin className="h-3 w-3 text-slate-600" />
-                {t("autoLocationTagging", "Automatic location tagging enabled")}
-              </span>
-            </div>
+            <DocumentUploader
+              label="Capture or Upload Photo"
+              hint="Supports JPG, PNG. Automatic location tagging enabled."
+              accept="image/*"
+              onUploadSuccess={() => setPhoto(PHOTO_URL)}
+            />
           )}
         </div>
 

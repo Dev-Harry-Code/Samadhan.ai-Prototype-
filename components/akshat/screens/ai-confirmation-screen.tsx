@@ -48,7 +48,7 @@ export const AIConfirmationScreen = ({
             <h2 className="text-xl font-black text-slate-900 sm:text-2xl">
               {t("confirmedTitle", "AI Verification Confirmation")}
             </h2>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-700">
               {t("confirmedSubtitle", "Validated with 96.8% confidence • Ready for dispatch")}
             </p>
           </div>
@@ -75,28 +75,28 @@ export const AIConfirmationScreen = ({
           <h3 className="mt-2 text-2xl font-black text-slate-900">
             {t("confirmedTitle", "Issue Confirmed: #LOK-9428")}
           </h3>
-          <p className="mx-auto mt-1 max-w-md text-xs text-slate-600">
+          <p className="mx-auto mt-1 max-w-md text-xs text-slate-700">
             {t("confirmedDesc", "Your report has been validated with 96.8% AI confidence. Work orders and community volunteer alerts have been drafted.")}
           </p>
         </div>
 
         <div className="space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
           <div className="flex items-center justify-between border-b border-slate-200 pb-2 text-xs">
-            <span className="font-medium text-slate-500">{t("trackingRef", "Tracking Reference")}</span>
+            <span className="font-medium text-slate-700">{t("trackingRef", "Tracking Reference")}</span>
             <span className="font-mono font-bold text-slate-900">#LOK-9428-RANCHI</span>
           </div>
           <div className="flex items-center justify-between border-b border-slate-200 pb-2 text-xs">
-            <span className="font-medium text-slate-500">{t("assignedUrgency", "Assigned Urgency")}</span>
+            <span className="font-medium text-slate-700">{t("assignedUrgency", "Assigned Urgency")}</span>
             <span className="rounded border border-orange-200 bg-orange-50 px-2 py-0.5 font-bold text-orange-600">
               {t("urgencyHigh", "High Urgency")}
             </span>
           </div>
           <div className="flex items-center justify-between border-b border-slate-200 pb-2 text-xs">
-            <span className="font-medium text-slate-500">{t("assignedDept", "Assigned Department")}</span>
+            <span className="font-medium text-slate-700">{t("assignedDept", "Assigned Department")}</span>
             <span className="font-semibold text-slate-800">{t("deptWaterBoard", "Water Supply & Sanitation Board")}</span>
           </div>
           <div className="flex items-center justify-between text-xs">
-            <span className="font-medium text-slate-500">{t("karmaEarned", "Citizen Karma Earned")}</span>
+            <span className="font-medium text-slate-700">{t("karmaEarned", "Citizen Karma Earned")}</span>
             <span className="font-mono font-bold text-teal-700">+120 {t("xpPoints", "XP Points")}</span>
           </div>
         </div>
@@ -116,7 +116,7 @@ export const AIConfirmationScreen = ({
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setScreen("home")}
-            className="w-full rounded-xl border border-slate-200 bg-white py-3 text-xs font-semibold text-slate-600 shadow-xs transition-all hover:bg-slate-50"
+            className="w-full rounded-xl border border-slate-200 bg-white py-3 text-xs font-semibold text-slate-700 shadow-xs transition-all hover:bg-slate-50"
           >
             {t("backToDashboard", "Cancel & Return to Dashboard")}
           </motion.button>
@@ -157,7 +157,7 @@ export const AIConfirmationScreen = ({
                 {t("reportDispatched", "Report Dispatched!")}
               </h4>
 
-              <p className="mb-4 text-xs leading-relaxed text-slate-600">
+              <p className="mb-4 text-xs leading-relaxed text-slate-700">
                 {t("loggedLedgerPrefix", "Issue")} <strong className="text-slate-900">#LOK-9428</strong>{" "}
                 {t("loggedLedger", "has been logged to the public ledger.")}{" "}
                 <span className="font-bold text-teal-700">+120 Karma XP</span>{" "}

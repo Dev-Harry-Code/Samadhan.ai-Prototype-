@@ -77,7 +77,7 @@ export function CompanyIssuesPage() {
       <div className="flex flex-wrap items-center gap-3">
         <div>
           <h1 className="text-xl font-extrabold tracking-tight text-slate-900">Issues</h1>
-          <p className="text-sm text-slate-500">{allIssues.length} total · {criticalCount} critical open</p>
+          <p className="text-sm text-slate-700">{allIssues.length} total · {criticalCount} critical open</p>
         </div>
         <div className="ml-auto flex gap-2">
           <button
@@ -85,7 +85,7 @@ export function CompanyIssuesPage() {
               setActive("All");
               setQuery("");
             }}
-            className="flex items-center gap-1.5 rounded-xl bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm ring-1 ring-slate-900/5 backdrop-blur transition hover:ring-primary-300"
+            className="flex items-center gap-1.5 rounded-xl bg-white/80 px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm ring-1 ring-slate-900/5 backdrop-blur transition hover:ring-primary-300"
           >
             <SlidersHorizontal size={16} /> Filters
           </button>
@@ -117,14 +117,14 @@ export function CompanyIssuesPage() {
       )}
 
       <div className="flex items-center gap-2 rounded-xl bg-white/80 px-4 py-2.5 shadow-sm ring-1 ring-slate-900/5 backdrop-blur focus-within:ring-2 focus-within:ring-primary-500">
-        <Search size={16} className="text-slate-600" />
+        <Search size={16} className="text-slate-700" />
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search by ID, title, area, category…"
-          className="w-full bg-transparent text-sm outline-none placeholder:text-slate-500"
+          className="w-full bg-transparent text-sm outline-none placeholder:text-slate-700"
         />
-        <Filter size={16} className="text-slate-500" />
+        <Filter size={16} className="text-slate-700" />
       </div>
 
       <div className="scrollbar-none -mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
@@ -138,7 +138,7 @@ export function CompanyIssuesPage() {
                 "shrink-0 rounded-full px-4 py-1.5 text-xs font-semibold transition",
                 activeTab
                   ? "bg-slate-900 text-white shadow-sm"
-                  : "bg-white text-slate-600 ring-1 ring-slate-200 hover:bg-slate-50",
+                  : "bg-white text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50",
               )}
             >
               {tab}
@@ -147,7 +147,7 @@ export function CompanyIssuesPage() {
         })}
       </div>
 
-      <div className="flex flex-wrap gap-2 text-[11px] font-semibold text-slate-500">
+      <div className="flex flex-wrap gap-2 text-[11px] font-semibold text-slate-700">
         <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-rose-500" /> Critical</span>
         <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-orange-400" /> High</span>
         <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-amber-400" /> Medium</span>
@@ -167,12 +167,12 @@ export function CompanyIssuesPage() {
                     <p className="truncate text-sm font-semibold text-slate-900">{issue.title}</p>
                     <CompanySeverityBadge severity={issue.priority ?? issue.severity} />
                   </div>
-                  <p className="mt-0.5 flex items-center gap-1 text-xs text-slate-500">
+                  <p className="mt-0.5 flex items-center gap-1 text-xs text-slate-700">
                     <MapPin size={12} className="shrink-0" /> {issue.area}
                   </p>
                   <div className="mt-2 flex flex-wrap items-center gap-1.5">
                     <CompanyStatusBadge status={issue.status} />
-                    <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-500">
+                    <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-700">
                       {issue.category}
                     </span>
                     {issue.verified && (
@@ -187,7 +187,7 @@ export function CompanyIssuesPage() {
                     )}
                   </div>
                 </div>
-                <ArrowUpRight size={18} className="mt-1 shrink-0 text-slate-500 transition group-hover:text-primary-500" />
+                <ArrowUpRight size={18} className="mt-1 shrink-0 text-slate-700 transition group-hover:text-primary-500" />
               </div>
             </div>
           </Link>

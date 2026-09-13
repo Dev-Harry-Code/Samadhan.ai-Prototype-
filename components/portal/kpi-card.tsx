@@ -11,7 +11,7 @@ const TONES: Record<string, string> = {
   violet: "bg-violet-50 text-violet-600",
   sky: "bg-sky-50 text-sky-600",
   rose: "bg-rose-50 text-rose-600",
-  slate: "bg-slate-100 text-slate-600",
+  slate: "bg-slate-100 text-slate-700",
 };
 
 export function PortalKpi({
@@ -33,7 +33,7 @@ export function PortalKpi({
         {icon}
       </div>
       <div className="text-xl font-extrabold tracking-tight text-slate-900">{value}</div>
-      <div className="text-[11px] font-medium text-slate-500">{label}</div>
+      <div className="text-[11px] font-medium text-slate-700">{label}</div>
       {sub && <div className="mt-0.5 text-[10px] font-bold text-emerald-600">{sub}</div>}
     </div>
   );
@@ -59,7 +59,7 @@ export function PortalPageHeader({
       </div>
       <div className="min-w-0">
         <h1 className="text-xl font-extrabold tracking-tight text-slate-900">{title}</h1>
-        {subtitle && <p className="text-sm text-slate-500">{subtitle}</p>}
+        {subtitle && <p className="text-sm text-slate-700">{subtitle}</p>}
       </div>
       {action && <div className="ml-auto">{action}</div>}
     </div>

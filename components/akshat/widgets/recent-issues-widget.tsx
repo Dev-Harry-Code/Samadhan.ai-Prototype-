@@ -45,7 +45,7 @@ export const RecentIssuesFeedWidget = ({
               {t("liveFeed", "Live Feed")}
             </span>
           </div>
-          <p className="mt-0.5 truncate text-xs text-slate-500">
+          <p className="mt-0.5 truncate text-xs text-slate-700">
             {t("recentIssuesSub", "Click any issue to inspect details & comment")}
           </p>
         </div>
@@ -107,8 +107,8 @@ export const RecentIssuesFeedWidget = ({
               <h4 className="truncate text-xs font-bold text-slate-900 transition-colors group-hover:text-teal-700 sm:text-sm">
                 {issueField(t, issue, "title", issue.title)}
               </h4>
-              <p className="mt-0.5 flex items-center gap-1 truncate text-[11px] text-slate-500">
-                <MapPin className="h-3 w-3 flex-shrink-0 text-slate-600" />
+              <p className="mt-0.5 flex items-center gap-1 truncate text-[11px] text-slate-700">
+                <MapPin className="h-3 w-3 flex-shrink-0 text-slate-700" />
                 <span className="truncate">{issueField(t, issue, "location", issue.location)} • {issue.distance || "1.4 km"}</span>
               </p>
             </div>

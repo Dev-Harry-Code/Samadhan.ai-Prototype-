@@ -78,7 +78,7 @@ const DialogDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Description
     ref={ref}
-    className={cn("text-sm text-slate-500", className)}
+    className={cn("text-sm text-slate-700", className)}
     {...props}
   />
 ));
@@ -91,7 +91,7 @@ const DialogXClose = React.forwardRef<
   <DialogPrimitive.Close
     ref={ref}
     className={cn(
-      "absolute right-4 top-4 h-8 w-8 rounded-full bg-slate-100 text-slate-500 transition-colors hover:bg-slate-200 focus:outline-none grid place-items-center",
+      "absolute right-4 top-4 h-8 w-8 rounded-full bg-slate-100 text-slate-700 transition-colors hover:bg-slate-200 focus:outline-none grid place-items-center",
       className,
     )}
     {...props}

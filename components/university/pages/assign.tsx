@@ -42,7 +42,7 @@ export function UniversityAssignPage() {
 
       <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
         <p className="text-sm font-bold text-slate-900">Recommended action</p>
-        <p className="mt-2 max-w-2xl text-xs leading-relaxed text-slate-600">
+        <p className="mt-2 max-w-2xl text-xs leading-relaxed text-slate-700">
           Based on the live issue mix (<strong className="text-slate-900">Roads &amp; Infrastructure 40%</strong>, Water
           25%), <strong className="font-bold text-emerald-700">IIT Jodhpur ({UNIVERSITIES[0].matchScore})</strong> is the strongest
           fit. Assigning them to the <em className="text-slate-800">Main Market road damage</em> report is likely to cut resolution time by 3 days.
@@ -102,7 +102,7 @@ export function UniversityAssignPage() {
                 <div className="min-w-0">
                   <h3 className="text-base font-extrabold tracking-tight text-slate-900">{u.name}</h3>
                   <p className="text-[11px] font-semibold text-primary-600">{u.type}</p>
-                  <p className="mt-0.5 flex items-center gap-1 text-xs text-slate-500">
+                  <p className="mt-0.5 flex items-center gap-1 text-xs text-slate-700">
                     <MapPin size={12} className="shrink-0" /> {u.location}
                   </p>
                 </div>
@@ -114,11 +114,11 @@ export function UniversityAssignPage() {
                 </span>
                 <div className="ml-auto flex items-center gap-0.5">
                   <BadgeCheck size={13} className="text-primary-500" />
-                  <span className="text-[10px] font-semibold text-slate-600">AI verified profile</span>
+                  <span className="text-[10px] font-semibold text-slate-700">AI verified profile</span>
                 </div>
               </div>
 
-              <p className="mt-2 text-[11px] font-medium text-slate-500">
+              <p className="mt-2 text-[11px] font-medium text-slate-700">
                 <span className="font-bold text-slate-700">Expertise:</span> {u.expertise}
               </p>
 

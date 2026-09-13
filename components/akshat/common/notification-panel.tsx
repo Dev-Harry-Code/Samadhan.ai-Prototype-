@@ -87,7 +87,7 @@ export function NotificationPanel({
                 </button>
                 <button
                   onClick={onClose}
-                  className="rounded-lg p-1.5 text-slate-600 transition hover:bg-slate-100 hover:text-slate-700"
+                  className="rounded-lg p-1.5 text-slate-700 transition hover:bg-slate-100 hover:text-slate-700"
                   aria-label="Close notifications"
                 >
                   <X className="h-4 w-4" />
@@ -97,7 +97,7 @@ export function NotificationPanel({
 
             <div className="flex-1 overflow-y-auto px-3 py-2">
               {notifications.length === 0 && (
-                <p className="px-3 py-8 text-center text-xs text-slate-600">{t("noNotifications", "No notifications yet")}</p>
+                <p className="px-3 py-8 text-center text-xs text-slate-700">{t("noNotifications", "No notifications yet")}</p>
               )}
               {notifications.map((n) => {
                 const meta = TYPE_META[n.type];
@@ -126,17 +126,17 @@ export function NotificationPanel({
                         <span
                           className={cn(
                             "truncate text-xs font-bold",
-                            isUnread ? "text-slate-900" : "text-slate-600",
+                            isUnread ? "text-slate-900" : "text-slate-700",
                           )}
                         >
                           {notifField(t, n.id, "title", n.title)}
                         </span>
                         {isUnread && <span className="h-2 w-2 shrink-0 rounded-full bg-teal-500" />}
                       </span>
-                      <span className="mt-0.5 block line-clamp-2 text-[11px] leading-relaxed text-slate-500">
+                      <span className="mt-0.5 block line-clamp-2 text-[11px] leading-relaxed text-slate-700">
                         {notifField(t, n.id, "body", n.body)}
                       </span>
-                      <span className="mt-1 block text-[10px] font-semibold text-slate-600">
+                      <span className="mt-1 block text-[10px] font-semibold text-slate-700">
                         {notifField(t, n.id, "timeAgo", n.timeAgo)}
                       </span>
                     </span>
@@ -146,7 +146,7 @@ export function NotificationPanel({
             </div>
 
             <div className="border-t border-slate-100 px-5 py-3">
-              <span className="flex items-center justify-center gap-1.5 text-[11px] font-medium text-slate-600">
+              <span className="flex items-center justify-center gap-1.5 text-[11px] font-medium text-slate-700">
                 <CheckCheck className="h-3.5 w-3.5" />
                 {t("notificationsFooter", "Stay updated on issues you care about")}
               </span>

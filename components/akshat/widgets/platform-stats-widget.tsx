@@ -34,9 +34,9 @@ export function PlatformStatsWidget({
       growth: "+12%",
       subtext: t("metricVsLast7Days", "vs last 7 days"),
       icon: <FileText className="h-4 w-4 text-emerald-600" />,
-      bgCard: "bg-emerald-50/70 border-emerald-200/80 hover:border-emerald-300",
-      iconBg: "bg-emerald-100 text-emerald-700",
-      badgeBg: "bg-emerald-100 text-emerald-800 border-emerald-300",
+      bgCard: "bg-white border border-slate-200 shadow-sm",
+      iconBg: "bg-emerald-100 text-emerald-800",
+      badgeBg: "bg-emerald-100 text-emerald-900 font-bold border border-emerald-300",
       accentColor: "text-emerald-700",
     },
     {
@@ -46,9 +46,9 @@ export function PlatformStatsWidget({
       growth: "+2%",
       subtext: t("metricNeedAttention", "needs attention"),
       icon: <AlertTriangle className="h-4 w-4 text-rose-600" />,
-      bgCard: "bg-rose-50/70 border-rose-200/80 hover:border-rose-300",
-      iconBg: "bg-rose-100 text-rose-700",
-      badgeBg: "bg-rose-100 text-rose-800 border-rose-300",
+      bgCard: "bg-white border border-slate-200 shadow-sm",
+      iconBg: "bg-rose-100 text-rose-800",
+      badgeBg: "bg-rose-100 text-rose-900 font-bold border border-rose-300",
       accentColor: "text-rose-700",
     },
     {
@@ -58,9 +58,9 @@ export function PlatformStatsWidget({
       growth: "+5%",
       subtext: t("metricNeedAssignment", "need assignment"),
       icon: <Clock className="h-4 w-4 text-amber-600" />,
-      bgCard: "bg-amber-50/70 border-amber-200/80 hover:border-amber-300",
-      iconBg: "bg-amber-100 text-amber-700",
-      badgeBg: "bg-amber-100 text-amber-800 border-amber-300",
+      bgCard: "bg-white border border-slate-200 shadow-sm",
+      iconBg: "bg-amber-100 text-amber-800",
+      badgeBg: "bg-amber-100 text-amber-950 font-bold border border-amber-300",
       accentColor: "text-amber-700",
     },
     {
@@ -70,9 +70,9 @@ export function PlatformStatsWidget({
       growth: "+8%",
       subtext: t("metricOnGoing", "ongoing work"),
       icon: <Loader2 className="h-4 w-4 animate-spin text-sky-600" />,
-      bgCard: "bg-sky-50/70 border-sky-200/80 hover:border-sky-300",
-      iconBg: "bg-sky-100 text-sky-700",
-      badgeBg: "bg-sky-100 text-sky-800 border-sky-300",
+      bgCard: "bg-white border border-slate-200 shadow-sm",
+      iconBg: "bg-blue-100 text-blue-800",
+      badgeBg: "bg-blue-100 text-blue-900 font-bold border border-blue-300",
       accentColor: "text-sky-700",
     },
     {
@@ -82,9 +82,9 @@ export function PlatformStatsWidget({
       growth: "+20%",
       subtext: t("metricThisWeek", "this week"),
       icon: <CheckCircle2 className="h-4 w-4 text-teal-600" />,
-      bgCard: "bg-teal-50/70 border-teal-200/80 hover:border-teal-300",
-      iconBg: "bg-teal-100 text-teal-700",
-      badgeBg: "bg-teal-100 text-teal-800 border-teal-300",
+      bgCard: "bg-white border border-slate-200 shadow-sm",
+      iconBg: "bg-teal-100 text-teal-800",
+      badgeBg: "bg-teal-100 text-teal-900 font-bold border border-teal-300",
       accentColor: "text-teal-700",
     },
     {
@@ -94,9 +94,9 @@ export function PlatformStatsWidget({
       growth: "+18%",
       subtext: t("metricThisMonth", "this month"),
       icon: <IndianRupee className="h-4 w-4 text-purple-600" />,
-      bgCard: "bg-purple-50/70 border-purple-200/80 hover:border-purple-300",
-      iconBg: "bg-purple-100 text-purple-700",
-      badgeBg: "bg-purple-100 text-purple-800 border-purple-300",
+      bgCard: "bg-white border border-slate-200 shadow-sm",
+      iconBg: "bg-purple-100 text-purple-800",
+      badgeBg: "bg-purple-100 text-purple-900 font-bold border border-purple-300",
       accentColor: "text-purple-700",
     },
   ];
@@ -142,7 +142,7 @@ export function PlatformStatsWidget({
               stat.bgCard,
             )}
           >
-            <div className="mb-1.5 flex items-center justify-between gap-1">
+            <div className="mb-1.5 flex items-center justify-between gap-2 overflow-hidden w-full">
               <div
                 className={cn(
                   "flex h-7 w-7 shrink-0 items-center justify-center rounded-xl sm:h-8 sm:w-8",
@@ -153,7 +153,7 @@ export function PlatformStatsWidget({
               </div>
               <span
                 className={cn(
-                  "rounded-full border px-1.5 py-0.5 text-[9px] font-bold sm:text-[9.5px]",
+                  "rounded-full px-1.5 py-0.5 text-[9px] sm:text-[9.5px]",
                   stat.badgeBg,
                 )}
               >
@@ -161,13 +161,13 @@ export function PlatformStatsWidget({
               </span>
             </div>
 
-            <div className="mb-1 text-base font-black leading-none text-slate-900 sm:text-lg">
+            <div className="mb-1 text-base font-extrabold leading-none text-slate-950 sm:text-lg">
               {stat.value}
             </div>
 
             <div
               title={stat.title}
-              className="flex items-center whitespace-nowrap text-[9.5px] font-bold text-slate-700 sm:text-[10.5px]"
+              className="flex items-center whitespace-nowrap text-xs font-bold tracking-wider text-slate-700"
             >
               {renderTitle(stat.title, true)}
             </div>
@@ -197,10 +197,10 @@ export function PlatformStatsWidget({
             stat.bgCard,
           )}
         >
-          <div className="relative z-10 mb-2 flex items-center justify-between gap-1">
+          <div className="relative z-10 mb-2 flex items-center justify-between gap-2 overflow-hidden w-full">
             <span
               title={stat.title}
-              className="inline-flex items-center text-[10px] font-extrabold uppercase tracking-normal text-slate-700 sm:text-[11px]"
+              className="inline-flex items-center text-xs font-bold uppercase tracking-wider text-slate-700"
             >
               {renderTitle(stat.title, false)}
             </span>
@@ -215,19 +215,19 @@ export function PlatformStatsWidget({
           </div>
 
           <div className="my-1">
-            <div className="text-xl font-black leading-tight tracking-tight text-slate-900 sm:text-2xl">
+            <div className="text-xl font-extrabold leading-tight tracking-tight text-slate-950 sm:text-2xl">
               {stat.value}
             </div>
             <div className="mt-1 flex items-center gap-1.5">
               <span
                 className={cn(
-                  "rounded-full border px-1.5 py-0.5 text-[10px] font-bold",
+                  "rounded-full px-1.5 py-0.5 text-[10px]",
                   stat.badgeBg,
                 )}
               >
                 {stat.growth}
               </span>
-              <span className="truncate text-[10px] text-slate-500">{stat.subtext}</span>
+              <span className="truncate text-xs font-medium text-slate-700">{stat.subtext}</span>
             </div>
           </div>
         </motion.div>

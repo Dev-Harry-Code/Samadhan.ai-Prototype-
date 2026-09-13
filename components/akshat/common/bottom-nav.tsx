@@ -18,7 +18,7 @@ export function BottomNav({ currentScreen, setScreen }: BottomNavProps) {
   const tabClass = (screens: ScreenId[]) =>
     cn(
       "flex h-full flex-1 flex-col items-center justify-center space-y-1 transition-all",
-      screens.includes(currentScreen) ? "font-bold text-teal-600" : "text-slate-500 hover:text-slate-900",
+      screens.includes(currentScreen) ? "font-bold text-teal-700" : "text-slate-700 hover:text-slate-900",
     );
 
   return (

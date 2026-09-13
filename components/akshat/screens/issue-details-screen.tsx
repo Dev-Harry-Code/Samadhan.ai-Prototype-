@@ -113,13 +113,13 @@ export const IssueDetailsScreen = ({ setScreen, selectedIssue }: IssueDetailsScr
       </div>
 
       <div className="space-y-6 px-2">
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-4 text-xs text-slate-600 shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-4 text-xs text-slate-700 shadow-sm">
           <div className="flex items-center gap-2">
             <MapPin className="h-4 w-4 text-teal-600" />
             <span className="font-medium text-slate-800">{issueField(t, selectedIssue, "location", selectedIssue.location)}</span>
           </div>
           <div className="flex items-center gap-2">
-            <Clock className="h-4 w-4 text-slate-600" />
+            <Clock className="h-4 w-4 text-slate-700" />
             <span>
               {t("reportedDaysBy", "Reported")} {selectedIssue.reportedDaysAgo} {t("daysAgoFull", "days ago")}{" "}
               {t("byWord", "by")}{" "}
@@ -171,7 +171,7 @@ export const IssueDetailsScreen = ({ setScreen, selectedIssue }: IssueDetailsScr
                 {comments.length}
               </span>
             </div>
-            <span className="text-xs text-slate-500">{t("discussionSubtitle", "Verifiable Solutions & Updates")}</span>
+            <span className="text-xs text-slate-700">{t("discussionSubtitle", "Verifiable Solutions & Updates")}</span>
           </div>
 
           <div className="mb-6 flex gap-3">
@@ -228,7 +228,7 @@ export const IssueDetailsScreen = ({ setScreen, selectedIssue }: IssueDetailsScr
                         {commentField(t, comment.id, "authorRole", comment.authorRole ?? "")}
                       </span>
                     </div>
-                    <span className="text-[10px] text-slate-600">{commentField(t, comment.id, "daysAgo", comment.daysAgo)}</span>
+                    <span className="text-[10px] text-slate-700">{commentField(t, comment.id, "daysAgo", comment.daysAgo)}</span>
                   </div>
                   <p className="text-xs leading-relaxed text-slate-700">{commentField(t, comment.id, "text", comment.text)}</p>
                   {comment.imageUrl && (
@@ -242,7 +242,7 @@ export const IssueDetailsScreen = ({ setScreen, selectedIssue }: IssueDetailsScr
                       />
                     </div>
                   )}
-                  <div className="mt-2.5 flex items-center gap-4 text-xs font-semibold text-slate-500">
+                  <div className="mt-2.5 flex items-center gap-4 text-xs font-semibold text-slate-700">
                     <button className="flex items-center gap-1 transition-colors hover:text-teal-700">
                       <ArrowBigUp className="h-4 w-4 text-teal-600" />
                       <span>{t("commentUpvote", "Upvote")} ({comment.upvotes})</span>

@@ -64,7 +64,7 @@ export function CompanyIssueDetailsPage({ id }: { id: string }) {
     <div className="mx-auto max-w-4xl pb-6">
       <Link
         href="/funder/issues"
-        className="mb-4 inline-flex items-center gap-1.5 rounded-xl bg-white/80 px-3 py-2 text-sm font-semibold text-slate-600 shadow-sm ring-1 ring-slate-900/5 backdrop-blur transition hover:text-primary-600"
+        className="mb-4 inline-flex items-center gap-1.5 rounded-xl bg-white/80 px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm ring-1 ring-slate-900/5 backdrop-blur transition hover:text-primary-600"
       >
         <ArrowLeft size={15} /> All issues
       </Link>
@@ -79,10 +79,10 @@ export function CompanyIssueDetailsPage({ id }: { id: string }) {
             <div className="mt-2 flex flex-wrap items-center gap-1.5">
               <CompanyStatusBadge status={issue.status} />
               <CompanySeverityBadge severity={issue.priority ?? issue.severity} />
-              <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-semibold text-slate-600">
+              <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-semibold text-slate-700">
                 {issue.category}
               </span>
-              <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-semibold text-slate-600">
+              <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-semibold text-slate-700">
                 {issue.department}
               </span>
             </div>
@@ -92,13 +92,13 @@ export function CompanyIssueDetailsPage({ id }: { id: string }) {
               {issue.beforeImage ? <issue.beforeImage size={16} /> : <MapPin size={16} />}
             </div>
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-wide text-slate-600">Revenue estimate</p>
+              <p className="text-[10px] font-bold uppercase tracking-wide text-slate-700">Revenue estimate</p>
               <p className="text-sm font-extrabold text-slate-900">₹{issue.revenueEstimate.toLocaleString()}</p>
             </div>
           </div>
         </div>
 
-        <div className="mt-4 grid gap-3 text-[12px] font-medium text-slate-500 sm:grid-cols-3">
+        <div className="mt-4 grid gap-3 text-[12px] font-medium text-slate-700 sm:grid-cols-3">
           <div className="flex items-center gap-2">
             <MapPin size={15} className="shrink-0 text-primary-500" /> {issue.area}
           </div>
@@ -110,7 +110,7 @@ export function CompanyIssueDetailsPage({ id }: { id: string }) {
           </div>
         </div>
 
-        <p className="mt-4 rounded-2xl bg-slate-50 p-4 text-sm leading-relaxed text-slate-600 ring-1 ring-slate-900/5">
+        <p className="mt-4 rounded-2xl bg-slate-50 p-4 text-sm leading-relaxed text-slate-700 ring-1 ring-slate-900/5">
           {issue.description}
         </p>
 
@@ -118,33 +118,33 @@ export function CompanyIssueDetailsPage({ id }: { id: string }) {
           <div className="flex items-center gap-2 rounded-2xl bg-white px-4 py-3 shadow-sm ring-1 ring-slate-900/5">
             <ThumbsUp size={16} className="shrink-0 text-primary-500" />
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-wide text-slate-600">Upvotes</p>
+              <p className="text-[10px] font-bold uppercase tracking-wide text-slate-700">Upvotes</p>
               <p className="text-sm font-extrabold text-slate-900">{issue.upvotes}</p>
             </div>
           </div>
           <div className="flex items-center gap-2 rounded-2xl bg-white px-4 py-3 shadow-sm ring-1 ring-slate-900/5">
             <MessageSquare size={16} className="shrink-0 text-primary-500" />
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-wide text-slate-600">AI confidence</p>
+              <p className="text-[10px] font-bold uppercase tracking-wide text-slate-700">AI confidence</p>
               <p className="text-sm font-extrabold text-slate-900">{Math.round(issue.confidence * 100)}%</p>
             </div>
           </div>
           <div className="flex items-center gap-2 rounded-2xl bg-white px-4 py-3 shadow-sm ring-1 ring-slate-900/5">
             <BadgeCheck size={16} className="shrink-0 text-primary-500" />
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-wide text-slate-600">Sentiment</p>
+              <p className="text-[10px] font-bold uppercase tracking-wide text-slate-700">Sentiment</p>
               <p className="text-sm font-extrabold text-slate-900">{issue.sentiment}</p>
             </div>
           </div>
         </div>
 
         <div className="mt-5">
-          <p className="mb-1.5 text-xs font-bold uppercase tracking-wide text-slate-600">Resolution progress</p>
+          <p className="mb-1.5 text-xs font-bold uppercase tracking-wide text-slate-700">Resolution progress</p>
           <ProgressBar
             value={issue.status === "resolved" ? 100 : issue.status === "in_progress" ? 66 : 33}
             className="bg-slate-100"
           />
-          <p className="mt-1.5 text-xs font-semibold text-slate-500">{issue.resolutionETA}</p>
+          <p className="mt-1.5 text-xs font-semibold text-slate-700">{issue.resolutionETA}</p>
         </div>
       </div>
 
@@ -162,7 +162,7 @@ export function CompanyIssueDetailsPage({ id }: { id: string }) {
                         "flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-sm ring-2",
                         step.done
                           ? "bg-primary-50 text-primary-600 ring-primary-500/40"
-                          : "bg-slate-50 text-slate-500 ring-slate-200",
+                          : "bg-slate-50 text-slate-700 ring-slate-200",
                       )}
                     >
                       {step.done ? <Check size={15} strokeWidth={3} /> : <StepIcon label={step.label} />}
@@ -170,10 +170,10 @@ export function CompanyIssueDetailsPage({ id }: { id: string }) {
                     {!last && <div className={cn("w-0.5 flex-1", step.done ? "bg-primary-200" : "bg-slate-200")} />}
                   </div>
                   <div className={cn("pb-5", last && "pb-0")}>
-                    <p className={cn("text-sm font-bold", step.done ? "text-slate-800" : "text-slate-600")}>
+                    <p className={cn("text-sm font-bold", step.done ? "text-slate-800" : "text-slate-700")}>
                       {step.label}
                     </p>
-                    <p className="text-xs font-medium text-slate-600">{step.date}</p>
+                    <p className="text-xs font-medium text-slate-700">{step.date}</p>
                   </div>
                 </div>
               );
@@ -182,24 +182,24 @@ export function CompanyIssueDetailsPage({ id }: { id: string }) {
         </div>
 
         <div className="space-y-4">
-          <div className="glass rounded-3xl bg-gradient-to-br from-slate-900 via-emerald-950 to-teal-900 p-5 text-white shadow-lg shadow-slate-900/10 ring-1 ring-white/10">
-            <p className="flex items-center gap-1.5 text-sm font-bold">
-              <Bot size={15} className="text-emerald-300" /> AI summary
+          <div className="glass rounded-3xl p-5 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
+            <p className="flex items-center gap-1.5 text-sm font-bold text-slate-900">
+              <Bot size={15} className="text-primary-600" /> AI summary
             </p>
-            <p className="mt-2 text-xs leading-relaxed text-emerald-50/90">
+            <p className="mt-2 text-xs leading-relaxed text-slate-700 font-medium">
               {issue.aiSummary ?? "No AI summary available for this issue yet."}
             </p>
-            <div className="mt-3 flex items-center justify-between text-[11px] font-semibold text-emerald-100/70">
+            <div className="mt-3 flex items-center justify-between text-[11px] font-semibold text-slate-700">
               <span>AI confidence</span>
               <span>{Math.round(issue.confidence * 100)}%</span>
             </div>
-            <ProgressBar value={Math.round(issue.confidence * 100)} className="mt-1 bg-white/15" />
+            <ProgressBar value={Math.round(issue.confidence * 100)} className="mt-1 bg-slate-200" />
           </div>
 
           <div className="glass rounded-3xl p-5 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
             <p className="text-sm font-bold text-slate-900">Sentiment analysis</p>
             <div className="mt-3 flex items-center gap-2.5">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-100 text-slate-500">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-100 text-slate-700">
                 {(() => {
                   const Icon = SENTIMENT_ICON[issue.sentiment] ?? Smile;
                   return <Icon size={22} />;
@@ -207,7 +207,7 @@ export function CompanyIssueDetailsPage({ id }: { id: string }) {
               </div>
               <div>
                 <p className="text-sm font-extrabold text-slate-900">{issue.sentiment}</p>
-                <p className="text-[11px] font-medium text-slate-600">Dominant citizen emotion</p>
+                <p className="text-[11px] font-medium text-slate-700">Dominant citizen emotion</p>
               </div>
             </div>
           </div>

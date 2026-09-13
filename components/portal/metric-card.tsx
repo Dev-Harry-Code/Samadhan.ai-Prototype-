@@ -9,34 +9,34 @@ export type MetricTone = "emerald" | "rose" | "amber" | "sky" | "teal" | "purple
 
 const TONES: Record<MetricTone, { bgCard: string; iconBg: string; badgeBg: string }> = {
   emerald: {
-    bgCard: "bg-emerald-50/70 border-emerald-200/80 hover:border-emerald-300",
-    iconBg: "bg-emerald-100 text-emerald-700",
-    badgeBg: "bg-emerald-100 text-emerald-800 border-emerald-300",
+    bgCard: "bg-white border border-slate-200 shadow-sm",
+    iconBg: "bg-emerald-100 text-emerald-800",
+    badgeBg: "bg-emerald-100 text-emerald-900 font-bold border border-emerald-300",
   },
   rose: {
-    bgCard: "bg-rose-50/70 border-rose-200/80 hover:border-rose-300",
-    iconBg: "bg-rose-100 text-rose-700",
-    badgeBg: "bg-rose-100 text-rose-800 border-rose-300",
+    bgCard: "bg-white border border-slate-200 shadow-sm",
+    iconBg: "bg-rose-100 text-rose-800",
+    badgeBg: "bg-rose-100 text-rose-900 font-bold border border-rose-300",
   },
   amber: {
-    bgCard: "bg-amber-50/70 border-amber-200/80 hover:border-amber-300",
-    iconBg: "bg-amber-100 text-amber-700",
-    badgeBg: "bg-amber-100 text-amber-800 border-amber-300",
+    bgCard: "bg-white border border-slate-200 shadow-sm",
+    iconBg: "bg-amber-100 text-amber-800",
+    badgeBg: "bg-amber-100 text-amber-950 font-bold border border-amber-300",
   },
   sky: {
-    bgCard: "bg-sky-50/70 border-sky-200/80 hover:border-sky-300",
-    iconBg: "bg-sky-100 text-sky-700",
-    badgeBg: "bg-sky-100 text-sky-800 border-sky-300",
+    bgCard: "bg-white border border-slate-200 shadow-sm",
+    iconBg: "bg-blue-100 text-blue-800",
+    badgeBg: "bg-blue-100 text-blue-900 font-bold border border-blue-300",
   },
   teal: {
-    bgCard: "bg-teal-50/70 border-teal-200/80 hover:border-teal-300",
-    iconBg: "bg-teal-100 text-teal-700",
-    badgeBg: "bg-teal-100 text-teal-800 border-teal-300",
+    bgCard: "bg-white border border-slate-200 shadow-sm",
+    iconBg: "bg-teal-100 text-teal-800",
+    badgeBg: "bg-teal-100 text-teal-900 font-bold border border-teal-300",
   },
   purple: {
-    bgCard: "bg-purple-50/70 border-purple-200/80 hover:border-purple-300",
-    iconBg: "bg-purple-100 text-purple-700",
-    badgeBg: "bg-purple-100 text-purple-800 border-purple-300",
+    bgCard: "bg-white border border-slate-200 shadow-sm",
+    iconBg: "bg-purple-100 text-purple-800",
+    badgeBg: "bg-purple-100 text-purple-900 font-bold border border-purple-300",
   },
 };
 
@@ -73,10 +73,10 @@ export function MetricCard({
         t.bgCard,
       )}
     >
-      <div className="relative z-10 mb-2 flex items-center justify-between gap-1">
+      <div className="relative z-10 mb-2 flex items-center justify-between gap-2 overflow-hidden w-full">
         <span
           title={title}
-          className="inline-flex items-center text-[10px] font-extrabold uppercase tracking-normal text-slate-700 sm:text-[11px]"
+          className="inline-flex items-center text-xs font-bold uppercase tracking-wider text-slate-700"
         >
           {title}
         </span>
@@ -86,14 +86,14 @@ export function MetricCard({
       </div>
 
       <div className="my-1">
-        <div className="text-xl font-black leading-tight tracking-tight text-slate-900 sm:text-2xl">
+        <div className="text-xl font-extrabold leading-tight tracking-tight text-slate-950 sm:text-2xl">
           {value}
         </div>
         <div className="mt-1 flex items-center gap-1.5">
-          <span className={cn("rounded-full border px-1.5 py-0.5 text-[10px] font-bold", t.badgeBg)}>
+          <span className={cn("rounded-full px-1.5 py-0.5 text-[10px]", t.badgeBg)}>
             {growth}
           </span>
-          <span className="truncate text-[10px] text-slate-500">{subtext}</span>
+          <span className="truncate text-xs font-medium text-slate-700">{subtext}</span>
         </div>
       </div>
     </motion.div>

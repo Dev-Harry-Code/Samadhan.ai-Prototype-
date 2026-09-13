@@ -36,7 +36,7 @@ export function HubNav({
                 "flex-shrink-0 whitespace-nowrap rounded-xl px-3 py-1.5 text-[11px] font-semibold transition-all sm:px-3.5 sm:text-xs",
                 active
                   ? "bg-teal-600 text-white shadow-xs"
-                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+                  : "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
               )}
             >
               {it.label}

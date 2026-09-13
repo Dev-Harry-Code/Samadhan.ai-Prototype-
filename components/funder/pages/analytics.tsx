@@ -51,7 +51,7 @@ export function CompanyAnalyticsPage() {
                 onClick={() => setRange(r)}
                 className={cn(
                   "rounded-lg px-3 py-1.5 text-xs font-bold transition",
-                  range === r ? "bg-slate-900 text-white" : "text-slate-500 hover:text-slate-900",
+                  range === r ? "bg-slate-900 text-white" : "text-slate-700 hover:text-slate-900",
                 )}
               >
                 {r}
@@ -70,13 +70,13 @@ export function CompanyAnalyticsPage() {
         ].map((k) => (
           <div key={k.label} className="glass rounded-2xl p-4 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
             <div className="flex items-center justify-between">
-              <k.icon size={18} className="text-slate-600" />
+              <k.icon size={18} className="text-slate-700" />
               <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-600">
                 {k.delta}
               </span>
             </div>
             <div className="mt-1 text-xl font-extrabold text-slate-900">{k.value}</div>
-            <div className="text-[11px] font-medium text-slate-600">{k.label}</div>
+            <div className="text-[11px] font-medium text-slate-700">{k.label}</div>
           </div>
         ))}
       </div>
@@ -134,10 +134,10 @@ export function CompanyAnalyticsPage() {
             </div>
             <div className="space-y-1.5">
               {COMPANY_ANALYTICS.categoryBreakdown.map((c, i) => (
-                <div key={c.name} className="flex items-center gap-1.5 text-xs font-semibold text-slate-600">
+                <div key={c.name} className="flex items-center gap-1.5 text-xs font-semibold text-slate-700">
                   <span className="h-2.5 w-2.5 rounded-full" style={{ background: COMPANY_PIE_COLORS[i % COMPANY_PIE_COLORS.length] }} />
                   {c.name}
-                  <span className="ml-auto text-slate-600">{c.value}%</span>
+                  <span className="ml-auto text-slate-700">{c.value}%</span>
                 </div>
               ))}
             </div>
@@ -175,7 +175,7 @@ export function CompanyAnalyticsPage() {
               { name: "Duplicate containment", value: 63 },
             ].map((m) => (
               <div key={m.name}>
-                <div className="flex justify-between text-xs font-semibold text-slate-500">
+                <div className="flex justify-between text-xs font-semibold text-slate-700">
                   <span>{m.name}</span>
                   <span>{m.value}%</span>
                 </div>
@@ -225,9 +225,9 @@ function LinkRow({ id, title, area, status }: { id: string; title: string; area:
       />
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-semibold text-slate-800">{title}</p>
-        <p className="text-xs text-slate-600">{id} · {area}</p>
+        <p className="text-xs text-slate-700">{id} · {area}</p>
       </div>
-      <ArrowUpRight size={14} className="text-slate-500 transition group-hover:text-primary-500" />
+      <ArrowUpRight size={14} className="text-slate-700 transition group-hover:text-primary-500" />
     </Link>
   );
 }

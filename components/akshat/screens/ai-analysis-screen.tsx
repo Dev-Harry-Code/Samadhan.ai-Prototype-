@@ -79,7 +79,7 @@ export const AIAnalysisScreen = ({ setScreen }: AIAnalysisScreenProps) => {
             <h2 className="text-xl font-black text-slate-900 sm:text-2xl">
               {t("aiTriageRunning", "AI Autonomous Triage")}
             </h2>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-700">
               {t("aiAnalyzingDesc", "Computer vision inspecting damage severity & dispatching orders")}
             </p>
           </div>
@@ -101,7 +101,7 @@ export const AIAnalysisScreen = ({ setScreen }: AIAnalysisScreenProps) => {
           <h3 className="mt-3 text-xl font-black text-slate-900">
             {t("aiAnalyzingTitle", "Analyzing Structural Defect & Impact")}
           </h3>
-          <p className="mx-auto mt-1 max-w-md text-xs text-slate-600">
+          <p className="mx-auto mt-1 max-w-md text-xs text-slate-700">
             {t("aiAnalyzingDesc", "Deep neural vision is verifying leak signature, estimating affected population, and matching local engineering faculties.")}
           </p>
         </div>
@@ -157,7 +157,7 @@ export const AIAnalysisScreen = ({ setScreen }: AIAnalysisScreenProps) => {
           </div>
         </div>
 
-        <div className="flex items-center justify-center gap-1.5 pt-2 font-mono text-[11px] text-slate-600">
+        <div className="flex items-center justify-center gap-1.5 pt-2 font-mono text-[11px] text-slate-700">
           <span className="h-2 w-2 animate-ping rounded-full bg-teal-600"></span>
           {t("autoForwarding", "Auto-forwarding to verification receipt in 3 seconds...")}
         </div>
