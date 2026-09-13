@@ -1,7 +1,7 @@
 
 "use client";
 
-import { LayoutDashboard, Users, IndianRupee, MapPin } from "lucide-react";
+import { LayoutDashboard, Users, IndianRupee } from "lucide-react";
 import { PortalAppShell } from "@/components/portal/app-shell";
 
 const NAV_ITEMS = [

@@ -1,7 +1,7 @@
 
 "use client";
 
-import { Users, CheckCircle, ShieldAlert } from "lucide-react";
+import { Users } from "lucide-react";
 import { PortalPageHeader } from "@/components/portal/kpi-card";
 import { NGO_VOLUNTEERS } from "@/lib/data/ngo-mock";
 import { cn } from "@/lib/utils";

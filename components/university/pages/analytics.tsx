@@ -8,9 +8,8 @@ import {
   TrendingUp,
   AlertOctagon,
   GraduationCap,
-  ArrowRight,
+ArrowRight,
   CheckCircle2,
-  Users,
   Lightbulb,
   ShieldAlert,
 } from "lucide-react";

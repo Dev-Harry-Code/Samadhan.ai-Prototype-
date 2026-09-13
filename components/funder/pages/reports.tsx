@@ -6,7 +6,6 @@ import { Download, FileBarChart, FileText, FileSpreadsheet, Plus, Trash2 } from 
 import { PortalPageHeader } from "@/components/portal/kpi-card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { COMPANY_EMPLOYEES } from "@/lib/data/company-mock";
 
 const TEMPLATES = [
   { title: "Monthly CSR impact report", scope: "Company-wide · Sep 2026", size: "2.1 MB" },

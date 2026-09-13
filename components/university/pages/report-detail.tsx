@@ -208,7 +208,7 @@ export function UniversityReportDetailPage({ id }: { id: string }) {
           {/* New Section for Resolution Proof */}
           <div className="glass rounded-3xl p-5 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
             <h2 className="text-sm font-bold text-slate-900">Submit Resolution Proof</h2>
-            <p className="mt-1 text-xs text-slate-700">Upload "After" photos or completion certificates once the issue is resolved.</p>
+            <p className="mt-1 text-xs text-slate-700">Upload &quot;After&quot; photos or completion certificates once the issue is resolved.</p>
             <div className="mt-4">
               <DocumentUploader
                 label="Upload Resolution Proof"

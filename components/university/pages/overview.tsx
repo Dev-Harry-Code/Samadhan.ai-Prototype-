@@ -12,10 +12,8 @@ import {
   CheckCircle2,
   ClipboardList,
   Cpu,
-  FileText,
   GraduationCap,
   HeartPulse,
-  IndianRupee,
   Landmark,
   Leaf,
   MapPin,
@@ -131,7 +129,6 @@ export function UniversityOverviewPage() {
   const recommended = UNIVERSITIES.find((u) => u.isRecommended) ?? UNIVERSITIES[0];
   const activeReports = UNIVERSITY_REPORTS.filter((r) => r.status !== "Resolved");
   const resolvedReports = UNIVERSITY_REPORTS.filter((r) => r.status === "Resolved");
-  const availableTeams = UNIVERSITY_TEAMS.filter((t) => t.status === "Available");
   const maxVal = 24;
 
   return (

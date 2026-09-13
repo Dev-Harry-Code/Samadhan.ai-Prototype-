@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { useState } from "react";
 import Link from "next/link";
-import { AlertCircle, CheckCircle2, Clock, ExternalLink, Layers, MapPin, Navigation, ZoomIn, ZoomOut } from "lucide-react";
-import { UNIVERSITY_REPORTS } from "@/lib/data/university-mock";
+import { ExternalLink, MapPin, Navigation, ZoomIn, ZoomOut } from "lucide-react";
 
 // Geo-coordinates in Jodhpur for real locations
 export const JODHPUR_COORDINATES = {
@@ -72,7 +70,6 @@ export function JodhpurCityMap({ className = "" }: { className?: string }) {
   const [activeItem, setActiveItem] = useState<(typeof JODHPUR_COORDINATES.landmarks)[0] | null>(
     JODHPUR_COORDINATES.landmarks[1] // Default to Ratanada (Report 001)
   );
-  const [mapStyle, setMapStyle] = useState<"standard" | "satellite">("standard");
   const [zoomLevel, setZoomLevel] = useState(13);
 
   // Map center bounds for OpenStreetMap embed iframe

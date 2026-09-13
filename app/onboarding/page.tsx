@@ -11,11 +11,10 @@ import {
   Shield,
   GraduationCap,
   Sparkles,
-  CheckCircle2,
   RotateCcw,
   Zap,
   ShieldCheck,
-  Award,
+  type LucideIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DocumentUploader } from "@/components/ui/document-uploader";
@@ -25,7 +24,7 @@ type PortalRole = "citizen" | "university" | "ngo" | "company";
 
 const ROLE_CONFIGS: Record<
   PortalRole,
-  { label: string; icon: any; accent: string; title: string; subtitle: string; destination: string }
+  { label: string; icon: LucideIcon; accent: string; title: string; subtitle: string; destination: string }
 > = {
   citizen: {
     label: "Citizen",

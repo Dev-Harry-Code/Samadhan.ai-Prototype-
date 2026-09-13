@@ -4,7 +4,7 @@
 import { Leaf, Users, MapPin, IndianRupee, Sparkles, TrendingUp, AlertTriangle } from "lucide-react";
 import { PortalPageHeader } from "@/components/portal/kpi-card";
 import { MetricCard } from "@/components/portal/metric-card";
-import { NGO_USER, NGO_VOLUNTEERS, NGO_FUNDS } from "@/lib/data/ngo-mock";
+import { NGO_USER, NGO_VOLUNTEERS } from "@/lib/data/ngo-mock";
 
 export function NgoOverviewPage() {
   return (

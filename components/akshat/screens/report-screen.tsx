@@ -1,14 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   AlertTriangle,
   ArrowLeft,
   ArrowRight,
   Camera,
-  ImagePlus,
   MapPin,
   X,
 } from "lucide-react";
@@ -28,27 +27,15 @@ const PHOTO_URL =
 export const ReportIssueScreen = ({ setScreen }: ReportIssueScreenProps) => {
   const { t } = useAkshat();
   const [photo, setPhoto] = useState<string | null>(PHOTO_URL);
-  const [description, setDescription] = useState(() =>
+  const [description, setDescription] = useState<string | null>(null);
+  const shownDescription =
+    description ??
     t(
       "issue.lok-001.description",
       "The main pipeline feeding the community water tap has been fractured for 3 weeks, leaving over 50 families without clean municipal drinking water.",
-    ),
-  );
-
-  useEffect(() => {
-    setDescription(
-      t(
-        "issue.lok-001.description",
-        "The main pipeline feeding the community water tap has been fractured for 3 weeks, leaving over 50 families without clean municipal drinking water.",
-      ),
     );
-  }, [t]);
   const [category, setCategory] = useState("Water Resources");
   const [urgency] = useState<"High Urgency" | "Moderate" | "Critical">("High Urgency");
-
-  const handlePhotoClick = () => {
-    setPhoto(PHOTO_URL);
-  };
 
   const handleConfirmLocation = () => {
     setScreen("ai_analysis");
@@ -169,7 +156,7 @@ export const ReportIssueScreen = ({ setScreen }: ReportIssueScreenProps) => {
             {t("problemDescription", "Problem Description")}
           </label>
           <textarea
-            value={description}
+            value={shownDescription}
             onChange={(e) => setDescription(e.target.value)}
             className="min-h-[100px] w-full resize-none rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 transition-all placeholder-slate-500 focus:border-teal-600 focus:bg-white focus:ring-2 focus:ring-teal-600/20 focus:outline-none"
             placeholder={t("descriptionPlaceholder", "Describe what's happening, e.g., Community drinking tap fractured for 3 weeks...")}
@@ -180,7 +167,7 @@ export const ReportIssueScreen = ({ setScreen }: ReportIssueScreenProps) => {
           whileHover={{ scale: 1.02, boxShadow: "0 12px 28px -4px rgba(13, 148, 136, 0.45)" }}
           whileTap={{ scale: 0.98 }}
           onClick={handleConfirmLocation}
-          disabled={!photo || description.length < 4}
+          disabled={!photo || shownDescription.length < 4}
           className="btn-breathing flex w-full items-center justify-center gap-2 rounded-2xl bg-teal-600 py-4 font-extrabold text-white shadow-md transition-all hover:bg-teal-700 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-40"
         >
           <MapPin className="h-5 w-5" />

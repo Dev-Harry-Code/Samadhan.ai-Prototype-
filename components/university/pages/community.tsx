@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { Heart, MessageCircle, Share2, Share, Star } from "lucide-react";
+import { Heart, MessageCircle, Share2, Star } from "lucide-react";
 
 import { PortalPageHeader } from "@/components/portal/kpi-card";
 import { Button } from "@/components/ui/button";

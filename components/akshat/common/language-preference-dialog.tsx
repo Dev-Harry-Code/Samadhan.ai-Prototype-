@@ -24,11 +24,8 @@ export function LanguagePreferenceDialog() {
   const { t } = useAkshat();
   const { lang, setLang } = useLang();
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState<Lang>(lang);
-
-  useEffect(() => {
-    setSelected(lang);
-  }, [lang]);
+  const [draftLang, setDraftLang] = useState<Lang | null>(null);
+  const selected = draftLang ?? lang;
 
   useEffect(() => {
     let saved: string | null = null;
@@ -62,8 +59,16 @@ export function LanguagePreferenceDialog() {
     setOpen(false);
   };
 
+  const close = (next: boolean) => {
+    if (!next) {
+      skip();
+      setDraftLang(null);
+    }
+    setOpen(next);
+  };
+
   return (
-    <Dialog open={open} onOpenChange={(next) => { if (!next) skip(); setOpen(next); }}>
+    <Dialog open={open} onOpenChange={close}>
       <DialogContent className="max-w-md overflow-hidden rounded-3xl p-0">
         <div className="border-b border-slate-100 px-6 pb-4 pt-6">
           <div className="flex items-start justify-between gap-3">
@@ -98,7 +103,7 @@ export function LanguagePreferenceDialog() {
                 key={langItem.code}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => setSelected(langItem.code)}
+                onClick={() => setDraftLang(langItem.code)}
                 className={cn(
                   "flex cursor-pointer items-center justify-between rounded-2xl border p-3.5 transition-all",
                   isSelected
