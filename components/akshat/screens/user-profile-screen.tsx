@@ -71,7 +71,7 @@ export const UserProfileScreen = ({ setScreen }: UserProfileScreenProps) => {
           <div className="space-y-1.5">
             <div className="flex flex-wrap items-center gap-2">
               <h2 className="text-xl font-black tracking-tight text-slate-900 sm:text-2xl">
-                Aarav Mehta
+                {t("userName", "Aarav Mehta")}
               </h2>
               <span className="flex items-center gap-1 rounded-full border border-amber-200 bg-amber-50 px-2.5 py-0.5 text-[11px] font-bold text-amber-800">
                 <Trophy className="h-3.5 w-3.5 text-amber-600" />

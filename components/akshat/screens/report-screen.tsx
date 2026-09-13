@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   AlertTriangle,
@@ -33,6 +33,15 @@ export const ReportIssueScreen = ({ setScreen }: ReportIssueScreenProps) => {
       "The main pipeline feeding the community water tap has been fractured for 3 weeks, leaving over 50 families without clean municipal drinking water.",
     ),
   );
+
+  useEffect(() => {
+    setDescription(
+      t(
+        "issue.lok-001.description",
+        "The main pipeline feeding the community water tap has been fractured for 3 weeks, leaving over 50 families without clean municipal drinking water.",
+      ),
+    );
+  }, [t]);
   const [category, setCategory] = useState("Water Resources");
   const [urgency] = useState<"High Urgency" | "Moderate" | "Critical">("High Urgency");
 

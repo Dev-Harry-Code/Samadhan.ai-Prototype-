@@ -25,8 +25,8 @@ export const HomeScreen = ({ setScreen, setSelectedIssue }: HomeScreenProps) => 
 
   return (
     <div className="relative min-h-full overflow-hidden bg-transparent pb-36 pt-2">
-      <div className="pointer-events-none absolute left-1/2 top-6 h-[250px] w-[500px] -translate-x-1/2 rounded-full bg-teal-500/10 blur-[100px]"></div>
-      <div className="pointer-events-none absolute right-[-10%] top-96 h-[350px] w-[350px] rounded-full bg-orange-500/10 blur-[110px]"></div>
+      <div className="pointer-events-none absolute left-1/2 top-6 h-[250px] w-[150vw] sm:w-[500px] -translate-x-1/2 rounded-full bg-teal-500/10 blur-[100px]"></div>
+      <div className="pointer-events-none absolute right-[-10%] top-96 h-[350px] w-[150vw] sm:w-[350px] rounded-full bg-orange-500/10 blur-[110px]"></div>
 
       <div className="relative z-10 mx-auto max-w-7xl space-y-6 px-3 sm:px-6">
         <div className="mx-auto max-w-3xl pb-2 pt-4 text-center">

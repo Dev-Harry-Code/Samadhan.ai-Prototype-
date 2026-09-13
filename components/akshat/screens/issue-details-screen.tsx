@@ -57,7 +57,7 @@ export const IssueDetailsScreen = ({ setScreen, selectedIssue }: IssueDetailsScr
     if (!newComment.trim()) return;
     const comment: DiscussionComment = {
       id: `c-${Date.now()}`,
-      authorName: "Aarav Mehta",
+      authorName: t("userName", "Aarav Mehta"),
       authorRole: t("verifiedCitizen", "Verified Citizen"),
       avatarUrl: CURRENT_USER_AVATAR,
       daysAgo: t("justNow", "Just now"),

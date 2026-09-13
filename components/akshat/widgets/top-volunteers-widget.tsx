@@ -63,7 +63,7 @@ export const TopVolunteersWidget = () => {
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5">
                   <span className="truncate text-xs font-bold text-slate-900 sm:text-sm">
-                    {vol.name}
+                    {volunteerField(t, vol.id, "name", vol.name)}
                   </span>
                   <span className="flex-shrink-0 whitespace-nowrap rounded border border-teal-200 bg-teal-50 px-1.5 py-0.5 text-[9px] font-bold text-teal-800">
                     {volunteerField(t, vol.id, "badge", vol.badge)}

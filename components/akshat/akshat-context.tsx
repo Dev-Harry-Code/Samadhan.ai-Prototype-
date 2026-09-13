@@ -15,6 +15,7 @@ import {
   AKSHAT_TRANSLATIONS,
   type AkshatLanguageInfo,
 } from "@/lib/i18n/akshat-translations";
+import { translations } from "@/lib/i18n/translations";
 
 interface AkshatContextValue {
   t: (key: string, fallback?: string) => string;
@@ -33,8 +34,10 @@ export function AkshatProvider({ children }: { children: ReactNode }) {
   const t = useCallback(
     (key: string, fallback?: string): string => {
       const dict = AKSHAT_TRANSLATIONS[lang] ?? AKSHAT_TRANSLATIONS.en;
-      if (dict[key]) return dict[key];
-      if (AKSHAT_TRANSLATIONS.en[key]) return AKSHAT_TRANSLATIONS.en[key];
+      if (dict && dict[key]) return dict[key];
+      if (translations[lang] && translations[lang][key]) return translations[lang][key];
+      if (AKSHAT_TRANSLATIONS.en && AKSHAT_TRANSLATIONS.en[key]) return AKSHAT_TRANSLATIONS.en[key];
+      if (translations.en && translations.en[key]) return translations.en[key];
       return fallback ?? key;
     },
     [lang],

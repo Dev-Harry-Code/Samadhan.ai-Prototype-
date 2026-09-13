@@ -49,7 +49,7 @@ export const AIConfirmationScreen = ({
               {t("confirmedTitle", "AI Verification Confirmation")}
             </h2>
             <p className="text-xs text-slate-500">
-              {t("confirmedDesc", "Validated with 96.8% confidence • Ready for dispatch")}
+              {t("confirmedSubtitle", "Validated with 96.8% confidence • Ready for dispatch")}
             </p>
           </div>
         </div>

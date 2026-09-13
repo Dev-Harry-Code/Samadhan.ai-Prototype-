@@ -33,7 +33,7 @@ export function LanguageSelectorModal() {
               </div>
               <div>
                 <DialogTitle className="flex items-center gap-1.5 text-base font-black">
-                  {t("multiLanguageTitle", "Multi-Language / à¤­à¤¾à¤·à¤¾")}
+                  {t("multiLanguageTitle", "Multi-Language / भाषा")}
                 </DialogTitle>
                 <DialogDescription className="text-[11px]">
                   {t(
@@ -66,7 +66,10 @@ export function LanguageSelectorModal() {
                 key={langItem.code}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => setLang(langItem.code)}
+                onClick={() => {
+                  setLang(langItem.code);
+                  setTimeout(() => setIsLanguageModalOpen(false), 250);
+                }}
                 className={cn(
                   "flex cursor-pointer items-center justify-between rounded-2xl border p-3.5 transition-all",
                   isSelected

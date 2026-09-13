@@ -24,13 +24,24 @@ export const metadata: Metadata = {
     "One citizen. One problem. One platform. Real change. AI-powered routing from citizen reports to universities and funders.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="en"
       className={`${ysabeau.variable} ${ysabeauInfant.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col overflow-x-hidden w-full">
         <Providers>{children}</Providers>
       </body>
     </html>

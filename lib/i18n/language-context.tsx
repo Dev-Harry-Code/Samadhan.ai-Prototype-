@@ -8,6 +8,7 @@ import {
   ReactNode,
 } from "react";
 import { LANGUAGES, Lang, translations } from "@/lib/i18n/translations";
+import { AKSHAT_TRANSLATIONS } from "@/lib/i18n/akshat-translations";
 
 interface LanguageContextValue {
   lang: Lang;
@@ -23,21 +24,33 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("en");
 
   useEffect(() => {
-    const id = setTimeout(() => {
+    try {
       const saved = localStorage.getItem(STORAGE_KEY) as Lang | null;
       if (saved && LANGUAGES.some((l) => l.code === saved)) {
         setLangState(saved);
+        document.documentElement.lang = saved;
       }
-    }, 0);
-    return () => clearTimeout(id);
+    } catch {
+      /* storage unavailable */
+    }
   }, []);
 
   const setLang = (l: Lang) => {
     setLangState(l);
-    localStorage.setItem(STORAGE_KEY, l);
+    try {
+      localStorage.setItem(STORAGE_KEY, l);
+      document.documentElement.lang = l;
+    } catch {
+      /* storage unavailable */
+    }
   };
 
-  const t = (key: string) => translations[lang][key] ?? translations.en[key] ?? key;
+  const t = (key: string) =>
+    translations[lang]?.[key] ??
+    AKSHAT_TRANSLATIONS[lang]?.[key] ??
+    translations.en?.[key] ??
+    AKSHAT_TRANSLATIONS.en?.[key] ??
+    key;
 
   return (
     <LanguageContext.Provider value={{ lang, setLang, t }}>

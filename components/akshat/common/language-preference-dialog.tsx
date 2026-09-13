@@ -27,6 +27,10 @@ export function LanguagePreferenceDialog() {
   const [selected, setSelected] = useState<Lang>(lang);
 
   useEffect(() => {
+    setSelected(lang);
+  }, [lang]);
+
+  useEffect(() => {
     let saved: string | null = null;
     try {
       saved = localStorage.getItem(STORAGE_KEY);

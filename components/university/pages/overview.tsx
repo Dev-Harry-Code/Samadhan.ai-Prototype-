@@ -152,8 +152,8 @@ export function UniversityOverviewPage() {
         />
 
         <div className="relative overflow-hidden">
-          <div className="pointer-events-none absolute left-1/2 top-6 h-[250px] w-[500px] -translate-x-1/2 rounded-full bg-teal-500/10 blur-[100px]"></div>
-          <div className="pointer-events-none absolute right-[-10%] top-96 h-[350px] w-[350px] rounded-full bg-orange-500/10 blur-[110px]"></div>
+          <div className="pointer-events-none absolute left-1/2 top-6 h-[250px] w-[150vw] sm:w-[500px] -translate-x-1/2 rounded-full bg-teal-500/10 blur-[100px]"></div>
+          <div className="pointer-events-none absolute right-[-10%] top-96 h-[350px] w-[150vw] sm:w-[350px] rounded-full bg-orange-500/10 blur-[110px]"></div>
 
           <main className="relative z-10 mx-auto max-w-7xl space-y-6 px-3 pb-16 pt-6 sm:px-6">
             {/* HERO */}
@@ -376,7 +376,7 @@ export function UniversityOverviewPage() {
                     </div>
                   </div>
 
-                  <div className="relative z-10 flex h-44 w-full items-end justify-between gap-1 pt-3 sm:gap-3 sm:px-3">
+                  <div className="relative z-10 flex h-44 w-full items-end justify-between gap-1 pt-3 sm:gap-3 sm:px-3 overflow-x-auto overflow-y-hidden pb-1 scrollbar-hide">
                     {TREND.map((item, idx) => {
                       const launched = Math.min(100, Math.max(12, (item.launched / maxVal) * 100));
                       const solved = Math.min(100, Math.max(12, (item.solved / maxVal) * 100));
@@ -386,7 +386,7 @@ export function UniversityOverviewPage() {
                         <div
                           key={idx}
                           onMouseEnter={() => setHoveredIndex(idx)}
-                          className="group flex h-full max-w-[42px] flex-1 cursor-pointer flex-col items-center justify-end"
+                          className="group flex h-full min-w-[36px] max-w-[42px] flex-1 cursor-pointer flex-col items-center justify-end"
                         >
                           <div className="flex h-6 items-center justify-center">
                             {isHovered ? (
@@ -405,7 +405,7 @@ export function UniversityOverviewPage() {
                               style={{ height: `${solved}%` }}
                               className={cn(
                                 "relative w-2 rounded-t-md transition-all duration-300 sm:w-3",
-                                isHovered ? "bg-teal-700 shadow-sm" : "bg-teal-600",
+                                isHovered ? "bg-primary-600 shadow-sm" : "bg-primary-500",
                               )}
                             ></div>
                           </div>

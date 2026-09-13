@@ -50,7 +50,7 @@ export function notifField(
 export function volunteerField(
   t: Translate,
   id: string,
-  field: "role" | "badge",
+  field: "name" | "role" | "badge",
   fallback: string,
 ): string {
   return t(`volunteer.${id}.${field}`, fallback);

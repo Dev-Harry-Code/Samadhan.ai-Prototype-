@@ -141,8 +141,8 @@ export function AkshatCitizenApp() {
 
         <Header currentScreen={currentScreen} setScreen={navigateTo} />
 
-        <main className="relative z-10 w-full flex-1">
-          <div className="mx-auto w-full max-w-7xl">
+        <main className="relative z-10 w-full flex-1 overflow-x-hidden">
+          <div className="mx-auto w-full max-w-7xl px-0 sm:px-4">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentScreen}

@@ -168,7 +168,7 @@ export function PortalAppShell({
             </div>
           </header>
 
-          <main className="flex-1 px-4 pb-24 pt-5 sm:px-6 md:px-8 md:pb-10">{children}</main>
+          <main className="flex-1 w-full max-w-full overflow-x-hidden px-4 pb-24 pt-5 sm:px-6 md:px-8 md:pb-10">{children}</main>
 
           <nav
             className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200/60 bg-white/90 backdrop-blur-xl md:hidden"

@@ -103,7 +103,7 @@ export const CommunityImpactChart = ({ className = "" }: CommunityImpactChartPro
         </div>
       </div>
 
-      <div className="relative z-10 flex h-44 w-full items-end justify-between gap-1 pt-3 sm:gap-3 sm:px-3">
+      <div className="relative z-10 flex h-44 w-full items-end justify-between gap-1 pt-3 sm:gap-3 sm:px-3 overflow-x-auto overflow-y-hidden pb-1 scrollbar-hide">
         {data.map((item, idx) => {
           const resolvedHeight = Math.min(100, Math.max(12, (item.resolved / maxVal) * 100));
           const submittedHeight = Math.min(100, Math.max(12, (item.submitted / maxVal) * 100));
@@ -113,7 +113,7 @@ export const CommunityImpactChart = ({ className = "" }: CommunityImpactChartPro
             <div
               key={idx}
               onMouseEnter={() => setHoveredIndex(idx)}
-              className="group flex h-full max-w-[42px] flex-1 cursor-pointer flex-col items-center justify-end"
+              className="group flex h-full min-w-[36px] max-w-[42px] flex-1 cursor-pointer flex-col items-center justify-end"
             >
               <div className="flex h-6 items-center justify-center">
                 {isHovered ? (

@@ -424,10 +424,10 @@ function CitizenGatewayForm() {
 
           <button
             type="button"
-            onClick={loginCitizen}
+            onClick={() => router.push(`/onboarding?role=${selectedRole}`)}
             className="btn-breathing flex w-full items-center justify-center gap-2 rounded-xl bg-teal-600 px-4 py-3.5 text-sm font-bold text-white shadow-md transition hover:scale-[1.02] hover:bg-teal-700 active:scale-[0.98]"
           >
-            <span>Launch Dashboard</span>
+            <span>Continue</span>
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>

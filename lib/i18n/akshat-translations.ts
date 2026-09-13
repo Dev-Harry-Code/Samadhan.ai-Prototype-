@@ -20,6 +20,12 @@ export const AKSHAT_LANGUAGES: AkshatLanguageInfo[] = [
 type AkshatDict = Record<string, string>;
 
 const AKSHAT_EN: AkshatDict = {
+  "userName": "Aarav Mehta",
+  "profile.userName": "Aarav Mehta",
+  "volunteer.vol-1.name": "Aarav Mehta",
+  "volunteer.vol-2.name": "Dr. Sunita Rao",
+  "volunteer.vol-3.name": "Vikramaditya S.",
+  "volunteer.vol-4.name": "Pooja Bhatt",
   appName: "Samadhan.ai",
   tagline: "Together for a Better Tomorrow",
   subTagline: "Crowdsource society challenges with verified AI impact",
@@ -306,6 +312,12 @@ const AKSHAT_EN: AkshatDict = {
 };
 
 const AKSHAT_HI: AkshatDict = {
+  "userName": "आरव मेहता",
+  "profile.userName": "आरव मेहता",
+  "volunteer.vol-1.name": "आरव मेहता",
+  "volunteer.vol-2.name": "डॉ. सुनीता राव",
+  "volunteer.vol-3.name": "विक्रमादित्य एस.",
+  "volunteer.vol-4.name": "पूजा भट्ट",
   appName: "समाधान.ai",
   tagline: "बेहतर कल के लिए एक साथ",
   subTagline: "सत्यापित एआई प्रभाव के साथ सामाजिक समस्याओं का समाधान",
@@ -592,6 +604,12 @@ const AKSHAT_HI: AkshatDict = {
 };
 
 const AKSHAT_GU: AkshatDict = {
+  "userName": "આરવ મહેતા",
+  "profile.userName": "આરવ મહેતા",
+  "volunteer.vol-1.name": "આરવ મહેતા",
+  "volunteer.vol-2.name": "ડૉ. સુનીતા રાવ",
+  "volunteer.vol-3.name": "વિક્રમાદિત્ય એસ.",
+  "volunteer.vol-4.name": "પૂજા ભટ્ટ",
   appName: "સમાધાન.ai",
   tagline: "વધુ સારા ભવિષ્ય માટે સાથે",
   subTagline: "ચકાસાયેલ એઆઈ પ્રભાવ સાથે સામાજિક પડકારોનો ઉકેલ",
@@ -877,6 +895,12 @@ const AKSHAT_GU: AkshatDict = {
 };
 
 const AKSHAT_MR: AkshatDict = {
+  "userName": "आरव मेहता",
+  "profile.userName": "आरव मेहता",
+  "volunteer.vol-1.name": "आरव मेहता",
+  "volunteer.vol-2.name": "डॉ. सुनीता राव",
+  "volunteer.vol-3.name": "विक्रमादित्य एस.",
+  "volunteer.vol-4.name": "पूजा भट्ट",
   appName: "समाधान.ai",
   tagline: "उद्याच्या चांगल्या भविष्यासाठी एकत्र",
   subTagline: "सत्यापित एआय प्रभावासह सामाजिक आव्हानांवर मात",
@@ -1163,6 +1187,12 @@ const AKSHAT_MR: AkshatDict = {
 };
 
 const AKSHAT_BN: AkshatDict = {
+  "userName": "আরভ মেহতা",
+  "profile.userName": "আরভ মেহতা",
+  "volunteer.vol-1.name": "আরভ মেহতা",
+  "volunteer.vol-2.name": "ডাঃ সুনীতা রাও",
+  "volunteer.vol-3.name": "বিক্রমাদিত্য এস.",
+  "volunteer.vol-4.name": "পূজা ভাট",
   appName: "সমাধান.ai",
   tagline: "উন্নত আগামীর জন্য একসাথে",
   subTagline: "যাচাইকৃত এআই প্রভাবের সাথে নাগরিক সমস্যার সমাধান",
@@ -1448,6 +1478,12 @@ const AKSHAT_BN: AkshatDict = {
 };
 
 const AKSHAT_TA: AkshatDict = {
+  "userName": "ஆரவ் மேத்தா",
+  "profile.userName": "ஆரவ் மேத்தா",
+  "volunteer.vol-1.name": "ஆரவ் மேத்தா",
+  "volunteer.vol-2.name": "டாக்டர் சுனிதா ராவ்",
+  "volunteer.vol-3.name": "விக்ரமாதித்யா எஸ்.",
+  "volunteer.vol-4.name": "பூஜா பட்",
   appName: "சமாதான்.ai",
   tagline: "சிறந்த எதிர்காலத்திற்காக ஒன்றிணைவோம்",
   subTagline: "சான்றளிக்கப்பட்ட AI தாக்கத்துடன் சமூக சவால்களுக்கான தீர்வு",
@@ -1733,6 +1769,12 @@ const AKSHAT_TA: AkshatDict = {
 };
 
 const AKSHAT_TE: AkshatDict = {
+  "userName": "ఆరవ్ మెహతా",
+  "profile.userName": "ఆరవ్ మెహతా",
+  "volunteer.vol-1.name": "ఆరవ్ మెహతా",
+  "volunteer.vol-2.name": "డా. సునీతా రావు",
+  "volunteer.vol-3.name": "విక్రమాదిత్య ఎస్.",
+  "volunteer.vol-4.name": "పూజా భట్",
   appName: "సమాధాన్.ai",
   tagline: "మంచి భవిష్యత్తు కోసం కలిసికట్టుగా",
   subTagline: "ధృవీకరించబడిన AI ప్రభావంతో సమాజ సవాళ్లకు పరిష్కారం",
