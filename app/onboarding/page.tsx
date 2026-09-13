@@ -242,7 +242,7 @@ function OnboardingForm() {
               <p className="text-xs font-bold text-slate-900">
                 AI Auto-Fill · Aarav Mehta Identity
               </p>
-              <p className="text-[11px] text-slate-600">
+              <p className="text-[11px] font-medium text-slate-700">
                 Instantly populate verified Jodhpur civic credentials for this role.
               </p>
             </div>
@@ -262,7 +262,7 @@ function OnboardingForm() {
                 type="button"
                 onClick={handleResetForm}
                 title="Reset fields"
-                className="flex items-center justify-center rounded-xl border border-slate-200 bg-white p-2 text-slate-600 hover:bg-slate-50"
+                className="flex items-center justify-center rounded-xl border border-slate-200 bg-white p-2 text-slate-700 hover:bg-slate-50"
               >
                 <RotateCcw size={14} />
               </button>

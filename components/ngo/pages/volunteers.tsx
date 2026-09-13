@@ -22,21 +22,21 @@ export function NgoVolunteersPage() {
             <div className="flex items-start justify-between">
               <div>
                 <h3 className="text-base font-extrabold text-slate-900">{v.name}</h3>
-                <p className="text-xs text-slate-600">{v.hours} hrs contributed</p>
+                <p className="text-xs font-medium text-slate-700">{v.hours} hrs contributed</p>
               </div>
               <span className={cn(
                 "rounded-full px-2 py-0.5 text-[10px] font-bold",
-                v.status === "Available" ? "bg-emerald-100 text-emerald-700" : "bg-blue-100 text-blue-700"
+                v.status === "Available" ? "bg-emerald-100 text-emerald-800 ring-1 ring-emerald-300" : "bg-blue-100 text-blue-800 ring-1 ring-blue-300"
               )}>
                 {v.status}
               </span>
             </div>
             
             <div className="mt-4">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Skills</p>
+              <p className="text-[10px] font-bold text-slate-700 uppercase tracking-wider">Skills</p>
               <div className="mt-1 flex flex-wrap gap-1">
                 {v.skills.map(s => (
-                  <span key={s} className="rounded-md bg-slate-100 px-2 py-0.5 text-xs text-slate-600">{s}</span>
+                  <span key={s} className="rounded-md bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-800 border border-slate-200">{s}</span>
                 ))}
               </div>
             </div>

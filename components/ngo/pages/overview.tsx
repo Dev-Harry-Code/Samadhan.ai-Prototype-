@@ -80,7 +80,7 @@ export function NgoOverviewPage() {
           <div className="h-2 w-full rounded-full bg-rose-100">
             <div className="h-2 w-[40%] rounded-full bg-rose-500"></div>
           </div>
-          <p className="mt-2 text-xs font-semibold text-rose-600">40% of predicted funds currently available</p>
+          <p className="mt-2 text-xs font-bold text-rose-800">40% of predicted funds currently available</p>
         </div>
       </div>
     </div>
