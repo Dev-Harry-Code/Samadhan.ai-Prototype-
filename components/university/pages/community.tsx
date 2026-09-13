@@ -38,24 +38,24 @@ export function UniversityCommunityPage() {
     });
   };
 
-  const addComment = (csId: string) => {
+  const addComment = (id: string) => {
     if (!draft.trim()) return;
-    setComments((prev) => ({ ...prev, [csId]: [draft.trim(), ...(prev[csId] ?? [])] }));
+    setComments((prev) => ({ ...prev, [id]: [...(prev[id] || []), draft] }));
     setDraft("");
   };
 
-  const visibleStories = viewAll ? UNIVERSITY_CASE_STUDIES : UNIVERSITY_CASE_STUDIES.slice(0, 3);
+  const displayStudies = viewAll ? UNIVERSITY_CASE_STUDIES : UNIVERSITY_CASE_STUDIES.slice(0, 2);
 
   return (
     <div className="mx-auto max-w-5xl space-y-5 pb-6">
       <PortalPageHeader
-        icon={<Share size={20} />}
-        iconBg="bg-gradient-to-br from-fuchsia-500 to-orange-500 text-white shadow-md shadow-fuchsia-500/20"
-        title="Community"
-        subtitle="Live missions, stories &amp; impact from volunteer teams"
+        icon={<Share2 size={20} />}
+        iconBg="bg-gradient-to-br from-rose-500 to-pink-600 text-white shadow-md shadow-rose-500/20"
+        title="Student Impact & Case Studies"
+        subtitle="Showcasing how our engineering and management students solve real civic issues"
         action={
-          <span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-bold text-amber-600 ring-1 ring-amber-600/20">
-            12 live missions
+          <span className="flex items-center gap-1.5 rounded-full bg-rose-50 px-3 py-1 text-xs font-bold text-rose-600 ring-1 ring-rose-200">
+            <Star size={14} className="fill-rose-600" /> Community Favorite
           </span>
         }
       />
@@ -93,7 +93,7 @@ export function UniversityCommunityPage() {
         <p className="mb-3 text-xs text-slate-700">Collaborative fixes by universities, residents and the Corporation</p>
 
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {visibleStories.map((cs) => {
+          {displayStudies.map((cs) => {
             const isLiked = likedSet.has(cs.id);
             return (
               <div key={cs.id} className="glass flex flex-col overflow-hidden rounded-2xl shadow-lg shadow-slate-900/5 ring-1 ring-white/60">

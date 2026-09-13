@@ -205,56 +205,56 @@ export function UniversityOverviewPage() {
             {/* METRICS */}
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
               <MetricCard
-                icon={<FileText className="h-4 w-4 text-amber-600" />}
-                title="Issues Available"
-                value="24"
-                growth="+6"
-                subtext="vs last 7 days"
-                tone="amber"
+                icon={<Users className="h-4 w-4 text-sky-600" />}
+                title="Student Volunteers"
+                value="230"
+                growth="+12"
+                subtext="new this week"
+                tone="sky"
                 delay={0}
               />
               <MetricCard
-                icon={<GraduationCap className="h-4 w-4 text-purple-600" />}
-                title="University Matches"
-                value={UNIVERSITIES.length}
-                growth="+1"
-                subtext="new this month"
-                tone="purple"
-                delay={0.06}
-              />
-              <MetricCard
-                icon={<Users className="h-4 w-4 text-sky-600" />}
-                title="Active Teams"
-                value={availableTeams.length}
-                growth="+2"
-                subtext="13 students ready"
-                tone="sky"
-                delay={0.12}
-              />
-              <MetricCard
-                icon={<ClipboardList className="h-4 w-4 text-teal-600" />}
+                icon={<ClipboardList className="h-4 w-4 text-amber-600" />}
                 title="Active Projects"
                 value={activeReports.length}
                 growth="+3"
-                subtext="assigned & running"
-                tone="teal"
-                delay={0.18}
+                subtext="currently running"
+                tone="amber"
+                delay={0.06}
               />
               <MetricCard
                 icon={<CheckCircle2 className="h-4 w-4 text-emerald-600" />}
                 title="Resolved Projects"
                 value={resolvedReports.length}
-                growth="+20%"
-                subtext="this week"
+                growth="+15%"
+                subtext="this month"
                 tone="emerald"
+                delay={0.12}
+              />
+              <MetricCard
+                icon={<PieChart className="h-4 w-4 text-purple-600" />}
+                title="Volunteer Hours"
+                value="1,240"
+                growth="+18%"
+                subtext="vs last month"
+                tone="purple"
+                delay={0.18}
+              />
+              <MetricCard
+                icon={<GraduationCap className="h-4 w-4 text-teal-600" />}
+                title="Active Teams"
+                value={UNIVERSITY_TEAMS.length}
+                growth="+1"
+                subtext="teams deployed"
+                tone="teal"
                 delay={0.24}
               />
               <MetricCard
-                icon={<IndianRupee className="h-4 w-4 text-rose-600" />}
+                icon={<HeartPulse className="h-4 w-4 text-rose-600" />}
                 title="Community Impact"
-                value="₹48,500"
-                growth="+18%"
-                subtext="this month"
+                value="14,850"
+                growth="+25%"
+                subtext="lives improved"
                 tone="rose"
                 delay={0.3}
               />

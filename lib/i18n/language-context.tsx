@@ -27,8 +27,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     try {
       const saved = localStorage.getItem(STORAGE_KEY) as Lang | null;
       if (saved && LANGUAGES.some((l) => l.code === saved)) {
-        setLangState(saved);
-        document.documentElement.lang = saved;
+        setTimeout(() => {
+          setLangState(saved);
+          document.documentElement.lang = saved;
+        }, 0);
       }
     } catch {
       /* storage unavailable */

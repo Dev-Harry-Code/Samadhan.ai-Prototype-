@@ -322,11 +322,11 @@ export const UNIVERSITY_AI_RECOMMENDATIONS = [
 ];
 
 export const UNIVERSITY_USER = {
-  name: "Aarav Mehta",
-  title: "PMMMC Coordinator",
-  location: "Jodhpur, Rajasthan",
+  name: "Prof. Aarav Mehta",
+  title: "Head of Civic Engagement, IIT Jodhpur",
+  location: "IIT Jodhpur Campus",
   avatar: "AM",
-  greeting: "Good Morning, Aarav! Let's build a better tomorrow",
+  greeting: "Good Morning, Prof. Mehta! Your students are making an impact.",
 };
 
 export const UNIVERSITY_REPORT_STEPS = ["Assigned", "On Site", "In Progress", "Resolved"];

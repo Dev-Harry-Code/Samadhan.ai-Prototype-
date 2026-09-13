@@ -32,11 +32,11 @@ export function UniversityReportsPage() {
       {
         ...UNIVERSITY_REPORTS[0],
         id: `rep-new-${prev.length}`,
-        title: "Draft civic issue report",
+        title: "Draft civic issue project",
         status: "Pending",
         statusColor: "gray",
         assignedTo: "Not assigned",
-        assignedTeam: "Awaiting university match",
+        assignedTeam: "Awaiting team match",
         updatedAgo: "Created just now",
       },
     ]);
@@ -46,10 +46,10 @@ export function UniversityReportsPage() {
     <div className="mx-auto max-w-5xl space-y-4 pb-6">
       <PortalPageHeader
         icon={<ClipboardList size={20} />}
-        iconBg="bg-gradient-to-br from-sky-500 to-indigo-600 text-white shadow-md shadow-sky-500/20"
-        title="Reports"
-        subtitle={`${allReports.length} civic issues under collaboration`}
-        action={<Button onClick={newReport}>+ New report</Button>}
+        iconBg="bg-gradient-to-br from-indigo-500 to-blue-700 text-white shadow-md shadow-indigo-500/20"
+        title="Civic Projects"
+        subtitle="Manage civic issues assigned to your university teams"
+        action={<Button onClick={newReport}>+ Start new project</Button>}
       />
 
       <div className="flex flex-wrap items-center gap-2">
