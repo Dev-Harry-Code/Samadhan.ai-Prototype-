@@ -110,7 +110,7 @@ export function CompanyInsightsPage() {
           <Link href="/funder/reports">
             <Button
               size="sm"
-              variant="outline"
+              variant="secondary"
               className="bg-white text-slate-700"
             >
               View full forecast
