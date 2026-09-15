@@ -8,7 +8,7 @@ import { NGO_USER, NGO_VOLUNTEERS } from "@/lib/data/ngo-mock";
 
 export function NgoOverviewPage() {
   return (
-    <div className="mx-auto max-w-5xl space-y-6 pb-6">
+    <div className="mx-auto w-full max-w-6xl min-w-0 space-y-6 pb-6">
       <PortalPageHeader
         icon={<Leaf size={20} />}
         iconBg="bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-md shadow-amber-500/20"

@@ -763,9 +763,7 @@ export function UniversityOverviewPage() {
               {mapViewMode === "gis" ? (
                 <JodhpurCityMap />
               ) : (
-                <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
-                  <CityscapeCanvas />
-                </div>
+                <CityscapeCanvas />
               )}
             </div>
 

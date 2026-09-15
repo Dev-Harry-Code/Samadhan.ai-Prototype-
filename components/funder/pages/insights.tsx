@@ -131,7 +131,7 @@ export function CompanyInsightsPage() {
   const currentRangeData = INSIGHT_RANGES[activeRange];
 
   return (
-    <div className="mx-auto max-w-5xl space-y-5 pb-6">
+    <div className="mx-auto w-full max-w-6xl min-w-0 space-y-5 pb-6">
       <PortalPageHeader
         icon={<Brain size={20} />}
         iconBg="bg-gradient-to-br from-violet-500 to-primary-600 text-white shadow-md shadow-violet-500/20"

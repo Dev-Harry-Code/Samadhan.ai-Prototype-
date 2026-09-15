@@ -189,7 +189,7 @@ export function UniversityAnalyticsPage() {
   const severityData = currentData.severities;
 
   return (
-    <div className="mx-auto max-w-5xl space-y-6 pb-8">
+    <div className="mx-auto w-full max-w-6xl min-w-0 space-y-6 pb-8">
       <PortalPageHeader
         icon={<Brain size={20} />}
         iconBg="bg-gradient-to-br from-indigo-500 to-violet-700 text-white shadow-md shadow-indigo-500/20"

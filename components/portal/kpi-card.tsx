@@ -53,15 +53,17 @@ export function PortalPageHeader({
   action?: ReactNode;
 }) {
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      <div className={cn("flex h-11 w-11 items-center justify-center rounded-2xl shadow-md shadow-primary-600/20", iconBg)}>
-        {icon}
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex items-center gap-3 min-w-0">
+        <div className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl shadow-md shadow-primary-600/20", iconBg)}>
+          {icon}
+        </div>
+        <div className="min-w-0">
+          <h1 className="truncate text-lg font-extrabold tracking-tight text-slate-900 sm:text-xl">{title}</h1>
+          {subtitle && <p className="text-xs text-slate-700 sm:text-sm line-clamp-1">{subtitle}</p>}
+        </div>
       </div>
-      <div className="min-w-0">
-        <h1 className="text-xl font-extrabold tracking-tight text-slate-900">{title}</h1>
-        {subtitle && <p className="text-sm text-slate-700">{subtitle}</p>}
-      </div>
-      {action && <div className="ml-auto">{action}</div>}
+      {action && <div className="flex shrink-0 items-center gap-2 self-start sm:self-center">{action}</div>}
     </div>
   );
 }

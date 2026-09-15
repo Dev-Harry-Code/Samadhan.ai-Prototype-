@@ -154,7 +154,7 @@ export function CompanyAnalyticsPage() {
   const activeDataset = ANALYTICS_BY_RANGE[range];
 
   return (
-    <div className="mx-auto w-full max-w-5xl min-w-0 space-y-5 pb-6">
+    <div className="mx-auto w-full max-w-6xl min-w-0 space-y-5 pb-6">
       <PortalPageHeader
         icon={<BarChart3 size={20} />}
         iconBg="bg-gradient-to-br from-emerald-500 to-teal-700 text-white shadow-md shadow-emerald-500/20"

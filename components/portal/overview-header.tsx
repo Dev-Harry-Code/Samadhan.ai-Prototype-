@@ -45,11 +45,11 @@ export function PortalOverviewHeader({
     <header className="sticky top-0 z-40">
       {/* Mobile pill bar */}
       <div className="md:hidden">
-        <div className="sticky top-2 z-40 flex justify-center px-3 pt-2">
-          <div className="flex w-full max-w-md items-center justify-between gap-2 rounded-full bg-white/90 px-3 py-2 shadow-lg ring-1 ring-slate-900/10 backdrop-blur-xl">
+        <div className="sticky top-2 z-40 flex flex-col items-center px-3 pt-2 gap-1.5">
+          <div className="flex w-full max-w-md items-center justify-between gap-2 rounded-full bg-white/95 px-3 py-2 shadow-lg ring-1 ring-slate-900/10 backdrop-blur-xl">
             <Link href="/" className="flex min-w-0 items-center gap-2">
-              <SamadhanLogoIcon size={30} />
-              <span className="hidden text-sm font-black tracking-tight text-slate-900 min-[400px]:inline">
+              <SamadhanLogoIcon size={28} />
+              <span className="text-sm font-black tracking-tight text-slate-900">
                 Samadhan<span className="text-teal-600">.ai</span>
               </span>
             </Link>
@@ -67,13 +67,33 @@ export function PortalOverviewHeader({
               </button>
             </div>
           </div>
+          {/* Mobile navigation strip */}
+          <div className="flex w-full max-w-md items-center gap-1 overflow-x-auto rounded-full bg-white/90 p-1 shadow-sm ring-1 ring-slate-900/5 backdrop-blur-md scrollbar-none">
+            {links.map((l) => {
+              const active = isActive(l.href);
+              return (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className={cn(
+                    "shrink-0 rounded-full px-2.5 py-1 text-[11px] font-bold transition",
+                    active
+                      ? "bg-teal-600 text-white shadow-xs"
+                      : "text-slate-600 hover:text-slate-900",
+                  )}
+                >
+                  {l.label}
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </div>
 
       {/* Desktop top bar */}
       <div className="hidden border-b border-slate-200/80 bg-white/90 shadow-xs backdrop-blur-xl md:block">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-6">
-          <div className="flex items-center gap-3">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+          <div className="flex shrink-0 items-center gap-3">
             <Link href="/" className="flex items-center gap-2.5">
               <SamadhanLogoIcon size={36} />
               <div className="flex flex-col">
@@ -91,7 +111,7 @@ export function PortalOverviewHeader({
             </div>
           </div>
 
-          <nav className="flex min-w-0 flex-1 items-center gap-1.5 overflow-x-auto scrollbar-none">
+          <nav className="flex min-w-0 flex-1 items-center justify-center gap-1.5 overflow-x-auto scrollbar-none px-3">
             {links.map((l) => {
               const active = isActive(l.href);
               return (
@@ -112,7 +132,7 @@ export function PortalOverviewHeader({
             })}
           </nav>
 
-          <div className="flex flex-shrink-0 items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
             <Link
               href="/login"
               title="Switch Workspace / All Portals"
