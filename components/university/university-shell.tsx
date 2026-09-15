@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   Bot,
   ClipboardList,
@@ -7,6 +8,7 @@ import {
   LayoutDashboard,
   Leaf,
   Share2,
+  UserCheck,
   Users,
 } from "lucide-react";
 
@@ -20,6 +22,7 @@ const NAV_ITEMS = [
   { href: "/university/team", label: "My Teams", icon: Users },
   { href: "/university/reports", label: "Civic Projects", icon: ClipboardList },
   { href: "/university/community", label: "Case Studies", icon: Share2 },
+  { href: "/university/profile", label: "Profile", icon: UserCheck },
 ];
 
 const MOBILE_NAV = [
@@ -27,7 +30,7 @@ const MOBILE_NAV = [
   { href: "/university/analytics", label: "AI", icon: Bot },
   { href: "/university/assign", label: "Assign", icon: GraduationCap },
   { href: "/university/reports", label: "Projects", icon: ClipboardList },
-  { href: "/university/team", label: "Teams", icon: Users },
+  { href: "/university/profile", label: "Profile", icon: UserCheck },
 ];
 
 export function UniversityShell({ children }: { children: React.ReactNode }) {
@@ -58,10 +61,13 @@ export function UniversityShell({ children }: { children: React.ReactNode }) {
         },
         user: { name: UNIVERSITY_USER.name, location: UNIVERSITY_USER.location },
         headerRight: (
-          <div className="hidden rounded-xl bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 sm:flex sm:items-center sm:gap-1">
-            {UNIVERSITY_USER.greeting.split(",")[0]}{" "}
-            <Leaf size={12} className="text-emerald-600" />
-          </div>
+          <Link
+            href="/university/profile"
+            className="flex items-center gap-1.5 rounded-xl bg-emerald-50 border border-emerald-200/80 px-3 py-1.5 text-xs font-bold text-emerald-900 transition hover:bg-emerald-100"
+          >
+            <span>Prof. Mehta</span>
+            <Leaf size={12} className="text-emerald-700" />
+          </Link>
         ),
       }}
     >
