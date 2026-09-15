@@ -41,7 +41,7 @@ export function PlatformStatsWidget({
     },
     {
       id: "high_priority",
-      title: t("metricHighPriority", "High Priority Issues"),
+      title: "High Priority",
       value: "7",
       growth: "+2%",
       subtext: t("metricNeedAttention", "needs attention"),
@@ -53,7 +53,7 @@ export function PlatformStatsWidget({
     },
     {
       id: "pending",
-      title: t("metricPending", "Pending Issues"),
+      title: "Pending",
       value: "18",
       growth: "+5%",
       subtext: t("metricNeedAssignment", "need assignment"),
@@ -65,7 +65,7 @@ export function PlatformStatsWidget({
     },
     {
       id: "in_progress",
-      title: t("metricInProgress", "In Progress Issues"),
+      title: "In Progress",
       value: "14",
       growth: "+8%",
       subtext: t("metricOnGoing", "ongoing work"),
@@ -77,7 +77,7 @@ export function PlatformStatsWidget({
     },
     {
       id: "resolved",
-      title: t("metricResolved", "Resolved Issues"),
+      title: "Resolved",
       value: "16",
       growth: "+20%",
       subtext: t("metricThisWeek", "this week"),
@@ -100,21 +100,6 @@ export function PlatformStatsWidget({
       accentColor: "text-purple-700",
     },
   ];
-
-  const renderTitle = (title: string, compactMode: boolean) =>
-    title.split(" ").map((word, idx, arr) => (
-      <span key={idx as never}>
-        <span>{word}</span>
-        {idx < arr.length - 1 && (
-          <span
-            className={cn("inline-block select-none", compactMode ? "w-1.5 sm:w-2" : "w-1.5")}
-            aria-hidden="true"
-          >
-            &nbsp;
-          </span>
-        )}
-      </span>
-    ));
 
   if (compact) {
     const gridCols =
@@ -167,9 +152,9 @@ export function PlatformStatsWidget({
 
             <div
               title={stat.title}
-              className="flex items-center whitespace-nowrap text-xs font-bold tracking-wider text-slate-700"
+              className="truncate text-xs font-bold tracking-wider text-slate-700"
             >
-              {renderTitle(stat.title, true)}
+              {stat.title}
             </div>
           </motion.div>
         ))}
@@ -193,16 +178,16 @@ export function PlatformStatsWidget({
           whileHover={{ scale: 1.03, boxShadow: "0 8px 24px -4px rgba(15, 23, 42, 0.08)" }}
           whileTap={{ scale: 0.98 }}
           className={cn(
-            "group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border p-4 transition-all duration-200",
+            "group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border p-3.5 sm:p-4 transition-all duration-200",
             stat.bgCard,
           )}
         >
-          <div className="relative z-10 mb-2 flex items-center justify-between gap-2 overflow-hidden w-full">
+          <div className="relative z-10 mb-2 flex w-full min-w-0 items-start justify-between gap-1.5">
             <span
               title={stat.title}
-              className="inline-flex items-center text-xs font-bold uppercase tracking-wider text-slate-700"
+              className="min-w-0 flex-1 truncate text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-700 leading-snug"
             >
-              {renderTitle(stat.title, false)}
+              {stat.title}
             </span>
             <div
               className={cn(
@@ -214,14 +199,14 @@ export function PlatformStatsWidget({
             </div>
           </div>
 
-          <div className="my-1">
-            <div className="text-xl font-extrabold leading-tight tracking-tight text-slate-950 sm:text-2xl">
+          <div className="my-1 min-w-0">
+            <div className="truncate text-xl font-extrabold leading-tight tracking-tight text-slate-950 sm:text-2xl">
               {stat.value}
             </div>
-            <div className="mt-1 flex items-center gap-1.5">
+            <div className="mt-1 flex flex-wrap items-center gap-1.5 min-w-0">
               <span
                 className={cn(
-                  "rounded-full px-1.5 py-0.5 text-[10px]",
+                  "shrink-0 rounded-full px-1.5 py-0.5 text-[10px]",
                   stat.badgeBg,
                 )}
               >
