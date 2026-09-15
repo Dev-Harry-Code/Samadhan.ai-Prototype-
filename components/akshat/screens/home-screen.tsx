@@ -24,11 +24,11 @@ export const HomeScreen = ({ setScreen, setSelectedIssue }: HomeScreenProps) => 
   const [activeTab, setActiveTab] = useState<"overview" | "issues" | "volunteers" | "funds">("overview");
 
   return (
-    <div className="relative min-h-full overflow-hidden bg-transparent pb-36 pt-2">
-      <div className="pointer-events-none absolute left-1/2 top-6 h-[250px] w-[150vw] sm:w-[500px] -translate-x-1/2 rounded-full bg-teal-500/10 blur-[100px]"></div>
-      <div className="pointer-events-none absolute right-[-10%] top-96 h-[350px] w-[150vw] sm:w-[350px] rounded-full bg-orange-500/10 blur-[110px]"></div>
+    <div className="relative min-h-full w-full max-w-full overflow-x-hidden bg-transparent pb-36 pt-2">
+      <div className="pointer-events-none absolute left-1/2 top-6 h-[250px] w-96 max-w-[90vw] sm:w-[500px] -translate-x-1/2 rounded-full bg-teal-500/10 blur-[100px]"></div>
+      <div className="pointer-events-none absolute right-0 top-96 h-[350px] w-80 max-w-[90vw] sm:w-[350px] rounded-full bg-orange-500/10 blur-[110px]"></div>
 
-      <div className="relative z-10 mx-auto max-w-7xl space-y-6 px-3 sm:px-6">
+      <div className="relative z-10 mx-auto w-full max-w-7xl min-w-0 space-y-6 px-3.5 sm:px-6">
         <div className="mx-auto max-w-3xl pb-2 pt-4 text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-950 shadow-sm">
             <span className="h-2 w-2 animate-pulse rounded-full bg-orange-500"></span>
@@ -123,16 +123,16 @@ export const HomeScreen = ({ setScreen, setSelectedIssue }: HomeScreenProps) => 
 
         <ColorfulCategoryBentoWidget setScreen={setScreen} />
 
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-          <div className="lg:col-span-2">
+        <div className="grid w-full min-w-0 grid-cols-1 gap-5 lg:grid-cols-3">
+          <div className="w-full min-w-0 lg:col-span-2">
             <CommunityImpactChart />
           </div>
-          <div className="lg:col-span-1">
+          <div className="w-full min-w-0 lg:col-span-1">
             <CategoryGaugeWidget />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+        <div className="grid w-full min-w-0 grid-cols-1 gap-5 lg:grid-cols-2">
           <TopVolunteersWidget />
           <RecentIssuesFeedWidget
             setScreen={setScreen}
@@ -140,30 +140,30 @@ export const HomeScreen = ({ setScreen, setSelectedIssue }: HomeScreenProps) => 
           />
         </div>
 
-        <div className="flex flex-wrap items-center justify-around gap-6 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-          <div className="text-center">
-            <div className="text-2xl font-black text-slate-900 sm:text-3xl">
+        <div className="grid w-full min-w-0 grid-cols-2 sm:grid-cols-4 items-center justify-around gap-4 sm:gap-6 rounded-3xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm">
+          <div className="min-w-0 text-center">
+            <div className="truncate text-2xl font-black text-slate-900 sm:text-3xl">
               24+
             </div>
-            <div className="mt-0.5 text-[11px] font-medium text-slate-700">{t("statMunicipalWards", "Municipal Wards")}</div>
+            <div className="mt-0.5 truncate text-[11px] font-medium text-slate-700">{t("statMunicipalWards", "Municipal Wards")}</div>
           </div>
-          <div className="text-center">
-            <div className="text-2xl font-black text-slate-900 sm:text-3xl">
+          <div className="min-w-0 text-center">
+            <div className="truncate text-2xl font-black text-slate-900 sm:text-3xl">
               130K+
             </div>
-            <div className="mt-0.5 text-[11px] font-medium text-slate-700">{t("statActiveCitizens", "Active Citizens")}</div>
+            <div className="mt-0.5 truncate text-[11px] font-medium text-slate-700">{t("statActiveCitizens", "Active Citizens")}</div>
           </div>
-          <div className="text-center">
-            <div className="text-2xl font-black text-slate-900 sm:text-3xl">
+          <div className="min-w-0 text-center">
+            <div className="truncate text-2xl font-black text-slate-900 sm:text-3xl">
               42K+
             </div>
-            <div className="mt-0.5 text-[11px] font-medium text-slate-700">{t("statVerifiedSolved", "Verified Solved")}</div>
+            <div className="mt-0.5 truncate text-[11px] font-medium text-slate-700">{t("statVerifiedSolved", "Verified Solved")}</div>
           </div>
-          <div className="text-center">
-            <div className="text-2xl font-black text-slate-900 sm:text-3xl">
+          <div className="min-w-0 text-center">
+            <div className="truncate text-2xl font-black text-slate-900 sm:text-3xl">
               76+
             </div>
-            <div className="mt-0.5 text-[11px] font-medium text-slate-700">{t("statNgoPartners", "NGOs & CSR Partners")}</div>
+            <div className="mt-0.5 truncate text-[11px] font-medium text-slate-700">{t("statNgoPartners", "NGOs & CSR Partners")}</div>
           </div>
         </div>
       </div>

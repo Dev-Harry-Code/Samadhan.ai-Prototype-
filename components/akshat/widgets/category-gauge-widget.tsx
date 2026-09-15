@@ -15,9 +15,9 @@ export const CategoryGaugeWidget = () => {
   ];
 
   return (
-    <div className="relative box-border flex h-full min-h-[380px] flex-col justify-between overflow-hidden rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-      <div className="mb-2 flex items-center justify-between">
-        <div>
+    <div className="relative box-border flex h-full min-h-[380px] w-full min-w-0 flex-col justify-between overflow-hidden rounded-3xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm">
+      <div className="mb-2 flex items-center justify-between gap-2 min-w-0">
+        <div className="min-w-0 flex-1">
           <h3 className="truncate text-sm font-bold text-slate-900 sm:text-base">
             {t("sectorBreakdown", "Sector Breakdown")}
           </h3>

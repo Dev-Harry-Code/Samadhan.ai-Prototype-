@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -32,7 +33,7 @@ import {
 import { PortalPageHeader } from "@/components/portal/kpi-card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { COMPANY_ANALYTICS, COMPANY_ISSUES, COMPANY_SENTIMENT_COLORS } from "@/lib/data/company-mock";
+import { COMPANY_ISSUES, COMPANY_SENTIMENT_COLORS } from "@/lib/data/company-mock";
 
 const INSIGHTS: Array<{ icon: LucideIcon; title: string; body: string; tone: string }> = [
   {
@@ -61,8 +62,73 @@ const INSIGHTS: Array<{ icon: LucideIcon; title: string; body: string; tone: str
   },
 ];
 
+const INSIGHT_RANGES = {
+  "7D": {
+    label: "Past 7 Days",
+    duplicateRate: "3.8%",
+    avgResolution: "2.6d",
+    verificationRate: "97%",
+    predictedLoad: "±6%",
+    resolutionTrend: [
+      { name: "Day 1", time: 2.9 },
+      { name: "Day 2", time: 3.1 },
+      { name: "Day 3", time: 2.7 },
+      { name: "Day 4", time: 2.4 },
+      { name: "Day 5", time: 2.5 },
+      { name: "Day 6", time: 2.3 },
+      { name: "Day 7", time: 2.1 },
+    ],
+    sentiment: [
+      { name: "Satisfied", value: 68 },
+      { name: "Neutral", value: 20 },
+      { name: "Frustrated", value: 12 },
+    ],
+  },
+  "30D": {
+    label: "Past 30 Days",
+    duplicateRate: "6.4%",
+    avgResolution: "4.2d",
+    verificationRate: "94%",
+    predictedLoad: "±12%",
+    resolutionTrend: [
+      { name: "Week 1", time: 6.2 },
+      { name: "Week 2", time: 5.4 },
+      { name: "Week 3", time: 4.9 },
+      { name: "Week 4", time: 4.1 },
+      { name: "Week 5", time: 3.6 },
+      { name: "Week 6", time: 3.2 },
+    ],
+    sentiment: [
+      { name: "Satisfied", value: 58 },
+      { name: "Neutral", value: 24 },
+      { name: "Frustrated", value: 18 },
+    ],
+  },
+  "90D": {
+    label: "Past 90 Days",
+    duplicateRate: "8.1%",
+    avgResolution: "5.8d",
+    verificationRate: "91%",
+    predictedLoad: "±18%",
+    resolutionTrend: [
+      { name: "Month 1", time: 7.4 },
+      { name: "Month 2", time: 5.6 },
+      { name: "Month 3", time: 4.1 },
+    ],
+    sentiment: [
+      { name: "Satisfied", value: 52 },
+      { name: "Neutral", value: 27 },
+      { name: "Frustrated", value: 21 },
+    ],
+  },
+};
+
+type InsightRangeKey = keyof typeof INSIGHT_RANGES;
+
 export function CompanyInsightsPage() {
+  const [activeRange, setActiveRange] = useState<InsightRangeKey>("30D");
   const critical = COMPANY_ISSUES.filter((i) => (i.priority ?? i.severity) === "Critical").slice(0, 3);
+  const currentRangeData = INSIGHT_RANGES[activeRange];
 
   return (
     <div className="mx-auto max-w-5xl space-y-5 pb-6">
@@ -72,18 +138,37 @@ export function CompanyInsightsPage() {
         title="AI Insights"
         subtitle={`Predictive patterns from ${COMPANY_ISSUES.length} recent issues`}
         action={
-          <span className="rounded-full bg-violet-50 px-3 py-1 text-xs font-bold text-violet-600 ring-1 ring-violet-600/20">
-            4 new insights
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="hidden sm:inline-flex rounded-full bg-violet-50 px-3 py-1 text-xs font-bold text-violet-600 ring-1 ring-violet-600/20">
+              4 new insights
+            </span>
+            <div className="flex items-center rounded-xl bg-slate-100 p-1">
+              {(["7D", "30D", "90D"] as const).map((r) => (
+                <button
+                  key={r}
+                  type="button"
+                  onClick={() => setActiveRange(r)}
+                  className={cn(
+                    "rounded-lg px-2.5 py-1 text-xs font-bold transition",
+                    activeRange === r
+                      ? "bg-white text-slate-900 shadow-xs"
+                      : "text-slate-600 hover:text-slate-900",
+                  )}
+                >
+                  {r}
+                </button>
+              ))}
+            </div>
+          </div>
         }
       />
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {[
-          { label: "Duplicate rate", value: `${COMPANY_ANALYTICS.duplicateRate}%`, delta: "-1.2% vs last month", icon: RefreshCw },
-          { label: "Avg resolution", value: `${COMPANY_ANALYTICS.avgResolutionDays}d`, delta: "-0.6d faster", icon: Clock },
-          { label: "Verification rate", value: "94%", delta: "+3%", icon: CheckCircle2 },
-          { label: "Predicted load (wk)", value: "±12%", delta: "rain surge expected", icon: CloudRain },
+          { label: "Duplicate rate", value: currentRangeData.duplicateRate, delta: activeRange === "7D" ? "-2.1% this week" : activeRange === "30D" ? "-1.2% vs last month" : "-0.8% quarterly", icon: RefreshCw },
+          { label: "Avg resolution", value: currentRangeData.avgResolution, delta: activeRange === "7D" ? "-0.9d faster" : activeRange === "30D" ? "-0.6d faster" : "+0.3d vs benchmark", icon: Clock },
+          { label: "Verification rate", value: currentRangeData.verificationRate, delta: "+3%", icon: CheckCircle2 },
+          { label: "Predicted load", value: currentRangeData.predictedLoad, delta: "rain surge expected", icon: CloudRain },
         ].map((k) => (
           <div key={k.label} className="glass rounded-2xl p-4 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
             <k.icon size={20} className="text-slate-700" />
@@ -120,13 +205,18 @@ export function CompanyInsightsPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
-        <div className="glass rounded-3xl p-5 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
-          <p className="flex items-center gap-1.5 text-sm font-bold text-slate-900">
-            <TrendingUp size={15} className="text-primary-600" /> Resolution trend
-          </p>
-          <div className="mt-4 h-44">
+        <div className="glass w-full min-w-0 rounded-3xl p-5 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
+          <div className="flex items-center justify-between">
+            <p className="flex items-center gap-1.5 text-sm font-bold text-slate-900">
+              <TrendingUp size={15} className="text-primary-600" /> Resolution trend ({currentRangeData.label})
+            </p>
+            <span className="rounded-md bg-teal-50 px-2 py-0.5 font-mono text-[11px] font-bold text-teal-700">
+              Avg: {currentRangeData.avgResolution}
+            </span>
+          </div>
+          <div className="mt-4 h-44 w-full min-w-0">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={COMPANY_ANALYTICS.resolutionTrend} margin={{ top: 4, right: 4, left: -18, bottom: 0 }}>
+              <BarChart data={currentRangeData.resolutionTrend} margin={{ top: 4, right: 4, left: -18, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#eef2f7" vertical={false} />
                 <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
@@ -137,21 +227,21 @@ export function CompanyInsightsPage() {
           </div>
         </div>
 
-        <div className="glass rounded-3xl p-5 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
-          <p className="text-sm font-bold text-slate-900">Citizen sentiment mix</p>
+        <div className="glass w-full min-w-0 rounded-3xl p-5 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
+          <p className="text-sm font-bold text-slate-900">Citizen sentiment mix ({currentRangeData.label})</p>
           <div className="mt-2 flex h-40 items-center gap-4">
-            <div className="h-full flex-1">
+            <div className="h-full flex-1 min-w-0">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
-                    data={COMPANY_ANALYTICS.sentimentPie}
+                    data={currentRangeData.sentiment}
                     dataKey="value"
                     nameKey="name"
                     innerRadius={45}
                     outerRadius={65}
                     paddingAngle={3}
                   >
-                    {COMPANY_ANALYTICS.sentimentPie.map((_, i) => (
+                    {currentRangeData.sentiment.map((_, i) => (
                       <Cell key={i} fill={COMPANY_SENTIMENT_COLORS[i % COMPANY_SENTIMENT_COLORS.length]} />
                     ))}
                   </Pie>
@@ -159,8 +249,8 @@ export function CompanyInsightsPage() {
                 </PieChart>
               </ResponsiveContainer>
             </div>
-            <div className="space-y-2">
-              {COMPANY_ANALYTICS.sentimentPie.map((s, i) => (
+            <div className="space-y-2 shrink-0">
+              {currentRangeData.sentiment.map((s, i) => (
                 <div key={s.name} className="flex items-center gap-1.5 text-xs font-semibold text-slate-700">
                   <span
                     className="h-2.5 w-2.5 rounded-full"

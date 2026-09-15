@@ -107,15 +107,63 @@ const GAUGE = [
   { label: "Water", count: "181", pct: 12, color: "#0284C7" },
 ];
 
+const COMPANY_RANGE_TRENDS = {
+  month: {
+    rate: "94.8%",
+    totalReported: 498,
+    totalResolved: 472,
+    maxVal: 160,
+    items: [
+      { month: "Wk 1", reported: 98, resolved: 92 },
+      { month: "Wk 2", reported: 115, resolved: 108 },
+      { month: "Wk 3", reported: 135, resolved: 129 },
+      { month: "Wk 4", reported: 150, resolved: 143 },
+    ],
+  },
+  quarter: {
+    rate: "92.4%",
+    totalReported: 1438,
+    totalResolved: 1342,
+    maxVal: 550,
+    items: [
+      { month: "Jul", reported: 428, resolved: 411 },
+      { month: "Aug", reported: 512, resolved: 459 },
+      { month: "Sep", reported: 498, resolved: 472 },
+    ],
+  },
+  year: {
+    rate: "89.6%",
+    totalReported: 3015,
+    totalResolved: 2702,
+    maxVal: 600,
+    items: COMPANY_ANALYTICS.monthlyTrend.map((m) => ({
+      month: m.month,
+      reported: m.reported,
+      resolved: m.resolved,
+    })),
+  },
+};
+
 export function CompanyOverviewPage() {
   const [activeRange, setActiveRange] = useState<"month" | "quarter" | "year">("month");
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(6);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(3);
+
+  const activeTrendConfig = COMPANY_RANGE_TRENDS[activeRange];
+  const trend = activeTrendConfig.items;
+  const maxVal = activeTrendConfig.maxVal;
+
+  const currentHovered = hoveredIndex !== null && trend[hoveredIndex] ? trend[hoveredIndex] : null;
+  const displayResolved = currentHovered ? currentHovered.resolved : activeTrendConfig.totalResolved;
+  const displayReported = currentHovered ? currentHovered.reported : activeTrendConfig.totalReported;
+
+  const handleRangeChange = (r: "month" | "quarter" | "year") => {
+    setActiveRange(r);
+    setHoveredIndex(COMPANY_RANGE_TRENDS[r].items.length - 1);
+  };
 
   const total = COMPANY_ISSUES.length;
   const inProgress = COMPANY_ISSUES.filter((i) => i.status === "in_progress").length;
   const resolved = COMPANY_ISSUES.filter((i) => i.status === "resolved").length;
-  const trend = COMPANY_ANALYTICS.monthlyTrend;
-  const maxVal = 600;
   const recent = COMPANY_ISSUES.slice(0, 4);
 
   return (
@@ -329,7 +377,7 @@ export function CompanyOverviewPage() {
                       {(["month", "quarter", "year"] as const).map((r) => (
                         <button
                           key={r}
-                          onClick={() => setActiveRange(r)}
+                          onClick={() => handleRangeChange(r)}
                           className={cn(
                             "flex-1 rounded-lg px-3 py-1.5 text-center transition-all",
                             activeRange === r
@@ -348,18 +396,18 @@ export function CompanyOverviewPage() {
                       <div className="flex items-center gap-1.5">
                         <span className="h-2.5 w-2.5 rounded-full bg-teal-600"></span>
                         <span className="font-medium text-slate-700">
-                          Resolved ({hoveredIndex !== null ? trend[hoveredIndex].resolved : 472})
+                          Resolved ({displayResolved})
                         </span>
                       </div>
                       <div className="flex items-center gap-1.5">
                         <span className="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
                         <span className="font-medium text-slate-700">
-                          Reported ({hoveredIndex !== null ? trend[hoveredIndex].reported : 498})
+                          Reported ({displayReported})
                         </span>
                       </div>
                     </div>
                     <div className="rounded-md border border-teal-200 bg-teal-50 px-2 py-0.5 font-mono text-xs font-bold text-teal-700">
-                      Resolution Rate: 92.4%
+                      Resolution Rate: {activeTrendConfig.rate}
                     </div>
                   </div>
 
@@ -371,13 +419,14 @@ export function CompanyOverviewPage() {
 
                       return (
                         <div
-                          key={idx}
+                          key={`${activeRange}-${item.month}-${idx}`}
+                          onClick={() => setHoveredIndex(idx)}
                           onMouseEnter={() => setHoveredIndex(idx)}
-                          className="group flex h-full min-w-[32px] sm:min-w-[36px] max-w-[42px] flex-1 cursor-pointer flex-col items-center justify-end"
+                          className="group flex h-full min-w-[32px] sm:min-w-[36px] max-w-[48px] flex-1 cursor-pointer flex-col items-center justify-end"
                         >
                           <div className="flex h-6 items-center justify-center">
                             {isHovered ? (
-                              <span className="rounded-md bg-slate-900 px-1.5 py-0.5 text-[9px] font-bold text-white shadow-md sm:text-[10px]">
+                              <span className="rounded-md bg-slate-900 px-1.5 py-0.5 text-[9px] font-bold text-white shadow-md sm:text-[10px] whitespace-nowrap">
                                 {item.resolved} fixed
                               </span>
                             ) : null}
@@ -386,12 +435,12 @@ export function CompanyOverviewPage() {
                           <div className="relative flex h-28 w-full items-end justify-center gap-1.5">
                             <div
                               style={{ height: `${reported}%` }}
-                              className="w-2 rounded-t-md bg-slate-200 transition-all duration-300 group-hover:bg-slate-300 sm:w-3"
+                              className="w-2 rounded-t-md bg-slate-200 transition-all duration-500 group-hover:bg-slate-300 sm:w-3"
                             ></div>
                             <div
                               style={{ height: `${solved}%` }}
                               className={cn(
-                                "relative w-2 rounded-t-md transition-all duration-300 sm:w-3",
+                                "relative w-2 rounded-t-md transition-all duration-500 sm:w-3",
                                 isHovered ? "bg-teal-700 shadow-sm" : "bg-teal-600",
                               )}
                             ></div>
@@ -399,7 +448,7 @@ export function CompanyOverviewPage() {
 
                           <span
                             className={cn(
-                              "mt-2 text-[10px] font-bold transition-colors sm:text-[11px]",
+                              "mt-2 text-[10px] font-bold transition-colors sm:text-[11px] whitespace-nowrap",
                               isHovered ? "font-black text-slate-900" : "text-slate-700",
                             )}
                           >

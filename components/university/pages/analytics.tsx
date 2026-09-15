@@ -29,6 +29,7 @@ import Link from "next/link";
 
 import { PortalPageHeader } from "@/components/portal/kpi-card";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const CATEGORY_DATA = [
   { name: "Roads & Infra", count: 12, color: "#059669" },
@@ -94,8 +95,98 @@ const TEAM_SOLUTIONS = [
   },
 ];
 
+const UNIVERSITY_RANGE_DATA = {
+  "7D": {
+    label: "Past 7 Days",
+    totalReports: 11,
+    criticalCount: 1,
+    categories: [
+      { name: "Roads & Infra", count: 4, color: "#059669" },
+      { name: "Water & Sanitation", count: 2, color: "#0284c7" },
+      { name: "Environment", count: 1, color: "#10b981" },
+      { name: "Garbage Mgmt", count: 3, color: "#16a34a" },
+      { name: "Public Health", count: 1, color: "#e11d48" },
+      { name: "Education", count: 0, color: "#4f46e5" },
+    ],
+    severities: [
+      { name: "Critical", value: 1, color: "#ef4444" },
+      { name: "High", value: 2, color: "#f97316" },
+      { name: "Medium", value: 5, color: "#eab308" },
+      { name: "Low", value: 3, color: "#22c55e" },
+    ],
+    criticalAlert: "Main Water Main Breach (Ward 9) — emergency pressure drop logged 4 hrs ago.",
+  },
+  "30D": {
+    label: "Past 30 Days",
+    totalReports: 37,
+    criticalCount: 3,
+    categories: [
+      { name: "Roads & Infra", count: 12, color: "#059669" },
+      { name: "Water & Sanitation", count: 8, color: "#0284c7" },
+      { name: "Environment", count: 5, color: "#10b981" },
+      { name: "Garbage Mgmt", count: 7, color: "#16a34a" },
+      { name: "Public Health", count: 3, color: "#e11d48" },
+      { name: "Education", count: 2, color: "#4f46e5" },
+    ],
+    severities: [
+      { name: "Critical", value: 3, color: "#ef4444" },
+      { name: "High", value: 7, color: "#f97316" },
+      { name: "Medium", value: 14, color: "#eab308" },
+      { name: "Low", value: 6, color: "#22c55e" },
+    ],
+    criticalAlert: "Main Water Main Breach (Ward 9) — estimated 12,000 L/hr water loss endangering road foundation.",
+  },
+  "90D": {
+    label: "Past 90 Days",
+    totalReports: 103,
+    criticalCount: 8,
+    categories: [
+      { name: "Roads & Infra", count: 34, color: "#059669" },
+      { name: "Water & Sanitation", count: 21, color: "#0284c7" },
+      { name: "Environment", count: 14, color: "#10b981" },
+      { name: "Garbage Mgmt", count: 19, color: "#16a34a" },
+      { name: "Public Health", count: 9, color: "#e11d48" },
+      { name: "Education", count: 6, color: "#4f46e5" },
+    ],
+    severities: [
+      { name: "Critical", value: 8, color: "#ef4444" },
+      { name: "High", value: 19, color: "#f97316" },
+      { name: "Medium", value: 47, color: "#eab308" },
+      { name: "Low", value: 22, color: "#22c55e" },
+    ],
+    criticalAlert: "Seasonal Stormwater Runoff Contamination — 8 critical points flagged across Mandore & Old City.",
+  },
+  "12M": {
+    label: "Past 12 Months",
+    totalReports: 414,
+    criticalCount: 29,
+    categories: [
+      { name: "Roads & Infra", count: 142, color: "#059669" },
+      { name: "Water & Sanitation", count: 88, color: "#0284c7" },
+      { name: "Environment", count: 54, color: "#10b981" },
+      { name: "Garbage Mgmt", count: 76, color: "#16a34a" },
+      { name: "Public Health", count: 33, color: "#e11d48" },
+      { name: "Education", count: 21, color: "#4f46e5" },
+    ],
+    severities: [
+      { name: "Critical", value: 29, color: "#ef4444" },
+      { name: "High", value: 81, color: "#f97316" },
+      { name: "Medium", value: 194, color: "#eab308" },
+      { name: "Low", value: 98, color: "#22c55e" },
+    ],
+    criticalAlert: "Annual Cumulative Infrastructure Stress: Ratanda Flyover & Kaylana catchment require sustained academic monitoring.",
+  },
+};
+
+type RangeKey = keyof typeof UNIVERSITY_RANGE_DATA;
+
 export function UniversityAnalyticsPage() {
+  const [selectedRange, setSelectedRange] = useState<RangeKey>("30D");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  const currentData = UNIVERSITY_RANGE_DATA[selectedRange];
+  const categoryData = currentData.categories;
+  const severityData = currentData.severities;
 
   return (
     <div className="mx-auto max-w-5xl space-y-6 pb-8">
@@ -177,25 +268,55 @@ export function UniversityAnalyticsPage() {
         </div>
       </div>
 
+      {/* TIME RANGE SELECTOR */}
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-xs">
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-bold text-slate-700">Analytics Horizon:</span>
+          <span className="text-xs font-semibold text-primary-700">{currentData.label}</span>
+        </div>
+        <div className="flex items-center rounded-xl bg-slate-100 p-1">
+          {(["7D", "30D", "90D", "12M"] as const).map((r) => (
+            <button
+              key={r}
+              type="button"
+              onClick={() => {
+                setSelectedRange(r);
+                setSelectedCategory(null);
+              }}
+              className={cn(
+                "rounded-lg px-3 py-1 text-xs font-bold transition",
+                selectedRange === r
+                  ? "bg-white text-slate-900 shadow-xs"
+                  : "text-slate-600 hover:text-slate-900",
+              )}
+            >
+              {r}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* GRAPHS: CATEGORIES + SEVERITY */}
       <div className="grid gap-5 sm:grid-cols-2">
         {/* Category Graph */}
-        <div className="glass rounded-3xl p-5 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
-          <div className="mb-3 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5 text-emerald-600" />
-              <h2 className="text-sm font-extrabold text-slate-900">Issues by Category</h2>
+        <div className="glass flex flex-col justify-between w-full min-w-0 rounded-3xl p-5 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
+          <div>
+            <div className="mb-3 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <TrendingUp className="h-5 w-5 text-emerald-600" />
+                <h2 className="text-sm font-extrabold text-slate-900">Issues by Category</h2>
+              </div>
+              <span className="text-[11px] font-bold text-slate-700">{currentData.totalReports} Live Reports</span>
             </div>
-            <span className="text-[11px] font-bold text-slate-700">37 Live Reports</span>
+            <p className="mb-3 text-xs text-slate-700">
+              Select a bar to view category density across Jodhpur wards.
+            </p>
           </div>
-          <p className="mb-3 text-xs text-slate-700">
-            Select a bar to view category density across Jodhpur wards.
-          </p>
 
-          <div className="h-[230px] w-full">
+          <div className="h-[230px] w-full min-w-0">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
-                data={CATEGORY_DATA}
+                data={categoryData}
                 margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
                 onClick={(e) => {
                   if (e && e.activeLabel) setSelectedCategory(e.activeLabel as string);
@@ -214,7 +335,7 @@ export function UniversityAnalyticsPage() {
                   }}
                 />
                 <Bar dataKey="count" radius={[6, 6, 0, 0]}>
-                  {CATEGORY_DATA.map((entry, index) => (
+                  {categoryData.map((entry, index) => (
                     <Cell
                       key={`cell-${index}`}
                       fill={entry.color}
@@ -230,6 +351,7 @@ export function UniversityAnalyticsPage() {
             <div className="mt-2 flex items-center justify-between rounded-xl bg-slate-100 px-3 py-1.5 text-xs text-slate-700">
               <span>Filtered: <strong>{selectedCategory}</strong></span>
               <button
+                type="button"
                 onClick={() => setSelectedCategory(null)}
                 className="font-bold text-teal-700 hover:underline"
               >
@@ -240,25 +362,27 @@ export function UniversityAnalyticsPage() {
         </div>
 
         {/* AI Severity Triage */}
-        <div className="glass flex flex-col rounded-3xl p-5 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
-          <div className="mb-3 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <AlertOctagon className="h-5 w-5 text-rose-600" />
-              <h2 className="text-sm font-extrabold text-slate-900">AI Severity Triage</h2>
+        <div className="glass flex flex-col justify-between w-full min-w-0 rounded-3xl p-5 shadow-lg shadow-slate-900/5 ring-1 ring-white/60">
+          <div>
+            <div className="mb-3 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <AlertOctagon className="h-5 w-5 text-rose-600" />
+                <h2 className="text-sm font-extrabold text-slate-900">AI Severity Triage</h2>
+              </div>
+              <span className="rounded-full bg-rose-100 px-2 py-0.5 text-[10px] font-bold text-rose-800">
+                {currentData.criticalCount} Critical
+              </span>
             </div>
-            <span className="rounded-full bg-rose-100 px-2 py-0.5 text-[10px] font-bold text-rose-800">
-              3 Critical
-            </span>
+            <p className="mb-2 text-xs text-slate-700">
+              Emergency classification weighted by safety risk and public disruption ({currentData.label}).
+            </p>
           </div>
-          <p className="mb-2 text-xs text-slate-700">
-            Emergency classification weighted by safety risk and public disruption.
-          </p>
 
-          <div className="flex h-[170px] w-full items-center justify-center">
+          <div className="flex h-[170px] w-full min-w-0 items-center justify-center">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
-                  data={SEVERITY_DATA}
+                  data={severityData}
                   cx="50%"
                   cy="50%"
                   innerRadius={55}
@@ -266,7 +390,7 @@ export function UniversityAnalyticsPage() {
                   paddingAngle={5}
                   dataKey="value"
                 >
-                  {SEVERITY_DATA.map((entry, index) => (
+                  {severityData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
@@ -282,14 +406,14 @@ export function UniversityAnalyticsPage() {
             </ResponsiveContainer>
           </div>
 
-          <div className="mt-auto">
+          <div className="mt-auto pt-3">
             <div className="rounded-2xl border border-rose-200 bg-rose-50/90 p-3.5 shadow-xs">
               <div className="flex items-center gap-1.5 text-xs font-bold text-rose-800">
-                <ShieldAlert size={14} className="text-rose-600" />
-                Critical Priority Case: Main Water Main Breach (Ward 9)
+                <ShieldAlert size={14} className="shrink-0 text-rose-600" />
+                <span>Priority Alert ({selectedRange})</span>
               </div>
               <p className="mt-1 text-xs text-slate-700">
-                AI estimated 12,000 liters/hour water loss endangering adjacent road foundation. Requires Civil &amp; Environmental on-site assessment.
+                {currentData.criticalAlert}
               </p>
               <Link
                 href="/university/assign"

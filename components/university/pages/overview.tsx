@@ -105,14 +105,44 @@ const OPPORTUNITIES = [
   },
 ];
 
-const TREND = [
-  { month: "Apr", launched: 4, solved: 2 },
-  { month: "May", launched: 6, solved: 4 },
-  { month: "Jun", launched: 8, solved: 6 },
-  { month: "Jul", launched: 11, solved: 8 },
-  { month: "Aug", launched: 15, solved: 12 },
-  { month: "Sep", launched: 20, solved: 18 },
-];
+const UNIVERSITY_RANGE_TRENDS = {
+  month: {
+    rate: "89.2%",
+    totalLaunched: 24,
+    totalSolved: 21,
+    maxVal: 10,
+    items: [
+      { month: "Wk 1", launched: 5, solved: 4 },
+      { month: "Wk 2", launched: 6, solved: 5 },
+      { month: "Wk 3", launched: 6, solved: 6 },
+      { month: "Wk 4", launched: 7, solved: 6 },
+    ],
+  },
+  quarter: {
+    rate: "85.0%",
+    totalLaunched: 64,
+    totalSolved: 54,
+    maxVal: 24,
+    items: [
+      { month: "Jul", launched: 11, solved: 8 },
+      { month: "Aug", launched: 15, solved: 12 },
+      { month: "Sep", launched: 20, solved: 18 },
+      { month: "Oct", launched: 18, solved: 16 },
+    ],
+  },
+  year: {
+    rate: "88.5%",
+    totalLaunched: 185,
+    totalSolved: 164,
+    maxVal: 65,
+    items: [
+      { month: "Q1 '25", launched: 32, solved: 26 },
+      { month: "Q2 '25", launched: 44, solved: 38 },
+      { month: "Q3 '25", launched: 51, solved: 46 },
+      { month: "Q4 '25", launched: 58, solved: 54 },
+    ],
+  },
+};
 
 const GAUGE = [
   { label: "Civil", count: "21", pct: 34, color: "#0D9488" },
@@ -123,18 +153,30 @@ const GAUGE = [
 
 export function UniversityOverviewPage() {
   const [activeRange, setActiveRange] = useState<"month" | "quarter" | "year">("month");
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(5);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(3);
   const [mapViewMode, setMapViewMode] = useState<"gis" | "3d">("gis");
+
+  const activeTrendConfig = UNIVERSITY_RANGE_TRENDS[activeRange];
+  const trend = activeTrendConfig.items;
+  const maxVal = activeTrendConfig.maxVal;
+
+  const currentHovered = hoveredIndex !== null && trend[hoveredIndex] ? trend[hoveredIndex] : null;
+  const displaySolved = currentHovered ? currentHovered.solved : activeTrendConfig.totalSolved;
+  const displayLaunched = currentHovered ? currentHovered.launched : activeTrendConfig.totalLaunched;
+
+  const handleRangeChange = (r: "month" | "quarter" | "year") => {
+    setActiveRange(r);
+    setHoveredIndex(UNIVERSITY_RANGE_TRENDS[r].items.length - 1);
+  };
 
   const recommended = UNIVERSITIES.find((u) => u.isRecommended) ?? UNIVERSITIES[0];
   const activeReports = UNIVERSITY_REPORTS.filter((r) => r.status !== "Resolved");
   const resolvedReports = UNIVERSITY_REPORTS.filter((r) => r.status === "Resolved");
-  const maxVal = 24;
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen w-full max-w-full overflow-x-hidden">
       <CivicBackground />
-      <div className="relative z-10">
+      <div className="relative z-10 w-full max-w-full overflow-x-hidden">
         <PortalOverviewHeader
           role="University Partner"
           location={UNIVERSITY_USER.location}
@@ -149,11 +191,11 @@ export function UniversityOverviewPage() {
           ]}
         />
 
-        <div className="relative overflow-hidden">
-          <div className="pointer-events-none absolute left-1/2 top-6 h-[250px] w-[150vw] sm:w-[500px] -translate-x-1/2 rounded-full bg-teal-500/10 blur-[100px]"></div>
-          <div className="pointer-events-none absolute right-[-10%] top-96 h-[350px] w-[150vw] sm:w-[350px] rounded-full bg-orange-500/10 blur-[110px]"></div>
+        <div className="relative w-full max-w-full overflow-hidden">
+          <div className="pointer-events-none absolute left-1/2 top-6 h-[250px] w-96 max-w-[90vw] sm:w-[500px] -translate-x-1/2 rounded-full bg-teal-500/10 blur-[100px]"></div>
+          <div className="pointer-events-none absolute right-0 top-96 h-[350px] w-80 max-w-[90vw] sm:w-[350px] rounded-full bg-orange-500/10 blur-[110px]"></div>
 
-          <main className="relative z-10 mx-auto max-w-7xl space-y-6 px-3 pb-16 pt-6 sm:px-6">
+          <main className="relative z-10 mx-auto w-full max-w-7xl min-w-0 space-y-6 px-3.5 pb-16 pt-6 sm:px-6">
             {/* HERO */}
             <div className="mx-auto max-w-3xl pb-2 pt-4 text-center">
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-teal-200 bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-800 shadow-xs">
@@ -364,11 +406,11 @@ export function UniversityOverviewPage() {
             </div>
 
             {/* ANALYTICS + SECTOR */}
-            <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-              <div className="lg:col-span-2">
-                <div className="relative box-border flex h-full min-h-[390px] flex-col justify-between overflow-hidden rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+            <div className="grid w-full min-w-0 grid-cols-1 gap-5 lg:grid-cols-3">
+              <div className="w-full min-w-0 lg:col-span-2">
+                <div className="relative box-border flex h-full min-h-[390px] w-full min-w-0 flex-col justify-between overflow-hidden rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
                   <div className="relative z-10 mb-4 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-                    <div>
+                    <div className="min-w-0">
                       <div className="flex items-center gap-2">
                         <TrendingUp className="h-5 w-5 flex-shrink-0 text-teal-600" />
                         <h3 className="whitespace-normal text-base font-black tracking-tight text-slate-900 sm:text-lg">
@@ -384,11 +426,11 @@ export function UniversityOverviewPage() {
                       </p>
                     </div>
 
-                    <div className="flex flex-shrink-0 items-center self-start rounded-xl border border-slate-200 bg-slate-100 p-1 text-xs font-semibold sm:self-auto">
+                    <div className="flex flex-shrink-0 items-center self-stretch sm:self-auto rounded-xl border border-slate-200 bg-slate-100 p-1 text-xs font-semibold">
                       {(["month", "quarter", "year"] as const).map((r) => (
                         <button
                           key={r}
-                          onClick={() => setActiveRange(r)}
+                          onClick={() => handleRangeChange(r)}
                           className={cn(
                             "flex-1 rounded-lg px-3 py-1.5 text-center transition-all",
                             activeRange === r
@@ -407,36 +449,37 @@ export function UniversityOverviewPage() {
                       <div className="flex items-center gap-1.5">
                         <span className="h-2.5 w-2.5 rounded-full bg-teal-600"></span>
                         <span className="font-medium text-slate-700">
-                          Solved ({hoveredIndex !== null ? TREND[hoveredIndex].solved : 18})
+                          Solved ({displaySolved})
                         </span>
                       </div>
                       <div className="flex items-center gap-1.5">
                         <span className="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
                         <span className="font-medium text-slate-700">
-                          Launched ({hoveredIndex !== null ? TREND[hoveredIndex].launched : 20})
+                          Launched ({displayLaunched})
                         </span>
                       </div>
                     </div>
                     <div className="rounded-md border border-teal-200 bg-teal-50 px-2 py-0.5 font-mono text-xs font-bold text-teal-700">
-                      Impact Rate: 85%
+                      Impact Rate: {activeTrendConfig.rate}
                     </div>
                   </div>
 
-                  <div className="relative z-10 flex h-44 w-full items-end justify-between gap-1 pt-3 sm:gap-3 sm:px-3 overflow-x-auto overflow-y-hidden pb-1 scrollbar-hide">
-                    {TREND.map((item, idx) => {
+                  <div className="relative z-10 flex h-44 w-full min-w-0 items-end justify-between gap-1 pt-3 sm:gap-3 sm:px-3 overflow-x-auto overflow-y-hidden pb-1 scrollbar-hide">
+                    {trend.map((item, idx) => {
                       const launched = Math.min(100, Math.max(12, (item.launched / maxVal) * 100));
                       const solved = Math.min(100, Math.max(12, (item.solved / maxVal) * 100));
                       const isHovered = hoveredIndex === idx;
 
                       return (
                         <div
-                          key={idx}
+                          key={`${activeRange}-${item.month}-${idx}`}
+                          onClick={() => setHoveredIndex(idx)}
                           onMouseEnter={() => setHoveredIndex(idx)}
-                          className="group flex h-full min-w-[36px] max-w-[42px] flex-1 cursor-pointer flex-col items-center justify-end"
+                          className="group flex h-full min-w-[36px] max-w-[48px] flex-1 cursor-pointer flex-col items-center justify-end"
                         >
                           <div className="flex h-6 items-center justify-center">
                             {isHovered ? (
-                              <span className="rounded-md bg-slate-900 px-1.5 py-0.5 text-[9px] font-bold text-white shadow-md sm:text-[10px]">
+                              <span className="rounded-md bg-slate-900 px-1.5 py-0.5 text-[9px] font-bold text-white shadow-md sm:text-[10px] whitespace-nowrap">
                                 {item.solved} solved
                               </span>
                             ) : null}
@@ -445,12 +488,12 @@ export function UniversityOverviewPage() {
                           <div className="relative flex h-28 w-full items-end justify-center gap-1.5">
                             <div
                               style={{ height: `${launched}%` }}
-                              className="w-2 rounded-t-md bg-slate-200 transition-all duration-300 group-hover:bg-slate-300 sm:w-3"
+                              className="w-2 rounded-t-md bg-slate-200 transition-all duration-500 group-hover:bg-slate-300 sm:w-3"
                             ></div>
                             <div
                               style={{ height: `${solved}%` }}
                               className={cn(
-                                "relative w-2 rounded-t-md transition-all duration-300 sm:w-3",
+                                "relative w-2 rounded-t-md transition-all duration-500 sm:w-3",
                                 isHovered ? "bg-primary-600 shadow-sm" : "bg-primary-500",
                               )}
                             ></div>
@@ -458,7 +501,7 @@ export function UniversityOverviewPage() {
 
                           <span
                             className={cn(
-                              "mt-2 text-[10px] font-bold transition-colors sm:text-[11px]",
+                              "mt-2 text-[10px] font-bold transition-colors sm:text-[11px] whitespace-nowrap",
                               isHovered ? "font-black text-slate-900" : "text-slate-700",
                             )}
                           >
