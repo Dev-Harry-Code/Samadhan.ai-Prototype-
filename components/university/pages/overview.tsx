@@ -182,12 +182,14 @@ export function UniversityOverviewPage() {
           location={UNIVERSITY_USER.location}
           storageKey="samadhan.university"
           user={{ name: UNIVERSITY_USER.name, avatar: UNIVERSITY_USER.avatar }}
+          profileHref="/university/profile"
           links={[
             { href: "/university", label: "Overview" },
             { href: "/university/analytics", label: "AI Analytics" },
             { href: "/university/reports", label: "Recommended Issues" },
             { href: "/university/team", label: "Teams" },
             { href: "/university/community", label: "Community" },
+            { href: "/university/profile", label: "Profile" },
           ]}
         />
 

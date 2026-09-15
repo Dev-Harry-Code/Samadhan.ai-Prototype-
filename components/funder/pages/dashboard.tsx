@@ -175,12 +175,14 @@ export function CompanyOverviewPage() {
           location="Jodhpur"
           storageKey="samadhan.company"
           user={{ name: COMPANY_USER.name, avatar: COMPANY_USER.avatar }}
+          profileHref="/funder/profile"
           links={[
             { href: "/funder", label: "Overview" },
             { href: "/funder/issues", label: "Opportunities" },
             { href: "/funder/assignments", label: "Projects" },
             { href: "/funder/analytics", label: "Analytics" },
             { href: "/funder/reports", label: "Reports" },
+            { href: "/funder/profile", label: "Profile" },
           ]}
         />
 
@@ -233,6 +235,7 @@ export function CompanyOverviewPage() {
                 { href: "/funder/assignments", label: "Projects" },
                 { href: "/funder/analytics", label: "Analytics" },
                 { href: "/funder/reports", label: "Impact" },
+                { href: "/funder/profile", label: "Profile" },
               ]}
             />
 

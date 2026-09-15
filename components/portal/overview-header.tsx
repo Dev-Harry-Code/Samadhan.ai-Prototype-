@@ -19,15 +19,20 @@ export function PortalOverviewHeader({
   storageKey,
   user,
   links,
+  profileHref,
 }: {
   role: string;
   location: string;
   storageKey: string;
   user: { name: string; avatar: string };
   links: OverviewHeaderLink[];
+  profileHref?: string;
 }) {
   const pathname = usePathname();
   const router = useRouter();
+
+  const targetProfile =
+    profileHref || links.find((l) => l.label.toLowerCase() === "profile")?.href;
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
@@ -57,7 +62,13 @@ export function PortalOverviewHeader({
               <span className="max-w-24 truncate rounded-full bg-teal-50 px-2 py-0.5 text-[10px] font-bold text-teal-700 ring-1 ring-teal-200">
                 {role}
               </span>
-              <Avatar name={user.avatar} size="sm" />
+              {targetProfile ? (
+                <Link href={targetProfile} title="View Profile" className="transition hover:opacity-80">
+                  <Avatar name={user.avatar} size="sm" />
+                </Link>
+              ) : (
+                <Avatar name={user.avatar} size="sm" />
+              )}
               <button
                 onClick={logout}
                 aria-label="Log out"
@@ -140,8 +151,21 @@ export function PortalOverviewHeader({
             >
               <span>Switch Portal</span>
             </Link>
-            <span className="hidden text-xs font-semibold text-slate-700 xl:inline">{user.name}</span>
-            <Avatar name={user.avatar} size="sm" />
+            {targetProfile ? (
+              <Link
+                href={targetProfile}
+                title="View Profile"
+                className="flex items-center gap-2 rounded-xl p-1 transition hover:bg-slate-100"
+              >
+                <span className="hidden text-xs font-semibold text-slate-700 xl:inline">{user.name}</span>
+                <Avatar name={user.avatar} size="sm" />
+              </Link>
+            ) : (
+              <>
+                <span className="hidden text-xs font-semibold text-slate-700 xl:inline">{user.name}</span>
+                <Avatar name={user.avatar} size="sm" />
+              </>
+            )}
             <button
               onClick={logout}
               aria-label="Log out"
