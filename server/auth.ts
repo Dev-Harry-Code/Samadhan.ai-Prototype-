@@ -49,10 +49,10 @@ export const getUserFromSession = async (): Promise<SessionUser | null> => {
   try {
     await connectToDb();
     const user = await User.findById(payload.sub)
-      .select("name role")
-      .lean<{ _id: unknown; name: string; role: string }>();
+      .select("name role orgId")
+      .lean<{ _id: unknown; name: string; role: string; orgId?: string }>();
     if (!user) return null;
-    return { id: String(user._id), role: user.role, name: user.name };
+    return { id: String(user._id), role: user.role, name: user.name, orgId: user.orgId };
   } catch {
     return null;
   }

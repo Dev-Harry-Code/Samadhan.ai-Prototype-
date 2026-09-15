@@ -7,6 +7,7 @@ export interface SessionUser {
   id: string;
   role: string;
   name: string;
+  orgId?: string;
 }
 
 export interface SessionPayload extends JWTPayload {
