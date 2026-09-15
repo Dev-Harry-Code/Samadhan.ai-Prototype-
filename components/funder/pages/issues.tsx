@@ -73,7 +73,7 @@ export function CompanyIssuesPage() {
   };
 
   return (
-    <div className="mx-auto max-w-4xl space-y-4 pb-6">
+    <div className="mx-auto w-full max-w-4xl min-w-0 space-y-4 pb-6">
       <div className="flex flex-wrap items-center gap-3">
         <div>
           <h1 className="text-xl font-extrabold tracking-tight text-slate-900">Issues</h1>
@@ -154,34 +154,37 @@ export function CompanyIssuesPage() {
         <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-slate-300" /> Low</span>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid w-full min-w-0 grid-cols-1 gap-3 sm:grid-cols-2">
         {filtered.map((issue) => (
-          <Link key={issue.id} href={`/funder/issues/${issue.id}`}>
-            <div className="glass group h-full rounded-2xl p-4 shadow-lg shadow-slate-900/5 ring-1 ring-white/60 transition hover:-translate-y-0.5 hover:shadow-xl">
+          <Link key={issue.id} href={`/funder/issues/${issue.id}`} className="group block h-full w-full min-w-0">
+            <div className="glass h-full w-full min-w-0 overflow-hidden rounded-2xl p-4 shadow-lg shadow-slate-900/5 ring-1 ring-white/60 transition hover:-translate-y-0.5 hover:shadow-xl">
               <div className="flex items-start gap-3">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
                   {issue.beforeImage ? <issue.beforeImage size={22} /> : <MapPin size={22} />}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-start justify-between gap-2">
-                    <p className="truncate text-sm font-semibold text-slate-900">{issue.title}</p>
-                    <CompanySeverityBadge severity={issue.priority ?? issue.severity} />
+                  <div className="flex min-w-0 items-start justify-between gap-2">
+                    <p className="min-w-0 flex-1 truncate text-sm font-semibold text-slate-900">{issue.title}</p>
+                    <div className="shrink-0">
+                      <CompanySeverityBadge severity={issue.priority ?? issue.severity} />
+                    </div>
                   </div>
-                  <p className="mt-0.5 flex items-center gap-1 text-xs text-slate-700">
-                    <MapPin size={12} className="shrink-0" /> {issue.area}
+                  <p className="mt-0.5 flex min-w-0 items-center gap-1 truncate text-xs text-slate-700">
+                    <MapPin size={12} className="shrink-0" />
+                    <span className="truncate">{issue.area}</span>
                   </p>
-                  <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                  <div className="mt-2 flex min-w-0 flex-wrap items-center gap-1.5">
                     <CompanyStatusBadge status={issue.status} />
-                    <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-700">
+                    <span className="shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-700">
                       {issue.category}
                     </span>
                     {issue.verified && (
-                      <span className="flex items-center gap-1 rounded-full bg-primary-50 px-2 py-0.5 text-[11px] font-medium text-primary-600">
+                      <span className="flex shrink-0 items-center gap-1 rounded-full bg-primary-50 px-2 py-0.5 text-[11px] font-medium text-primary-600">
                         <Check size={11} strokeWidth={3} /> AI verified
                       </span>
                     )}
                     {issue.duplicate && (
-                      <span className="rounded-full bg-rose-50 px-2 py-0.5 text-[11px] font-medium text-rose-600">
+                      <span className="shrink-0 rounded-full bg-rose-50 px-2 py-0.5 text-[11px] font-medium text-rose-600">
                         Duplicate
                       </span>
                     )}

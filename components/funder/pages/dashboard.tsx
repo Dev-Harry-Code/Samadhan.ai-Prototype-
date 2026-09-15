@@ -119,9 +119,9 @@ export function CompanyOverviewPage() {
   const recent = COMPANY_ISSUES.slice(0, 4);
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen w-full max-w-full overflow-x-hidden">
       <CivicBackground />
-      <div className="relative z-10">
+      <div className="relative z-10 w-full max-w-full overflow-x-hidden">
         <PortalOverviewHeader
           role="CSR / Organization"
           location="Jodhpur"
@@ -136,19 +136,19 @@ export function CompanyOverviewPage() {
           ]}
         />
 
-        <div className="relative overflow-hidden">
-          <div className="pointer-events-none absolute left-1/2 top-6 h-[250px] w-[150vw] sm:w-[500px] -translate-x-1/2 rounded-full bg-teal-500/10 blur-[100px]"></div>
-          <div className="pointer-events-none absolute right-[-10%] top-96 h-[350px] w-[150vw] sm:w-[350px] rounded-full bg-orange-500/10 blur-[110px]"></div>
+        <div className="relative w-full max-w-full overflow-hidden">
+          <div className="pointer-events-none absolute left-1/2 top-6 h-[250px] w-96 max-w-[90vw] sm:w-[500px] -translate-x-1/2 rounded-full bg-teal-500/10 blur-[100px]"></div>
+          <div className="pointer-events-none absolute right-0 top-96 h-[350px] w-80 max-w-[90vw] sm:w-[350px] rounded-full bg-orange-500/10 blur-[110px]"></div>
 
-          <main className="relative z-10 mx-auto max-w-7xl space-y-6 px-3 pb-16 pt-6 sm:px-6">
+          <main className="relative z-10 mx-auto w-full max-w-7xl min-w-0 space-y-6 px-3.5 pb-16 pt-6 sm:px-6">
             {/* HERO */}
             <div className="mx-auto max-w-3xl pb-2 pt-4 text-center">
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-teal-200 bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-800 shadow-xs">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-orange-500"></span>
-                <span className="font-medium">AI-Powered Social Impact</span>
+              <div className="mb-4 inline-flex max-w-full items-center gap-2 rounded-full border border-teal-200 bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-800 shadow-xs">
+                <span className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-orange-500"></span>
+                <span className="truncate font-medium">AI-Powered Social Impact</span>
               </div>
 
-              <h1 className="text-2xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+              <h1 className="break-words text-2xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                 Turn Corporate Action Into{" "}
                 <span className="text-teal-600">Measurable Community Impact</span>
               </h1>
@@ -158,20 +158,20 @@ export function CompanyOverviewPage() {
                 difference your organization creates.
               </p>
 
-              <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
                 <Link
                   href="/funder/issues"
-                  className="btn-breathing flex items-center gap-2 rounded-2xl bg-teal-600 px-6 py-3 text-sm font-bold text-white shadow-md transition-all duration-200 hover:bg-teal-700 hover:shadow-lg"
+                  className="btn-breathing flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl bg-teal-600 px-5 py-3 text-sm font-bold text-white shadow-md transition-all duration-200 hover:bg-teal-700 hover:shadow-lg"
                 >
                   <span>Explore Impact Opportunities</span>
-                  <ArrowRight className="h-4 w-4 stroke-[2.5]" />
+                  <ArrowRight className="h-4 w-4 shrink-0 stroke-[2.5]" />
                 </Link>
                 <Link
                   href="/funder/assignments"
-                  className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:bg-slate-50"
+                  className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:bg-slate-50"
                 >
                   <span>View Active Projects</span>
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-4 w-4 shrink-0" />
                 </Link>
               </div>
             </div>
@@ -189,7 +189,7 @@ export function CompanyOverviewPage() {
             />
 
             {/* METRICS */}
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
+            <div className="grid w-full min-w-0 grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
               <MetricCard
                 icon={<FileText className="h-4 w-4 text-amber-600" />}
                 title="Impact Opportunities"
@@ -247,13 +247,14 @@ export function CompanyOverviewPage() {
             </div>
 
             {/* IMPACT OPPORTUNITIES */}
-            <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-xs sm:p-5">
-              <div className="mb-4 flex items-center justify-between">
-                <div>
-                  <h3 className="text-base font-black text-slate-900 sm:text-lg">
+            {/* IMPACT OPPORTUNITIES */}
+            <div className="w-full min-w-0 rounded-3xl border border-slate-200 bg-white p-4 shadow-xs sm:p-5">
+              <div className="mb-4 flex items-center justify-between gap-2 min-w-0">
+                <div className="min-w-0 flex-1">
+                  <h3 className="truncate text-base font-black text-slate-900 sm:text-lg">
                     Impact Opportunities
                   </h3>
-                  <p className="text-xs text-slate-700">
+                  <p className="truncate text-xs text-slate-700 sm:whitespace-normal">
                     Discover civic challenges where your organization can create measurable impact
                   </p>
                 </div>
@@ -266,7 +267,7 @@ export function CompanyOverviewPage() {
                 </Link>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+              <div className="grid w-full min-w-0 grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
                 {IMPACT_OPPORTUNITIES.map((cat, index) => (
                   <motion.div
                     key={cat.id}
@@ -275,23 +276,23 @@ export function CompanyOverviewPage() {
                     transition={{ duration: 0.3, delay: index * 0.05 }}
                     whileHover={{ scale: 1.03, boxShadow: "0 8px 20px -4px rgba(15, 23, 42, 0.08)" }}
                     whileTap={{ scale: 0.97 }}
-                    className={`flex min-h-[130px] cursor-pointer flex-col justify-between rounded-2xl border p-3.5 shadow-2xs transition-all ${cat.bgCard}`}
+                    className={`flex min-h-[130px] w-full min-w-0 cursor-pointer flex-col justify-between rounded-2xl border p-3 shadow-2xs transition-all sm:p-3.5 ${cat.bgCard}`}
                   >
-                    <div className="mb-2 flex items-center justify-between gap-2">
+                    <div className="mb-2 flex min-w-0 items-center justify-between gap-1.5">
                       <div
                         className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl shadow-2xs sm:h-9 sm:w-9 ${cat.iconBg}`}
                       >
                         {cat.icon}
                       </div>
                       <span
-                        className={`rounded-md border px-2 py-0.5 font-mono text-[10px] font-bold sm:text-[11px] ${cat.badgeColor}`}
+                        className={`shrink-0 truncate rounded-md border px-1.5 py-0.5 font-mono text-[9px] font-bold sm:px-2 sm:text-[11px] ${cat.badgeColor}`}
                       >
                         {cat.count} Projects
                       </span>
                     </div>
 
-                    <div className="mt-auto">
-                      <div className="text-xs font-black leading-snug text-slate-900 sm:text-[13px]">
+                    <div className="mt-auto min-w-0">
+                      <div className="truncate text-xs font-black leading-snug text-slate-900 sm:text-[13px]">
                         {cat.name}
                       </div>
                       <p className="mt-1 line-clamp-2 text-[10px] font-medium leading-snug text-slate-700">
@@ -304,11 +305,11 @@ export function CompanyOverviewPage() {
             </div>
 
             {/* ANALYTICS + SECTOR */}
-            <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-              <div className="lg:col-span-2">
-                <div className="relative box-border flex h-full min-h-[390px] flex-col justify-between overflow-hidden rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+            <div className="grid w-full min-w-0 grid-cols-1 gap-5 lg:grid-cols-3">
+              <div className="w-full min-w-0 lg:col-span-2">
+                <div className="relative box-border flex h-full min-h-[390px] w-full min-w-0 flex-col justify-between overflow-hidden rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
                   <div className="relative z-10 mb-4 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-                    <div>
+                    <div className="min-w-0">
                       <div className="flex items-center gap-2">
                         <TrendingUp className="h-5 w-5 flex-shrink-0 text-teal-600" />
                         <h3 className="whitespace-normal text-base font-black tracking-tight text-slate-900 sm:text-lg">
@@ -324,7 +325,7 @@ export function CompanyOverviewPage() {
                       </p>
                     </div>
 
-                    <div className="flex flex-shrink-0 items-center self-start rounded-xl border border-slate-200 bg-slate-100 p-1 text-xs font-semibold sm:self-auto">
+                    <div className="flex flex-shrink-0 items-center self-stretch sm:self-auto rounded-xl border border-slate-200 bg-slate-100 p-1 text-xs font-semibold">
                       {(["month", "quarter", "year"] as const).map((r) => (
                         <button
                           key={r}
@@ -362,7 +363,7 @@ export function CompanyOverviewPage() {
                     </div>
                   </div>
 
-                  <div className="relative z-10 flex h-44 w-full items-end justify-between gap-1 pt-3 sm:gap-3 sm:px-3 overflow-x-auto overflow-y-hidden pb-1 scrollbar-hide">
+                  <div className="relative z-10 flex h-44 w-full min-w-0 items-end justify-between gap-1 pt-3 sm:gap-3 sm:px-3 overflow-x-auto overflow-y-hidden pb-1 scrollbar-hide">
                     {trend.map((item, idx) => {
                       const reported = Math.min(100, Math.max(12, (item.reported / maxVal) * 100));
                       const solved = Math.min(100, Math.max(12, (item.resolved / maxVal) * 100));
@@ -372,7 +373,7 @@ export function CompanyOverviewPage() {
                         <div
                           key={idx}
                           onMouseEnter={() => setHoveredIndex(idx)}
-                          className="group flex h-full min-w-[36px] max-w-[42px] flex-1 cursor-pointer flex-col items-center justify-end"
+                          className="group flex h-full min-w-[32px] sm:min-w-[36px] max-w-[42px] flex-1 cursor-pointer flex-col items-center justify-end"
                         >
                           <div className="flex h-6 items-center justify-center">
                             {isHovered ? (
@@ -411,14 +412,14 @@ export function CompanyOverviewPage() {
                 </div>
               </div>
 
-              <div className="lg:col-span-1">
-                <div className="relative box-border flex h-full min-h-[380px] flex-col justify-between overflow-hidden rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-                  <div className="mb-2 flex items-center justify-between">
-                    <div>
+              <div className="w-full min-w-0 lg:col-span-1">
+                <div className="relative box-border flex h-full min-h-[380px] w-full min-w-0 flex-col justify-between overflow-hidden rounded-3xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm">
+                  <div className="mb-2 flex items-center justify-between gap-2">
+                    <div className="min-w-0 flex-1">
                       <h3 className="truncate text-sm font-bold text-slate-900 sm:text-base">
                         Impact by Sector
                       </h3>
-                      <p className="text-xs text-slate-700">Distribution of supported challenges</p>
+                      <p className="truncate text-xs text-slate-700">Distribution of supported challenges</p>
                     </div>
                     <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-teal-100 bg-teal-50 text-teal-700">
                       <PieChart className="h-4 w-4" />
@@ -467,11 +468,11 @@ export function CompanyOverviewPage() {
                     </div>
                   </div>
 
-                  <div className="grid w-full grid-cols-2 gap-2 border-t border-slate-100 pt-3">
+                  <div className="grid w-full min-w-0 grid-cols-2 gap-2 border-t border-slate-100 pt-3">
                     {GAUGE.map((c, i) => (
                       <div
                         key={i}
-                        className="flex items-center justify-between gap-1.5 rounded-xl border border-slate-200 bg-slate-50 p-2"
+                        className="flex min-w-0 items-center justify-between gap-1.5 rounded-xl border border-slate-200 bg-slate-50 p-2"
                       >
                         <div className="flex min-w-0 items-center gap-1.5">
                           <span
@@ -493,41 +494,44 @@ export function CompanyOverviewPage() {
             </div>
 
             {/* ONGOING PROJECTS + IMPACT PROGRESS */}
-            <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-              <div className="lg:col-span-2">
-                <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-xs sm:p-5">
-                  <div className="mb-4 flex items-center justify-between">
-                    <h3 className="flex items-center gap-1.5 text-sm font-bold text-slate-900">
-                      <MapPin size={15} className="text-sky-500" /> Ongoing Projects
+            <div className="grid w-full min-w-0 grid-cols-1 gap-5 lg:grid-cols-3">
+              <div className="w-full min-w-0 lg:col-span-2">
+                <div className="w-full min-w-0 overflow-hidden rounded-3xl border border-slate-200 bg-white p-4 shadow-xs sm:p-5">
+                  <div className="mb-4 flex items-center justify-between gap-2 min-w-0">
+                    <h3 className="flex items-center gap-1.5 truncate text-sm font-bold text-slate-900">
+                      <MapPin size={15} className="shrink-0 text-sky-500" /> Ongoing Projects
                     </h3>
                     <Link
                       href="/funder/issues"
-                      className="text-xs font-bold text-primary-600 hover:underline"
+                      className="shrink-0 text-xs font-bold text-primary-600 hover:underline"
                     >
                       All projects →
                     </Link>
                   </div>
 
-                  <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="grid w-full min-w-0 grid-cols-1 gap-3 sm:grid-cols-2">
                     {recent.map((i) => (
-                      <Link key={i.id} href={`/funder/issues/${i.id}`} className="group h-full">
-                        <div className="flex h-full items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50/60 p-3.5 transition hover:-translate-y-0.5 hover:shadow-md">
+                      <Link key={i.id} href={`/funder/issues/${i.id}`} className="group block h-full w-full min-w-0">
+                        <div className="flex h-full w-full min-w-0 items-start gap-3 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/60 p-3.5 transition hover:-translate-y-0.5 hover:shadow-md">
                           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
                             {i.beforeImage ? <i.beforeImage size={22} /> : <MapPin size={22} />}
                           </div>
                           <div className="min-w-0 flex-1">
-                            <div className="flex items-start justify-between gap-2">
-                              <p className="truncate text-sm font-semibold text-slate-900">
+                            <div className="flex min-w-0 items-start justify-between gap-2">
+                              <p className="min-w-0 flex-1 truncate text-sm font-semibold text-slate-900">
                                 {i.title}
                               </p>
-                              <CompanySeverityBadge severity={i.priority ?? i.severity} />
+                              <div className="shrink-0">
+                                <CompanySeverityBadge severity={i.priority ?? i.severity} />
+                              </div>
                             </div>
-                            <p className="mt-0.5 flex items-center gap-1 text-xs text-slate-700">
-                              <MapPin size={12} className="shrink-0" /> {i.area}
+                            <p className="mt-0.5 flex min-w-0 items-center gap-1 truncate text-xs text-slate-700">
+                              <MapPin size={12} className="shrink-0" />
+                              <span className="truncate">{i.area}</span>
                             </p>
-                            <div className="mt-2 flex items-center justify-between gap-1.5">
+                            <div className="mt-2 flex min-w-0 flex-wrap items-center justify-between gap-1.5">
                               <CompanyStatusBadge status={i.status} />
-                              <span className="text-xs text-slate-700">{i.reportedAt}</span>
+                              <span className="shrink-0 text-xs text-slate-700">{i.reportedAt}</span>
                             </div>
                           </div>
                         </div>
@@ -537,9 +541,9 @@ export function CompanyOverviewPage() {
                 </div>
               </div>
 
-              <div className="flex flex-col rounded-3xl border border-slate-200 bg-white p-5 shadow-xs">
+              <div className="flex w-full min-w-0 flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white p-5 shadow-xs lg:col-span-1">
                 <div className="flex items-center gap-2">
-                  <Trophy size={15} className="text-amber-500" />
+                  <Trophy size={15} className="shrink-0 text-amber-500" />
                   <h3 className="text-sm font-bold text-slate-900">Impact Progress</h3>
                 </div>
                 <div className="relative mt-4 flex h-28 w-28 items-center justify-center self-center">
@@ -565,12 +569,12 @@ export function CompanyOverviewPage() {
                     </div>
                   </div>
                 </div>
-                <div className="mt-4 w-full space-y-2.5">
+                <div className="mt-4 w-full min-w-0 space-y-2.5">
                   {COMPANY_PERFORMANCE.metrics.map((m) => (
-                    <div key={m.name}>
-                      <div className="flex justify-between text-[11px] font-semibold text-slate-700">
-                        <span>{m.name}</span>
-                        <span>{m.value}</span>
+                    <div key={m.name} className="min-w-0">
+                      <div className="flex min-w-0 justify-between text-[11px] font-semibold text-slate-700">
+                        <span className="truncate">{m.name}</span>
+                        <span className="shrink-0">{m.value}</span>
                       </div>
                       <ProgressBar value={m.value} className="mt-1 bg-slate-100" />
                     </div>
@@ -580,22 +584,22 @@ export function CompanyOverviewPage() {
             </div>
 
             {/* IMPACT STRIP */}
-            <div className="flex flex-wrap items-center justify-around gap-6 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-              <div className="text-center">
-                <div className="text-2xl font-black text-slate-900 sm:text-3xl">₹4.8L+</div>
-                <div className="mt-0.5 text-[11px] font-medium text-slate-700">CSR Funds Deployed</div>
+            <div className="grid w-full min-w-0 grid-cols-2 sm:grid-cols-4 items-center justify-around gap-4 sm:gap-6 rounded-3xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm">
+              <div className="min-w-0 text-center">
+                <div className="truncate text-2xl font-black text-slate-900 sm:text-3xl">₹4.8L+</div>
+                <div className="mt-0.5 truncate text-[11px] font-medium text-slate-700">CSR Funds Deployed</div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-black text-slate-900 sm:text-3xl">{resolved * 9}</div>
-                <div className="mt-0.5 text-[11px] font-medium text-slate-700">Projects Completed</div>
+              <div className="min-w-0 text-center">
+                <div className="truncate text-2xl font-black text-slate-900 sm:text-3xl">{resolved * 9}</div>
+                <div className="mt-0.5 truncate text-[11px] font-medium text-slate-700">Projects Completed</div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-black text-slate-900 sm:text-3xl">130K+</div>
-                <div className="mt-0.5 text-[11px] font-medium text-slate-700">Citizens Reached</div>
+              <div className="min-w-0 text-center">
+                <div className="truncate text-2xl font-black text-slate-900 sm:text-3xl">130K+</div>
+                <div className="mt-0.5 truncate text-[11px] font-medium text-slate-700">Citizens Reached</div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-black text-slate-900 sm:text-3xl">76+</div>
-                <div className="mt-0.5 text-[11px] font-medium text-slate-700">Partner Organizations</div>
+              <div className="min-w-0 text-center">
+                <div className="truncate text-2xl font-black text-slate-900 sm:text-3xl">76+</div>
+                <div className="mt-0.5 truncate text-[11px] font-medium text-slate-700">Partner Organizations</div>
               </div>
             </div>
           </main>

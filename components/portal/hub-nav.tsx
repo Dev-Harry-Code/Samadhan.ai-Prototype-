@@ -19,7 +19,7 @@ export function HubNav({
   live?: boolean;
 }) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-2 rounded-2xl border border-slate-200 bg-white p-1.5 shadow-sm sm:gap-x-3 sm:p-2">
+    <div className="flex w-full min-w-0 flex-wrap items-center justify-between gap-x-2 gap-y-2 rounded-2xl border border-slate-200 bg-white p-1.5 shadow-sm sm:gap-x-3 sm:p-2">
       <div className="flex min-w-0 flex-1 flex-wrap items-center gap-1">
         <span className="mr-1 hidden text-xs font-bold text-slate-900 md:inline">
           Samadhan Hub

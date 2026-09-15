@@ -69,14 +69,14 @@ export function MetricCard({
       whileHover={{ scale: 1.03, boxShadow: "0 8px 24px -4px rgba(15, 23, 42, 0.08)" }}
       whileTap={{ scale: 0.98 }}
       className={cn(
-        "group relative flex flex-col justify-between overflow-hidden rounded-2xl border p-4 transition-all duration-200",
+        "group relative flex w-full min-w-0 flex-col justify-between overflow-hidden rounded-2xl border p-3 sm:p-4 transition-all duration-200",
         t.bgCard,
       )}
     >
-      <div className="relative z-10 mb-2 flex items-center justify-between gap-2 overflow-hidden w-full">
+      <div className="relative z-10 mb-2 flex w-full min-w-0 items-center justify-between gap-1.5 overflow-hidden">
         <span
           title={title}
-          className="inline-flex items-center text-xs font-bold uppercase tracking-wider text-slate-700"
+          className="min-w-0 flex-1 truncate text-[11px] font-bold uppercase tracking-wider text-slate-700 sm:text-xs"
         >
           {title}
         </span>
@@ -85,12 +85,12 @@ export function MetricCard({
         </div>
       </div>
 
-      <div className="my-1">
-        <div className="text-xl font-extrabold leading-tight tracking-tight text-slate-950 sm:text-2xl">
+      <div className="my-1 min-w-0">
+        <div className="truncate text-xl font-extrabold leading-tight tracking-tight text-slate-950 sm:text-2xl">
           {value}
         </div>
-        <div className="mt-1 flex items-center gap-1.5">
-          <span className={cn("rounded-full px-1.5 py-0.5 text-[10px]", t.badgeBg)}>
+        <div className="mt-1 flex flex-wrap items-center gap-1.5 min-w-0">
+          <span className={cn("shrink-0 rounded-full px-1.5 py-0.5 text-[10px]", t.badgeBg)}>
             {growth}
           </span>
           <span className="truncate text-xs font-medium text-slate-700">{subtext}</span>

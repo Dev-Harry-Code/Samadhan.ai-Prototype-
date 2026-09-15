@@ -9,13 +9,20 @@ import {
 } from "@/lib/data/company-mock";
 import type { UniversityReportStatus } from "@/lib/data/university-mock";
 
-export function CompanyStatusBadge({ status }: { status: CompanyStatus }) {
+export function CompanyStatusBadge({
+  status,
+  className,
+}: {
+  status: CompanyStatus;
+  className?: string;
+}) {
   const meta = COMPANY_STATUS_MAP[status];
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-bold",
+        "inline-flex shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-bold",
         meta.color,
+        className,
       )}
     >
       <span className={cn("h-1.5 w-1.5 rounded-full", meta.dot)} />
@@ -24,13 +31,20 @@ export function CompanyStatusBadge({ status }: { status: CompanyStatus }) {
   );
 }
 
-export function CompanySeverityBadge({ severity }: { severity: CompanySeverity }) {
+export function CompanySeverityBadge({
+  severity,
+  className,
+}: {
+  severity: CompanySeverity;
+  className?: string;
+}) {
   const meta = COMPANY_SEVERITY_MAP[severity];
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-bold",
+        "inline-flex shrink-0 whitespace-nowrap items-center rounded-full px-2.5 py-0.5 text-[11px] font-bold",
         meta.color,
+        className,
       )}
     >
       {severity}
