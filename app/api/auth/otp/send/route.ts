@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 
 import {
   generateOtpCode,
-  isRealEmailDelivery,
   OTP_TTL_SECONDS,
   sendOtpEmail,
 } from "@/server/email";
@@ -29,7 +28,6 @@ export async function POST(request: Request) {
   const normalizedEmail = email.trim().toLowerCase();
   const code = generateOtpCode();
   const expiresAt = new Date(Date.now() + OTP_TTL_SECONDS * 1000);
-  const devCode = isRealEmailDelivery() ? undefined : code;
 
   try {
     await connectToDb();
@@ -42,11 +40,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 
-  await sendOtpEmail(normalizedEmail, code);
+  const { delivered } = await sendOtpEmail(normalizedEmail, code);
 
   return NextResponse.json({
     ok: true,
     expiresIn: OTP_TTL_SECONDS,
-    ...(devCode !== undefined ? { devCode } : {}),
+    ...(delivered === false ? { devCode: code } : {}),
   });
 }
