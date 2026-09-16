@@ -12,17 +12,22 @@ import {
   Funder,
   Funding,
   Issue,
+  NgoDrive,
+  NgoGrant,
+  NgoVolunteer,
   Notification,
   Proposal,
   Team,
   University,
   Upvote,
+  User,
 } from "@/server/models";
 import { reseed } from "@/server/seed";
 
 export const runtime = "nodejs";
 
 const SEEDED_COLLECTIONS = [
+  "users",
   "activitylogs",
   "analyses",
   "categories",
@@ -37,6 +42,9 @@ const SEEDED_COLLECTIONS = [
   "teams",
   "universities",
   "upvotes",
+  "ngodrives",
+  "ngovolunteers",
+  "ngogrants",
 ];
 
 export async function POST() {
@@ -53,6 +61,7 @@ export async function POST() {
   if (!auth.ok) return auth.response;
 
   const seedModels = [
+    User,
     ActivityLog,
     Analysis,
     Category,
@@ -62,6 +71,9 @@ export async function POST() {
     Funder,
     Funding,
     Issue,
+    NgoDrive,
+    NgoGrant,
+    NgoVolunteer,
     Notification,
     Proposal,
     Team,

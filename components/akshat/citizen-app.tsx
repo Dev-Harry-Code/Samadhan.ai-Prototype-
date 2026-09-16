@@ -1,10 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import type { Issue, ScreenId } from "@/lib/akshat-types";
+import type { DraftIssue } from "@/lib/types";
 import { NEARBY_ISSUES, PRIMARY_ISSUE } from "@/lib/data/akshat-mock";
+import { api } from "@/lib/api/client";
+import type { AnalyzeResponse } from "@/server/ai/types";
+import { storeIssueToAkshat } from "@/lib/akshat-mapper";
+import { useStore } from "@/lib/store/store";
 import { Header } from "@/components/akshat/common/header";
 import { BottomNav } from "@/components/akshat/common/bottom-nav";
 import { CivicBackground } from "@/components/akshat/common/civic-background";
@@ -21,39 +26,61 @@ import { UserProfileScreen } from "@/components/akshat/screens/user-profile-scre
 
 const EASE_MODAL: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
+function makePendingId(): string {
+  return `LOK-${String(10000 + Math.floor(Math.random() * 90000)).slice(-4)}`;
+}
+
 export function AkshatCitizenApp() {
   const [currentScreen, setScreen] = useState<ScreenId>("home");
-  const [feedIssues, setFeedIssues] = useState<Issue[]>([PRIMARY_ISSUE, ...NEARBY_ISSUES]);
   const [selectedIssue, setSelectedIssue] = useState<Issue>(PRIMARY_ISSUE);
+
+  const [draft, setDraft] = useState<DraftIssue | null>(null);
+  const [analysis, setAnalysis] = useState<AnalyzeResponse | null>(null);
+  const { issues: storeIssues, loading: storeLoading, submitIssue } = useStore();
+
+  const [pendingId] = useState<string>(() => makePendingId());
+
+  const feedIssues = useMemo(() => {
+    if (!storeLoading && storeIssues.length > 0) return storeIssues.map(storeIssueToAkshat);
+    return [PRIMARY_ISSUE, ...NEARBY_ISSUES];
+  }, [storeIssues, storeLoading]);
+
+  const runAnalysis = useCallback(async (d: DraftIssue) => {
+    try {
+      const res = await api.post<AnalyzeResponse>("/api/ai/analyze", {
+        description: d.description,
+        category: d.category,
+        location: { lat: d.location.lat, lng: d.location.lng, label: d.location.label, district: d.location.district },
+        photo: d.photo || true,
+        peopleAffected: d.peopleAffected,
+      });
+      setAnalysis(res);
+    } catch {
+      setAnalysis(null);
+    }
+  }, []);
 
   const navigateTo = (newScreen: ScreenId) => {
     setScreen(newScreen);
   };
 
-  const handleAddNewReport = () => {
-    const newIssue: Issue = {
-      id: "LOK-9428",
-      title: "4-inch Fractured PVC Community Drinking Water Pipe",
-      category: "Water Resources",
-      description: "The main pipeline feeding the community water tap has been fractured for 3 weeks, leaving over 50 families without clean municipal drinking water.",
-      location: "Village X, Ranchi, Jharkhand (Ward 14)",
-      distance: "0.1 km away",
-      peopleAffected: 50,
-      severity: "High",
-      status: "Under review",
-      reportedBy: "You (Citizen Reporter)",
-      reportedDaysAgo: 0,
-      imageUrl: "https://images.pexels.com/photos/19156793/pexels-photo-19156793.jpeg?auto=compress&cs=tinysrgb&w=800",
-      upvotes: 1,
-      commentsCount: 0,
-      updatesCount: 1,
-      assignedUniversity: "BIT Mesra Hydrology",
-      matchScore: 97,
-    };
+  const handleDraftChange = useCallback((d: DraftIssue) => {
+    setDraft(d);
+  }, []);
 
-    setFeedIssues(prev => [newIssue, ...prev.filter(i => i.id !== newIssue.id)]);
-    setSelectedIssue(newIssue);
-  };
+  const handleAddNewReport = useCallback(async (): Promise<{ id: string } | null> => {
+    if (!draft) return null;
+    const created = await submitIssue(draft);
+    if (!created) return null;
+    const akshatIssue = storeIssueToAkshat(created);
+    setSelectedIssue(akshatIssue);
+    return akshatIssue;
+  }, [draft, submitIssue]);
+
+  const handleBeginAnalysis = useCallback(() => {
+    setScreen("ai_analysis");
+    if (draft) void runAnalysis(draft);
+  }, [draft, runAnalysis]);
 
   const getVariants = () => {
     if (currentScreen === "report") {
@@ -93,17 +120,35 @@ export function AkshatCitizenApp() {
 
   const variants = getVariants();
 
+  const confidencePercent = analysis?.trustScore?.score ?? 96.8;
+
   const renderScreen = () => {
     switch (currentScreen) {
       case "home":
         return <HomeScreen setScreen={navigateTo} setSelectedIssue={setSelectedIssue} />;
       case "report":
-        return <ReportIssueScreen setScreen={navigateTo} />;
+        return (
+          <ReportIssueScreen
+            setScreen={(s) => {
+              if (s === "ai_analysis") {
+                handleBeginAnalysis();
+              } else {
+                setScreen(s);
+              }
+            }}
+            onDraftChange={handleDraftChange}
+          />
+        );
       case "ai_analysis":
         return <AIAnalysisScreen setScreen={navigateTo} />;
       case "ai_confirmation":
         return (
-          <AIConfirmationScreen setScreen={navigateTo} onSubmitReport={handleAddNewReport} />
+          <AIConfirmationScreen
+            setScreen={navigateTo}
+            onSubmitReport={handleAddNewReport}
+            issueId={pendingId ?? undefined}
+            confidence={confidencePercent}
+          />
         );
       case "issues_feed":
         return (

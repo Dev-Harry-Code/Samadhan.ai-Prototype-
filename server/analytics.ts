@@ -5,6 +5,7 @@ import {
   University,
   type IssueStatus,
 } from "@/server/models";
+import { CATEGORY_MAP } from "@/lib/data/mock-data";
 
 const WORKED_ON: IssueStatus[] = ["team_formed", "proposed", "funded", "deployed"];
 const VALIDATED: IssueStatus[] = ["ai_validated", "team_formed", "proposed", "funded", "deployed", "resolved"];
@@ -164,4 +165,26 @@ export async function getLeaderboards(): Promise<{
     .sort((a, b) => b.reports - a.reports);
 
   return { universities, districts };
+}
+
+export interface CategoryShareRow {
+  category: string;
+  categoryLabel: string;
+  count: number;
+}
+
+export async function getCategoryShare(): Promise<CategoryShareRow[]> {
+  const rows = await Issue.aggregate<{ _id: string | null; count: number }>([
+    { $match: { category: { $exists: true, $ne: null } } },
+    { $group: { _id: "$category", count: { $sum: 1 } } },
+  ]);
+
+  return rows
+    .filter((r) => r._id)
+    .map((r) => {
+      const slug = r._id as string;
+      const label = CATEGORY_MAP[slug as keyof typeof CATEGORY_MAP]?.label ?? slug;
+      return { category: slug, categoryLabel: label, count: r.count };
+    })
+    .sort((a, b) => b.count - a.count);
 }

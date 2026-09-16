@@ -27,6 +27,8 @@ export const runtime = "nodejs";
 
 const SEVERITIES: Severity[] = ["Low", "Medium", "High", "Critical"];
 
+const CREATE_STATUSES = ["reported", "ai_validated"] as const;
+
 const isSeverity = (value: unknown): value is Severity =>
   typeof value === "string" && SEVERITIES.includes(value as Severity);
 
@@ -69,6 +71,21 @@ export async function POST(request: Request) {
   const location = normalizeLocation(input.location);
   const peopleAffected = Number(input.peopleAffected);
   const photo = typeof input.photo === "string" && input.photo.trim() ? input.photo.trim() : undefined;
+
+  const createStatus =
+    typeof input.status === "string" && CREATE_STATUSES.includes(input.status.trim() as (typeof CREATE_STATUSES)[number])
+      ? (input.status.trim() as (typeof CREATE_STATUSES)[number])
+      : "reported";
+
+  const assignedUniversityId =
+    typeof input.assignedUniversityId === "string" && input.assignedUniversityId.trim()
+      ? input.assignedUniversityId.trim()
+      : undefined;
+
+  const matchScore =
+    typeof input.matchScore === "number" && Number.isFinite(input.matchScore)
+      ? Math.min(100, Math.max(0, Math.round(input.matchScore)))
+      : undefined;
 
   if (title.length < 3) {
     return NextResponse.json({ error: "Title is required (min 3 characters)" }, { status: 400 });
@@ -132,7 +149,9 @@ export async function POST(request: Request) {
       peopleAffected: Number.isFinite(peopleAffected) ? Math.max(0, peopleAffected) : 0,
       trustScore,
       photo,
-      status: "reported",
+      status: createStatus,
+      ...(assignedUniversityId ? { assignedUniversityId } : {}),
+      ...(matchScore !== undefined ? { matchScore } : {}),
     });
 
     const validBundle = analysisFor(category);

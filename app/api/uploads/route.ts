@@ -37,21 +37,23 @@ export async function POST(request: Request) {
   if (!file) {
     return NextResponse.json({ error: "Missing file (field name: file)" }, { status: 400 });
   }
-  if (!file.type.startsWith("image/")) {
-    return NextResponse.json(
-      { error: "Only image uploads are allowed" },
-      { status: 415 },
-    );
-  }
   if (file.size > MAX_SIZE) {
     return NextResponse.json(
-      { error: "Image too large (max 5 MB)" },
+      { error: "File too large (max 5 MB)" },
       { status: 413 },
     );
   }
 
+  const isImage = file.type.startsWith("image/");
+
   try {
     if (process.env.BLOB_READ_WRITE_TOKEN) {
+      if (!isImage) {
+        return NextResponse.json(
+          { error: "Non-image uploads only supported with local storage (no Blob token)" },
+          { status: 415 },
+        );
+      }
       const blob = await put(`issues/${safeFilename(file.name)}`, file, {
         access: "public",
         addRandomSuffix: true,

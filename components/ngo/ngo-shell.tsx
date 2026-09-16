@@ -11,6 +11,7 @@ import {
   Users,
 } from "lucide-react";
 import { PortalAppShell } from "@/components/portal/app-shell";
+import { NotificationBell } from "@/components/portal/notification-bell";
 
 const NAV_ITEMS = [
   { href: "/ngo", label: "Overview", icon: LayoutDashboard },
@@ -47,13 +48,16 @@ export function NgoShell({ children }: { children: React.ReactNode }) {
         },
         user: { name: "Aditi Sharma", location: "Jodhpur Seva Foundation" },
         headerRight: (
-          <Link
-            href="/ngo/profile"
-            className="flex items-center gap-1.5 rounded-xl bg-amber-50 border border-amber-200/80 px-3 py-1.5 text-xs font-bold text-amber-900 transition hover:bg-amber-100"
-          >
-            <span>Hi, Aditi</span>
-            <UserCheck size={14} className="text-amber-700" />
-          </Link>
+          <div className="flex items-center gap-2">
+            <NotificationBell href="/ngo/notifications" />
+            <Link
+              href="/ngo/profile"
+              className="flex items-center gap-1.5 rounded-xl bg-amber-50 border border-amber-200/80 px-3 py-1.5 text-xs font-bold text-amber-900 transition hover:bg-amber-100"
+            >
+              <span>Hi, Aditi</span>
+              <UserCheck size={14} className="text-amber-700" />
+            </Link>
+          </div>
         ),
       }}
     >

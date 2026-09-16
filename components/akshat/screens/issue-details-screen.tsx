@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AlertTriangle,
   ArrowBigUp,
@@ -17,9 +17,12 @@ import {
 } from "lucide-react";
 
 import type { DiscussionComment, Issue, ScreenId } from "@/lib/akshat-types";
-import { INITIAL_COMMENTS } from "@/lib/data/akshat-mock";
+import { api } from "@/lib/api/client";
+import type { ApiComment, ApiIssueDetail } from "@/lib/api/models";
+import { apiCommentToAkshat } from "@/lib/akshat-mapper";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { SafeIssueImage } from "@/components/akshat/safe-issue-image";
 import { useAkshat } from "@/components/akshat/akshat-context";
 import {
   categoryText,
@@ -38,10 +41,26 @@ const CURRENT_USER_AVATAR =
 
 export const IssueDetailsScreen = ({ setScreen, selectedIssue }: IssueDetailsScreenProps) => {
   const { t } = useAkshat();
-  const [comments, setComments] = useState<DiscussionComment[]>(INITIAL_COMMENTS);
+  const [comments, setComments] = useState<DiscussionComment[]>([]);
   const [newComment, setNewComment] = useState("");
   const [hasUpvoted, setHasUpvoted] = useState(false);
   const [upvoteCount, setUpvoteCount] = useState(selectedIssue.upvotes);
+
+  useEffect(() => {
+    let cancelled = false;
+    const id = selectedIssue.id;
+    if (!id) return;
+    api
+      .get<ApiIssueDetail>(`/api/issues/${encodeURIComponent(id)}`)
+      .then(detail => {
+        if (cancelled || !detail) return;
+        if (detail.comments) setComments(detail.comments.map(apiCommentToAkshat));
+        setUpvoteCount(detail.issue?.upvotes ?? selectedIssue.upvotes);
+        if (typeof detail.upvotedByUser === "boolean") setHasUpvoted(detail.upvotedByUser);
+      })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, [selectedIssue.id, selectedIssue.upvotes]);
 
   const handleToggleUpvote = () => {
     if (hasUpvoted) {
@@ -51,11 +70,12 @@ export const IssueDetailsScreen = ({ setScreen, selectedIssue }: IssueDetailsScr
       setUpvoteCount(prev => prev + 1);
       setHasUpvoted(true);
     }
+    void api.post(`/api/issues/${encodeURIComponent(selectedIssue.id)}/upvote`).catch(() => {});
   };
 
   const handlePostComment = () => {
     if (!newComment.trim()) return;
-    const comment: DiscussionComment = {
+    const localComment: DiscussionComment = {
       id: `c-${Date.now()}`,
       authorName: t("userName", "Aarav Mehta"),
       authorRole: t("verifiedCitizen", "Verified Citizen"),
@@ -65,8 +85,18 @@ export const IssueDetailsScreen = ({ setScreen, selectedIssue }: IssueDetailsScr
       upvotes: 0,
       repliesCount: 0,
     };
-    setComments([comment, ...comments]);
+    setComments([localComment, ...comments]);
+    const text = newComment;
     setNewComment("");
+    void api
+      .post<{ comment: ApiComment }>(`/api/issues/${encodeURIComponent(selectedIssue.id)}/comments`, { text })
+      .then(res => {
+        if (res?.comment) {
+          const mapped = apiCommentToAkshat(res.comment);
+          setComments(prev => [mapped, ...prev.filter(c => c.id !== localComment.id)]);
+        }
+      })
+      .catch(() => {});
   };
 
   return (
@@ -76,10 +106,9 @@ export const IssueDetailsScreen = ({ setScreen, selectedIssue }: IssueDetailsScr
       </div>
 
       <div className="relative mb-6 h-72 w-full overflow-hidden rounded-3xl bg-slate-100 shadow-md sm:h-96">
-        <Image
+        <SafeIssueImage
           src={selectedIssue.imageUrl}
           alt={issueField(t, selectedIssue, "title", selectedIssue.title)}
-          fill
           sizes="(max-width: 896px) 100vw, 896px"
           className="object-cover"
         />

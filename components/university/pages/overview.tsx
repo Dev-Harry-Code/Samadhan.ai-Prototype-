@@ -28,6 +28,7 @@ import { HubNav } from "@/components/portal/hub-nav";
 import { MetricCard } from "@/components/portal/metric-card";
 import { PortalOverviewHeader } from "@/components/portal/overview-header";
 import { cn } from "@/lib/utils";
+import { useUniApiIssues } from "@/lib/api-hooks";
 import {
   UNIVERSITIES,
   UNIVERSITY_REPORTS,
@@ -155,10 +156,13 @@ export function UniversityOverviewPage() {
   const [activeRange, setActiveRange] = useState<"month" | "quarter" | "year">("month");
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(3);
   const [mapViewMode, setMapViewMode] = useState<"gis" | "3d">("gis");
+  const { reports: apiReports } = useUniApiIssues();
 
   const activeTrendConfig = UNIVERSITY_RANGE_TRENDS[activeRange];
   const trend = activeTrendConfig.items;
   const maxVal = activeTrendConfig.maxVal;
+
+  const allLocalReports = [...apiReports, ...UNIVERSITY_REPORTS];
 
   const currentHovered = hoveredIndex !== null && trend[hoveredIndex] ? trend[hoveredIndex] : null;
   const displaySolved = currentHovered ? currentHovered.solved : activeTrendConfig.totalSolved;
@@ -170,8 +174,8 @@ export function UniversityOverviewPage() {
   };
 
   const recommended = UNIVERSITIES.find((u) => u.isRecommended) ?? UNIVERSITIES[0];
-  const activeReports = UNIVERSITY_REPORTS.filter((r) => r.status !== "Resolved");
-  const resolvedReports = UNIVERSITY_REPORTS.filter((r) => r.status === "Resolved");
+  const activeReports = allLocalReports.filter((r) => r.status !== "Resolved");
+  const resolvedReports = allLocalReports.filter((r) => r.status === "Resolved");
 
   return (
     <div className="relative min-h-screen w-full max-w-full overflow-x-hidden">

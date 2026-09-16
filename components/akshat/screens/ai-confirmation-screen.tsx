@@ -10,18 +10,34 @@ import { PlatformStatsWidget } from "@/components/akshat/widgets/platform-stats-
 
 interface AIConfirmationScreenProps {
   setScreen: (screen: ScreenId) => void;
-  onSubmitReport: () => void;
+  onSubmitReport: () => Promise<{ id: string } | null>;
+  issueId?: string;
+  confidence?: number;
 }
 
 export const AIConfirmationScreen = ({
   setScreen,
   onSubmitReport,
+  issueId,
+  confidence,
 }: AIConfirmationScreenProps) => {
   const { t } = useAkshat();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [submittedId, setSubmittedId] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = () => {
-    onSubmitReport();
+  const displayId = submittedId ?? issueId ?? "LOK-9428";
+  const displayConfidence = (confidence ?? 96.8).toFixed(1);
+
+  const handleSubmit = async () => {
+    if (submitting) return;
+    setSubmitting(true);
+    try {
+      const result = await onSubmitReport();
+      if (result?.id) setSubmittedId(result.id);
+    } catch {
+      // keep local fallback
+    }
     setShowSuccessModal(true);
     setTimeout(() => {
       setScreen("issues_feed");
@@ -49,7 +65,7 @@ export const AIConfirmationScreen = ({
               {t("confirmedTitle", "AI Verification Confirmation")}
             </h2>
             <p className="text-xs text-slate-700">
-              {t("confirmedSubtitle", "Validated with 96.8% confidence • Ready for dispatch")}
+              {t("confirmedSubtitle", `Validated with ${displayConfidence}% confidence • Ready for dispatch`)}
             </p>
           </div>
         </div>
@@ -73,17 +89,17 @@ export const AIConfirmationScreen = ({
             {t("verifiedDispatched", "Verified & Dispatched")}
           </span>
           <h3 className="mt-2 text-2xl font-black text-slate-900">
-            {t("confirmedTitle", "Issue Confirmed: #LOK-9428")}
+            {t("confirmedTitle", `Issue Confirmed: #${displayId}`)}
           </h3>
           <p className="mx-auto mt-1 max-w-md text-xs text-slate-700">
-            {t("confirmedDesc", "Your report has been validated with 96.8% AI confidence. Work orders and community volunteer alerts have been drafted.")}
+            {t("confirmedDesc", `Your report has been validated with ${displayConfidence}% AI confidence. Work orders and community volunteer alerts have been drafted.`)}
           </p>
         </div>
 
         <div className="space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
           <div className="flex items-center justify-between border-b border-slate-200 pb-2 text-xs">
             <span className="font-medium text-slate-700">{t("trackingRef", "Tracking Reference")}</span>
-            <span className="font-mono font-bold text-slate-900">#LOK-9428-RANCHI</span>
+            <span className="font-mono font-bold text-slate-900">#{displayId}-RANCHI</span>
           </div>
           <div className="flex items-center justify-between border-b border-slate-200 pb-2 text-xs">
             <span className="font-medium text-slate-700">{t("assignedUrgency", "Assigned Urgency")}</span>
@@ -106,7 +122,8 @@ export const AIConfirmationScreen = ({
             whileHover={{ scale: 1.02, boxShadow: "0 10px 25px -4px rgba(13, 148, 136, 0.4)" }}
             whileTap={{ scale: 0.98 }}
             onClick={handleSubmit}
-            className="btn-breathing flex w-full items-center justify-center gap-2 rounded-2xl bg-teal-600 py-4 text-sm font-extrabold text-white shadow-md transition-all hover:bg-teal-700"
+            disabled={submitting}
+            className="btn-breathing flex w-full items-center justify-center gap-2 rounded-2xl bg-teal-600 py-4 text-sm font-extrabold text-white shadow-md transition-all hover:bg-teal-700 disabled:opacity-60"
           >
             <Send className="h-4 w-4" />
             <span>{t("submitReport", "Submit Report")}</span>
@@ -158,7 +175,7 @@ export const AIConfirmationScreen = ({
               </h4>
 
               <p className="mb-4 text-xs leading-relaxed text-slate-700">
-                {t("loggedLedgerPrefix", "Issue")} <strong className="text-slate-900">#LOK-9428</strong>{" "}
+                {t("loggedLedgerPrefix", "Issue")} <strong className="text-slate-900">#{displayId}</strong>{" "}
                 {t("loggedLedger", "has been logged to the public ledger.")}{" "}
                 <span className="font-bold text-teal-700">+120 Karma XP</span>{" "}
                 {t("karmaAddedToProfile", "added to your citizen profile!")}

@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 
 import { PortalAppShell } from "@/components/portal/app-shell";
+import { NotificationBell } from "@/components/portal/notification-bell";
 import { COMPANY_USER } from "@/lib/data/company-mock";
 
 const NAV_ITEMS = [
@@ -58,14 +59,7 @@ export function FunderShell({ children }: { children: React.ReactNode }) {
         user: { name: COMPANY_USER.name, title: COMPANY_USER.title },
         headerRight: (
           <div className="flex items-center gap-2">
-            <Link
-              href="/funder/notifications"
-              aria-label="Notifications"
-              className="relative grid h-9 w-9 place-items-center rounded-xl text-slate-700 ring-1 ring-slate-900/5 transition hover:bg-slate-100"
-            >
-              <Bell size={19} />
-              <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-rose-500" />
-            </Link>
+            <NotificationBell href="/funder/notifications" />
             <Link
               href="/funder/profile"
               className="flex items-center gap-1.5 rounded-xl bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-800 transition hover:bg-slate-200"

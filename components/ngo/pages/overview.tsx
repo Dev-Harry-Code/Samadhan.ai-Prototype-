@@ -184,7 +184,7 @@ export function NgoOverviewPage() {
               items={[
                 { href: "/ngo", label: "Overview" },
                 { href: "/ngo/drives", label: "Opportunities" },
-                { href: "/ngo/drives", label: "Projects" },
+                { href: "/ngo/funding", label: "Projects" },
                 { href: "/ngo/volunteers", label: "Analytics" },
                 { href: "/ngo/impact", label: "Impact" },
                 { href: "/ngo/profile", label: "Profile" },

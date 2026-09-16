@@ -13,3 +13,12 @@ export { Comment, type IComment } from "./Comment";
 export { Upvote, type IUpvote } from "./Upvote";
 export { Notification, type INotification } from "./Notification";
 export { ActivityLog, type IActivityLog } from "./ActivityLog";
+export {
+  NgoDrive,
+  type INgoDrive,
+  type NgoDriveStatus,
+  type NgoDriveCategory,
+} from "./NgoDrive";
+export { NgoVolunteer, type INgoVolunteer, type NgoVolunteerStatus } from "./NgoVolunteer";
+export { NgoGrant, type INgoGrant, type NgoGrantStatus } from "./NgoGrant";
+export { EmailOtp, type IEmailOtp } from "./EmailOtp";

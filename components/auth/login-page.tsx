@@ -4,6 +4,7 @@ import { Suspense, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
+  AlertTriangle,
   ArrowLeft,
   ArrowRight,
   Building2,
@@ -12,6 +13,7 @@ import {
   EyeOff,
   GraduationCap,
   KeyRound,
+  Landmark,
   Lock,
   Mail,
   Shield,
@@ -25,9 +27,15 @@ import { Button } from "@/components/ui/button";
 import { SamadhanLogoIcon } from "@/components/akshat/common/samadhan-logo";
 import { PlatformStatsWidget } from "@/components/akshat/widgets/platform-stats-widget";
 import { AkshatProvider } from "@/components/akshat/akshat-context";
+import {
+  isApiError,
+  loginWithCredentials,
+  sendOtpCode,
+  verifyOtpCode,
+} from "@/lib/api/client";
 import { cn } from "@/lib/utils";
 
-type LoginRole = "citizen" | "ngo" | "university" | "company";
+type LoginRole = "citizen" | "ngo" | "university" | "company" | "government";
 
 interface RoleConfig {
   id: LoginRole;
@@ -101,6 +109,20 @@ const ROLES: RoleConfig[] = [
     accent: "from-indigo-500 to-violet-700",
     activeTab: "bg-indigo-50 text-indigo-700 ring-indigo-300",
   },
+  {
+    id: "government",
+    label: "Gov / Admin",
+    icon: Landmark,
+    title: "Government Command Center",
+    subtitle: "District-collector dashboard, RBAC protected",
+    person: "District Admin · Admin",
+    email: "admin@samadhan.ai",
+    password: "admin@2026",
+    storageKey: "samadhan.government",
+    destination: "/government",
+    accent: "from-sky-600 to-indigo-800",
+    activeTab: "bg-sky-50 text-sky-800 ring-sky-300",
+  },
 ];
 
 function RoleLoginForm({ role }: { role: RoleConfig }) {
@@ -112,26 +134,26 @@ function RoleLoginForm({ role }: { role: RoleConfig }) {
   const [error, setError] = useState<string | null>(null);
   const [justAuthed, setJustAuthed] = useState(false);
 
-  const doLogin = () => {
+  const doLogin = async () => {
     if (!email.trim() || !password) {
       setError("Enter both email and password to continue.");
       return;
     }
-    if (email.trim().toLowerCase() !== role.email || password !== role.password) {
-      setError("Invalid credentials. Use the demo credentials shown below.");
-      return;
-    }
     setBusy(true);
     setError(null);
-    setTimeout(() => {
+    try {
+      await loginWithCredentials(email.trim(), password);
       try {
         window.sessionStorage.setItem(role.storageKey, "true");
       } catch {
         /* storage unavailable */
       }
       setJustAuthed(true);
-      setTimeout(() => router.push(role.destination), 500);
-    }, 600);
+      setTimeout(() => router.push(role.destination), 300);
+    } catch {
+      setError("Invalid credentials. Use the demo credentials shown below.");
+      setBusy(false);
+    }
   };
 
   const autofill = () => {
@@ -260,9 +282,13 @@ function CitizenGatewayForm() {
   const router = useRouter();
   const [step, setStep] = useState<1 | 2>(1);
   const [loginMethod, setLoginMethod] = useState<"mobile" | "email">("mobile");
-  const [inputValue, setInputValue] = useState("+91 98765 43210");
-  const [otp, setOtp] = useState("4281");
+  const [phoneValue, setPhoneValue] = useState("+91 98765 43210");
+  const [emailValue, setEmailValue] = useState("");
+  const [otp, setOtp] = useState("");
+  const [sending, setSending] = useState(false);
   const [verifying, setVerifying] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [devCode, setDevCode] = useState<string | null>(null);
 
   const loginCitizen = () => {
     try {
@@ -273,23 +299,57 @@ function CitizenGatewayForm() {
     router.push("/");
   };
 
-  const handleSendCode = (e: React.FormEvent) => {
+  const handleSendCode = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (inputValue.length > 4) setStep(2);
+    setError(null);
+    if (loginMethod === "mobile") {
+      if (phoneValue.length > 4) setStep(2);
+      return;
+    }
+    if (sending) return;
+    setSending(true);
+    try {
+      const res = await sendOtpCode(emailValue);
+      setDevCode(res.devCode ?? null);
+      setOtp("");
+      setStep(2);
+    } catch (err) {
+      setError(isApiError(err) ? err.message : "Couldn't request a code. Try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
-  const handleVerify = (e: React.FormEvent) => {
+  const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (otp.length >= 4) {
-      setVerifying(true);
+    setError(null);
+    if (loginMethod === "mobile") {
+      if (otp.length >= 4) {
+        setVerifying(true);
+        try {
+          window.sessionStorage.setItem("samadhan.citizen", "true");
+        } catch {
+          /* storage unavailable */
+        }
+        setTimeout(() => {
+          router.push("/onboarding?role=citizen");
+        }, 500);
+      }
+      return;
+    }
+    if (verifying) return;
+    setVerifying(true);
+    try {
+      await verifyOtpCode(emailValue, otp);
       try {
         window.sessionStorage.setItem("samadhan.citizen", "true");
       } catch {
         /* storage unavailable */
       }
-      setTimeout(() => {
-        router.push("/onboarding?role=citizen");
-      }, 500);
+      router.push("/onboarding?role=citizen");
+    } catch (err) {
+      setError(isApiError(err) ? err.message : "Verification failed. Try again.");
+      setVerifying(false);
     }
   };
 
@@ -322,27 +382,52 @@ function CitizenGatewayForm() {
             </button>
           </div>
 
+          {error && (
+            <div className="mt-4 flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 px-3 py-2.5 text-xs font-semibold text-red-700">
+              <AlertTriangle className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" />
+              <span>{error}</span>
+            </div>
+          )}
+
           <form onSubmit={handleSendCode}>
             <div className="mb-5 mt-4">
               <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-wider text-slate-700">
                 {loginMethod === "mobile" ? "Mobile Number (with OTP)" : "Email ID (with Code)"}
               </label>
-              <input
-                type={loginMethod === "mobile" ? "tel" : "email"}
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 transition-all placeholder-slate-500 focus:border-teal-600 focus:bg-white focus:ring-2 focus:ring-teal-600/20 focus:outline-none"
-                placeholder={loginMethod === "mobile" ? "+91 98765 43210" : "you@example.com"}
-                required
-              />
+              {loginMethod === "mobile" ? (
+                <input
+                  type="tel"
+                  value={phoneValue}
+                  onChange={(e) => setPhoneValue(e.target.value)}
+                  className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 transition-all placeholder-slate-500 focus:border-teal-600 focus:bg-white focus:ring-2 focus:ring-teal-600/20 focus:outline-none"
+                  placeholder="+91 98765 43210"
+                  required
+                />
+              ) : (
+                <input
+                  type="email"
+                  value={emailValue}
+                  onChange={(e) => setEmailValue(e.target.value)}
+                  className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 transition-all placeholder-slate-500 focus:border-teal-600 focus:bg-white focus:ring-2 focus:ring-teal-600/20 focus:outline-none"
+                  placeholder="you@example.com"
+                  required
+                />
+              )}
             </div>
 
             <button
               type="submit"
-              className="btn-breathing flex w-full items-center justify-center gap-2 rounded-xl bg-teal-600 px-4 py-3.5 text-sm font-bold text-white shadow-md transition hover:scale-[1.02] hover:bg-teal-700 active:scale-[0.98]"
+              disabled={sending}
+              className="btn-breathing flex w-full items-center justify-center gap-2 rounded-xl bg-teal-600 px-4 py-3.5 text-sm font-bold text-white shadow-md transition hover:scale-[1.02] hover:bg-teal-700 active:scale-[0.98] disabled:opacity-60"
             >
-              <span>Send {loginMethod === "mobile" ? "SMS OTP" : "Verification Code"}</span>
-              <ArrowRight className="h-4 w-4" />
+              {sending ? (
+                <span>Requesting code…</span>
+              ) : (
+                <>
+                  <span>Send {loginMethod === "mobile" ? "SMS OTP" : "Verification Code"}</span>
+                  <ArrowRight className="h-4 w-4" />
+                </>
+              )}
             </button>
           </form>
 
@@ -371,20 +456,38 @@ function CitizenGatewayForm() {
       {step === 2 && (
         <div>
           <h2 className="mb-1 text-center text-lg font-bold text-slate-900">Security Verification</h2>
-          <p className="mb-5 text-center text-xs text-slate-700">
-            We sent a 4-digit code to <br />
-            <strong className="text-teal-700">{inputValue}</strong>
+          <p className="mb-2 text-center text-xs text-slate-700">
+            We sent a {loginMethod === "email" ? "6-digit" : "4-digit"} code to <br />
+            <strong className="text-teal-700">{loginMethod === "email" ? emailValue : phoneValue}</strong>
           </p>
+
+          {devCode && loginMethod === "email" && (
+            <div className="mb-4 flex items-center justify-center gap-2 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-bold text-amber-800">
+              <KeyRound className="h-3.5 w-3.5 flex-shrink-0" />
+              <span>
+                Demo mode — your code is{" "}
+                <span className="font-mono text-sm tracking-widest">{devCode}</span>
+              </span>
+            </div>
+          )}
+
+          {error && (
+            <div className="mb-4 flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 px-3 py-2.5 text-xs font-semibold text-red-700">
+              <AlertTriangle className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" />
+              <span>{error}</span>
+            </div>
+          )}
 
           <form onSubmit={handleVerify}>
             <div className="mb-5 flex justify-center">
               <input
                 type="text"
-                maxLength={4}
+                inputMode="numeric"
+                maxLength={6}
                 value={otp}
-                onChange={(e) => setOtp(e.target.value)}
+                onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
                 className="w-48 rounded-2xl border border-slate-300 bg-slate-50 py-3 text-center font-mono text-3xl font-black tracking-[0.6em] text-slate-900 transition-all focus:border-teal-600 focus:bg-white focus:ring-2 focus:ring-teal-600/20 focus:outline-none"
-                placeholder="----"
+                placeholder={loginMethod === "email" ? "------" : "----"}
                 required
                 autoFocus
               />
@@ -393,7 +496,7 @@ function CitizenGatewayForm() {
             <button
               type="submit"
               disabled={verifying}
-              className="btn-breathing flex w-full items-center justify-center gap-2 rounded-xl bg-teal-600 px-4 py-3.5 text-sm font-bold text-white shadow-md transition hover:scale-[1.02] hover:bg-teal-700 active:scale-[0.98]"
+              className="btn-breathing flex w-full items-center justify-center gap-2 rounded-xl bg-teal-600 px-4 py-3.5 text-sm font-bold text-white shadow-md transition hover:scale-[1.02] hover:bg-teal-700 active:scale-[0.98] disabled:opacity-60"
             >
               {verifying ? (
                 <span>Entering Citizen Portal…</span>
@@ -406,8 +509,17 @@ function CitizenGatewayForm() {
             </button>
             <button
               type="button"
+              onClick={handleSendCode}
+              disabled={sending || (loginMethod === "email" && !emailValue)}
+              className="mt-2.5 flex w-full items-center justify-center gap-1 py-1.5 text-xs font-semibold text-slate-600 transition-colors hover:text-teal-700 disabled:opacity-50"
+            >
+              <KeyRound className="h-3.5 w-3.5" />
+              <span>{sending ? "Requesting…" : "Resend code"}</span>
+            </button>
+            <button
+              type="button"
               onClick={() => setStep(1)}
-              className="mt-2.5 flex w-full items-center justify-center gap-1 py-2 text-xs font-semibold text-slate-700 transition-colors hover:text-slate-800"
+              className="mt-1 flex w-full items-center justify-center gap-1 py-2 text-xs font-semibold text-slate-700 transition-colors hover:text-slate-800"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
               <span>Back to phone/email</span>
@@ -483,7 +595,7 @@ function LoginForm() {
         </div>
 
         {/* ROLE SWITCHER TABS - ONE LINK ACCESS TO ALL PORTALS */}
-        <div className="grid grid-cols-4 gap-1 rounded-2xl bg-white/90 p-1.5 shadow-sm ring-1 ring-slate-200/80 backdrop-blur-md">
+        <div className="grid grid-cols-5 gap-1 rounded-2xl bg-white/90 p-1.5 shadow-sm ring-1 ring-slate-200/80 backdrop-blur-md">
           {ROLES.map((r) => {
             const isCurrent = active === r.id;
             return (

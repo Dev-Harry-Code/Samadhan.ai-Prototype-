@@ -97,8 +97,13 @@ export async function POST(request: Request) {
     let statusChanged = false;
     if (currentRank < teamRank) {
       issue.status = "team_formed";
-      await issue.save();
       statusChanged = true;
+    }
+    if (issue.assignedUniversityId !== universityId) {
+      issue.assignedUniversityId = universityId;
+    }
+    if (statusChanged || issue.isModified("assignedUniversityId")) {
+      await issue.save();
     }
 
     await trackIssueAction(issueId, {

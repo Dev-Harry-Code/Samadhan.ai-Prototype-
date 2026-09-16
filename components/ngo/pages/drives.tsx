@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Calendar,
   CheckCircle2,
@@ -14,14 +14,33 @@ import {
   Users,
   X,
   Zap,
+  AlertTriangle,
 } from "lucide-react";
 import { NGO_DRIVES, type NgoDrive } from "@/lib/data/ngo-mock";
+import { api } from "@/lib/api/client";
 
 export function NgoDrivesPage() {
   const [drives, setDrives] = useState<NgoDrive[]>(NGO_DRIVES);
+  const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState<"All" | "Active Now" | "Scheduled" | "Completed">("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    api
+      .get<{ drives: NgoDrive[] }>("/api/ngo/drives")
+      .then((res) => {
+        if (!cancelled && res.drives?.length) setDrives(res.drives);
+      })
+      .catch(() => {})
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // New Drive Form State
   const [newTitle, setNewTitle] = useState("");
@@ -31,6 +50,12 @@ export function NgoDrivesPage() {
   const [newVolunteers, setNewVolunteers] = useState("20");
   const [newEquipment, setNewEquipment] = useState("Safety Gloves, Trash Bags, Wheelbarrows");
   const [successToast, setSuccessToast] = useState("");
+  const [errorToast, setErrorToast] = useState("");
+
+  const flashError = (msg: string) => {
+    setErrorToast(msg);
+    setTimeout(() => setErrorToast(""), 4000);
+  };
 
   const filteredDrives = drives.filter((drive) => {
     const matchesFilter =
@@ -42,9 +67,19 @@ export function NgoDrivesPage() {
     return matchesFilter && matchesSearch;
   });
 
-  const handleCreateDrive = (e: React.FormEvent) => {
+  const handleCreateDrive = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newTitle.trim()) return;
+
+    const payload = {
+      title: newTitle,
+      category: newCategory,
+      location: newLocation || "Jodhpur Municipal Area",
+      ward: newWard,
+      volunteersRequired: Number.parseInt(newVolunteers) || 15,
+      equipment: newEquipment.split(",").map((s) => s.trim()).filter(Boolean),
+      description: "Community-driven rapid cleanup and civic restoration drive in Jodhpur.",
+    };
 
     const newDriveObj: NgoDrive = {
       id: `drive-${Date.now()}`,
@@ -63,6 +98,17 @@ export function NgoDrivesPage() {
       description: "Community-driven rapid cleanup and civic restoration drive in Jodhpur.",
     };
 
+    try {
+      const res = await api.post<{ drive: NgoDrive }>("/api/ngo/drives", payload);
+      if (res.drive) {
+        newDriveObj.id = res.drive.id;
+        newDriveObj.csrSponsor = res.drive.csrSponsor;
+      }
+    } catch {
+      flashError("Couldn't reach server — drive scheduled locally only");
+      // fall back to local optimistic drive
+    }
+
     setDrives([newDriveObj, ...drives]);
     setIsModalOpen(false);
     setNewTitle("");
@@ -74,6 +120,12 @@ export function NgoDrivesPage() {
   return (
     <div className="relative z-10 mx-auto max-w-6xl space-y-6 bg-transparent p-3.5 pb-24 sm:p-6">
       {/* Toast Notification */}
+      {errorToast && (
+        <div className="flex items-center gap-2.5 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-xs font-bold text-rose-800 shadow-sm animate-in fade-in slide-in-from-top-2">
+          <AlertTriangle className="h-4 w-4 text-rose-600 flex-shrink-0" />
+          <span>{errorToast}</span>
+        </div>
+      )}
       {successToast && (
         <div className="flex items-center gap-2.5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-xs font-bold text-emerald-800 shadow-sm animate-in fade-in slide-in-from-top-2">
           <CheckCircle2 className="h-4 w-4 text-emerald-600 flex-shrink-0" />
@@ -92,6 +144,7 @@ export function NgoDrivesPage() {
           </div>
           <p className="mt-1 text-xs text-slate-600 sm:text-sm">
             Mobilize volunteer teams, monitor equipment logistics, and log grassroots resolution on the ground.
+            {loading && <span className="ml-2 text-[11px] font-semibold text-amber-600">syncing…</span>}
           </p>
         </div>
 
@@ -292,6 +345,9 @@ export function NgoDrivesPage() {
                         : d
                     );
                     setDrives(updated);
+                    api.patch(`/api/ngo/drives/${encodeURIComponent(drive.id)}`, { action: "deploy" }).catch(() =>
+                      flashError("Couldn't sync — volunteer deployed locally only")
+                    );
                     setSuccessToast(`1 Volunteer deployed to "${drive.title}"!`);
                     setTimeout(() => setSuccessToast(""), 3000);
                   }}
@@ -312,6 +368,9 @@ export function NgoDrivesPage() {
                         : d
                     );
                     setDrives(updated);
+                    api.patch(`/api/ngo/drives/${encodeURIComponent(drive.id)}`, { action: "toggle-done" }).catch(() =>
+                      flashError("Couldn't sync — status updated locally only")
+                    );
                   }}
                   className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-xs font-bold text-slate-700 transition hover:bg-slate-100"
                 >

@@ -12,6 +12,8 @@ import {
 
 import { cn } from "@/lib/utils";
 import { useAkshat } from "@/components/akshat/akshat-context";
+import { useApiGet } from "@/lib/api/client";
+import type { ApiStatsLive } from "@/lib/api/models";
 
 interface PlatformStatsWidgetProps {
   compact?: boolean;
@@ -25,12 +27,15 @@ export function PlatformStatsWidget({
   className = "",
 }: PlatformStatsWidgetProps) {
   const { t } = useAkshat();
+  const { data: live } = useApiGet<ApiStatsLive>("/api/stats/live");
+
+  const n = (v: number | undefined) => (v != null ? String(v) : undefined);
 
   const stats = [
     {
       id: "total",
       title: t("metricTotalIssues", "Total Issues"),
-      value: "48",
+      value: n(live?.issuesReported) ?? "48",
       growth: "+12%",
       subtext: t("metricVsLast7Days", "vs last 7 days"),
       icon: <FileText className="h-4 w-4 text-emerald-600" />,
@@ -42,7 +47,7 @@ export function PlatformStatsWidget({
     {
       id: "high_priority",
       title: "High Priority",
-      value: "7",
+      value: n(live?.validated) ?? "7",
       growth: "+2%",
       subtext: t("metricNeedAttention", "needs attention"),
       icon: <AlertTriangle className="h-4 w-4 text-rose-600" />,
@@ -54,7 +59,7 @@ export function PlatformStatsWidget({
     {
       id: "pending",
       title: "Pending",
-      value: "18",
+      value: live ? String(Math.max(0, live.issuesReported - live.validated)) : "18",
       growth: "+5%",
       subtext: t("metricNeedAssignment", "need assignment"),
       icon: <Clock className="h-4 w-4 text-amber-600" />,
@@ -66,7 +71,7 @@ export function PlatformStatsWidget({
     {
       id: "in_progress",
       title: "In Progress",
-      value: "14",
+      value: n(live?.workedOn) ?? "14",
       growth: "+8%",
       subtext: t("metricOnGoing", "ongoing work"),
       icon: <Loader2 className="h-4 w-4 animate-spin text-sky-600" />,
@@ -78,7 +83,7 @@ export function PlatformStatsWidget({
     {
       id: "resolved",
       title: "Resolved",
-      value: "16",
+      value: n(live?.deployed) ?? "16",
       growth: "+20%",
       subtext: t("metricThisWeek", "this week"),
       icon: <CheckCircle2 className="h-4 w-4 text-teal-600" />,
@@ -90,7 +95,7 @@ export function PlatformStatsWidget({
     {
       id: "impact",
       title: t("metricRevenueImpact", "Community Impact"),
-      value: "₹24,500",
+      value: live ? `₹${(live.universities * 2800).toLocaleString("en-IN")}` : "₹24,500",
       growth: "+18%",
       subtext: t("metricThisMonth", "this month"),
       icon: <IndianRupee className="h-4 w-4 text-purple-600" />,

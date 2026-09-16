@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import { type Types } from "mongoose";
 
 import { connectToDb } from "@/server/db";
 import {
@@ -11,16 +12,25 @@ import {
   Funder,
   Funding,
   Issue,
+  NgoDrive,
+  NgoGrant,
+  NgoVolunteer,
   Notification,
   Proposal,
   Team,
   University,
   Upvote,
   User,
+  type IssueStatus,
   type IUser,
+  type Severity,
   type UserRole,
 } from "@/server/models";
-import { INITIAL_COMMENTS, CITIZEN_NOTIFICATIONS } from "@/lib/data/akshat-mock";
+import {
+  INITIAL_COMMENTS,
+  CITIZEN_NOTIFICATIONS,
+} from "@/lib/data/akshat-mock";
+import { NGO_DRIVES, NGO_GRANTS, NGO_VOLUNTEERS } from "@/lib/data/ngo-mock";
 import {
   ANALYSIS,
   CATEGORIES,
@@ -193,6 +203,174 @@ const universityName = (id: string): string =>
 
 const funderName = (id: string): string => FUNDERS.find((f) => f.id === id)?.name ?? id;
 
+// ── Phase 6: deterministic bulk generator — pitch numbers from real DB ──────────
+// Hand-seeded issues: 7. Bulk issues: 1240. Total: 1247.
+// Status distribution chosen so: reported 1247 · validated 892 · workedOn 345 · deployed 89
+
+const CATEGORY_WEIGHTS: Array<[string, number]> = [
+  ["water", 24],
+  ["health", 18],
+  ["agriculture", 13],
+  ["sanitation", 12],
+  ["urban", 10],
+  ["education", 8],
+  ["environment", 6],
+  ["energy", 4],
+  ["accessibility", 3],
+  ["livelihoods", 2],
+];
+
+const expandWeights = (weights: Array<[string, number]>): string[] =>
+  weights.flatMap(([id, w]) => Array.from({ length: w }, () => id));
+
+const CATEGORY_SEQ = expandWeights(CATEGORY_WEIGHTS);
+
+const CATEGORY_TITLES: Record<string, string[]> = {
+  water: [
+    "Community drinking water pipe leaking",
+    "Handpump dry in janata colony",
+    "Safe water kiosk needed near school",
+    "Tap connection interrupted for 2 weeks",
+    "Village storage tank not chlorinated",
+    "Borewell motor failure affects families",
+  ],
+  health: [
+    "PHC lacks essential medicines",
+    "Ambulance delay in rural block",
+    "Anganwadi nutrition stock depleted",
+    "Community health camp recommended",
+    "Mobile clinic discontinued for village",
+    "Cold-chain storage unreliable at PHC",
+  ],
+  agriculture: [
+    "Farm pond silted — irrigation reduced",
+    "Borewell dry for kharif sowing",
+    "Soil testing camp requested",
+    "Seed bank stock low before sowing",
+    "Crop residue burning flares up",
+    "Community drip line damaged",
+  ],
+  sanitation: [
+    "Open drain overflowing near main road",
+    "Solid waste dumped at vacant plot",
+    "Public toilet block non-functional",
+    "Community dustbin capacity exceeded",
+    "Stagnant water near bus stand",
+    "Sewage line choked in market area",
+  ],
+  urban: [
+    "Streetlights dead on colony road",
+    "Footpath encroached near school",
+    "Speed breaker worn out on highway",
+    "Market parking congestion unrelieved",
+    "Stop sign missing at junction",
+    "Footbridge lighting not working",
+  ],
+  education: [
+    "School classroom roof leaking",
+    "Girls toilet locked at govt school",
+    "Mid-day meal kitchen needs upgrade",
+    "Library books stock outdated",
+    "Smart classroom non-functional",
+    "School boundary wall damaged",
+  ],
+  environment: [
+    "Pond eutrophication — fish kill risk",
+    "Illegal sand mining at riverbank",
+    "Community grove needs plantation drive",
+    "Wetland encroachment reported",
+    "Air quality spike near brick kilns",
+    "E-waste collection camp requested",
+  ],
+  energy: [
+    "Transformer trips nightly in ward",
+    "Solar street light battery failing",
+    "Power line sagging over footpath",
+    "Community water pump no grid power",
+    "Grid voltage fluctuation damages fans",
+    "BTM connection pending for hamlet",
+  ],
+  accessibility: [
+    "Wheelchair ramp blocked at court",
+    "Bus stand lacks tactile paving",
+    "Public building lift non-functional",
+    "Footpath uneven for mobility aids",
+    "ATM not wheelchair accessible",
+    "Ramp railing missing at health center",
+  ],
+  livelihoods: [
+    "Artisan cluster lacks market access",
+    "Skill training center seats vacant",
+    "SHG revolving fund delayed",
+    "Street vendor licenses pending",
+    "Cold store needed for horticulture",
+    "Weaver looms need maintenance",
+  ],
+};
+
+const DESC_TAILS = [
+  "Affected residents flagged this repeatedly; an AI-validated record is needed.",
+  "Local volunteers can assist if a team is mobilized quickly.",
+  "Community members are confident an evidence-backed report will speed resolution.",
+  "This is one of several similar reports from the area indicating a systemic issue.",
+  "Ward representatives have asked for urgent civic intervention.",
+];
+
+const BULK_DISTRICTS: Array<[string, [number, number], number]> = [
+  ["Ranchi", [23.3441, 85.3096], 22],
+  ["Bokaro", [23.6693, 86.1511], 16],
+  ["Dhanbad", [23.7957, 86.4304], 14],
+  ["Pakur", [24.6382, 87.8496], 10],
+  ["Jamshedpur", [22.8046, 86.2029], 9],
+  ["Giridih", [24.1925, 86.3043], 7],
+  ["Hazaribagh", [23.9925, 85.3648], 6],
+  ["Deoghar", [24.4799, 86.6958], 5],
+  ["East Singhbhum", [22.8046, 86.2029], 5],
+  ["Palamu", [24.0373, 84.078], 6],
+];
+
+const DISTRICT_SEQ = BULK_DISTRICTS.flatMap(([name, coords, w]) =>
+  Array.from({ length: w }, () => ({ name, coords })),
+);
+
+const UNIVERSITY_WEIGHTS: Array<[string, number]> = [
+  ["bit-mesra", 25],
+  ["iit-jodhpur", 20],
+  ["aiims-jodhpur", 15],
+  ["mody-university", 15],
+  ["gpc-jodhpur", 13],
+  ["ravi-uni", 12],
+];
+const UNIVERSITY_SEQ = expandWeights(UNIVERSITY_WEIGHTS);
+
+const BULK_STATUS_COUNTS: Array<[IssueStatus, number]> = [
+  ["reported", 354],
+  ["ai_validated", 487],
+  ["team_formed", 196],
+  ["proposed", 100],
+  ["funded", 15],
+  ["deployed", 30],
+  ["resolved", 58],
+];
+
+const BULK_STATUS_SEQ = BULK_STATUS_COUNTS.flatMap(([status, count]) =>
+  Array.from({ length: count }, () => status),
+);
+
+const STATUS_AGE_DAYS: Record<IssueStatus, number> = {
+  reported: 1,
+  ai_validated: 20,
+  team_formed: 55,
+  proposed: 80,
+  funded: 105,
+  deployed: 130,
+  resolved: 160,
+};
+
+const SEVERITY_SEQ: Severity[] = [
+  "High", "Medium", "High", "Critical", "Medium", "High", "Low", "Medium", "High", "Medium",
+];
+
 export interface SeedRunResult {
   dbName: string;
   host: string;
@@ -201,6 +379,20 @@ export interface SeedRunResult {
 
 export async function reseed(): Promise<SeedRunResult> {
   const mongoose = await connectToDb();
+
+  const SEEDED_COLLECTION_NAMES = [
+    "users", "activitylogs", "analyses", "categories", "comments",
+    "duplicateclusters", "emailotps", "evidences", "funders", "fundings",
+    "issues", "notifications", "proposals", "teams", "universities",
+    "upvotes", "ngodrives", "ngovolunteers", "ngogrants",
+  ];
+  for (const name of SEEDED_COLLECTION_NAMES) {
+    try {
+      await mongoose.connection.dropCollection(name);
+    } catch {
+      // collection may not exist yet — nothing to reset
+    }
+  }
 
   const identity = (email: string, role: UserRole) => `${email}::${role}`;
   const userByIdentity = new Map<string, IUser>();
@@ -278,6 +470,71 @@ export async function reseed(): Promise<SeedRunResult> {
           kind: f.kind,
           fundedProjects: f.fundedProjects,
           focus: f.focus,
+        },
+      },
+      { upsert: true, returnDocument: "after" },
+    );
+  }
+
+  for (const drive of NGO_DRIVES) {
+    await NgoDrive.findOneAndUpdate(
+      { _id: drive.id },
+      {
+        $set: {
+          title: drive.title,
+          category: drive.category,
+          location: drive.location,
+          ward: drive.ward,
+          scheduledDate: drive.scheduledDate,
+          status: drive.status,
+          volunteersRequired: drive.volunteersRequired,
+          volunteersRegistered: drive.volunteersRegistered,
+          budgetAllocated: drive.budgetAllocated,
+          budgetSpent: drive.budgetSpent,
+          equipment: drive.equipment,
+          csrSponsor: drive.csrSponsor,
+          description: drive.description,
+        },
+      },
+      { upsert: true, returnDocument: "after" },
+    );
+  }
+
+  for (const volunteer of NGO_VOLUNTEERS) {
+    await NgoVolunteer.findOneAndUpdate(
+      { _id: volunteer.id },
+      {
+        $set: {
+          name: volunteer.name,
+          phone: volunteer.phone,
+          avatar: volunteer.avatar,
+          skills: volunteer.skills,
+          status: volunteer.status,
+          hours: volunteer.hours,
+          drivesCompleted: volunteer.drivesCompleted,
+          assignedDrive: volunteer.assignedDrive,
+          rating: volunteer.rating,
+        },
+      },
+      { upsert: true, returnDocument: "after" },
+    );
+  }
+
+  for (const grant of NGO_GRANTS) {
+    await NgoGrant.findOneAndUpdate(
+      { _id: grant.id },
+      {
+        $set: {
+          projectTitle: grant.projectTitle,
+          funderName: grant.funderName,
+          funderLogo: grant.funderLogo,
+          amountRequested: grant.amountRequested,
+          amountApproved: grant.amountApproved,
+          amountDisbursed: grant.amountDisbursed,
+          status: grant.status,
+          progressPct: grant.progressPct,
+          targetDate: grant.targetDate,
+          milestoneDescription: grant.milestoneDescription,
         },
       },
       { upsert: true, returnDocument: "after" },
@@ -509,6 +766,123 @@ export async function reseed(): Promise<SeedRunResult> {
     }
   }
 
+  // ── Phase 6: deterministic bulk issue generator → pitch numbers from real DB ─────
+  const bulkIssueDocs: Array<{
+    _id: string;
+    title: string;
+    description: string;
+    category: string;
+    severity: Severity;
+    location: { lat: number; lng: number; label: string; ward: string; district: string };
+    reportedBy: Types.ObjectId;
+    peopleAffected: number;
+    trustScore: number;
+    matchScore?: number;
+    assignedUniversityId?: string;
+    status: IssueStatus;
+    createdAt: Date;
+  }> = [];
+
+  const bulkActivityDocs: Array<{
+    _id: string;
+    issueId: string;
+    actor: string;
+    action: string;
+    note: string;
+    createdAt: Date;
+  }> = [];
+
+  for (let i = 0; i < BULK_STATUS_SEQ.length; i++) {
+    const status = BULK_STATUS_SEQ[i];
+    const category = CATEGORY_SEQ[i % CATEGORY_SEQ.length];
+    const { name: district, coords } = DISTRICT_SEQ[i % DISTRICT_SEQ.length];
+    const ward = `Ward ${(i % 30) + 1}`;
+    const reporterName = REPORTERS[i % REPORTERS.length].name;
+    const reporter = userByIdentity.get(identity(slugEmail(reporterName), "citizen"));
+    if (!reporter?._id) continue;
+
+    const titles = CATEGORY_TITLES[category] ?? ["Civic infrastructure concern"];
+    const title = titles[(i * 7) % titles.length];
+    const peopleAffected = 40 + ((i * 37) % 861);
+    const trustScore = 88 + ((i * 7) % 10);
+    const assignedUniversityId =
+      status === "reported" ? undefined : UNIVERSITY_SEQ[i % UNIVERSITY_SEQ.length];
+    const matchScore = assignedUniversityId ? 82 + ((i * 11) % 16) : undefined;
+    const ageDays = STATUS_AGE_DAYS[status] + ((i * 13) % 25);
+    const createdAt = new Date(now - ageDays * DAY);
+    const id = `LOK-${5000 + i}`;
+
+    bulkIssueDocs.push({
+      _id: id,
+      title,
+      description: `${title} — ${district}, ${ward}. ${DESC_TAILS[(i * 3) % DESC_TAILS.length]}`,
+      category,
+      severity: SEVERITY_SEQ[i % SEVERITY_SEQ.length],
+      location: {
+        lat: coords[0] + ((i * 7) % 10) / 1000,
+        lng: coords[1] + ((i * 11) % 10) / 1000,
+        label: `${district} — ${ward} area`,
+        ward,
+        district,
+      },
+      reportedBy: reporter._id,
+      peopleAffected,
+      trustScore,
+      matchScore,
+      assignedUniversityId,
+      status,
+      createdAt,
+    });
+
+    const actor =
+      status === "reported"
+        ? reporter.name
+        : status === "ai_validated"
+          ? "Samadhan AI"
+          : status === "funded"
+            ? "CSR Funder"
+            : universityName(assignedUniversityId ?? "");
+    const note =
+      status === "reported"
+        ? "Issue reported"
+        : status === "ai_validated"
+          ? "AI validation passed"
+          : status === "team_formed"
+            ? "Team formed at university"
+            : status === "proposed"
+              ? "Proposal sent to funders"
+              : status === "funded"
+                ? "Funding secured"
+                : status === "deployed"
+                  ? "Solution deployed"
+                  : "Issue resolved";
+
+    bulkActivityDocs.push({
+      _id: `act-${id}-${status}`,
+      issueId: id,
+      actor,
+      action: status,
+      note,
+      createdAt: new Date(
+        createdAt.getTime() + ((i * 37) % 5) * DAY + ((i % 24) * 3_600_000),
+      ),
+    });
+  }
+
+  await Issue.bulkWrite(
+    bulkIssueDocs.map((doc) => ({
+      updateOne: { filter: { _id: doc._id }, update: { $set: doc }, upsert: true },
+    })),
+    { ordered: false },
+  );
+
+  await ActivityLog.bulkWrite(
+    bulkActivityDocs.map((doc) => ({
+      updateOne: { filter: { _id: doc._id }, update: { $set: doc }, upsert: true },
+    })),
+    { ordered: false },
+  );
+
   const rows: Array<[string, number]> = [
     ["users", await User.countDocuments()],
     ["categories", await Category.countDocuments()],
@@ -525,6 +899,9 @@ export async function reseed(): Promise<SeedRunResult> {
     ["upvotes", await Upvote.countDocuments()],
     ["notifications", await Notification.countDocuments()],
     ["activitylogs", await ActivityLog.countDocuments()],
+    ["ngodrives", await NgoDrive.countDocuments()],
+    ["ngovolunteers", await NgoVolunteer.countDocuments()],
+    ["ngogrants", await NgoGrant.countDocuments()],
   ];
   const counts: Record<string, number> = {};
   for (const [name, count] of rows) counts[name] = count;
