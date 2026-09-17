@@ -21,6 +21,7 @@ import {
   Users,
 } from "lucide-react";
 import { UNIVERSITY_USER, UNIVERSITY_TEAMS, UNIVERSITY_CASE_STUDIES } from "@/lib/data/university-mock";
+import { signOut } from "@/lib/api/client";
 
 const PROFILE_AVATAR =
   "https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=400";
@@ -34,6 +35,7 @@ export function UniversityProfilePage() {
     } catch {
       /* ignore */
     }
+    void signOut();
     router.replace("/login");
   };
 

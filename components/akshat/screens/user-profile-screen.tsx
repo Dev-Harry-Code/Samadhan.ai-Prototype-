@@ -18,6 +18,7 @@ import {
 
 import type { ScreenId } from "@/lib/akshat-types";
 import { useAkshat } from "@/components/akshat/akshat-context";
+import { signOut } from "@/lib/api/client";
 
 interface UserProfileScreenProps {
   setScreen: (screen: ScreenId) => void;
@@ -30,12 +31,13 @@ export const UserProfileScreen = ({ setScreen }: UserProfileScreenProps) => {
   const router = useRouter();
   const { t } = useAkshat();
 
-  const signOut = () => {
+  const logout = () => {
     try {
       window.sessionStorage.removeItem("samadhan.citizen");
     } catch {
       /* storage unavailable */
     }
+    void signOut();
     setScreen("auth");
     router.replace("/login");
   };
@@ -196,7 +198,7 @@ export const UserProfileScreen = ({ setScreen }: UserProfileScreenProps) => {
           <span>{t("accountNotifications", "Account & Notifications")}</span>
         </button>
         <button
-          onClick={signOut}
+          onClick={logout}
           className="flex flex-shrink-0 items-center justify-center gap-1.5 rounded-2xl border border-rose-200 bg-rose-50 px-5 py-3.5 text-xs font-bold text-rose-700 transition-colors hover:bg-rose-100"
         >
           <LogOut className="h-4 w-4 text-rose-600" />

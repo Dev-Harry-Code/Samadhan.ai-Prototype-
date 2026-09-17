@@ -98,6 +98,14 @@ export function isSessionFlag(storageKey: string): boolean {
   return typeof window !== "undefined" && window.sessionStorage.getItem(storageKey) === "true";
 }
 
+export function setSessionFlag(storageKey: string): void {
+  try {
+    window.sessionStorage.setItem(storageKey, "true");
+  } catch {
+    /* storage unavailable */
+  }
+}
+
 export async function loginWithCredentials(
   email: string,
   password: string,

@@ -26,6 +26,7 @@ import {
   NGO_DRIVES,
   NGO_ACHIEVEMENTS,
 } from "@/lib/data/ngo-mock";
+import { signOut } from "@/lib/api/client";
 
 export function NgoProfilePage() {
   const router = useRouter();
@@ -36,6 +37,7 @@ export function NgoProfilePage() {
     } catch {
       /* ignore */
     }
+    void signOut();
     router.replace("/login");
   };
 

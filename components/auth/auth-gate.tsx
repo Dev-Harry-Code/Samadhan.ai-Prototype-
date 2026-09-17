@@ -1,9 +1,17 @@
 "use client";
 
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 
-import { fetchSession, isSessionFlag } from "@/lib/api/client";
+import { fetchSession, isSessionFlag, setSessionFlag } from "@/lib/api/client";
+
+const ROLE_BY_STORAGE_KEY: Record<string, string> = {
+  "samadhan.citizen": "citizen",
+  "samadhan.ngo": "ngo",
+  "samadhan.university": "university",
+  "samadhan.company": "company",
+  "samadhan.government": "admin",
+};
 
 function subscribeStorage() {
   return () => {};
@@ -24,30 +32,33 @@ export function AuthGate({
 }) {
   const router = useRouter();
   const flagged = useSyncExternalStore(subscribeStorage, readFlag(storageKey), () => false);
+  const [restored, setRestored] = useState(false);
 
   useEffect(() => {
-    if (!flagged) {
-      router.replace(redirectTo);
-      return;
-    }
     let cancelled = false;
+    const requiredRole = ROLE_BY_STORAGE_KEY[storageKey];
+
     void fetchSession().then((session) => {
       if (cancelled) return;
-      if (!session) {
+      if (!session || session.user.role !== requiredRole) {
         try {
           window.sessionStorage.removeItem(storageKey);
         } catch {
           /* storage unavailable */
         }
         router.replace(redirectTo);
+        return;
       }
+      setSessionFlag(storageKey);
+      setRestored(true);
     });
+
     return () => {
       cancelled = true;
     };
-  }, [flagged, storageKey, redirectTo, router]);
+  }, [storageKey, redirectTo, router]);
 
-  if (!flagged) {
+  if (!flagged && !restored) {
     return (
       <div className="flex min-h-[70vh] items-center justify-center">
         <div className="flex flex-col items-center gap-3 text-slate-700">
