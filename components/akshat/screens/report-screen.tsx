@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import {
   AlertTriangle,
@@ -24,9 +24,6 @@ interface ReportIssueScreenProps {
   onDraftChange?: (draft: DraftIssue) => void;
 }
 
-const PHOTO_URL =
-  "https://images.pexels.com/photos/19156793/pexels-photo-19156793.jpeg?auto=compress&cs=tinysrgb&w=800";
-
 const SEVERITY_MAP: Record<string, Severity> = {
   "High Urgency": "High",
   Moderate: "Medium",
@@ -35,8 +32,10 @@ const SEVERITY_MAP: Record<string, Severity> = {
 
 export const ReportIssueScreen = ({ setScreen, onDraftChange }: ReportIssueScreenProps) => {
   const { t } = useAkshat();
-  const [photo, setPhoto] = useState<string | null>(PHOTO_URL);
+  const [photo, setPhoto] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const localPreview = useRef<string | null>(null);
   const [description, setDescription] = useState<string | null>(null);
   const shownDescription =
     description ??
@@ -47,6 +46,23 @@ export const ReportIssueScreen = ({ setScreen, onDraftChange }: ReportIssueScree
   const [category, setCategory] = useState("Water Resources");
   const [title, setTitle] = useState("");
   const [urgency] = useState<"High Urgency" | "Moderate" | "Critical">("High Urgency");
+
+  const clearLocalPreview = () => {
+    if (localPreview.current) {
+      URL.revokeObjectURL(localPreview.current);
+      localPreview.current = null;
+    }
+  };
+
+  useEffect(() => {
+    return clearLocalPreview;
+  }, []);
+
+  const removePhoto = () => {
+    clearLocalPreview();
+    setPhoto(null);
+    setUploadError(null);
+  };
 
   useEffect(() => {
     onDraftChange?.({
@@ -62,6 +78,8 @@ export const ReportIssueScreen = ({ setScreen, onDraftChange }: ReportIssueScree
 
   const handleUploadPhoto = async (file: File) => {
     setUploading(true);
+    setUploadError(null);
+    clearLocalPreview();
     try {
       const form = new FormData();
       form.append("file", file);
@@ -74,7 +92,10 @@ export const ReportIssueScreen = ({ setScreen, onDraftChange }: ReportIssueScree
       const data = await res.json();
       setPhoto(data.url);
     } catch {
-      setPhoto(PHOTO_URL);
+      const preview = URL.createObjectURL(file);
+      localPreview.current = preview;
+      setPhoto(preview);
+      setUploadError("Photo saved as a local preview — couldn't reach server storage.");
     } finally {
       setUploading(false);
     }
@@ -136,7 +157,7 @@ export const ReportIssueScreen = ({ setScreen, onDraftChange }: ReportIssueScree
                 </div>
               )}
               <button
-                onClick={() => setPhoto(null)}
+                onClick={removePhoto}
                 className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md transition-colors hover:bg-black/80"
               >
                 <X className="h-4 w-4" />
@@ -154,6 +175,13 @@ export const ReportIssueScreen = ({ setScreen, onDraftChange }: ReportIssueScree
               onFileReady={handleUploadPhoto}
               onUploadSuccess={() => {}}
             />
+          )}
+
+          {uploadError && (
+            <div className="mt-2.5 flex items-center gap-2 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-semibold text-amber-800">
+              <AlertTriangle className="h-3.5 w-3.5 flex-shrink-0" />
+              <span>{uploadError}</span>
+            </div>
           )}
         </div>
 

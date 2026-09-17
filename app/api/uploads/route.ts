@@ -63,10 +63,18 @@ export async function POST(request: Request) {
     }
 
     const uploadsDir = path.join(process.cwd(), "public", "uploads");
-    fs.mkdirSync(uploadsDir, { recursive: true });
-    const filename = safeFilename(file.name);
-    const buffer = Buffer.from(await file.arrayBuffer());
-    fs.writeFileSync(path.join(uploadsDir, filename), buffer);
+    let filename: string;
+    try {
+      fs.mkdirSync(uploadsDir, { recursive: true });
+      filename = safeFilename(file.name);
+      const buffer = Buffer.from(await file.arrayBuffer());
+      fs.writeFileSync(path.join(uploadsDir, filename), buffer);
+    } catch {
+      return NextResponse.json(
+        { error: "Storage not configured — set BLOB_READ_WRITE_TOKEN for production uploads" },
+        { status: 503 },
+      );
+    }
 
     return NextResponse.json(
       { url: `/uploads/${filename}`, storage: "local" },
