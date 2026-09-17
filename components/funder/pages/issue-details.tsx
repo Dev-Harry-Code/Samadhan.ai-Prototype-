@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useMemo, useState } from "react";
 import {
   AlertCircle,
   AlertTriangle,
@@ -14,6 +15,7 @@ import {
   CheckCircle2,
   FileText,
   Frown,
+  HandCoins,
   MapPin,
   Meh,
   MessageSquare,
@@ -29,6 +31,9 @@ import { CompanySeverityBadge, CompanyStatusBadge } from "@/components/portal/ba
 import { Button } from "@/components/ui/button";
 import { ProgressBar } from "@/components/ui/stat-card";
 import { cn } from "@/lib/utils";
+import { api, useApiGet } from "@/lib/api/client";
+import type { ApiIssueDetail } from "@/lib/api/models";
+import { apiDetailToCompanyIssue } from "@/lib/funder-mapper";
 import { COMPANY_ISSUES, COMPANY_ISSUE_STEPS } from "@/lib/data/company-mock";
 
 const STEP_ICON: Record<string, LucideIcon> = {
@@ -58,7 +63,23 @@ function StepIcon({ label }: { label: string }) {
 }
 
 export function CompanyIssueDetailsPage({ id }: { id: string }) {
-  const issue = COMPANY_ISSUES.find((i) => i.id === id) ?? COMPANY_ISSUES[0];
+  const mockIssue = COMPANY_ISSUES.find((i) => i.id === id) ?? COMPANY_ISSUES[0];
+  const { data: detail } = useApiGet<ApiIssueDetail>(`/api/issues/${encodeURIComponent(id)}`);
+  const issue = useMemo(
+    () => (detail ? apiDetailToCompanyIssue(detail) : mockIssue),
+    [detail, mockIssue],
+  );
+  const isProposed = detail?.issue.status === "proposed";
+  const [funding, setFunding] = useState<"idle" | "processing" | "done">("idle");
+
+  const fundIssue = () => {
+    if (funding !== "idle") return;
+    setFunding("processing");
+    void api
+      .post("/api/funding", { issueId: id, amount: 50000 })
+      .then(() => setFunding("done"))
+      .catch(() => setFunding("idle"));
+  };
 
   return (
     <div className="mx-auto max-w-4xl pb-6">
@@ -218,6 +239,18 @@ export function CompanyIssueDetailsPage({ id }: { id: string }) {
                 {issue.assignee === "Unassigned" ? "Assign this issue" : `Manage · ${issue.assignee}`}
               </Button>
             </Link>
+            {isProposed && (
+              <Button
+                variant={funding === "done" ? "secondary" : "primary"}
+                size="lg"
+                className="w-full"
+                onClick={fundIssue}
+                disabled={funding !== "idle"}
+              >
+                <HandCoins size={16} />
+                {funding === "done" ? "Funding confirmed" : funding === "processing" ? "Processing…" : "Fund this issue"}
+              </Button>
+            )}
             <Button variant="secondary" size="lg" className="w-full">
               Download resolution report
             </Button>

@@ -7,6 +7,8 @@ import { BadgeCheck, Brain, Check, Users, MapPin, TrendingUp, AlertTriangle } fr
 import { PortalPageHeader } from "@/components/portal/kpi-card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { api } from "@/lib/api/client";
+import { useUniApiIssues } from "@/lib/api-hooks";
 import { UNIVERSITY_TEAMS, UNIVERSITY_REPORTS, type UniversityTeam } from "@/lib/data/university-mock";
 
 interface AssignedTeam extends UniversityTeam {
@@ -14,8 +16,11 @@ interface AssignedTeam extends UniversityTeam {
 }
 
 export function UniversityAssignPage() {
+  const { reports: apiReports, loading } = useUniApiIssues();
+  const apiPending = !loading ? apiReports.find((r) => r.status === "Pending") : undefined;
+
   // Mock finding an unassigned issue (e.g. rep-003 is pending)
-  const pendingIssue = UNIVERSITY_REPORTS.find(r => r.status === "Pending") || UNIVERSITY_REPORTS[2];
+  const pendingIssue = apiPending || UNIVERSITY_REPORTS.find(r => r.status === "Pending") || UNIVERSITY_REPORTS[2];
   
   const [assigned, setAssigned] = useState<AssignedTeam[]>([]);
   const [matches, setMatches] = useState<AssignedTeam[]>([]);
@@ -25,6 +30,12 @@ export function UniversityAssignPage() {
   const assign = (t: UniversityTeam) => {
     setAssigned((prev) => [{ ...t, assignedOn: "Assigned just now" }, ...prev]);
     setMatches((prev) => [...prev, t]);
+    void api
+      .post("/api/teams", {
+        issueId: pendingIssue.id,
+        message: "Team assigned from university portal",
+      })
+      .catch(() => {});
   };
 
   // For the UI, let"s mock match scores for teams based on the issue

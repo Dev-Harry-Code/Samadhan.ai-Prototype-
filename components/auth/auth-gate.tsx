@@ -3,13 +3,14 @@
 import { useEffect, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 
+import { fetchSession, isSessionFlag } from "@/lib/api/client";
+
 function subscribeStorage() {
   return () => {};
 }
 
 function readFlag(storageKey: string) {
-  return () =>
-    typeof window !== "undefined" && window.sessionStorage.getItem(storageKey) === "true";
+  return () => isSessionFlag(storageKey);
 }
 
 export function AuthGate({
@@ -22,13 +23,31 @@ export function AuthGate({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const authed = useSyncExternalStore(subscribeStorage, readFlag(storageKey), () => false);
+  const flagged = useSyncExternalStore(subscribeStorage, readFlag(storageKey), () => false);
 
   useEffect(() => {
-    if (!authed) router.replace(redirectTo);
-  }, [authed, redirectTo, router]);
+    if (!flagged) {
+      router.replace(redirectTo);
+      return;
+    }
+    let cancelled = false;
+    void fetchSession().then((session) => {
+      if (cancelled) return;
+      if (!session) {
+        try {
+          window.sessionStorage.removeItem(storageKey);
+        } catch {
+          /* storage unavailable */
+        }
+        router.replace(redirectTo);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [flagged, storageKey, redirectTo, router]);
 
-  if (!authed) {
+  if (!flagged) {
     return (
       <div className="flex min-h-[70vh] items-center justify-center">
         <div className="flex flex-col items-center gap-3 text-slate-700">

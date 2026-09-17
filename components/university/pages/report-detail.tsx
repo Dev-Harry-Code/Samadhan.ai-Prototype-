@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   ArrowLeft,
   Bot,
@@ -19,6 +19,9 @@ import { UniversityStatusBadge } from "@/components/portal/badges";
 import { Button } from "@/components/ui/button";
 import { DocumentUploader } from "@/components/ui/document-uploader";
 import { cn } from "@/lib/utils";
+import { universityReportFromDetail } from "@/lib/university-mapper";
+import { useApiGet } from "@/lib/api/client";
+import type { ApiIssueDetail } from "@/lib/api/models";
 import {
   UNIVERSITY_AI_RECOMMENDATIONS,
   UNIVERSITY_REPORTS,
@@ -27,7 +30,9 @@ import {
 } from "@/lib/data/university-mock";
 
 export function UniversityReportDetailPage({ id }: { id: string }) {
-  const report = UNIVERSITY_REPORTS.find((r) => r.id === id) ?? UNIVERSITY_REPORTS[0];
+  const mockReport = UNIVERSITY_REPORTS.find((r) => r.id === id) ?? UNIVERSITY_REPORTS[0];
+  const { data: detail } = useApiGet<ApiIssueDetail>(`/api/issues/${encodeURIComponent(id)}`);
+  const report = useMemo(() => (detail ? universityReportFromDetail(detail) : mockReport), [detail, mockReport]);
   const [liked, setLiked] = useState(false);
   const [shared, setShared] = useState(false);
 

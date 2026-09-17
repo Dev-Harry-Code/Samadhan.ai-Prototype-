@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 
 import { PortalAppShell } from "@/components/portal/app-shell";
+import { NotificationBell } from "@/components/portal/notification-bell";
 import { UNIVERSITY_USER } from "@/lib/data/university-mock";
 
 const NAV_ITEMS = [
@@ -61,13 +62,16 @@ export function UniversityShell({ children }: { children: React.ReactNode }) {
         },
         user: { name: UNIVERSITY_USER.name, location: UNIVERSITY_USER.location },
         headerRight: (
-          <Link
-            href="/university/profile"
-            className="flex items-center gap-1.5 rounded-xl bg-emerald-50 border border-emerald-200/80 px-3 py-1.5 text-xs font-bold text-emerald-900 transition hover:bg-emerald-100"
-          >
-            <span>Prof. Mehta</span>
-            <Leaf size={12} className="text-emerald-700" />
-          </Link>
+          <div className="flex items-center gap-2">
+            <NotificationBell href="/university/notifications" />
+            <Link
+              href="/university/profile"
+              className="flex items-center gap-1.5 rounded-xl bg-emerald-50 border border-emerald-200/80 px-3 py-1.5 text-xs font-bold text-emerald-900 transition hover:bg-emerald-100"
+            >
+              <span>Prof. Mehta</span>
+              <Leaf size={12} className="text-emerald-700" />
+            </Link>
+          </div>
         ),
       }}
     >

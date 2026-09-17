@@ -12,6 +12,7 @@ interface DocumentUploaderProps {
   accept?: string;
   maxSizeMB?: number;
   onUploadSuccess?: (file: File) => void;
+  onFileReady?: (file: File) => void;
 }
 
 type UploadState = "idle" | "dragging" | "uploading" | "success" | "error";
@@ -22,6 +23,7 @@ export function DocumentUploader({
   accept = "image/*,.pdf",
   maxSizeMB = 10,
   onUploadSuccess,
+  onFileReady,
 }: DocumentUploaderProps) {
   const [state, setState] = useState<UploadState>("idle");
   const [progress, setProgress] = useState(0);
@@ -66,6 +68,7 @@ export function DocumentUploader({
         setTimeout(() => {
           setState("success");
           onUploadSuccess?.(selectedFile);
+          onFileReady?.(selectedFile);
         }, 300);
       } else {
         setProgress(currentProgress);

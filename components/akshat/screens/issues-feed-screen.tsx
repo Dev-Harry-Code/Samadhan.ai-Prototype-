@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -13,14 +12,15 @@ import {
 } from "lucide-react";
 
 import type { Issue, ScreenId } from "@/lib/akshat-types";
-import { NEARBY_ISSUES, PRIMARY_ISSUE } from "@/lib/data/akshat-mock";
 import { cn } from "@/lib/utils";
 import { useAkshat } from "@/components/akshat/akshat-context";
+import { api } from "@/lib/api/client";
 import {
   categoryText,
   issueField,
   statusText,
 } from "@/components/akshat/localize-helpers";
+import { SafeIssueImage } from "@/components/akshat/safe-issue-image";
 import { PlatformStatsWidget } from "@/components/akshat/widgets/platform-stats-widget";
 
 interface IssuesFeedScreenProps {
@@ -36,7 +36,7 @@ export const IssuesFeedScreen = ({
 }: IssuesFeedScreenProps) => {
   const { t } = useAkshat();
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
-  const allIssues = feedIssues && feedIssues.length > 0 ? feedIssues : [PRIMARY_ISSUE, ...NEARBY_ISSUES];
+  const allIssues = feedIssues && feedIssues.length > 0 ? feedIssues : [];
 
   const [upvotesState, setUpvotesState] = useState<Record<string, number>>(() => {
     const map: Record<string, number> = {};
@@ -61,6 +61,8 @@ export const IssuesFeedScreen = ({
       ...prev,
       [issueId]: (prev[issueId] ?? 0) + (isCurrentlyUpvoted ? -1 : 1),
     }));
+
+    void api.post(`/api/issues/${encodeURIComponent(issueId)}/upvote`).catch(() => {});
   };
 
   const categories = [
@@ -138,10 +140,9 @@ export const IssuesFeedScreen = ({
               className="group flex cursor-pointer flex-col justify-between overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm hover:border-slate-300"
             >
               <div className="relative h-52 w-full overflow-hidden bg-slate-100">
-                <Image
+                <SafeIssueImage
                   src={issue.imageUrl}
                   alt={issueField(t, issue, "title", issue.title)}
-                  fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />

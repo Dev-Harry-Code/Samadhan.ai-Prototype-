@@ -10,6 +10,7 @@ import { PortalPageHeader } from "@/components/portal/kpi-card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { UNIVERSITY_REPORTS, type UniversityReport } from "@/lib/data/university-mock";
+import { useUniApiIssues } from "@/lib/api-hooks";
 
 const TABS = ["All", "In Progress", "Assigned", "Pending", "Resolved"];
 
@@ -17,8 +18,9 @@ export function UniversityReportsPage() {
   const [tab, setTab] = useState("All");
   const [query, setQuery] = useState("");
   const [localReports, setLocalReports] = useState<UniversityReport[]>([]);
+  const { reports: apiReports } = useUniApiIssues();
 
-  const allReports = [...localReports, ...UNIVERSITY_REPORTS];
+  const allReports = [...localReports, ...(apiReports.length ? apiReports : UNIVERSITY_REPORTS)];
 
   const filtered = allReports.filter((r) => {
     if (tab !== "All" && r.status !== tab) return false;

@@ -8,6 +8,7 @@ import { CompanyStatusBadge, CompanySeverityBadge } from "@/components/portal/ba
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { COMPANY_ISSUES } from "@/lib/data/company-mock";
+import { useFunderApiIssues } from "@/lib/api-hooks";
 
 const tabs = ["All", "Open", "In Progress", "Resolved", "Duplicates", "Critical"];
 
@@ -18,8 +19,9 @@ export function CompanyIssuesPage() {
   const [showIntake, setShowIntake] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [newArea, setNewArea] = useState("Malad West");
+  const { issues: apiIssues } = useFunderApiIssues();
 
-  const allIssues = [...localIssues, ...COMPANY_ISSUES];
+  const allIssues = [...localIssues, ...(apiIssues.length ? apiIssues : COMPANY_ISSUES)];
 
   const filtered = allIssues
     .filter((i) => {

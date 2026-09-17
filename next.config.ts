@@ -2,6 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    localPatterns: [
+      {
+        pathname: "/uploads/**",
+      },
+    ],
     remotePatterns: [
       {
         protocol: "https",
@@ -10,6 +15,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "images.pexels.com",
+      },
+      {
+        protocol: "https",
+        hostname: "*.public.blob.vercel-storage.com",
       },
     ],
   },

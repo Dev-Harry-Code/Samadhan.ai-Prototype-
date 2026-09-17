@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   BadgeCheck,
   Building,
@@ -13,15 +13,40 @@ import {
   Search,
   TrendingUp,
   X,
+  AlertTriangle,
 } from "lucide-react";
 import { NGO_GRANTS, type NgoGrant } from "@/lib/data/ngo-mock";
+import { api } from "@/lib/api/client";
 
 export function NgoFundingPage() {
   const [grants, setGrants] = useState<NgoGrant[]>(NGO_GRANTS);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState<"All" | "Approved & Active" | "Under CSR Review" | "Completed">("All");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const [errorToast, setErrorToast] = useState("");
+
+  const flashError = (msg: string) => {
+    setErrorToast(msg);
+    setTimeout(() => setErrorToast(""), 4000);
+  };
+
+  useEffect(() => {
+    let cancelled = false;
+    api
+      .get<{ grants: NgoGrant[] }>("/api/ngo/grants")
+      .then((res) => {
+        if (!cancelled && res.grants?.length) setGrants(res.grants);
+      })
+      .catch(() => {})
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // Form state
   const [newTitle, setNewTitle] = useState("");
@@ -41,11 +66,18 @@ export function NgoFundingPage() {
     return matchesTab && matchesSearch;
   });
 
-  const handleCreateGrant = (e: React.FormEvent) => {
+  const handleCreateGrant = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newTitle.trim()) return;
 
     const requestedVal = Number.parseInt(newAmount) || 300000;
+    const payload = {
+      projectTitle: newTitle,
+      funderName: newFunder,
+      amount: requestedVal,
+      milestoneDescription: newMilestone,
+    };
+
     const newGrantObj: NgoGrant = {
       id: `grant-${Date.now()}`,
       projectTitle: newTitle,
@@ -60,6 +92,14 @@ export function NgoFundingPage() {
       milestoneDescription: newMilestone,
     };
 
+    try {
+      const res = await api.post<{ grant: NgoGrant }>("/api/ngo/grants", payload);
+      if (res.grant) newGrantObj.id = res.grant.id;
+    } catch {
+      flashError("Couldn't reach server — proposal submitted locally only");
+      // fall back to local optimistic grant
+    }
+
     setGrants([newGrantObj, ...grants]);
     setIsModalOpen(false);
     setNewTitle("");
@@ -70,6 +110,12 @@ export function NgoFundingPage() {
   return (
     <div className="relative z-10 mx-auto max-w-6xl space-y-6 bg-transparent p-3.5 pb-24 sm:p-6">
       {/* Toast Alert */}
+      {errorToast && (
+        <div className="flex items-center gap-2.5 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-xs font-bold text-rose-800 shadow-sm animate-in fade-in slide-in-from-top-2">
+          <AlertTriangle className="h-4 w-4 text-rose-600 flex-shrink-0" />
+          <span>{errorToast}</span>
+        </div>
+      )}
       {toastMessage && (
         <div className="flex items-center gap-2.5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-xs font-bold text-emerald-800 shadow-sm animate-in fade-in slide-in-from-top-2">
           <CheckCircle2 className="h-4 w-4 text-emerald-600 flex-shrink-0" />
@@ -88,6 +134,7 @@ export function NgoFundingPage() {
           </div>
           <p className="mt-1 text-xs text-slate-600 sm:text-sm">
             Track corporate CSR sponsorships, milestone escrow releases, and social impact audit proofs.
+            {loading && <span className="ml-2 text-[11px] font-semibold text-emerald-600">syncing…</span>}
           </p>
         </div>
 
@@ -287,6 +334,9 @@ export function NgoFundingPage() {
                         : g
                     );
                     setGrants(updated);
+                    api.patch(`/api/ngo/grants/${encodeURIComponent(grant.id)}`, { action: "release" }).catch(() =>
+                      flashError("Couldn't sync — release recorded locally only")
+                    );
                     setToastMessage(`Milestone release requested for "${grant.projectTitle}"!`);
                     setTimeout(() => setToastMessage(""), 3000);
                   }}

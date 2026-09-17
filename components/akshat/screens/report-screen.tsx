@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   AlertTriangle,
@@ -13,20 +13,30 @@ import {
 } from "lucide-react";
 
 import type { ScreenId } from "@/lib/akshat-types";
+import type { DraftIssue, Severity } from "@/lib/types";
+import { categoryLabelToSlug, DEFAULT_REPORT_LOCATION } from "@/lib/akshat-mapper";
 import { cn } from "@/lib/utils";
 import { useAkshat } from "@/components/akshat/akshat-context";
 import { DocumentUploader } from "@/components/ui/document-uploader";
 
 interface ReportIssueScreenProps {
   setScreen: (screen: ScreenId) => void;
+  onDraftChange?: (draft: DraftIssue) => void;
 }
 
 const PHOTO_URL =
   "https://images.pexels.com/photos/19156793/pexels-photo-19156793.jpeg?auto=compress&cs=tinysrgb&w=800";
 
-export const ReportIssueScreen = ({ setScreen }: ReportIssueScreenProps) => {
+const SEVERITY_MAP: Record<string, Severity> = {
+  "High Urgency": "High",
+  Moderate: "Medium",
+  Critical: "Critical",
+};
+
+export const ReportIssueScreen = ({ setScreen, onDraftChange }: ReportIssueScreenProps) => {
   const { t } = useAkshat();
   const [photo, setPhoto] = useState<string | null>(PHOTO_URL);
+  const [uploading, setUploading] = useState(false);
   const [description, setDescription] = useState<string | null>(null);
   const shownDescription =
     description ??
@@ -35,7 +45,40 @@ export const ReportIssueScreen = ({ setScreen }: ReportIssueScreenProps) => {
       "The main pipeline feeding the community water tap has been fractured for 3 weeks, leaving over 50 families without clean municipal drinking water.",
     );
   const [category, setCategory] = useState("Water Resources");
+  const [title, setTitle] = useState("");
   const [urgency] = useState<"High Urgency" | "Moderate" | "Critical">("High Urgency");
+
+  useEffect(() => {
+    onDraftChange?.({
+      title: title.trim() ? title.trim() : `${category} Issue - Community Reported`,
+      description: shownDescription,
+      category: categoryLabelToSlug(category) as DraftIssue["category"],
+      severity: SEVERITY_MAP[urgency] ?? "High",
+      location: { ...DEFAULT_REPORT_LOCATION },
+      peopleAffected: 50,
+      photo: photo ?? undefined,
+    });
+  }, [shownDescription, category, title, urgency, photo, onDraftChange]);
+
+  const handleUploadPhoto = async (file: File) => {
+    setUploading(true);
+    try {
+      const form = new FormData();
+      form.append("file", file);
+      const res = await fetch("/api/uploads", {
+        method: "POST",
+        body: form,
+        credentials: "include",
+      });
+      if (!res.ok) throw new Error("Upload failed");
+      const data = await res.json();
+      setPhoto(data.url);
+    } catch {
+      setPhoto(PHOTO_URL);
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const handleConfirmLocation = () => {
     setScreen("ai_analysis");
@@ -84,6 +127,14 @@ export const ReportIssueScreen = ({ setScreen }: ReportIssueScreenProps) => {
           {photo ? (
             <div className="relative h-56 w-full overflow-hidden rounded-2xl border border-slate-200 shadow-xs">
               <Image src={photo} alt="Issue" fill sizes="(max-width: 768px) 100vw, 672px" className="object-cover" />
+              {uploading && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px]">
+                  <span className="flex items-center gap-2 rounded-full bg-white/95 px-3 py-1.5 text-xs font-bold text-slate-800 shadow-md">
+                    <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-teal-600 border-t-transparent" />
+                    Uploading photo…
+                  </span>
+                </div>
+              )}
               <button
                 onClick={() => setPhoto(null)}
                 className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md transition-colors hover:bg-black/80"
@@ -100,7 +151,8 @@ export const ReportIssueScreen = ({ setScreen }: ReportIssueScreenProps) => {
               label="Capture or Upload Photo"
               hint="Supports JPG, PNG. Automatic location tagging enabled."
               accept="image/*"
-              onUploadSuccess={() => setPhoto(PHOTO_URL)}
+              onFileReady={handleUploadPhoto}
+              onUploadSuccess={() => {}}
             />
           )}
         </div>
@@ -113,7 +165,7 @@ export const ReportIssueScreen = ({ setScreen }: ReportIssueScreenProps) => {
           <div className="flex w-full items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm">
             <div className="flex items-center gap-2.5">
               <MapPin className="h-4 w-4 flex-shrink-0 text-teal-600" />
-              <span className="font-medium text-slate-900">{t("reportLocation", "Village X, Ranchi, Jharkhand (Ward 14)")}</span>
+              <span className="font-medium text-slate-900">{t("reportLocation", "Sardarpura, Jodhpur, Rajasthan (Ward 1)")}</span>
             </div>
             <span className="rounded border border-teal-200 bg-teal-50 px-2 py-0.5 font-mono text-xs font-bold text-teal-700">{t("accuracyLabel", "Accuracy: 4m")}</span>
           </div>
@@ -153,6 +205,22 @@ export const ReportIssueScreen = ({ setScreen }: ReportIssueScreenProps) => {
 
         <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-xs">
           <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-700">
+            {t("issueTitle", "Issue Title")}
+          </label>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder={t("issueTitlePlaceholder", "e.g., Community drinking water tap fractured for 3 weeks")}
+            className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 transition-all placeholder-slate-400 focus:border-teal-600 focus:bg-white focus:ring-2 focus:ring-teal-600/20 focus:outline-none"
+          />
+          <p className="mt-1.5 text-[11px] text-slate-500">
+            {t("issueTitleHint", "Leave blank and a default title will be used")}
+          </p>
+        </div>
+
+        <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-xs">
+          <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-700">
             {t("problemDescription", "Problem Description")}
           </label>
           <textarea
@@ -167,7 +235,7 @@ export const ReportIssueScreen = ({ setScreen }: ReportIssueScreenProps) => {
           whileHover={{ scale: 1.02, boxShadow: "0 12px 28px -4px rgba(13, 148, 136, 0.45)" }}
           whileTap={{ scale: 0.98 }}
           onClick={handleConfirmLocation}
-          disabled={!photo || shownDescription.length < 4}
+          disabled={!photo || uploading || shownDescription.length < 4}
           className="btn-breathing flex w-full items-center justify-center gap-2 rounded-2xl bg-teal-600 py-4 font-extrabold text-white shadow-md transition-all hover:bg-teal-700 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-40"
         >
           <MapPin className="h-5 w-5" />

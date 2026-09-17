@@ -1,13 +1,12 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
-import {
+import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
+
+import { api, isApiError, signOut } from "@/lib/api/client";
+import type { ApiIssue, ApiSessionUser } from "@/lib/api/models";
+import { daysAgoFromIso } from "@/lib/akshat-mapper";
+import { FUNDERS, SEED_ISSUES, UNIVERSITIES, matchFor } from "@/lib/data/mock-data";
+import type {
   DraftIssue,
   Funder,
   Issue,
@@ -15,199 +14,224 @@ import {
   Team,
   University,
 } from "@/lib/types";
-import {
-  FLAGSHIP_ISSUE,
-  FUNDERS,
-  SEED_FUNDINGS,
-  SEED_ISSUES,
-  SEED_TEAMS,
-  UNIVERSITIES,
-  matchFor,
-} from "@/lib/data/mock-data";
+import { ISSUE_STATUS_ORDER } from "@/lib/types";
 
-const STORAGE_KEY = "samadhan.store.v1";
-
-interface AppState {
+interface StoreContextValue {
   issues: Issue[];
-  teams: Record<string, Team>;
+  teams: Record<string, { issueId: string; universityId: string; formedAt: number }>;
   fundings: Record<string, { funderId: string; amount: number; note: string; date: number }>;
   session: { name: string; role: string } | null;
-}
-
-interface StoreContextValue extends AppState {
   universities: University[];
   funders: Funder[];
+  loading: boolean;
   setSession: (name: string | null, role: string | null) => void;
-  submitIssue: (draft: DraftIssue) => Issue;
-  assignUniversity: (issueId: string, universityId: string, score: number) => void;
-  setStatus: (issueId: string, status: IssueStatus) => void;
-  formTeam: (issueId: string, team: Omit<Team, "issueId" | "formedAt">) => void;
-  addFunding: (issueId: string, funderId: string, amount: number, note: string) => void;
+  submitIssue: (draft: DraftIssue) => Promise<Issue | null>;
+  assignUniversity: (issueId: string, universityId: string, score: number) => Promise<void>;
+  setStatus: (issueId: string, status: IssueStatus) => Promise<void>;
+  formTeam: (issueId: string, team: Omit<Team, "issueId" | "formedAt">) => Promise<void>;
+  addFunding: (issueId: string, funderId: string, amount: number, note: string) => Promise<void>;
   matchesFor: (issue: Issue) => { university: University; score: number }[];
-  clearStore: () => void;
+  clearStore: () => Promise<void>;
 }
 
 const StoreContext = createContext<StoreContextValue | null>(null);
 
-const seedState = (): AppState => ({
-  issues: SEED_ISSUES,
-  teams: { ...SEED_TEAMS },
-  fundings: { ...SEED_FUNDINGS },
-  session: null,
-});
-
-function loadInitial(): AppState {
-  if (typeof window === "undefined") return seedState();
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw) as Partial<AppState>;
-      return {
-        issues: parsed.issues?.length ? parsed.issues : SEED_ISSUES,
-        teams: parsed.teams ?? { ...SEED_TEAMS },
-        fundings: parsed.fundings ?? { ...SEED_FUNDINGS },
-        session: parsed.session ?? null,
-      };
-    }
-  } catch {
-    /* ignore */
-  }
-  return seedState();
+function toStoreIssue(apiIssue: ApiIssue): Issue {
+  return {
+    id: apiIssue.id,
+    title: apiIssue.title,
+    category: apiIssue.category as Issue["category"],
+    description: apiIssue.description,
+    severity: apiIssue.severity as Issue["severity"],
+    location: {
+      lat: apiIssue.location.lat,
+      lng: apiIssue.location.lng,
+      label: apiIssue.location.label,
+      ward: apiIssue.location.ward ?? "",
+      district: apiIssue.location.district,
+    },
+    reportedBy: apiIssue.reportedBy,
+    reportedDaysAgo: daysAgoFromIso(apiIssue.createdAt),
+    upvotes: apiIssue.upvotes ?? 0,
+    commentsCount: apiIssue.commentsCount ?? 0,
+    status: apiIssue.status as IssueStatus,
+    peopleAffected: apiIssue.peopleAffected,
+    trustScore: apiIssue.trustScore ?? undefined,
+    matchScore: apiIssue.matchScore ?? undefined,
+    assignedUniversityId: apiIssue.assignedUniversityId ?? undefined,
+    photo: apiIssue.photo ?? undefined,
+    imageUrl: apiIssue.photo ?? undefined,
+    createdAt: new Date(apiIssue.createdAt).getTime(),
+  };
 }
 
-const STATUS_FLOW: IssueStatus[] = [
-  "reported",
-  "ai_validated",
-  "team_formed",
-  "proposed",
-  "funded",
-  "deployed",
-  "resolved",
-];
+function buildLocalIssue(draft: DraftIssue, existing: Issue[]): Issue {
+  const max = existing.reduce(
+    (m, issue) => Math.max(m, Number(/LOK-(\d+)/.exec(issue.id)?.[1]) || 1042),
+    1042,
+  );
+  const hits = matchFor({ category: draft.category } as Issue, UNIVERSITIES);
+  const top = hits[0];
+  return {
+    id: `LOK-${max + 1}`,
+    title: draft.title,
+    category: draft.category,
+    description: draft.description,
+    severity: draft.severity,
+    location: draft.location,
+    reportedBy: "You (Citizen)",
+    reportedDaysAgo: 0,
+    upvotes: 1,
+    commentsCount: 0,
+    status: "ai_validated",
+    peopleAffected: draft.peopleAffected,
+    trustScore: 88 + Math.round(Math.random() * 9),
+    matchScore: top.score,
+    assignedUniversityId: top.university.id,
+    photo: draft.photo,
+    imageUrl: draft.photo,
+    createdAt: Date.now(),
+  };
+}
 
 export function StoreProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<AppState>(seedState);
-  const [hydrated, setHydrated] = useState(false);
+  const [issues, setIssues] = useState<Issue[]>(SEED_ISSUES);
+  const [session, setSessionState] = useState<{ name: string; role: string } | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [teams] = useState<StoreContextValue["teams"]>({});
+  const [fundings] = useState<StoreContextValue["fundings"]>({});
 
   useEffect(() => {
-    const id = setTimeout(() => {
-      setState(loadInitial());
-      setHydrated(true);
-    }, 0);
-    return () => clearTimeout(id);
+    let cancelled = false;
+    Promise.allSettled([
+      api.get<{ issues: ApiIssue[] }>("/api/issues?limit=100"),
+      api.get<{ user: ApiSessionUser }>("/api/auth/session"),
+    ]).then(([issuesResult, sessionResult]) => {
+      if (cancelled) return;
+      if (issuesResult.status === "fulfilled") {
+        setIssues(issuesResult.value.issues.map(toStoreIssue));
+      }
+      if (sessionResult.status === "fulfilled") {
+        setSessionState({
+          name: sessionResult.value.user.name,
+          role: sessionResult.value.user.role,
+        });
+      }
+      setLoading(false);
+    });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  useEffect(() => {
-    if (!hydrated) return;
+  const setSession = useCallback((name: string | null, role: string | null) => {
+    setSessionState(name ? { name, role: role ?? "citizen" } : null);
+  }, []);
+
+  const submitIssue = useCallback(
+    async (draft: DraftIssue): Promise<Issue | null> => {
+      try {
+        const created = await api.post<ApiIssue>("/api/issues", {
+          title: draft.title,
+          description: draft.description,
+          category: draft.category,
+          severity: draft.severity,
+          location: draft.location,
+          peopleAffected: draft.peopleAffected,
+          photo: draft.photo,
+        });
+        const issue = toStoreIssue(created);
+        setIssues((prev) => [issue, ...prev]);
+        return issue;
+      } catch (error) {
+        if (isApiError(error) && error.status === 401) {
+          const local = buildLocalIssue(draft, issues);
+          setIssues((prev) => [local, ...prev]);
+          return local;
+        }
+        return null;
+      }
+    },
+    [issues],
+  );
+
+  const assignUniversity = useCallback(
+    async (issueId: string, universityId: string, score: number) => {
+      setIssues((prev) =>
+        prev.map((issue) =>
+          issue.id === issueId
+            ? { ...issue, assignedUniversityId: universityId, matchScore: score }
+            : issue,
+        ),
+      );
+      try {
+        await api.post("/api/teams", { issueId, universityId, message: "" });
+      } catch {
+        // keep local state
+      }
+    },
+    [],
+  );
+
+  const setStatus = useCallback(
+    async (issueId: string, status: IssueStatus) => {
+      setIssues((prev) =>
+        prev.map((issue) => (issue.id === issueId ? { ...issue, status } : issue)),
+      );
+      try {
+        await api.patch(`/api/issues/${encodeURIComponent(issueId)}/status`, { status });
+      } catch {
+        // keep local state
+      }
+    },
+    [],
+  );
+
+  const formTeam = useCallback(async (issueId: string, team: Omit<Team, "issueId" | "formedAt">) => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      await api.post("/api/teams", {
+        issueId,
+        members: team.members.map((member) => ({
+          name: member.name,
+          role: member.role,
+          year: member.year,
+        })),
+        faculty: team.faculty,
+        message: team.message,
+        milestones: team.milestones,
+      });
     } catch {
-      /* ignore */
+      // keep local state
     }
-  }, [state, hydrated]);
+  }, []);
 
-  const nextId = () => {
-    const max = state.issues.reduce(
-      (m, i) => Math.max(m, parseInt(i.id.replace(/\D+/g, ""), 10) || 0),
-      1042,
-    );
-    return `LOK-${max + 1}`;
-  };
+  const addFunding = useCallback(
+    async (issueId: string, funderId: string, amount: number, note: string) => {
+      try {
+        await api.post("/api/funding", { issueId, funderId, amount, note });
+      } catch {
+        // keep local state
+      }
+    },
+    [],
+  );
 
-  const setSession = (name: string | null, role: string | null) => {
-    setState((s) => ({
-      ...s,
-      session: name ? { name, role: role ?? "citizen" } : null,
-    }));
-  };
+  const matchesFor = useCallback((issue: Issue) => matchFor(issue, UNIVERSITIES), []);
 
-  const submitIssue = (draft: DraftIssue): Issue => {
-    const hits = matchFor(
-      { category: draft.category } as Issue,
-      UNIVERSITIES,
-    );
-    const top = hits[0];
-    const issue: Issue = {
-      id: nextId(),
-      title: draft.title,
-      category: draft.category,
-      description: draft.description,
-      severity: draft.severity,
-      location: draft.location,
-      reportedBy: "You (Citizen)",
-      reportedDaysAgo: 0,
-      upvotes: 1,
-      commentsCount: 0,
-      status: "ai_validated",
-      peopleAffected: draft.peopleAffected,
-      trustScore: 88 + Math.round(Math.random() * 9),
-      matchScore: top.score,
-      assignedUniversityId: top.university.id,
-      photo: draft.photo,
-      createdAt: Date.now(),
-    };
-    setState((s) => ({ ...s, issues: [issue, ...s.issues] }));
-    return issue;
-  };
-
-  const assignUniversity = (issueId: string, universityId: string, score: number) => {
-    setState((s) => ({
-      ...s,
-      issues: s.issues.map((i) =>
-        i.id === issueId
-          ? { ...i, assignedUniversityId: universityId, matchScore: score, status: "ai_validated" }
-          : i,
-      ),
-    }));
-  };
-
-  const setStatus = (issueId: string, status: IssueStatus) => {
-    setState((s) => ({
-      ...s,
-      issues: s.issues.map((i) => (i.id === issueId ? { ...i, status } : i)),
-    }));
-  };
-
-  const formTeam = (issueId: string, team: Omit<Team, "issueId" | "formedAt">) => {
-    setState((s) => ({
-      ...s,
-      teams: {
-        ...s.teams,
-        [issueId]: { ...team, issueId, formedAt: Date.now() },
-      },
-      issues: s.issues.map((i) =>
-        i.id === issueId ? { ...i, status: "team_formed" } : i,
-      ),
-    }));
-  };
-
-  const addFunding = (issueId: string, funderId: string, amount: number, note: string) => {
-    setState((s) => ({
-      ...s,
-      fundings: {
-        ...s.fundings,
-        [issueId]: { funderId, amount, note, date: Date.now() },
-      },
-      issues: s.issues.map((i) =>
-        i.id === issueId ? { ...i, status: "funded" } : i,
-      ),
-    }));
-  };
-
-  const matchesFor = (issue: Issue) => matchFor(issue, UNIVERSITIES);
-
-  const clearStore = () => {
-    localStorage.removeItem(STORAGE_KEY);
-    setState(seedState());
-  };
+  const clearStore = useCallback(async () => {
+    await signOut();
+    setSessionState(null);
+    setIssues(SEED_ISSUES);
+  }, []);
 
   const value: StoreContextValue = {
-    issues: state.issues,
-    teams: state.teams,
-    fundings: state.fundings,
-    session: state.session,
+    issues,
+    teams,
+    fundings,
+    session,
     universities: UNIVERSITIES,
     funders: FUNDERS,
+    loading,
     setSession,
     submitIssue,
     assignUniversity,
@@ -227,4 +251,4 @@ export function useStore(): StoreContextValue {
   return ctx;
 }
 
-export { STATUS_FLOW, FLAGSHIP_ISSUE };
+export { ISSUE_STATUS_ORDER as STATUS_FLOW };
