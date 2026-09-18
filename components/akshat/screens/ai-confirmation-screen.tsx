@@ -99,7 +99,7 @@ export const AIConfirmationScreen = ({
         <div className="space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
           <div className="flex items-center justify-between border-b border-slate-200 pb-2 text-xs">
             <span className="font-medium text-slate-700">{t("trackingRef", "Tracking Reference")}</span>
-            <span className="font-mono font-bold text-slate-900">#{displayId}-RANCHI</span>
+            <span className="font-mono font-bold text-slate-900">#{displayId}-JODHPUR</span>
           </div>
           <div className="flex items-center justify-between border-b border-slate-200 pb-2 text-xs">
             <span className="font-medium text-slate-700">{t("assignedUrgency", "Assigned Urgency")}</span>

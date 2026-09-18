@@ -9,11 +9,11 @@ import type {
 
 export const PRIMARY_ISSUE: Issue = {
   id: "lok-001",
-  title: "Water supply not available in Village X, Ranchi",
+  title: "Water supply not available in Sardarpura, Jodhpur",
   category: "Water Resources",
   description:
-    "The main pipeline feeding the community water tap has been fractured for 3 weeks, leaving over 50 families without clean municipal drinking water. Villagers currently commute 4 km to fetch untreated pond water.",
-  location: "Village X, Ranchi, Jharkhand",
+    "The main pipeline feeding the community water tap has been fractured for 3 weeks, leaving over 50 families without clean municipal drinking water. Residents currently commute 4 km to fetch untreated pond water.",
+  location: "Sardarpura, Jodhpur, Rajasthan",
   distance: "2.4 km",
   peopleAffected: 50,
   severity: "High",
@@ -25,7 +25,7 @@ export const PRIMARY_ISSUE: Issue = {
   upvotes: 48,
   commentsCount: 14,
   updatesCount: 3,
-  assignedUniversity: "BIT Mesra",
+  assignedUniversity: "IIT Jodhpur",
   matchScore: 94,
 };
 
@@ -298,7 +298,7 @@ export const CITIZEN_NOTIFICATIONS: CitizenNotification[] = [
     id: "ntf-1",
     type: "update",
     title: "Water issue update in Sector 12",
-    body: "BIT Mesra team started a field assessment for the fractured pipeline you upvoted.",
+    body: "IIT Jodhpur team started a field assessment for the fractured pipeline you upvoted.",
     timeAgo: "12 min ago",
   },
   {
@@ -319,7 +319,7 @@ export const CITIZEN_NOTIFICATIONS: CitizenNotification[] = [
     id: "ntf-4",
     type: "volunteer",
     title: "12 new volunteers joined your district",
-    body: "Ranchi gained 12 civic volunteers this week — 3 issues already solved by them.",
+    body: "Jodhpur gained 12 civic volunteers this week — 3 issues already solved by them.",
     timeAgo: "5 hrs ago",
   },
   {
@@ -333,7 +333,7 @@ export const CITIZEN_NOTIFICATIONS: CitizenNotification[] = [
     id: "ntf-6",
     type: "update",
     title: "New comment on your upvoted issue",
-    body: "Ravi Kumar replied on \u201CWater supply not available in Village X\u201D — 7 replies so far.",
+    body: "Ravi Kumar replied on \u201CWater supply not available in Sardarpura\u201D — 7 replies so far.",
     timeAgo: "2 days ago",
   },
 ];

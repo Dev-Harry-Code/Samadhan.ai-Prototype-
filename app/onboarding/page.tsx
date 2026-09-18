@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   ArrowRight,
@@ -19,6 +19,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { DocumentUploader } from "@/components/ui/document-uploader";
 import { cn } from "@/lib/utils";
+import { fetchSession } from "@/lib/api/client";
+import { useStore } from "@/lib/store/store";
 
 type PortalRole = "citizen" | "university" | "ngo" | "company";
 
@@ -63,6 +65,7 @@ const ROLE_CONFIGS: Record<
 function OnboardingForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { updateCitizenProfile } = useStore();
   const initialRole = (searchParams.get("role") as PortalRole) || "citizen";
 
   const [activeRole, setActiveRole] = useState<PortalRole>(
@@ -73,9 +76,26 @@ function OnboardingForm() {
 
   // Common fields
   const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [pinCode, setPinCode] = useState("");
+
+  // Prefill real logged-in credentials (Gmail-style name derived from account email)
+  useEffect(() => {
+    let cancelled = false;
+    fetchSession()
+      .then((res) => {
+        if (cancelled || !res?.user) return;
+        setEmail((prev) => prev || res.user.email || "");
+        setFullName((prev) => prev || res.user.name || "");
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // Citizen fields
   const [area, setArea] = useState("");
@@ -158,6 +178,20 @@ function OnboardingForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setBusy(true);
+
+    if (activeRole === "citizen") {
+      updateCitizenProfile({
+        name: fullName.trim(),
+        email: email.trim(),
+        phone: phone.trim() || undefined,
+        state: state.trim(),
+        city: city.trim(),
+        pinCode: pinCode.trim(),
+        area: area.trim(),
+        ward: area.trim().match(/Ward\s*(\d+)/i)?.[1] ?? undefined,
+        interests,
+      });
+    }
 
     try {
       if (activeRole === "company") {
@@ -319,6 +353,24 @@ function OnboardingForm() {
                 />
               </div>
 
+              <div>
+                <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">
+                  Email Address (Account)
+                </label>
+                <input
+                  readOnly
+                  value={email}
+                  type="email"
+                  tabIndex={-1}
+                  title="Email is set by your login account"
+                  className="w-full cursor-not-allowed rounded-xl border border-slate-300 bg-slate-100 px-4 py-3 text-sm text-slate-600 focus:outline-none"
+                  placeholder="Your registered login email"
+                />
+                <p className="mt-1 text-[11px] font-medium text-teal-700">
+                  Login credential from your account — used as your unique citizen username.
+                </p>
+              </div>
+
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">
@@ -370,6 +422,21 @@ function OnboardingForm() {
                     <span>Jodhpur</span>
                   </button>
                 </div>
+              </div>
+
+              <div>
+                <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700">
+                  Mobile Number (Optional)
+                </label>
+                <input
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  type="tel"
+                  inputMode="numeric"
+                  pattern="[0-9+\s-]{7,15}"
+                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 transition focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20 focus:outline-none"
+                  placeholder="e.g. 98765 43210"
+                />
               </div>
             </div>
 

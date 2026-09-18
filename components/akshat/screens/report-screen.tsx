@@ -193,7 +193,7 @@ export const ReportIssueScreen = ({ setScreen, onDraftChange }: ReportIssueScree
           <div className="flex w-full items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm">
             <div className="flex items-center gap-2.5">
               <MapPin className="h-4 w-4 flex-shrink-0 text-teal-600" />
-              <span className="font-medium text-slate-900">{t("reportLocation", "Sardarpura, Jodhpur, Rajasthan (Ward 1)")}</span>
+              <span className="font-medium text-slate-900">{t("reportLocation", "Mogra Kalan, Jodhpur, Rajasthan")}</span>
             </div>
             <span className="rounded border border-teal-200 bg-teal-50 px-2 py-0.5 font-mono text-xs font-bold text-teal-700">{t("accuracyLabel", "Accuracy: 4m")}</span>
           </div>

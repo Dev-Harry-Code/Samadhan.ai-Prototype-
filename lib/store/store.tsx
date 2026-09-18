@@ -5,7 +5,7 @@ import { createContext, useCallback, useContext, useEffect, useState, type React
 import { api, isApiError, signOut } from "@/lib/api/client";
 import type { ApiIssue, ApiSessionUser } from "@/lib/api/models";
 import { daysAgoFromIso } from "@/lib/akshat-mapper";
-import { FUNDERS, SEED_ISSUES, UNIVERSITIES, matchFor } from "@/lib/data/mock-data";
+import { FUNDERS, UNIVERSITIES, matchFor } from "@/lib/data/mock-data";
 import type {
   DraftIssue,
   Funder,
@@ -16,15 +16,42 @@ import type {
 } from "@/lib/types";
 import { ISSUE_STATUS_ORDER } from "@/lib/types";
 
+export interface CitizenProfile {
+  name?: string;
+  email?: string;
+  phone?: string;
+  state?: string;
+  city?: string;
+  pinCode?: string;
+  area?: string;
+  ward?: string;
+  interests?: string[];
+  avatarUrl?: string;
+}
+
+const PROFILE_STORAGE_KEY = "samadhan.citizen.profile";
+
+function loadCitizenProfile(): CitizenProfile | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem(PROFILE_STORAGE_KEY);
+    return raw ? (JSON.parse(raw) as CitizenProfile) : null;
+  } catch {
+    return null;
+  }
+}
+
 interface StoreContextValue {
   issues: Issue[];
   teams: Record<string, { issueId: string; universityId: string; formedAt: number }>;
   fundings: Record<string, { funderId: string; amount: number; note: string; date: number }>;
-  session: { name: string; role: string } | null;
+  session: { name: string; role: string; email?: string } | null;
+  citizenProfile: CitizenProfile | null;
   universities: University[];
   funders: Funder[];
   loading: boolean;
   setSession: (name: string | null, role: string | null) => void;
+  updateCitizenProfile: (profile: CitizenProfile) => void;
   submitIssue: (draft: DraftIssue) => Promise<Issue | null>;
   assignUniversity: (issueId: string, universityId: string, score: number) => Promise<void>;
   setStatus: (issueId: string, status: IssueStatus) => Promise<void>;
@@ -95,8 +122,9 @@ function buildLocalIssue(draft: DraftIssue, existing: Issue[]): Issue {
 }
 
 export function StoreProvider({ children }: { children: ReactNode }) {
-  const [issues, setIssues] = useState<Issue[]>(SEED_ISSUES);
-  const [session, setSessionState] = useState<{ name: string; role: string } | null>(null);
+  const [issues, setIssues] = useState<Issue[]>([]);
+  const [session, setSessionState] = useState<{ name: string; role: string; email?: string } | null>(null);
+  const [citizenProfile, setCitizenProfile] = useState<CitizenProfile | null>(() => loadCitizenProfile());
   const [loading, setLoading] = useState(true);
   const [teams] = useState<StoreContextValue["teams"]>({});
   const [fundings] = useState<StoreContextValue["fundings"]>({});
@@ -115,6 +143,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         setSessionState({
           name: sessionResult.value.user.name,
           role: sessionResult.value.user.role,
+          email: sessionResult.value.user.email,
         });
       }
       setLoading(false);
@@ -126,6 +155,15 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const setSession = useCallback((name: string | null, role: string | null) => {
     setSessionState(name ? { name, role: role ?? "citizen" } : null);
+  }, []);
+
+  const updateCitizenProfile = useCallback((profile: CitizenProfile) => {
+    setCitizenProfile(profile);
+    try {
+      window.localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profile));
+    } catch {
+      /* storage unavailable */
+    }
   }, []);
 
   const submitIssue = useCallback(
@@ -221,7 +259,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const clearStore = useCallback(async () => {
     await signOut();
     setSessionState(null);
-    setIssues(SEED_ISSUES);
+    setIssues([]);
+    setCitizenProfile(null);
+    try {
+      window.localStorage.removeItem(PROFILE_STORAGE_KEY);
+    } catch {
+      /* storage unavailable */
+    }
   }, []);
 
   const value: StoreContextValue = {
@@ -229,10 +273,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     teams,
     fundings,
     session,
+    citizenProfile,
     universities: UNIVERSITIES,
     funders: FUNDERS,
     loading,
     setSession,
+    updateCitizenProfile,
     submitIssue,
     assignUniversity,
     setStatus,
