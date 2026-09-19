@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { Avatar } from "@/components/ui/avatar";
 import { SamadhanLogoIcon } from "@/components/akshat/common/samadhan-logo";
 import { CivicBackground } from "@/components/akshat/common/civic-background";
+import { signOut } from "@/lib/api/client";
 
 export interface PortalNavItem {
   href: string;
@@ -58,6 +59,7 @@ export function PortalAppShell({
     } catch {
       /* storage unavailable */
     }
+    void signOut();
     router.replace("/login");
   };
 

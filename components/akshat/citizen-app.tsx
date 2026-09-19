@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import type { Issue, ScreenId } from "@/lib/akshat-types";
 import type { DraftIssue } from "@/lib/types";
-import { NEARBY_ISSUES, PRIMARY_ISSUE } from "@/lib/data/akshat-mock";
 import { api } from "@/lib/api/client";
 import type { AnalyzeResponse } from "@/server/ai/types";
 import { storeIssueToAkshat } from "@/lib/akshat-mapper";
@@ -32,18 +31,15 @@ function makePendingId(): string {
 
 export function AkshatCitizenApp() {
   const [currentScreen, setScreen] = useState<ScreenId>("home");
-  const [selectedIssue, setSelectedIssue] = useState<Issue>(PRIMARY_ISSUE);
+  const [selectedIssue, setSelectedIssue] = useState<Issue | null>(null);
 
   const [draft, setDraft] = useState<DraftIssue | null>(null);
   const [analysis, setAnalysis] = useState<AnalyzeResponse | null>(null);
-  const { issues: storeIssues, loading: storeLoading, submitIssue } = useStore();
+  const { issues: storeIssues, submitIssue } = useStore();
 
   const [pendingId] = useState<string>(() => makePendingId());
 
-  const feedIssues = useMemo(() => {
-    if (!storeLoading && storeIssues.length > 0) return storeIssues.map(storeIssueToAkshat);
-    return [PRIMARY_ISSUE, ...NEARBY_ISSUES];
-  }, [storeIssues, storeLoading]);
+  const feedIssues = useMemo(() => storeIssues.map(storeIssueToAkshat), [storeIssues]);
 
   const runAnalysis = useCallback(async (d: DraftIssue) => {
     try {
@@ -159,6 +155,15 @@ export function AkshatCitizenApp() {
           />
         );
       case "issue_details":
+        if (!selectedIssue) {
+          return (
+            <IssuesFeedScreen
+              setScreen={navigateTo}
+              setSelectedIssue={setSelectedIssue}
+              feedIssues={feedIssues}
+            />
+          );
+        }
         return <IssueDetailsScreen setScreen={navigateTo} selectedIssue={selectedIssue} />;
       case "profile":
         return <UserProfileScreen setScreen={navigateTo} />;

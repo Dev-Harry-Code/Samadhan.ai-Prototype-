@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   Award,
@@ -18,24 +17,32 @@ import {
 
 import type { ScreenId } from "@/lib/akshat-types";
 import { useAkshat } from "@/components/akshat/akshat-context";
+import { Avatar } from "@/components/ui/avatar";
+import { signOut } from "@/lib/api/client";
+import { useStore } from "@/lib/store/store";
 
 interface UserProfileScreenProps {
   setScreen: (screen: ScreenId) => void;
 }
 
-const PROFILE_AVATAR =
-  "https://images.pexels.com/photos/36292200/pexels-photo-36292200.jpeg?auto=compress&cs=tinysrgb&w=200";
-
 export const UserProfileScreen = ({ setScreen }: UserProfileScreenProps) => {
   const router = useRouter();
   const { t } = useAkshat();
+  const { session, citizenProfile } = useStore();
 
-  const signOut = () => {
+  const displayName = citizenProfile?.name?.trim() || session?.name || t("userName", "Citizen");
+  const displayEmail = citizenProfile?.email?.trim() || session?.email || "";
+  const locationLine = [citizenProfile?.area, citizenProfile?.city, citizenProfile?.state]
+    .filter(Boolean)
+    .join(", ");
+
+  const logout = () => {
     try {
       window.sessionStorage.removeItem("samadhan.citizen");
     } catch {
       /* storage unavailable */
     }
+    void signOut();
     setScreen("auth");
     router.replace("/login");
   };
@@ -49,15 +56,11 @@ export const UserProfileScreen = ({ setScreen }: UserProfileScreenProps) => {
 
         <div className="relative px-5 pb-6 pt-0">
           <div className="mb-4 flex items-end justify-between -mt-12 sm:-mt-14">
-            <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl border-4 border-white bg-slate-100 shadow-md sm:h-24 sm:w-24">
-              <Image
-                src={PROFILE_AVATAR}
-                alt={t("profileAlt", "Profile")}
-                fill
-                sizes="96px"
-                className="object-cover"
-              />
-            </div>
+            <Avatar
+              name={displayName}
+              size="lg"
+              className="h-20 w-20 flex-shrink-0 border-4 border-white shadow-md sm:h-24 sm:w-24"
+            />
 
             <button
               onClick={() => setScreen("report")}
@@ -71,7 +74,7 @@ export const UserProfileScreen = ({ setScreen }: UserProfileScreenProps) => {
           <div className="space-y-1.5">
             <div className="flex flex-wrap items-center gap-2">
               <h2 className="text-xl font-black tracking-tight text-slate-900 sm:text-2xl">
-                {t("userName", "Aarav Mehta")}
+                {displayName}
               </h2>
               <span className="flex items-center gap-1 rounded-full border border-amber-200 bg-amber-50 px-2.5 py-0.5 text-[11px] font-bold text-amber-800">
                 <Trophy className="h-3.5 w-3.5 text-amber-600" />
@@ -80,7 +83,10 @@ export const UserProfileScreen = ({ setScreen }: UserProfileScreenProps) => {
             </div>
 
             <p className="text-xs font-medium text-slate-700 sm:text-sm">
-              {t("verifiedSolver", "Verified Community Solver • Ranchi Municipal District")}
+              {t("verifiedSolver", "Verified Community Solver • Jodhpur Municipal Region")}
+            </p>
+            <p className="truncate text-[11px] font-semibold text-teal-700">
+              {displayEmail || (locationLine ? locationLine : t("reportLocation", "Sardarpura, Jodhpur, Rajasthan (Ward 1)"))}
             </p>
           </div>
 
@@ -96,7 +102,7 @@ export const UserProfileScreen = ({ setScreen }: UserProfileScreenProps) => {
               ></div>
             </div>
             <div className="mt-1.5 flex justify-between text-[11px] text-slate-700">
-              <span>{t("rankInWard", "Rank #1 in Ranchi Ward 14")}</span>
+              <span>{t("rankInWard", "Rank #1 in Jodhpur Ward 1")}</span>
               <span>{t("xpToLevel", "150 XP to Level 8")}</span>
             </div>
           </div>
@@ -196,7 +202,7 @@ export const UserProfileScreen = ({ setScreen }: UserProfileScreenProps) => {
           <span>{t("accountNotifications", "Account & Notifications")}</span>
         </button>
         <button
-          onClick={signOut}
+          onClick={logout}
           className="flex flex-shrink-0 items-center justify-center gap-1.5 rounded-2xl border border-rose-200 bg-rose-50 px-5 py-3.5 text-xs font-bold text-rose-700 transition-colors hover:bg-rose-100"
         >
           <LogOut className="h-4 w-4 text-rose-600" />

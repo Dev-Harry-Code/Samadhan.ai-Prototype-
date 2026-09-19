@@ -1,11 +1,12 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import Image from "next/image";
-import { useState } from "react";
-import { ArrowRight, MapPin, Radio, ThumbsUp } from "lucide-react";
+import { ArrowRight, MapPin, Plus, Radio, ThumbsUp } from "lucide-react";
 
 import type { Issue, ScreenId } from "@/lib/akshat-types";
-import { NEARBY_ISSUES, PRIMARY_ISSUE } from "@/lib/data/akshat-mock";
+import { storeIssueToAkshat } from "@/lib/akshat-mapper";
+import { useStore } from "@/lib/store/store";
 import { cn } from "@/lib/utils";
 import { useAkshat } from "@/components/akshat/akshat-context";
 import {
@@ -24,9 +25,13 @@ export const RecentIssuesFeedWidget = ({
   setSelectedIssue,
 }: RecentIssuesFeedWidgetProps) => {
   const { t } = useAkshat();
+  const { issues: storeIssues } = useStore();
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
-  const issues = [PRIMARY_ISSUE, ...NEARBY_ISSUES.slice(0, 2)];
+  const issues = useMemo(
+    () => storeIssues.slice(0, 3).map(storeIssueToAkshat),
+    [storeIssues],
+  );
 
   const handleImageError = (id: string) => {
     setImageErrors(prev => ({ ...prev, [id]: true }));
@@ -59,67 +64,88 @@ export const RecentIssuesFeedWidget = ({
         </button>
       </div>
 
-      <div className="my-auto space-y-2.5">
-        {issues.map((issue) => (
-          <div
-            key={issue.id}
-            onClick={() => {
-              setSelectedIssue(issue);
-              setScreen("issue_details");
-            }}
-            className="group flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 transition-all duration-200 hover:border-teal-300 hover:bg-slate-100/90"
-          >
-            <div className="relative flex h-14 w-14 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-slate-100 sm:h-16 sm:w-16">
-              {!imageErrors[issue.id] ? (
-                <Image
-                  src={issue.imageUrl}
-                  alt={issueField(t, issue, "title", issue.title)}
-                  fill
-                  sizes="64px"
-                  onError={() => handleImageError(issue.id)}
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-              ) : (
-                <div className="flex h-full w-full flex-col items-center justify-center bg-teal-50 text-teal-700">
-                  <MapPin className="h-5 w-5 text-teal-600" />
-                </div>
-              )}
-            </div>
-
-            <div className="min-w-0 flex-1">
-              <div className="mb-1 flex flex-wrap items-center gap-1.5">
-                <span className="rounded border border-teal-100 bg-teal-50 px-1.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-teal-700">
-                  {categoryText(t, issue.category)}
-                </span>
-                <span
-                  className={cn(
-                    "rounded-full px-1.5 py-0.5 text-[9px] font-bold",
-                    issue.status === "Resolved"
-                      ? "border border-teal-200 bg-teal-50 text-teal-700"
-                      : issue.status === "In progress"
-                        ? "border border-amber-200 bg-amber-50 text-amber-800"
-                        : "border border-orange-200 bg-orange-50 text-orange-800",
-                  )}
-                >
-                  {statusText(t, issue.status)}
-                </span>
-              </div>
-              <h4 className="truncate text-xs font-bold text-slate-900 transition-colors group-hover:text-teal-700 sm:text-sm">
-                {issueField(t, issue, "title", issue.title)}
-              </h4>
-              <p className="mt-0.5 flex items-center gap-1 truncate text-[11px] text-slate-700">
-                <MapPin className="h-3 w-3 flex-shrink-0 text-slate-700" />
-                <span className="truncate">{issueField(t, issue, "location", issue.location)} • {issue.distance || "1.4 km"}</span>
-              </p>
-            </div>
-
-            <div className="flex flex-shrink-0 items-center gap-1 rounded-xl border border-slate-200 bg-white px-2.5 py-1 text-xs font-bold text-slate-700 shadow-xs transition-all group-hover:border-teal-300 group-hover:text-teal-700">
-              <ThumbsUp className="h-3.5 w-3.5 text-teal-600" />
-              <span>{issue.upvotes}</span>
-            </div>
+      {issues.length === 0 ? (
+        <div className="my-auto flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center">
+          <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl border border-teal-200 bg-teal-50 text-teal-700">
+            <MapPin className="h-6 w-6" />
           </div>
-        ))}
-      </div>
+          <p className="text-sm font-bold text-slate-900">
+            {t("noIssuesYet", "No issues reported yet")}
+          </p>
+          <p className="mt-1 max-w-[220px] text-[11px] leading-relaxed text-slate-700">
+            {t("noIssuesYetHint", "Be the first citizen to report a civic issue in your ward.")}
+          </p>
+          <button
+            onClick={() => setScreen("report")}
+            className="mt-4 flex items-center gap-1.5 rounded-xl bg-teal-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all hover:scale-105 hover:bg-teal-700 active:scale-95"
+          >
+            <Plus className="h-3.5 w-3.5 stroke-[2.5]" />
+            <span>{t("reportFirstIssue", "Report First Issue")}</span>
+          </button>
+        </div>
+      ) : (
+        <div className="my-auto space-y-2.5">
+          {issues.map((issue) => (
+            <div
+              key={issue.id}
+              onClick={() => {
+                setSelectedIssue(issue);
+                setScreen("issue_details");
+              }}
+              className="group flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 transition-all duration-200 hover:border-teal-300 hover:bg-slate-100/90"
+            >
+              <div className="relative flex h-14 w-14 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-slate-100 sm:h-16 sm:w-16">
+                {!imageErrors[issue.id] ? (
+                  <Image
+                    src={issue.imageUrl}
+                    alt={issueField(t, issue, "title", issue.title)}
+                    fill
+                    sizes="64px"
+                    onError={() => handleImageError(issue.id)}
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="flex h-full w-full flex-col items-center justify-center bg-teal-50 text-teal-700">
+                    <MapPin className="h-5 w-5 text-teal-600" />
+                  </div>
+                )}
+              </div>
+
+              <div className="min-w-0 flex-1">
+                <div className="mb-1 flex flex-wrap items-center gap-1.5">
+                  <span className="rounded border border-teal-100 bg-teal-50 px-1.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-teal-700">
+                    {categoryText(t, issue.category)}
+                  </span>
+                  <span
+                    className={cn(
+                      "rounded-full px-1.5 py-0.5 text-[9px] font-bold",
+                      issue.status === "Resolved"
+                        ? "border border-teal-200 bg-teal-50 text-teal-700"
+                        : issue.status === "In progress"
+                          ? "border border-amber-200 bg-amber-50 text-amber-800"
+                          : "border border-orange-200 bg-orange-50 text-orange-800",
+                    )}
+                  >
+                    {statusText(t, issue.status)}
+                  </span>
+                </div>
+                <h4 className="truncate text-xs font-bold text-slate-900 transition-colors group-hover:text-teal-700 sm:text-sm">
+                  {issueField(t, issue, "title", issue.title)}
+                </h4>
+                <p className="mt-0.5 flex items-center gap-1 truncate text-[11px] text-slate-700">
+                  <MapPin className="h-3 w-3 flex-shrink-0 text-slate-700" />
+                  <span className="truncate">{issueField(t, issue, "location", issue.location)} • {issue.distance || "1.4 km"}</span>
+                </p>
+              </div>
+
+              <div className="flex flex-shrink-0 items-center gap-1 rounded-xl border border-slate-200 bg-white px-2.5 py-1 text-xs font-bold text-slate-700 shadow-xs transition-all group-hover:border-teal-300 group-hover:text-teal-700">
+                <ThumbsUp className="h-3.5 w-3.5 text-teal-600" />
+                <span>{issue.upvotes}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -21,6 +21,7 @@ import {
   Users,
 } from "lucide-react";
 import { COMPANY_USER } from "@/lib/data/company-mock";
+import { signOut } from "@/lib/api/client";
 
 const PROFILE_AVATAR =
   "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400";
@@ -34,6 +35,7 @@ export function FunderProfilePage() {
     } catch {
       /* ignore */
     }
+    void signOut();
     router.replace("/login");
   };
 

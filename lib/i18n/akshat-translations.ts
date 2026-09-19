@@ -115,7 +115,7 @@ const AKSHAT_EN: AkshatDict = {
   statActiveCitizens: "Active Citizens",
   statVerifiedSolved: "Verified Solved",
   statNgoPartners: "NGOs & CSR Partners",
-  cityLabel: "Lucknow / Ranchi",
+  cityLabel: "Jodhpur, Rajasthan",
   feedActiveShort: "Active",
   feedSubtitle:
     "Real community challenges submitted with GPS coordinates and photographic evidence",
@@ -126,7 +126,7 @@ const AKSHAT_EN: AkshatDict = {
   autoLocationTagging: "Automatic location tagging enabled",
   autoGpsLocation: "Auto-Detected GPS Location",
   gpsExifVerified: "GPS EXIF Verified",
-  reportLocation: "Village X, Ranchi, Jharkhand (Ward 14)",
+  reportLocation: "Mogra Kalan, Jodhpur, Rajasthan",
   accuracyLabel: "Accuracy: 4m",
   kmUnit: "km",
   metersUnit: "m",
@@ -148,7 +148,7 @@ const AKSHAT_EN: AkshatDict = {
   estimatedImpact: "Estimated Impact",
   estimatedImpactValue: "50+ Families Cut Off",
   aiMatchPartner: "AI Match Partner",
-  aiMatchPartnerValue: "BIT Mesra Hydrology",
+  aiMatchPartnerValue: "IIT Jodhpur Water Systems",
   reportedDaysBy: "Reported",
   daysAgoFull: "days ago",
   daysAgoShort: "d ago",
@@ -214,9 +214,9 @@ const AKSHAT_EN: AkshatDict = {
   changeLanguageTitle: "Change Platform Language",
   newReport: "New Report",
   civicChampion: "Civic Champion",
-  verifiedSolver: "Verified Community Solver • Ranchi Municipal District",
+  verifiedSolver: "Verified Community Solver • Jodhpur Municipal Region",
   levelContributor: "Level 7 Contributor",
-  rankInWard: "Rank #1 in Ranchi Ward 14",
+  rankInWard: "Rank #1 in Jodhpur Ward 1",
   xpToLevel: "150 XP to Level 8",
   personalImpact: "Personal Civic Impact",
   statReportedIssues: "Reported Issues",
@@ -241,11 +241,11 @@ const AKSHAT_EN: AkshatDict = {
   m_sep: "Sep",
   m_oct: "Oct",
 
-  "issue.lok-001.title": "Water supply not available in Village X, Ranchi",
+  "issue.lok-001.title": "Water supply not available in Sardarpura, Jodhpur",
   "issue.lok-001.description":
     "The main pipeline feeding the community water tap has been fractured for 3 weeks, leaving over 50 families without clean municipal drinking water. Villagers currently commute 4 km to fetch untreated pond water.",
-  "issue.lok-001.location": "Village X, Ranchi, Jharkhand",
-  "issue.lok-001.assignedUniversity": "BIT Mesra",
+  "issue.lok-001.location": "Sardarpura, Jodhpur, Rajasthan",
+  "issue.lok-001.assignedUniversity": "IIT Jodhpur",
   "issue.lok-002.title": "Water pipeline fractured at Sector 12",
   "issue.lok-002.description":
     "Pipe leakage causing zero pressure at community standposts in Sector 12.",
@@ -261,12 +261,12 @@ const AKSHAT_EN: AkshatDict = {
   "issue.LOK-9428.title": "4-inch Fractured PVC Community Drinking Water Pipe",
   "issue.LOK-9428.description":
     "The main pipeline feeding the community water tap has been fractured for 3 weeks, leaving over 50 families without clean municipal drinking water.",
-  "issue.LOK-9428.location": "Village X, Ranchi, Jharkhand (Ward 14)",
-  "issue.LOK-9428.assignedUniversity": "BIT Mesra Hydrology",
+  "issue.LOK-9428.location": "Sardarpura, Jodhpur, Rajasthan (Ward 1)",
+  "issue.LOK-9428.assignedUniversity": "IIT Jodhpur Water Systems",
 
   "notif.ntf-1.title": "Water issue update in Sector 12",
   "notif.ntf-1.body":
-    "BIT Mesra team started a field assessment for the fractured pipeline you upvoted.",
+    "IIT Jodhpur team started a field assessment for the fractured pipeline you upvoted.",
   "notif.ntf-1.timeAgo": "12 min ago",
   "notif.ntf-2.title": "AI verified your neighbourhood report",
   "notif.ntf-2.body":
@@ -278,14 +278,14 @@ const AKSHAT_EN: AkshatDict = {
   "notif.ntf-3.timeAgo": "3 hrs ago",
   "notif.ntf-4.title": "12 new volunteers joined your district",
   "notif.ntf-4.body":
-    "Ranchi gained 12 civic volunteers this week — 3 issues already solved by them.",
+    "Jodhpur gained 12 civic volunteers this week — 3 issues already solved by them.",
   "notif.ntf-4.timeAgo": "5 hrs ago",
   "notif.ntf-5.title": "CSR fund approved for pump repairs",
   "notif.ntf-5.body": "₹6.2L sanctioned to restore 14 handpumps across Ward 9.",
   "notif.ntf-5.timeAgo": "Yesterday",
   "notif.ntf-6.title": "New comment on your upvoted issue",
   "notif.ntf-6.body":
-    "Ravi Kumar replied on \u201CWater supply not available in Village X\u201D — 7 replies so far.",
+    "Ravi Kumar replied on \u201CWater supply not available in Sardarpura\u201D — 7 replies so far.",
   "notif.ntf-6.timeAgo": "2 days ago",
 
   "volunteer.vol-1.role": "Civic Engineer",
@@ -407,7 +407,7 @@ const AKSHAT_HI: AkshatDict = {
   statActiveCitizens: "सक्रिय नागरिक",
   statVerifiedSolved: "सत्यापित रूप से हल",
   statNgoPartners: "एनजीओ एवं सीएसआर साझेदार",
-  cityLabel: "लखनऊ / रांची",
+  cityLabel: "जोधपुर, राजस्थान",
   feedActiveShort: "सक्रिय",
   feedSubtitle: "जीपीएस निर्देशांक और फोटोग्राफिक साक्ष्य के साथ वास्तविक सामुदायिक समस्याएं",
   reportSubtitle: "एआई जांच स्वचालित रूप से सत्यापित एवं वर्गीकृत करेगी",
@@ -417,7 +417,7 @@ const AKSHAT_HI: AkshatDict = {
   autoLocationTagging: "स्वचालित स्थान टैगिंग सक्षम",
   autoGpsLocation: "स्वचालित रूप से पहचाना गया जीपीएस स्थान",
   gpsExifVerified: "जीपीएस EXIF सत्यापित",
-  reportLocation: "गांव X, रांची, झारखंड (वार्ड 14)",
+  reportLocation: "मोगरा कलां, जोधपुर, राजस्थान",
   accuracyLabel: "सटीकता: 4 मी",
   kmUnit: "किमी",
   metersUnit: "मी",
@@ -439,7 +439,7 @@ const AKSHAT_HI: AkshatDict = {
   estimatedImpact: "अनुमानित प्रभाव",
   estimatedImpactValue: "50+ परिवार प्रभावित",
   aiMatchPartner: "एआई मिलान साझेदार",
-  aiMatchPartnerValue: "BIT Mesra Hydrology",
+  aiMatchPartnerValue: "IIT Jodhpur Water Systems",
   reportedDaysBy: "दर्ज किया गया",
   daysAgoFull: "दिन पहले",
   daysAgoShort: "दिन पहले",
@@ -505,9 +505,9 @@ const AKSHAT_HI: AkshatDict = {
   changeLanguageTitle: "प्लेटफॉर्म भाषा बदलें",
   newReport: "नई रिपोर्ट",
   civicChampion: "नागरिक चैंपियन",
-  verifiedSolver: "सत्यापित सामुदायिक सॉल्वर • रांची नगर निगम क्षेत्र",
+  verifiedSolver: "सत्यापित सामुदायिक सॉल्वर • जोधपुर नगर निगम क्षेत्र",
   levelContributor: "स्तर 7 योगदानकर्ता",
-  rankInWard: "रांची वार्ड 14 में रैंक #1",
+  rankInWard: "जोधपुर वार्ड 1 में रैंक #1",
   xpToLevel: "स्तर 8 के लिए 150 XP",
   personalImpact: "व्यक्तिगत नागरिक प्रभाव",
   statReportedIssues: "दर्ज की गई समस्याएं",
@@ -536,7 +536,7 @@ const AKSHAT_HI: AkshatDict = {
   "issue.lok-001.description":
     "सामुदायिक जल नल को पानी देने वाली मुख्य पाइपलाइन 3 सप्ताह से टूटी हुई है, जिससे 50 से अधिक परिवार स्वच्छ नगरपालिका पेयजल से वंचित हैं। ग्रामीणों को 4 किमी दूर जाकर अनुपचारित तालाब का पानी लाना पड़ रहा है।",
   "issue.lok-001.location": "गांव X, रांची, झारखंड",
-  "issue.lok-001.assignedUniversity": "BIT Mesra",
+  "issue.lok-001.assignedUniversity": "IIT Jodhpur",
   "issue.lok-002.title": "सेक्टर 12 में जल पाइपलाइन टूटी",
   "issue.lok-002.description":
     "सेक्टर 12 में सामुदायिक स्टैंडपोस्ट पर पाइप रिसाव के कारण पानी का दबाव शून्य।",
@@ -553,7 +553,7 @@ const AKSHAT_HI: AkshatDict = {
   "issue.LOK-9428.description":
     "सामुदायिक जल नल को पानी देने वाली मुख्य पाइपलाइन 3 सप्ताह से टूटी हुई है, जिससे 50 से अधिक परिवार स्वच्छ नगरपालिका पेयजल से वंचित हैं।",
   "issue.LOK-9428.location": "गांव X, रांची, झारखंड (वार्ड 14)",
-  "issue.LOK-9428.assignedUniversity": "BIT Mesra Hydrology",
+  "issue.LOK-9428.assignedUniversity": "IIT Jodhpur Water Systems",
 
   "notif.ntf-1.title": "सेक्टर 12 में जल समस्या अपडेट",
   "notif.ntf-1.body":
@@ -698,7 +698,7 @@ const AKSHAT_GU: AkshatDict = {
   statActiveCitizens: "સક્રિય નાગરિકો",
   statVerifiedSolved: "ચકાસાયેલ ઉકેલ",
   statNgoPartners: "એનજીઓ અને સીએસઆર ભાગીદારો",
-  cityLabel: "લખનઉ / રાંચી",
+  cityLabel: "જોધપુર, રાજસ્થાન",
   feedActiveShort: "સક્રિય",
   feedSubtitle:
     "GPS કોઓર્ડિનેટ્સ અને ફોટોગ્રાફિક પુરાવા સાથે વાસ્તવિક સમુદાય પડકારો",
@@ -709,7 +709,7 @@ const AKSHAT_GU: AkshatDict = {
   autoLocationTagging: "સ્વચાલિત સ્થાન ટેગિંગ સક્ષમ",
   autoGpsLocation: "આપમેળે શોધાયેલ GPS સ્થાન",
   gpsExifVerified: "GPS EXIF ચકાસાયેલ",
-  reportLocation: "ગામ X, રાંચી, ઝારખંડ (વોર્ડ 14)",
+  reportLocation: "મોગરા કલાં, જોધપુર, રાજસ્થાન",
   accuracyLabel: "ચોકસાઈ: 4 મી",
   kmUnit: "કિમી",
   metersUnit: "મી",
@@ -731,7 +731,7 @@ const AKSHAT_GU: AkshatDict = {
   estimatedImpact: "અંદાજિત અસર",
   estimatedImpactValue: "50+ પરિવારો અસરગ્રસ્ત",
   aiMatchPartner: "એઆઈ મેચ પાર્ટનર",
-  aiMatchPartnerValue: "BIT Mesra Hydrology",
+  aiMatchPartnerValue: "IIT Jodhpur Water Systems",
   reportedDaysBy: "નોંધાયેલ",
   daysAgoFull: "દિવસ પહેલા",
   daysAgoShort: "દિવસ પહેલા",
@@ -797,9 +797,9 @@ const AKSHAT_GU: AkshatDict = {
   changeLanguageTitle: "પ્લેટફોર્મ ભાષા બદલો",
   newReport: "નવો રિપોર્ટ",
   civicChampion: "નાગરિક ચેમ્પિયન",
-  verifiedSolver: "ચકાસાયેલ સામુદાયિક સોલ્વર • રાંચી મ્યુનિસિપલ જિલ્લો",
+  verifiedSolver: "ચકાસાયેલ સામુદાયિક સોલ્વર • જોધપુર મ્યુનિસિપલ વિસ્તાર",
   levelContributor: "સ્તર 7 યોગદાનકર્તા",
-  rankInWard: "રાંચી વોર્ડ 14માં રેન્ક #1",
+  rankInWard: "જોધપુર વોર્ડ 1માં રેન્ક #1",
   xpToLevel: "સ્તર 8 માટે 150 XP",
   personalImpact: "વ્યક્તિગત નાગરિક અસર",
   statReportedIssues: "નોંધાયેલ સમસ્યાઓ",
@@ -828,7 +828,7 @@ const AKSHAT_GU: AkshatDict = {
   "issue.lok-001.description":
     "સામુદાયિક નળને પાણી આપતી મુખ્ય પાઇપલાઇન 3 અઠવાડિયાથી તૂટેલી છે, જેના કારણે 50 થી વધુ પરિવારો સ્વચ્છ નગરપાલિકાના પીવાના પાણીથી વંચિત છે. ગ્રામજનો 4 કિમી દૂર જઈને અશુદ્ધ તળાવનું પાણી લાવવા મજબૂર છે.",
   "issue.lok-001.location": "ગામ X, રાંચી, ઝારખંડ",
-  "issue.lok-001.assignedUniversity": "BIT Mesra",
+  "issue.lok-001.assignedUniversity": "IIT Jodhpur",
   "issue.lok-002.title": "સેક્ટર 12 માં પાણીની પાઇપલાઇન તૂટેલી",
   "issue.lok-002.description":
     "સેક્ટર 12 માં સામુદાયિક સ્ટેન્ડપોસ્ટ પર પાઇપ લીકેજને કારણે દબાણ શૂન્ય.",
@@ -845,7 +845,7 @@ const AKSHAT_GU: AkshatDict = {
   "issue.LOK-9428.description":
     "સામુદાયિક નળને પાણી આપતી મુખ્ય પાઇપલાઇન 3 અઠવાડિયાથી તૂટેલી છે, જેના કારણે 50 થી વધુ પરિવારો સ્વચ્છ નગરપાલિકાના પીવાના પાણીથી વંચિત છે.",
   "issue.LOK-9428.location": "ગામ X, રાંચી, ઝારખંડ (વોર્ડ 14)",
-  "issue.LOK-9428.assignedUniversity": "BIT Mesra Hydrology",
+  "issue.LOK-9428.assignedUniversity": "IIT Jodhpur Water Systems",
 
   "notif.ntf-1.title": "સેક્ટર 12 માં પાણી સમસ્યા અપડેટ",
   "notif.ntf-1.body":
@@ -989,7 +989,7 @@ const AKSHAT_MR: AkshatDict = {
   statActiveCitizens: "सक्रिय नागरिक",
   statVerifiedSolved: "सत्यापित निराकरण",
   statNgoPartners: "एनजीओ व सीएसआर भागीदार",
-  cityLabel: "लखनौ / रांची",
+  cityLabel: "जोधपूर, राजस्थान",
   feedActiveShort: "सक्रिय",
   feedSubtitle:
     "GPS निर्देशांक आणि फोटोग्राफिक पुराव्यासह वास्तविक सामुदायिक आव्हाने",
@@ -1000,7 +1000,7 @@ const AKSHAT_MR: AkshatDict = {
   autoLocationTagging: "स्वयंचलित स्थान टॅगिंग सक्षम",
   autoGpsLocation: "आपोआप ओळखलेले GPS स्थान",
   gpsExifVerified: "GPS EXIF सत्यापित",
-  reportLocation: "गाव X, रांची, झारखंड (वॉर्ड 14)",
+  reportLocation: "मोगरा कलां, जोधपूर, राजस्थान",
   accuracyLabel: "अचूकता: 4 मी",
   kmUnit: "कि.मी.",
   metersUnit: "मी",
@@ -1022,7 +1022,7 @@ const AKSHAT_MR: AkshatDict = {
   estimatedImpact: "अंदाजित परिणाम",
   estimatedImpactValue: "50+ कुटुंबे प्रभावित",
   aiMatchPartner: "एआय जुळणी भागीदार",
-  aiMatchPartnerValue: "BIT Mesra Hydrology",
+  aiMatchPartnerValue: "IIT Jodhpur Water Systems",
   reportedDaysBy: "नोंदवले",
   daysAgoFull: "दिवसांपूर्वी",
   daysAgoShort: "दिवसांपूर्वी",
@@ -1088,9 +1088,9 @@ const AKSHAT_MR: AkshatDict = {
   changeLanguageTitle: "प्लॅटफॉर्म भाषा बदला",
   newReport: "नवीन अहवाल",
   civicChampion: "नागरिक चॅम्पियन",
-  verifiedSolver: "सत्यापित सामुदायिक सॉल्व्हर • रांची नगरपालिका जिल्हा",
+  verifiedSolver: "सत्यापित सामुदायिक सॉल्व्हर • जोधपूर महानगरपालिका क्षेत्र",
   levelContributor: "स्तर 7 योगदानकर्ता",
-  rankInWard: "रांची वॉर्ड 14 मध्ये क्रमांक #1",
+  rankInWard: "जोधपूर वॉर्ड 1 मध्ये क्रमांक #1",
   xpToLevel: "स्तर 8 साठी 150 XP",
   personalImpact: "वैयक्तिक नागरिक प्रभाव",
   statReportedIssues: "नोंदवलेल्या समस्या",
@@ -1119,7 +1119,7 @@ const AKSHAT_MR: AkshatDict = {
   "issue.lok-001.description":
     "सामुदायिक पाण्याच्या नळाला पुरवठा करणारी मुख्य पाइपलाइन ३ आठवड्यांपासून तुटलेली आहे, त्यामुळे ५० पेक्षा जास्त कुटुंबे स्वच्छ नगरपालिकेच्या पिण्याच्या पाण्यापासून वंचित आहेत. ग्रामस्थांना ४ किमी अंतरावर जाऊन उपचार न केलेले तलावाचे पाणी आणावे लागत आहे.",
   "issue.lok-001.location": "गाव X, रांची, झारखंड",
-  "issue.lok-001.assignedUniversity": "BIT Mesra",
+  "issue.lok-001.assignedUniversity": "IIT Jodhpur",
   "issue.lok-002.title": "सेक्टर 12 मध्ये पाण्याची पाइपलाइन तुटलेली",
   "issue.lok-002.description":
     "सेक्टर १२ मधील सामुदायिक स्टँडपोस्टवर पाईप गळतीमुळे दाब शून्य.",
@@ -1136,7 +1136,7 @@ const AKSHAT_MR: AkshatDict = {
   "issue.LOK-9428.description":
     "सामुदायिक पाण्याच्या नळाला पुरवठा करणारी मुख्य पाइपलाइन ३ आठवड्यांपासून तुटलेली आहे, त्यामुळे ५० पेक्षा जास्त कुटुंबे स्वच्छ नगरपालिकेच्या पिण्याच्या पाण्यापासून वंचित आहेत.",
   "issue.LOK-9428.location": "गाव X, रांची, झारखंड (वॉर्ड 14)",
-  "issue.LOK-9428.assignedUniversity": "BIT Mesra Hydrology",
+  "issue.LOK-9428.assignedUniversity": "IIT Jodhpur Water Systems",
 
   "notif.ntf-1.title": "सेक्टर 12 मधील पाण्याच्या समस्येचे अपडेट",
   "notif.ntf-1.body":
@@ -1281,7 +1281,7 @@ const AKSHAT_BN: AkshatDict = {
   statActiveCitizens: "সক্রিয় নাগরিক",
   statVerifiedSolved: "যাচাইকৃত সমাধান",
   statNgoPartners: "এনজিও ও সিএসআর অংশীদার",
-  cityLabel: "লখনউ / রাঁচি",
+  cityLabel: "জোধপুর, রাজস্থান",
   feedActiveShort: "সক্রিয়",
   feedSubtitle:
     "জিপিএস স্থানাঙ্ক এবং ফটোগ্রাফিক প্রমাণসহ বাস্তব নাগরিক চ্যালেঞ্জ",
@@ -1292,7 +1292,7 @@ const AKSHAT_BN: AkshatDict = {
   autoLocationTagging: "স্বয়ংক্রিয় অবস্থান ট্যাগিং সক্রিয়",
   autoGpsLocation: "স্বয়ংক্রিয়ভাবে চিহ্নিত GPS অবস্থান",
   gpsExifVerified: "GPS EXIF যাচাইকৃত",
-  reportLocation: "গ্রাম X, রাঁচি, ঝাড়খণ্ড (ওয়ার্ড 14)",
+  reportLocation: "মোগরা কলা, জোধপুর, রাজস্থান",
   accuracyLabel: "নির্ভুলতা: ৪মি",
   kmUnit: "কিমি",
   metersUnit: "মি",
@@ -1314,7 +1314,7 @@ const AKSHAT_BN: AkshatDict = {
   estimatedImpact: "আনুমানিক প্রভাব",
   estimatedImpactValue: "৫০+ পরিবার বিচ্ছিন্ন",
   aiMatchPartner: "এআই ম্যাচ অংশীদার",
-  aiMatchPartnerValue: "BIT Mesra Hydrology",
+  aiMatchPartnerValue: "IIT Jodhpur Water Systems",
   reportedDaysBy: "রিপোর্ট করা হয়েছে",
   daysAgoFull: "দিন আগে",
   daysAgoShort: "দিন আগে",
@@ -1380,9 +1380,9 @@ const AKSHAT_BN: AkshatDict = {
   changeLanguageTitle: "প্ল্যাটফর্ম ভাষা পরিবর্তন করুন",
   newReport: "নতুন রিপোর্ট",
   civicChampion: "নাগরিক চ্যাম্পিয়ন",
-  verifiedSolver: "যাচাইকৃত কমিউনিটি সলভার • রাঁচি মিউনিসিপ্যাল জেলা",
+  verifiedSolver: "যাচাইকৃত কমিউনিটি সলভার • জোধপুর পৌর এলাকা",
   levelContributor: "লেভেল 7 অবদানকারী",
-  rankInWard: "রাঁচি ওয়ার্ড ১৪-এ র্যাংক #১",
+  rankInWard: "জোধপুর ওয়ার্ড ১-এ র্যাংক #১",
   xpToLevel: "লেভেল ৮-এ ১৫০ এক্সপি",
   personalImpact: "ব্যক্তিগত নাগরিক প্রভাব",
   statReportedIssues: "রিপোর্টকৃত সমস্যা",
@@ -1411,7 +1411,7 @@ const AKSHAT_BN: AkshatDict = {
   "issue.lok-001.description":
     "কমিউনিটি পানির কল-এ পানি সরবরাহকারী মূল পাইপলাইনটি ৩ সপ্তাহ ধরে ভাঙা, যার ফলে ৫০+ পরিবার বিশুদ্ধ পৌর পানীয় জল থেকে বঞ্চিত। গ্রামবাসীদের ৪ কিমি দূরে গিয়ে অপরিশোধিত পুকুরের পানি আনতে হচ্ছে।",
   "issue.lok-001.location": "গ্রাম X, রাঁচি, ঝাড়খণ্ড",
-  "issue.lok-001.assignedUniversity": "BIT Mesra",
+  "issue.lok-001.assignedUniversity": "IIT Jodhpur",
   "issue.lok-002.title": "সেক্টর ১২-এ পানি পাইপলাইন ভাঙা",
   "issue.lok-002.description":
     "সেক্টর ১২-এ কমিউনিটি স্ট্যান্ডপোস্টে পাইপ লিকেজের কারণে চাপ শূন্য।",
@@ -1428,7 +1428,7 @@ const AKSHAT_BN: AkshatDict = {
   "issue.LOK-9428.description":
     "কমিউনিটি পানির কল-এ পানি সরবরাহকারী মূল পাইপলাইনটি ৩ সপ্তাহ ধরে ভাঙা, যার ফলে ৫০+ পরিবার বিশুদ্ধ পৌর পানীয় জল থেকে বঞ্চিত।",
   "issue.LOK-9428.location": "গ্রাম X, রাঁচি, ঝাড়খণ্ড (ওয়ার্ড 14)",
-  "issue.LOK-9428.assignedUniversity": "BIT Mesra Hydrology",
+  "issue.LOK-9428.assignedUniversity": "IIT Jodhpur Water Systems",
 
   "notif.ntf-1.title": "সেক্টর ১২-এ পানি সমস্যার আপডেট",
   "notif.ntf-1.body":
@@ -1572,7 +1572,7 @@ const AKSHAT_TA: AkshatDict = {
   statActiveCitizens: "செயல்படும் குடிமக்கள்",
   statVerifiedSolved: "சரிபார்க்கப்பட்ட தீர்வு",
   statNgoPartners: "என்.ஜி.ஓ & சிஎஸ்ஆர் பங்காளிகள்",
-  cityLabel: "லக்னோ / ராஞ்சி",
+  cityLabel: "ஜோத்பூர், ராஜஸ்தான்",
   feedActiveShort: "செயலில்",
   feedSubtitle:
     "GPS ஆயங்கள் மற்றும் புகைப்பட ஆதாரங்களுடன் உண்மையான சமூக சவால்கள்",
@@ -1583,7 +1583,7 @@ const AKSHAT_TA: AkshatDict = {
   autoLocationTagging: "தானியங்கி இருப்பிட குறியீடு இயக்கப்பட்டது",
   autoGpsLocation: "தானாக கண்டறியப்பட்ட GPS இருப்பிடம்",
   gpsExifVerified: "GPS EXIF சரிபார்க்கப்பட்டது",
-  reportLocation: "ஊர் X, ராஞ்சி, ஜார்க்கண்ட் (வார்டு 14)",
+  reportLocation: "மோக்ரா கலான், ஜோத்பூர், ராஜஸ்தான்",
   accuracyLabel: "துல்லியம்: 4 மீ",
   kmUnit: "கி.மீ",
   metersUnit: "மீ",
@@ -1605,7 +1605,7 @@ const AKSHAT_TA: AkshatDict = {
   estimatedImpact: "மதிப்பிடப்பட்ட தாக்கம்",
   estimatedImpactValue: "50+ குடும்பங்கள் துண்டிக்கப்பட்டன",
   aiMatchPartner: "AI பொருத்த பங்குதாரர்",
-  aiMatchPartnerValue: "BIT Mesra Hydrology",
+  aiMatchPartnerValue: "IIT Jodhpur Water Systems",
   reportedDaysBy: "பதிவு செய்யப்பட்டது",
   daysAgoFull: "நாட்களுக்கு முன்பு",
   daysAgoShort: "நாட்கள் முன்பு",
@@ -1671,9 +1671,9 @@ const AKSHAT_TA: AkshatDict = {
   changeLanguageTitle: "தள மொழியை மாற்றவும்",
   newReport: "புதிய அறிக்கை",
   civicChampion: "நகர சாம்பியன்",
-  verifiedSolver: "சரிபார்க்கப்பட்ட சமூக தீர்வாளர் • ராஞ்சி நகராட்சி மாவட்டம்",
+  verifiedSolver: "சரிபார்க்கப்பட்ட சமூக தீர்வாளர் • ஜோத்பூர் நகராட்சி பகுதி",
   levelContributor: "நிலை 7 பங்களிப்பாளர்",
-  rankInWard: "ராஞ்சி வார்டு 14-இல் தரவரிசை #1",
+  rankInWard: "ஜோத்பூர் வார்டு 1-இல் தரவரிசை #1",
   xpToLevel: "நிலை 8-க்கு 150 XP",
   personalImpact: "தனிப்பட்ட நகர தாக்கம்",
   statReportedIssues: "புகாரளிக்கப்பட்ட பிரச்சனைகள்",
@@ -1702,7 +1702,7 @@ const AKSHAT_TA: AkshatDict = {
   "issue.lok-001.description":
     "சமூகக் குழாய்க்கு தண்ணீர் வழங்கும் முக்கிய குழாய் 3 வாரங்களாக உடைந்துள்ளதால், 50+ குடும்பங்கள் சுத்தமான மாநகர குடிநீர் இன்றி உள்ளனர். கிராமவாசிகள் 4 கிமீ தொலைவு சென்று சுத்திகரிக்கப்படாத குளத்து நீரை கொண்டு வரவேண்டியுள்ளது.",
   "issue.lok-001.location": "ஊர் X, ராஞ்சி, ஜார்க்கண்ட்",
-  "issue.lok-001.assignedUniversity": "BIT Mesra",
+  "issue.lok-001.assignedUniversity": "IIT Jodhpur",
   "issue.lok-002.title": "செக்டார் 12-இல் நீர் குழாய் உடைந்தது",
   "issue.lok-002.description":
     "செக்டார் 12-இல் சமூக நீர் நிலைப்புள்ளிகளில் குழாய் கசிவால் அழுத்தம் இல்லை.",
@@ -1719,7 +1719,7 @@ const AKSHAT_TA: AkshatDict = {
   "issue.LOK-9428.description":
     "சமூகக் குழாய்க்கு தண்ணீர் வழங்கும் முக்கிய குழாய் 3 வாரங்களாக உடைந்துள்ளதால், 50+ குடும்பங்கள் சுத்தமான மாநகர குடிநீர் இன்றி உள்ளனர்.",
   "issue.LOK-9428.location": "ஊர் X, ராஞ்சி, ஜார்க்கண்ட் (வார்டு 14)",
-  "issue.LOK-9428.assignedUniversity": "BIT Mesra Hydrology",
+  "issue.LOK-9428.assignedUniversity": "IIT Jodhpur Water Systems",
 
   "notif.ntf-1.title": "செக்டார் 12-இல் நீர் பிரச்சனை புதுப்பிப்பு",
   "notif.ntf-1.body":
@@ -1863,7 +1863,7 @@ const AKSHAT_TE: AkshatDict = {
   statActiveCitizens: "చురుకైన పౌరులు",
   statVerifiedSolved: "ధృవీకరించబడిన పరిష్కారం",
   statNgoPartners: "NGO & CSR భాగస్వాములు",
-  cityLabel: "లక్నో / రాంచీ",
+  cityLabel: "జోధ్పూర్, రాజస్థాన్",
   feedActiveShort: "యాక్టివ్",
   feedSubtitle:
     "GPS కోఆర్డినేట్‌లు మరియు ఫోటోగ్రాఫిక్ ఆధారాలతో వాస్తవ సమాజ సవాళ్లు",
@@ -1874,7 +1874,7 @@ const AKSHAT_TE: AkshatDict = {
   autoLocationTagging: "స్వయంచాలక లొకేషన్ ట్యాగింగ్ ప్రారంభించబడింది",
   autoGpsLocation: "స్వయంచాలకంగా గుర్తించబడిన GPS లొకేషన్",
   gpsExifVerified: "GPS EXIF ధృవీకరించబడింది",
-  reportLocation: "గ్రామం X, రాంచీ, జార్ఖండ్ (వార్డు 14)",
+  reportLocation: "మొగ్రా కలాన్, జోధ్పూర్, రాజస్థాన్",
   accuracyLabel: "ఖచ్చితత్వం: 4 మీ",
   kmUnit: "కి.మీ",
   metersUnit: "మీ",
@@ -1896,7 +1896,7 @@ const AKSHAT_TE: AkshatDict = {
   estimatedImpact: "అంచనా ప్రభావం",
   estimatedImpactValue: "50+ కుటుంబాలు ప్రభావితం",
   aiMatchPartner: "AI మ్యాచ్ భాగస్వామి",
-  aiMatchPartnerValue: "BIT Mesra Hydrology",
+  aiMatchPartnerValue: "IIT Jodhpur Water Systems",
   reportedDaysBy: "నివేదించబడింది",
   daysAgoFull: "రోజుల క్రితం",
   daysAgoShort: "రోజుల క్రితం",
@@ -1962,9 +1962,9 @@ const AKSHAT_TE: AkshatDict = {
   changeLanguageTitle: "ప్లాట్‌ఫారమ్ భాషను మార్చండి",
   newReport: "కొత్త నివేదిక",
   civicChampion: "పౌర ఛాంపియన్",
-  verifiedSolver: "ధృవీకరించబడిన సమాజ పరిష్కర్త • రాంచీ మునిసిపల్ జిల్లా",
+  verifiedSolver: "ధృవీకరించబడిన సమాజ పరిష్కర్త • జోధ్పూర్ మునిసిపల్ ప్రాంతం",
   levelContributor: "స్థాయి 7 సహకారి",
-  rankInWard: "రాంచీ వార్డు 14లో ర్యాంక్ #1",
+  rankInWard: "జోధ్పూర్ వార్డు 1లో ర్యాంక్ #1",
   xpToLevel: "స్థాయి 8కి 150 XP",
   personalImpact: "వ్యక్తిగత పౌర ప్రభావం",
   statReportedIssues: "నివేదించిన సమస్యలు",
@@ -1993,7 +1993,7 @@ const AKSHAT_TE: AkshatDict = {
   "issue.lok-001.description":
     "కమ్యూనిటీ కుళాయికి నీరు అందించే ప్రధాన పైప్‌లైన్ 3 వారాలుగా విరిగి ఉండటంతో 50+ కుటుంబాలు శుద్ధమైన మున్సిపల్ తాగునీరు లేకుండా పోయాయి. గ్రామస్తులు 4 కిమీ దూరం వెళ్లి శుద్ధి చేయని చెరువు నీటిని తీసుకురావాల్సి వస్తోంది.",
   "issue.lok-001.location": "గ్రామం X, రాంచీ, జార్ఖండ్",
-  "issue.lok-001.assignedUniversity": "BIT Mesra",
+  "issue.lok-001.assignedUniversity": "IIT Jodhpur",
   "issue.lok-002.title": "సెక్టార్ 12లో నీటి పైప్‌లైన్ విరిగింది",
   "issue.lok-002.description":
     "సెక్టార్ 12లో కమ్యూనిటీ స్టాండ్‌పోస్టుల వద్ద పైపు లీకేజీ వల్ల ఒత్తిడి సున్నా.",
@@ -2010,7 +2010,7 @@ const AKSHAT_TE: AkshatDict = {
   "issue.LOK-9428.description":
     "కమ్యూనిటీ కుళాయికి నీరు అందించే ప్రధాన పైప్‌లైన్ 3 వారాలుగా విరిగి ఉండటంతో 50+ కుటుంబాలు శుద్ధమైన మున్సిపల్ తాగునీరు లేకుండా పోయాయి.",
   "issue.LOK-9428.location": "గ్రామం X, రాంచీ, జార్ఖండ్ (వార్డు 14)",
-  "issue.LOK-9428.assignedUniversity": "BIT Mesra Hydrology",
+  "issue.LOK-9428.assignedUniversity": "IIT Jodhpur Water Systems",
 
   "notif.ntf-1.title": "సెక్టార్ 12లో నీటి సమస్య అప్‌డేట్",
   "notif.ntf-1.body":

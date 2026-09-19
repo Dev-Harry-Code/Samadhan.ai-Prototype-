@@ -20,6 +20,7 @@ import type { DiscussionComment, Issue, ScreenId } from "@/lib/akshat-types";
 import { api } from "@/lib/api/client";
 import type { ApiComment, ApiIssueDetail } from "@/lib/api/models";
 import { apiCommentToAkshat } from "@/lib/akshat-mapper";
+import { useStore } from "@/lib/store/store";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SafeIssueImage } from "@/components/akshat/safe-issue-image";
@@ -36,11 +37,10 @@ interface IssueDetailsScreenProps {
   selectedIssue: Issue;
 }
 
-const CURRENT_USER_AVATAR =
-  "https://images.pexels.com/photos/13111211/pexels-photo-13111211.jpeg?auto=compress&cs=tinysrgb&w=120";
-
 export const IssueDetailsScreen = ({ setScreen, selectedIssue }: IssueDetailsScreenProps) => {
   const { t } = useAkshat();
+  const { session } = useStore();
+  const currentUserName = session?.name || t("userName", "Citizen");
   const [comments, setComments] = useState<DiscussionComment[]>([]);
   const [newComment, setNewComment] = useState("");
   const [hasUpvoted, setHasUpvoted] = useState(false);
@@ -77,9 +77,8 @@ export const IssueDetailsScreen = ({ setScreen, selectedIssue }: IssueDetailsScr
     if (!newComment.trim()) return;
     const localComment: DiscussionComment = {
       id: `c-${Date.now()}`,
-      authorName: t("userName", "Aarav Mehta"),
+      authorName: currentUserName,
       authorRole: t("verifiedCitizen", "Verified Citizen"),
-      avatarUrl: CURRENT_USER_AVATAR,
       daysAgo: t("justNow", "Just now"),
       text: newComment,
       upvotes: 0,
@@ -204,15 +203,7 @@ export const IssueDetailsScreen = ({ setScreen, selectedIssue }: IssueDetailsScr
           </div>
 
           <div className="mb-6 flex gap-3">
-            <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-xl border border-slate-200 shadow-xs">
-              <Image
-                src={CURRENT_USER_AVATAR}
-                alt={t("profileAlt", "Profile")}
-                width={40}
-                height={40}
-                className="h-full w-full object-cover"
-              />
-            </div>
+            <Avatar name={currentUserName} size="md" className="h-10 w-10 rounded-xl border border-slate-200 shadow-xs" />
             <div className="flex flex-1 gap-2">
               <input
                 type="text"

@@ -153,7 +153,7 @@ export const AIAnalysisScreen = ({ setScreen }: AIAnalysisScreenProps) => {
           </div>
           <div className="rounded-2xl border border-purple-200 bg-purple-50/80 p-3 shadow-2xs">
             <span className="block text-[10px] font-extrabold uppercase text-purple-700">{t("aiMatchPartner", "AI Match Partner")}</span>
-            <span className="mt-0.5 block text-xs font-bold text-purple-800">{t("aiMatchPartnerValue", "BIT Mesra Hydrology")}</span>
+            <span className="mt-0.5 block text-xs font-bold text-purple-800">{t("aiMatchPartnerValue", "IIT Jodhpur Water Systems")}</span>
           </div>
         </div>
 

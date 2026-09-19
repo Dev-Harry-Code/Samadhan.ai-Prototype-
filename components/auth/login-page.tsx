@@ -326,13 +326,19 @@ function CitizenGatewayForm() {
     if (loginMethod === "mobile") {
       if (otp.length >= 4) {
         setVerifying(true);
+        const citizen = ROLES.find((r) => r.id === "citizen")!;
+        try {
+          await loginWithCredentials(citizen.email, citizen.password);
+        } catch {
+          /* backend unavailable — fall back to client-side mock flag */
+        }
         try {
           window.sessionStorage.setItem("samadhan.citizen", "true");
         } catch {
           /* storage unavailable */
         }
         setTimeout(() => {
-          router.push("/onboarding?role=citizen");
+          router.push("/");
         }, 500);
       }
       return;
@@ -486,7 +492,7 @@ function CitizenGatewayForm() {
                 maxLength={6}
                 value={otp}
                 onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
-                className="w-48 rounded-2xl border border-slate-300 bg-slate-50 py-3 text-center font-mono text-3xl font-black tracking-[0.6em] text-slate-900 transition-all focus:border-teal-600 focus:bg-white focus:ring-2 focus:ring-teal-600/20 focus:outline-none"
+                className="w-56 rounded-2xl border border-slate-300 bg-slate-50 py-3 text-center font-mono text-2xl font-black tracking-[0.4em] text-slate-900 transition-all focus:border-teal-600 focus:bg-white focus:ring-2 focus:ring-teal-600/20 focus:outline-none"
                 placeholder={loginMethod === "email" ? "------" : "----"}
                 required
                 autoFocus

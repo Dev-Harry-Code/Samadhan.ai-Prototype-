@@ -7,6 +7,7 @@ import { LogOut, MapPin } from "lucide-react";
 import { SamadhanLogoIcon } from "@/components/akshat/common/samadhan-logo";
 import { Avatar } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+import { signOut } from "@/lib/api/client";
 
 export interface OverviewHeaderLink {
   href: string;
@@ -43,6 +44,7 @@ export function PortalOverviewHeader({
     } catch {
       /* storage unavailable */
     }
+    void signOut();
     router.replace("/login");
   };
 

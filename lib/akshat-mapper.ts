@@ -3,10 +3,10 @@ import type { ApiComment, ApiIssue, ApiNotification } from "@/lib/api/models";
 import { CATEGORY_MAP } from "@/lib/data/mock-data";
 
 export const DEFAULT_REPORT_LOCATION = {
-  lat: 26.2389,
-  lng: 73.0243,
-  label: "Sardarpura, Main Circle",
-  ward: "Ward 1",
+  lat: 26.2459,
+  lng: 73.0249,
+  label: "Mogra Kalan",
+  ward: "Mogra Kalan",
   district: "Jodhpur",
 };
 

@@ -7,6 +7,7 @@ import {
   Clock,
   MapPin,
   MessageSquare,
+  Plus,
   Share2,
   ThumbsUp,
 } from "lucide-react";
@@ -120,8 +121,28 @@ export const IssuesFeedScreen = ({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {filteredIssues.map((issue, index) => {
+      {filteredIssues.length === 0 ? (
+        <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-slate-300 bg-white/80 px-6 py-16 text-center shadow-sm">
+          <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-3xl border border-teal-200 bg-teal-50 text-teal-700">
+            <MapPin className="h-8 w-8" />
+          </div>
+          <h3 className="text-lg font-extrabold text-slate-900">
+            {t("noIssuesYet", "No issues reported yet")}
+          </h3>
+          <p className="mt-1 max-w-md text-xs leading-relaxed text-slate-700">
+            {t("noIssuesYetHintFull", "The public feed is empty. Your uploaded reports will appear here with GPS evidence, AI verification and live community support.")}
+          </p>
+          <button
+            onClick={() => setScreen("report")}
+            className="btn-breathing mt-5 flex items-center gap-2 rounded-2xl bg-teal-600 px-6 py-3 text-sm font-extrabold text-white shadow-md transition-all hover:bg-teal-700"
+          >
+            <Plus className="h-4 w-4 stroke-[2.5]" />
+            <span>{t("reportFirstIssue", "Report the First Issue")}</span>
+          </button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {filteredIssues.map((issue, index) => {
           const currentUpvotes = upvotesState[issue.id] ?? issue.upvotes;
           const isUpvoted = !!userUpvoted[issue.id];
 
@@ -233,7 +254,8 @@ export const IssuesFeedScreen = ({
             </motion.div>
           );
         })}
-      </div>
+        </div>
+      )}
 
       <div className="mt-6">
         <PlatformStatsWidget compact={true} columns={6} />
